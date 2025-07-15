@@ -90,11 +90,10 @@ html {
 
 /* CARRUSEL */
 .carousel {
-  position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  
+  position: relative;
 }
 
 .carousel img {
@@ -106,7 +105,6 @@ html {
 .slides {
   display: flex;
   width: 100%;
-  /* height: 100%; */
 }
 
 .slide {
@@ -166,7 +164,6 @@ html {
   background-color: #e0be51;
 }
 
-
 /* Botones flecha */
 .prev, .next {
   position: absolute;
@@ -219,33 +216,29 @@ html {
   background-color: var(--dorado);
 }
 
-
-
-
 /* DATOS ESTADÍSTICOS */
 .estadisticas {
   background-color: rgba(255,255,255,0.05);
   color: white;
   text-align: center;
-  left:50%;
-  transform: translate(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   width: 50%;
-  padding: 10px 10px;
-  border-radius: 20px 20px 20px 20px;
+  padding: 10px;
+  border-radius: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  position: absolute;  
+  /* position: absolute; */
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  bottom: 2vh; 
-  bottom: 2%;
-  z-index:10;
-  margin-top: 30px; 
+  /* bottom: 100px; */
+  /* z-index: 10; */
+  margin-top: 50px;
 }
 
 .estadistica {
   background-color: rgba(255,255,255,0.05);
-  border-radius: 15px ;
+  border-radius: 15px;
   width: 150px;
   margin: 10px;
   padding: 10px;
@@ -262,7 +255,7 @@ html {
 .contador {
   font-size: 36px;
   font-weight: bold;
-  color: var(--dorado); 
+  color: var(--dorado);
   transition: transform 0.3s ease;
 }
 
@@ -283,151 +276,20 @@ html {
   transform: scale(1.1);
 }
 
-
-/* DESTACADOS */
-.destacados {
-  display: flex;
-  justify-content: space-around;
-  padding: 90px 20px;
-  background-color: var(--blanco-matizado);
-}
-
-.card {
-  width: 30%;
-  background-color: white;
-  padding: 20px;
-  border-left: 5px solid var(--guinda);
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* CONTACTO */
-.contacto {
-  padding: 40px 20px;
-  background-color: var(--azul-oscuro);
-  color: white;
-  text-align: center;
-}
-
-.contacto form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.contacto input, .contacto textarea {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-}
-
-.contacto button {
-  background-color: var(--dorado);
-  color: black;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-}
-
-/* FOOTER */
-.footer {
-  background-color: var(--azul-oscuro);
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-
-
-body.modo-oscuro {
-  background-color: #111;
-  color: white;
-}
-
-body.modo-oscuro .header,
-body.modo-oscuro .footer {
-  background-color: #000;
-  color: white;
-}
-
-body.modo-oscuro .card {
-  background-color: #222;
-  border-left-color: var(--dorado);
-  color: white;
-}
-
-body.modo-oscuro .estadisticas {
-  background-color: rgba(0, 0, 0, 0.55);
-}
-
-body.modo-oscuro .estadistica {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-body.modo-oscuro .icono {
-  color: var(--dorado);
-}
-
-body.modo-oscuro .contacto {
-  background-color: #000;
-  color: white;
-}
-
-body.modo-oscuro input,
-body.modo-oscuro textarea {
-  background-color: #ffffff;
-  color: rgb(26, 25, 25);
-}
-
-
-
-.slide-content.animar {
-  animation: fadeUp 1s ease;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -40%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-
-
-
-/*RESPONSIVO*/
-@media (max-width: 1400px) {
+/* RESPONSIVE ESTADISTICAS */
+@media screen and (max-width: 1024px) {
   .estadisticas {
-    position: static;
+    position: relative;
+    flex-direction: column;
+    width: 90%;
     transform: none;
-    margin: 30px auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    text-align: center;
-  /* left:50%; */
-  /* transform: translate(-50%); */
-    width: 60%;
-    padding: 10px 10px;
-    border-radius: 20px 20px 20px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  /* position: absolute;   */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    /* bottom: 2vh;  */
-    /* bottom: 2%; */
-    /* z-index:10; */
-    /* margin-top: 30px;  */
+    left: 0;
+    margin: 30px auto 0;
+    bottom: auto;
+  }
+
+  .estadistica {
+    width: 100%;
+    max-width: 300px;
   }
 }
