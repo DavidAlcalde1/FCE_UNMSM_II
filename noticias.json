@@ -1,0 +1,26 @@
+[
+  {
+    "titulo": "Título de la Noticia 1",
+    "resumen": "Resumen de la noticia número uno. Aquí va una breve descripción del contenido que invita al usuario a leer más.",
+    "imagen": "img/index/noticias/noticia1.jpg",
+    "enlace": "#"
+  },
+  {
+    "titulo": "Título de la Noticia 2",
+    "resumen": "Resumen de la noticia número dos. Breve detalle que engancha al lector.",
+    "imagen": "img/index/noticias/noticia2.jpg",
+    "enlace": "#"
+  },
+  {
+    "titulo": "Título de la Noticia 3",
+    "resumen": "Resumen de la noticia número dos. Breve detalle que engancha al lector.",
+    "imagen": "img/index/noticias/noticia3.jpg",
+    "enlace": "#"
+  },
+  {
+    "titulo": "Título de la Noticia 4",
+    "resumen": "Resumen de la noticia número dos. Breve detalle que engancha al lector.",
+    "imagen": "img/index/noticias/noticia4.jpg",
+    "enlace": "#"
+  }
+]
