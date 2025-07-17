@@ -224,7 +224,7 @@ html {
 
 /* DATOS ESTADÍSTICOS */
 .estadisticas {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
   left:50%;
@@ -238,13 +238,13 @@ html {
   position: absolute;  
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   bottom: 2vh; 
-  bottom: 2%;
+  /* bottom: 2%; */
   z-index:10;
   margin-top: 30px; 
 }
 
 .estadistica {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(0,0,0,0.5);
   border-radius: 15px ;
   width: 150px;
   margin: 10px;
