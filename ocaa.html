@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OCAA - FCE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./ocaa/styles.css" />
     </head>
     <body>
@@ -12,12 +13,17 @@
     <!-- Encabezado -->
     <header class="header">
         <div class="header__top">
-        <div class="logo">UNMSM | FCE</div>
-        <div class="social-icons">
-            <a href="#"><i class="icon-facebook"></i> Facebook</a>
-            <a href="#"><i class="icon-youtube"></i> YouTube</a>
-            <a href="#"><i class="icon-twitter"></i> Twitter</a>
+        <div class="logo">
+            <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
         </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fas fa-user-graduate"></i> SUM</a>
+                <a href="#"><i class="fas fa-university"></i> UNMSM</a>
+                <a href="#"><i class="fas fa-file-alt"></i> MAT</a>
+            </div>
         </div>
 
         <!-- Menú principal -->
@@ -140,9 +146,9 @@
             <!-- Columna derecha: pestañas -->
             <div class="tabs-content">
                 <div class="tabs-header">
-                    <button class="tab-button active" data-tab="mision"><i class="fas fa-bullseye"></i>Misión</button>
-                    <button class="tab-button" data-tab="funciones"><i class="fas fa-tasks"></i>Funciones</button>
-                    <button class="tab-button" data-tab="objetivos"><i class="fas fa-bullhorn"></i>Objetivos</button>
+                    <button class="tab-button active" data-tab="mision">Misión</button>
+                    <button class="tab-button" data-tab="funciones">Funciones</button>
+                    <button class="tab-button" data-tab="objetivos">Objetivos</button>
                 </div>
 
                 <div class="tab-panel active" id="mision">
@@ -217,7 +223,7 @@
                 <div class="quality-system-text" data-aos="fade-right">
                     <h2 class="section-text-title" data-aos="fade-up">Sistemas de Gestión de la Calidad</h2>
                     <p>
-                    El Sistema de Gestión de la Calidad Educativa de la Facultad de Medicina, se constituye como un conjunto de principios, políticas, objetivos, lineamientos, procesos, especificaciones técnicas y procedimientos, organizados y sistemáticos, que tienen por finalidad ejercer la conducción compartida y la supervisión y evaluación de acciones y actividades a favor del cumplimiento de los objetivos de la calidad educativa, en la comunidad universitaria. 
+                    El Sistema de Gestión de la Calidad Educativa de la Facultad de Ciencias Económicas, se constituye como un conjunto de principios, políticas, objetivos, lineamientos, procesos, especificaciones técnicas y procedimientos, organizados y sistemáticos, que tienen por finalidad ejercer la conducción compartida y la supervisión y evaluación de acciones y actividades a favor del cumplimiento de los objetivos de la calidad educativa, en la comunidad universitaria. 
                     </p>                    
                 </div>
             </div>
@@ -269,6 +275,17 @@
 
         </div>
     </section>
+
+
+    <button id="darkModeToggle" class="dark-mode-toggle" title="Alternar modo oscuro">
+        <i id="darkModeIcon" class="fas fa-moon"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+        <p>Developed by Bach. José David Alcalde Cabrera</p>
+    </footer>
 
 
 

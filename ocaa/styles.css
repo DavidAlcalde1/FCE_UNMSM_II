@@ -14,7 +14,8 @@
 
 /* Tipografía y layout general */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  /* font-family: 'Segoe UI', sans-serif; */
+  font-family: 'Inter', sans-serif;
   color: var(--blanco);
   background-color: var(--azul-mate);
 }
@@ -35,10 +36,11 @@ body {
   font-weight: bold;
   color: var(--dorado);
   font-size: 1.2rem;
+  height: 70px;
 }
 
 .social-icons a {
-  color: white;
+  color: var(--dorado);
   margin-left: 1rem;
   text-decoration: none;
   font-size: 0.9rem;
@@ -126,6 +128,7 @@ body {
 .slide-content h2 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  text-shadow: 2px 2px #003366;
 }
 
 .slide-content p {
@@ -192,13 +195,14 @@ body {
   border-bottom: 3px solid var(--dorado);
   display: inline-block;
   padding-bottom: 0.5rem;
+  text-shadow: 1px 1px #caa75a;
 }
 
 .presentacion p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   max-width: 800px;
   margin: auto;
-  line-height: 1.8;
+  line-height: 1.5;
   text-align: justify;
 }
 
@@ -237,7 +241,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 90%;
   margin: auto;
   align-items: center;
 }
@@ -249,25 +253,27 @@ body {
 .ocaa__image {
   flex: 1 1 40%;
   text-align: center;
+  height: fit-content;
 }
 
 .ocaa__image img {
   width: 100%;
-  max-width: 400px;
+  /* max-width: 800px; */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .ocaa h2 {
-  font-size: 2.2rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
   border-left: 6px solid var(--dorado);
   padding-left: 1rem;
+  text-shadow: 1px 1px #caa75a;
 }
 
 .ocaa p {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.2rem;
+  /* line-height: 1.8; */
   text-align: justify;
 }
 
@@ -276,6 +282,8 @@ body {
 
 /* MISION */
 .tabs-section {
+  display: flex;
+  justify-content: center;
   background-color: var(--blanco);
   color: var(--azul-mate);
   padding: 1rem 2rem;
@@ -286,13 +294,15 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
   align-items: stretch;
+  width: 90%;
 }
 
 .tabs-image-overlay {
   position: relative;
   flex: 1;
+  /* width: 90%; */
   min-width: 300px;
-  height: 400px;
+  /* height: 400px; */
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -300,7 +310,7 @@ body {
 
 .tabs-image-overlay img {
   width: 100%;
-  height: 550px;
+  height: 450px;
   object-fit: cover;
   display: block;
   filter: brightness(0.6); 
@@ -313,7 +323,7 @@ body {
   transform: translate(-50%, -50%);
   color: var(--dorado);
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   z-index: 2;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
@@ -359,7 +369,7 @@ body {
   display: none;
   font-size: 20px;
   text-align: justify;
-    transform: translateY(20px);
+  transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   /* width: 100%; */
 }
@@ -368,6 +378,7 @@ body {
   display: block;
   opacity: 1;
   transform: translateY(0);
+  font-size: 1.2rem;
 }
 
 
@@ -420,12 +431,16 @@ body {
   /* background-color: variable(--blanco); */
 }
 
+.quality-text h2 {
+  text-shadow: 1px 1px #caa75a;
+}
+
 .quality-text p {
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-align: justify;
   color: #333;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* Columna derecha: imagen tipo banner */
@@ -440,7 +455,7 @@ body {
 
 .quality-image-banner img {
   width: 100%;
-  height: auto;
+  height: 450px;
   display: block;
   border-radius: 8px;
   filter: brightness(50%);
@@ -457,7 +472,7 @@ body {
 }
 
 .banner-overlay h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   margin-bottom: 1rem;
   color: #fff;
 }
@@ -500,6 +515,10 @@ body {
   position: relative;
 }
 
+.section-text-title {
+  text-shadow: 1px 1px #caa75a;
+}
+
 /* Imagen a la izquierda */
 .quality-system-image-banner {
   position: relative;
@@ -511,7 +530,7 @@ body {
 
 .quality-system-image-banner img {
   width: 100%;
-  height: 550px;
+  height: 450px;
   display: block;
   border-radius: 8px;
   filter: brightness(50%);
@@ -531,6 +550,7 @@ body {
   font-size: 1.6rem;
   margin-bottom: 0.8rem;
   color: #fff;
+  text-shadow: 1px 1px #caa75a;
 }
 
 .banner-button {
@@ -571,9 +591,9 @@ body {
 
 .quality-system-text p {
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #333;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 
@@ -602,13 +622,14 @@ body {
     color: #003366 !important;
     text-align: center;
     font-weight: bold;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px #caa75a;
 }
 
 .quality-faq-text p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #333;
-  line-height: 1.6;
+  line-height: 1.5;
+  text-align: justify;
 }
 
 /* Enlaces tipo caja */
@@ -616,7 +637,7 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .faq-link-box {
@@ -655,7 +676,7 @@ body {
   cursor: pointer;
   font-weight: bold;
   color: #003366;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .faq-answer {
@@ -663,7 +684,8 @@ body {
   background-color: #fff;
   display: none;
   color:#003366;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  text-align: justify;
 }
 
 /* Activo */
@@ -671,6 +693,100 @@ body {
   display: block;
 }
 
+
+/* FOOTER */
+.footer {
+  background-color: var(--azul-mate);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+
+
+
+/* Estilos del botón de modo oscuro */
+.dark-mode-toggle {
+  position: fixed; /* fijo para que siempre sea visible */
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  z-index: 1000;
+}
+
+
+/* Modo oscuro general */
+body.dark-mode .dark-mode-toggle {
+  color: #ffc107;
+} 
+
+
+body.dark-mode header,
+body.dark-mode footer,
+body.dark-mode .navbar,
+body.dark-mode .section,
+body.dark-mode .presentacion__content,
+body.dark-mode .ocaa__content,
+body.dark-mode .tabs-section,
+body.dark-mode .quality-policy-section,
+body.dark-mode .quality-system-section,
+body.dark-mode .quality-faq-section {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode a {
+  color: #90caf9;
+}
+
+body.dark-mode .presentacion__content{
+  border-radius: 10px;
+}
+
+body.dark-mode .presentacion__content p {
+ color: var(--blanco); 
+ padding: 30px;
+}
+body.dark-mode .presentacion__content h2 {
+ color: var(--blanco);  
+}
+
+body.dark-mode .ocaa__content{
+  border-radius: 10px;
+}
+
+body.dark-mode .ocaa__text{
+  color: var(--blanco); 
+  padding:30px;  
+}
+
+body.dark-mode .tabs-content {
+  color: var(--blanco);
+}
+
+body.dark-mode .faq-link-box,
+body.dark-mode .tab-button {
+  background-color: #333;
+  color: #e0e0e0;
+  text-shadow: 1px 1px var(--dorado);
+}
+
+body.dark-mode .tab-button.active{
+  background-color: var(--dorado);
+  color: var(--azul-mate);
+  text-shadow: 1px 1px var(--blanco);
+}
+
+body.quality-faq-text h2 {
+  color: white !important;
+}
+
+body.dark-mode .faq-item.active .faq-answer {
+  background-color: #2a2a2a;
+}
 
 
 
@@ -695,7 +811,7 @@ body {
   }
 
   .overlay-texto {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
 
@@ -711,7 +827,7 @@ body {
   }
 
   .banner-overlay h3 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .banner-button {
