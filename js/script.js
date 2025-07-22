@@ -1,3 +1,4 @@
+console.log("Inicio de JS")
 // Carrusel automático
 let current = 0;
 const slides = document.querySelectorAll(".slide");
@@ -103,62 +104,6 @@ window.addEventListener('load', () => {
   });
 
 
-
-  //Carrusel Noticias
-  
-//  document.addEventListener("DOMContentLoaded", function () {
-//   const noticias = document.querySelectorAll(".noticia");
-//   const dots = document.querySelectorAll(".dot2");
-//   const nextBtn = document.querySelector(".next2");
-//   const prevBtn = document.querySelector(".prev2");
-//   let currentIndex = 0;
-
-//   function showNoticia(index) {
-//     noticias.forEach((noti, i) => {
-//       noti.classList.toggle("active", i === index);
-//       dots[i].classList.toggle("active", i === index);
-//     });
-//     currentIndex = index;
-//   }
-
-//   nextBtn.addEventListener("click", () => {
-//     nextSlide();
-//     resetAutoplay();
-//   });
-
-//   prevBtn.addEventListener("click", () => {
-//     prevSlide();
-//     resetAutoplay();
-//   });
-
-//   dots.forEach(dot => {
-//     dot.addEventListener("click", () => {
-//       const index = parseInt(dot.getAttribute("data-index"));
-//       showNoticia(index);
-//       resetAutoplay();
-//     });
-//   });
-
-//   function nextSlide() {
-//     const nextIndex = (currentIndex + 1) % noticias.length;
-//     showNoticia(nextIndex);
-//   }
-
-//   function prevSlide() {
-//     const prevIndex = (currentIndex - 1 + noticias.length) % noticias.length;
-//     showNoticia(prevIndex);
-//   }
-
-//   // AUTO-PLAY
-//   let autoplay = setInterval(nextSlide, 5000); // cambia cada 5 segundos
-
-//   function resetAutoplay() {
-//     clearInterval(autoplay);
-//     autoplay = setInterval(nextSlide, 5000);
-//   }
-
-//   showNoticia(currentIndex);
-// });
 
 fetch('noticias.json')
   .then(res => res.json())

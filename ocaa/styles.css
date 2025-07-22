@@ -24,6 +24,14 @@ body {
 .header {
   background-color: var(--azul-mate);
   padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  height: 170px;
+  z-index: 999;
+  background: rgba(42, 47, 69, 0.7); /* azul mate con transparencia */
+  backdrop-filter: blur(6px);        /* desenfoque de fondo (efecto vidrio) */
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header__top {
@@ -44,12 +52,30 @@ body {
   margin-left: 1rem;
   text-decoration: none;
   font-size: 0.9rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+
+.social-icons a:hover {
+  transform: scale(1.2);
+  color: #ffd700;  
 }
 
 /* Navbar */
 .navbar {
   background-color: #2a2f45;
   margin-top: 1rem;
+    position: fixed;     /* o 'sticky' si prefieres */
+  top: 70px;          /* si tu header mide aprox. 100px */
+  width: 100%;
+  
+  z-index: 998;
+  background: rgba(42, 47, 69, 0.01); /* azul con transparencia */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.3s ease;
+  border-radius: 10px;
 }
 
 .menu {
@@ -72,20 +98,38 @@ body {
 .menu .submenu {
   display: none;
   position: absolute;
-  background: #333c5a;
-  list-style: none;
+  background: rgba(51, 60, 90, 0.5);
+  list-style: none;  
+  min-width: 180px;
+  z-index: 1000;
   top: 100%;
   left: 0;
-  min-width: 180px;
+  margin: 0;
+  padding: 0;
+  border-radius: 0px 0px 10px 10px;  
+}
+
+.submenu a:hover {
+  color: #FFD700;
 }
 
 .menu li:hover .submenu {
+  display: block;  
+}
+
+
+.menu > li > a {
   display: block;
+  padding: 0.75rem 1rem; /* Aumenta el área del hover */
+}
+
+.menu > li > a:hover {
+  color: #FFD700; /* dorado al pasar el mouse */
 }
 
 .submenu li a {
   display: block;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
 }
 
 /* Carrusel */
@@ -186,7 +230,14 @@ body {
   max-width: 500px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease;
 }
+
+.presentacion__image img:hover{
+  transform: scale(1.02) rotate(-5deg);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
 
 .presentacion h2 {
   font-size: 3rem;
@@ -222,11 +273,16 @@ body {
     width: 100%;
     height: 100%;
     filter: brightness(0.6);
+    transition: filter 1s ease-out;
     object-fit: cover;
     /* opacity: 0.8; */
     
 }
 
+.imagen-fullwidth img:hover{
+  filter: brightness(0.9);
+  transition: filter 0.2s ease-in;
+}
 
 
 
@@ -261,6 +317,13 @@ body {
   /* max-width: 800px; */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+}
+
+.ocaa__image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .ocaa h2 {
@@ -314,6 +377,11 @@ body {
   object-fit: cover;
   display: block;
   filter: brightness(0.6); 
+  transition: transform 0.3s ease;
+}
+
+.tabs-image-overlay img:hover {
+  transform: scale(1.1);
 }
 
 .overlay-texto {
@@ -459,6 +527,11 @@ body {
   display: block;
   border-radius: 8px;
   filter: brightness(50%);
+  transition: transform 0.3s ease;
+}
+
+.quality-image-banner img:hover {
+  transform: scale(1.1);
 }
 
 /* Overlay sobre la imagen */
@@ -468,7 +541,7 @@ body {
   left: 30%;
   color: white;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-  text-align: center;
+  text-align: center;  
 }
 
 .banner-overlay h3 {
@@ -534,6 +607,11 @@ body {
   display: block;
   border-radius: 8px;
   filter: brightness(50%);
+  transition: transform 0.3s ease;
+}
+
+.quality-system-image-banner img:hover {
+  transform: scale(1.1);
 }
 
 /* Overlay dentro de la imagen */
@@ -637,7 +715,7 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  font-size: 1.2rem;
+  font-size: 1.2rem;  
 }
 
 .faq-link-box {
@@ -650,11 +728,12 @@ body {
   text-decoration: none;
   font-weight: 600;
   border-radius: 8px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .faq-link-box:hover {
   background-color: #005baa;
+  transform: scale(1.02);
 }
 
 /* Acordeón */

@@ -8,199 +8,169 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /> 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="icon" href="./img/index/graduacion.png" type="image/x-icon" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+  <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container">
-      <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
-      <nav class="nav" id="nav">
-        <ul class="nav__list">
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Pregrado</a></li>
-          <li><a href="#">Posgrado</a></li>
-          <li><a href="#">Trámites</a></li>
-          <li><a href="#">Comunidad</a></li>
-          <li><a href="#">Noticias</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-      </nav>
-    </div>
-    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="container">
+        <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
+        <nav class="nav" id="nav">
+          <ul class="nav__list">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Pregrado</a></li>
+            <li><a href="#">Posgrado</a></li>
+            <li><a href="#">Trámites</a></li>
+            <li><a href="#">Comunidad</a></li>
+            <li><a href="#">Noticias</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+          <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
+      </div>
       
-    
-  </header>
+        
+      
+    </header>
 
-  <!-- CARRUSEL -->
-  <section class="carousel">
-    <div class="slides">
-      <div class="slide active">
-        <img src="./img/index/noticia_principal/banner_01.png" alt="Banner 1">
-        <div class="slide-content">
-          <h2>MATRÍCULA EXTEMPORÁNEA</h2>
-          <p>Jueves 15 de Diciembre</p>
-          <a href="#" class="slide-btn">Ver más</a>
+    <!-- CARRUSEL -->
+    <section class="carousel">
+      <div class="slides">
+        <div class="slide active">
+          <img src="./img/index/noticia_principal/banner_01.png" alt="Banner 1">
+          <div class="slide-content">
+            <h2>MATRÍCULA EXTEMPORÁNEA</h2>
+            <p>Jueves 15 de Diciembre</p>
+            <a href="#" class="slide-btn">Ver más</a>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="./img/index/noticia_principal/banner_02.png" alt="Banner 2">
+          <div class="slide-content">
+            <h2>CONFERENCIA MAGISTRAL: "LA ECONOMÍA EN EL AÑO 2025"</h2>
+            <p>Martes 13 de Diciembre</p>
+            <a href="#" class="slide-btn">Ver más</a>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="./img/index/noticia_principal/banner_03.jpg" alt="Banner 3">
+          <div class="slide-content">
+            <h2>APERTURA DE NUEVOS CURSOS DE MAESTRÍA Y DOCTORADO</h2>
+            <p>Dirigido a Bachilleres en Economía</p>
+            <a href="#" class="slide-btn">Ver más</a>
+          </div>
         </div>
       </div>
 
-      <div class="slide">
-        <img src="./img/index/noticia_principal/banner_02.png" alt="Banner 2">
-        <div class="slide-content">
-          <h2>CONFERENCIA MAGISTRAL: "LA ECONOMÍA EN EL AÑO 2025"</h2>
-          <p>Martes 13 de Diciembre</p>
-          <a href="#" class="slide-btn">Ver más</a>
-        </div>
-      </div>
+        <!-- Botones flecha -->
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
 
-      <div class="slide">
-        <img src="./img/index/noticia_principal/banner_03.png" alt="Banner 3">
-        <div class="slide-content">
-          <h2>APERTURA DE NUEVOS CURSOS DE MAESTRÍA Y DOCTORADO</h2>
-          <p>Dirigido a Bachilleres en Economía</p>
-          <a href="#" class="slide-btn">Ver más</a>
-        </div>
+      <!-- Indicadores -->
+      <div class="indicators">
+        <span class="dot active" data-slide="0"></span>
+        <span class="dot" data-slide="1"></span>
+        <span class="dot" data-slide="2"></span>
       </div>
-    </div>
-
-      <!-- Botones flecha -->
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-
-    <!-- Indicadores -->
-    <div class="indicators">
-      <span class="dot active" data-slide="0"></span>
-      <span class="dot" data-slide="1"></span>
-      <span class="dot" data-slide="2"></span>
-    </div>
-  </section>
-
-      <!-- SECCIONES DESTACADAS -->
-    <section class="estadisticas">
-      <div class="estadistica" data-aos="fade-up" data-aos-delay="300">
-        <i class="fa-solid fa-user-graduate icono"></i>
-        <div class="contador" data-target="1717">0</div>
-        <p>Estudiantes de Pregrado</p>
-      </div>
-      <div class="estadistica" data-aos="fade-up" data-aos-delay="400">
-        <i class="fa-solid fa-graduation-cap icono"></i>
-        <div class="contador" data-target="434">0</div>
-        <p>Estudiantes de Posgrado</p>
-      </div>
-      <div class="estadistica" data-aos="fade-up" data-aos-delay="500">
-        <i class="fa-solid fa-microscope icono"></i>
-        <div class="contador" data-target="89">0</div>
-        <p>Docentes investigadores</p>
-      </div>
-      <div class="estadistica" data-aos="fade-up" data-aos-delay="600">
-        <i class="fa-solid fa-book icono"></i>
-        <div class="contador" data-target="33">0</div>
-        <p>Artículos publicados</p>
-      </div>
-      <!-- <p class="nota">Datos estadísticos de la Facultad de Ciencias Económicas (2025)</p> -->
     </section>
-  </section>
+
+        <!-- SECCIONES DESTACADAS -->
+      <section class="estadisticas">
+        <div class="estadistica" data-aos="fade-up" data-aos-delay="300">
+          <i class="fa-solid fa-user-graduate icono"></i>
+          <div class="contador" data-target="1717">0</div>
+          <p>Estudiantes de Pregrado</p>
+        </div>
+        <div class="estadistica" data-aos="fade-up" data-aos-delay="400">
+          <i class="fa-solid fa-graduation-cap icono"></i>
+          <div class="contador" data-target="434">0</div>
+          <p>Estudiantes de Posgrado</p>
+        </div>
+        <div class="estadistica" data-aos="fade-up" data-aos-delay="500">
+          <i class="fa-solid fa-microscope icono"></i>
+          <div class="contador" data-target="89">0</div>
+          <p>Docentes investigadores</p>
+        </div>
+        <div class="estadistica" data-aos="fade-up" data-aos-delay="600">
+          <i class="fa-solid fa-book icono"></i>
+          <div class="contador" data-target="33">0</div>
+          <p>Artículos publicados</p>
+        </div>
+        <!-- <p class="nota">Datos estadísticos de la Facultad de Ciencias Económicas (2025)</p> -->
+      </section>
+    </section>
 
 
 
 
-  <section class="destacados">
-    <div class="card">
-      <h2>Pregrado</h2>
-      <p>Carreras profesionales orientadas a la formación integral en educación.</p>
+    <section class="destacados">
+      <div class="card">
+        <h2>Pregrado</h2>
+        <p>Carreras profesionales orientadas a la formación integral en educación.</p>
+      </div>
+      <div class="card">
+        <h2>Posgrado</h2>
+        <p>Programas de maestría y doctorado con enfoque pedagógico e investigativo.</p>
+      </div>
+      <div class="card">
+        <h2>Trámites</h2>
+        <p>Consulta y realiza gestiones administrativas académicas en línea.</p>
+      </div>
+    </section>
+
+    <!-- NOTICIAS -->
+    <section class="noticias-carousel" id="noticias-carousel">
+      <!-- Noticias generadas desde JS -->
+      <button class="prev2">&#10094;</button>
+      <button class="next2">&#10095;</button>
+      <div class="dots2" id="dots2"></div>
+    </section>
+
+
+    <!-- FORMULARIO DE CONTACTO -->
+    <section class="contacto">
+      <h2>Contáctanos</h2>
+      <form>
+        <input type="text" placeholder="Nombre completo" required>
+        <input type="email" placeholder="Correo electrónico" required>
+        <textarea placeholder="Escribe tu mensaje aquí" required></textarea>
+        <button type="submit">Enviar mensaje</button>
+      </form>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+      <p>Developed by Bach. José David Alcalde Cabrera</p>
+    </footer>
+
+    <!-- REDES SOCIALES -->
+    <div class="social-float">
+      <a href="https://facebook.com" target="_blank" class="social-btn facebook" title="Facebook">
+        <i class="bi bi-facebook"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank" class="social-btn instagram" title="Instagram">
+        <i class="bi bi-instagram"></i>
+      </a>
+      <a href="https://youtube.com" target="_blank" class="social-btn youtube" title="YouTube">
+        <i class="bi bi-youtube"></i>
+      </a>
     </div>
-    <div class="card">
-      <h2>Posgrado</h2>
-      <p>Programas de maestría y doctorado con enfoque pedagógico e investigativo.</p>
-    </div>
-    <div class="card">
-      <h2>Trámites</h2>
-      <p>Consulta y realiza gestiones administrativas académicas en línea.</p>
-    </div>
-  </section>
 
-<!-- NOTICIAS -->
- <section class="noticias-carousel" id="noticias-carousel">
-  <!-- Noticias generadas desde JS -->
-  <button class="prev2">&#10094;</button>
-  <button class="next2">&#10095;</button>
-  <div class="dots2" id="dots2"></div>
-</section>
+    <!-- BOTÓN MODO OSCURO -->
+    <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
+
+      <script defer src="./js/script.js"></script>
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 
 
-  <!-- FORMULARIO DE CONTACTO -->
-  <section class="contacto">
-    <h2>Contáctanos</h2>
-    <form>
-      <input type="text" placeholder="Nombre completo" required>
-      <input type="email" placeholder="Correo electrónico" required>
-      <textarea placeholder="Escribe tu mensaje aquí" required></textarea>
-      <button type="submit">Enviar mensaje</button>
-    </form>
-  </section>
-
-  <!-- NOTICIAS -->
-  <!-- <section class="noticias-carousel">
-  <div class="noticia active">
-    <img src="img/noticia1.jpg" alt="Noticia 1">
-    <div class="contenido-noticia">
-      <h3>Título de la Noticia 1</h3>
-      <p>Resumen de la noticia número uno. Aquí va una breve descripción del contenido que invita al usuario a leer más.</p>
-      <a href="#" class="btn-vermasN">Ver más</a>
-    </div>
-  </div>
-
-  <div class="noticia">
-    <img src="img/noticia2.jpg" alt="Noticia 2">
-    <div class="contenido-noticia">
-      <h3>Título de la Noticia 2</h3>
-      <p>Resumen de la noticia número dos. Breve detalle que engancha al lector.</p>
-      <a href="#" class="btn-vermasN">Ver más</a>
-    </div>
-  </div>
-
-  <button class="prev2">&#10094;</button>
-  <button class="next2">&#10095;</button>
-
-  <div class="dots2">
-    <span class="dot2 active" data-index="0"></span>
-    <span class="dot2" data-index="1"></span>
-  </div>
-</section> -->
-
-
-
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-    <p>Developed by Bach. José David Alcalde Cabrera</p>
-  </footer>
-
-  <!-- REDES SOCIALES -->
-<div class="social-float">
-  <a href="https://facebook.com" target="_blank" class="social-btn facebook" title="Facebook">
-    <i class="bi bi-facebook"></i>
-  </a>
-  <a href="https://instagram.com" target="_blank" class="social-btn instagram" title="Instagram">
-    <i class="bi bi-instagram"></i>
-  </a>
-  <a href="https://youtube.com" target="_blank" class="social-btn youtube" title="YouTube">
-    <i class="bi bi-youtube"></i>
-  </a>
-</div>
-
-<!-- BOTÓN MODO OSCURO -->
-<button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
-
-  <script defer src="./js/script.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-
-
-</body>
+  </body>
 </html>

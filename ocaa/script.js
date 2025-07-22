@@ -77,28 +77,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  const toggle = document.getElementById("darkModeToggle");
-  const icon = document.getElementById("darkModeIcon");
-  const body = document.body;
+  // const toggle = document.getElementById("darkModeToggle");
+  // const icon = document.getElementById("darkModeIcon");
+  // const body = document.body;
 
   // Verificar estado guardado
-  if (localStorage.getItem("darkMode") === "enabled") {
-    body.classList.add("dark-mode");
-    icon.classList.remove("fa-moon");
-    icon.classList.add("fa-sun");
-  }
+  // if (localStorage.getItem("darkMode") === "enabled") {
+  //   body.classList.add("dark-mode");
+  //   icon.classList.remove("fa-moon");
+  //   icon.classList.add("fa-sun");
+  // }
 
-  toggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    const isDark = body.classList.contains("dark-mode");
-    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+  // toggle.addEventListener("click", () => {
+  //   body.classList.toggle("dark-mode");
+  //   const isDark = body.classList.contains("dark-mode");
+  //   localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
 
     // Cambiar ícono dinámicamente
-    if (isDark) {
-      icon.classList.remove("fa-moon");
-      icon.classList.add("fa-sun");
-    } else {
-      icon.classList.remove("fa-sun");
-      icon.classList.add("fa-moon");
-    }
-  });
+  //   if (isDark) {
+  //     icon.classList.remove("fa-moon");
+  //     icon.classList.add("fa-sun");
+  //   } else {
+  //     icon.classList.remove("fa-sun");
+  //     icon.classList.add("fa-moon");
+  //   }
+  // });
