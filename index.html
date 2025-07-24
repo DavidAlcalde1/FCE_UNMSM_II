@@ -26,6 +26,7 @@
             <li><a href="#">Comunidad</a></li>
             <li><a href="#">Noticias</a></li>
             <li><a href="#">Contacto</a></li>
+            <li><a href="./ocaa.html">OCAA</a></li>
           </ul>
           <div class="menu-toggle" id="menu-toggle">&#9776;</div>
         </nav>
@@ -106,29 +107,126 @@
 
 
 
+    <!-- SECCIÓN DESTACADOS / ESCUELAS -->
+<section class="destacados">
+    <h2>Escuelas Profesionales</h2>
+    <p>Conoce nuestras escuelas profesionales y sus programas académicos.</p>
 
-    <section class="destacados">
+    <section class="cards-container">    
       <div class="card">
-        <h2>Pregrado</h2>
-        <p>Carreras profesionales orientadas a la formación integral en educación.</p>
+        <h3>EP de Economía</h3>
+        <div class="buttons-escuelas">
+          <a class="brochure" href="./escuelas/docs/brochure EPE 22-.pdf"><i class="fa-solid fa-file-lines"></i> Brochure</a>
+          <a class="ver-mas-btn" href="./escuelas/epe.html">Ver más</a>
+        </div>
       </div>
+
       <div class="card">
-        <h2>Posgrado</h2>
-        <p>Programas de maestría y doctorado con enfoque pedagógico e investigativo.</p>
+        <h3>EP de Economía Internacional</h3>
+        <div class="buttons-escuelas">
+          <a class="brochure" href="./escuelas/docs/brochure EPEI 22.pdf"><i class="fa-solid fa-file-lines"></i> Brochure</a>
+          <a class="ver-mas-btn" href="./escuelas/epei.html">Ver más</a>
+        </div>
       </div>
+
       <div class="card">
-        <h2>Trámites</h2>
-        <p>Consulta y realiza gestiones administrativas académicas en línea.</p>
+        <h3>EP de Economía Pública</h3>
+        <div class="buttons-escuelas">
+          <a class="brochure" href="./escuelas/docs/brochure EPEP 2022.pdf"><i class="fa-solid fa-file-lines"></i> Brochure</a>
+          <a class="ver-mas-btn" href="./escuelas/epep.html">Ver más</a>
+        </div>
       </div>
     </section>
+</section>
+
 
     <!-- NOTICIAS -->
-    <section class="noticias-carousel" id="noticias-carousel">
-      <!-- Noticias generadas desde JS -->
-      <button class="prev2">&#10094;</button>
-      <button class="next2">&#10095;</button>
-      <div class="dots2" id="dots2"></div>
+    <section class="noticias-section">
+      <section class="noticias-carousel" id="noticias-carousel">
+        <!-- Noticias generadas desde JS -->
+        <button class="prev2">&#10094;</button>
+        <button class="next2">&#10095;</button>
+        <div class="dots2" id="dots2"></div>
+      </section>
+
+
+      <!-- ÚLTIMAS NOTICIAS (ESTÁTICAS) -->
+      <section class="ultimas-noticias" id="ultimas-noticias">      
+        <div class="ultimas-container" id="ultimas-container">
+          <!-- Aquí se insertan las 3 últimas noticias desde el JSON -->
+        </div>
+        <div class="ver-todas">
+          <a href="noticias.html" class="btn-vermas">Ver todas las noticias</a>
+        </div>
+      </section>
     </section>
+
+
+
+      <!-- SECCIÓN COMUNICADOS -->
+      <section class="comunicados-section">
+        <div class="overlay">
+          <h2>Comunicados</h2>
+          <p>Infórmate de los últimos avisos y anuncios importantes de nuestra facultad.</p>
+
+          <div id="lista-comunicados"></div>
+
+          <a href="comunicados.html" class="btn-comunicados">Ver todos los comunicados</a>
+        </div>
+      </section>
+
+
+    <!-- SECCIÓN POSGRADO -->
+    <section class="posgrado-section">
+      <h2>Programas de Posgrado</h2>
+      <p>Ofrecemos programas de maestría y doctorado con enfoque en investigación y desarrollo profesional.</p>
+      <a href="./pages/upg/posgrado.html" class="btn-posgrado">Ver más</a>    
+  
+      <!-- Carrusel de Maestrías -->
+      <section class="posgrado-carousel">
+        <div class="posgrado-header">
+          <h2>Maestrías</h2>
+          <a href="./pages/upg/maestrias.html" class="ver-mas-link">Ver más</a>
+        </div>
+        <div class="posgrado-wrapper">
+          <button class="prev-posgrado-maestrias">❮</button>
+          <div class="posgrado-items" id="maestrias-carousel"></div>
+          <button class="next-posgrado-maestrias">❯</button>
+        </div>
+      </section>
+
+      <!-- Carrusel de Doctorados -->
+      <section class="posgrado-carousel">
+        <div class="posgrado-header">
+          <h2>Doctorados</h2>
+          <a href="./pages/upg/doctorados.html" class="ver-mas-link">Ver más</a>
+        </div>
+        <div class="posgrado-wrapper">
+          <button class="prev-posgrado-doctorados">❮</button>
+          <div class="posgrado-items" id="doctorados-carousel"></div>
+          <button class="next-posgrado-doctorados">❯</button>
+        </div>
+      </section>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- FORMULARIO DE CONTACTO -->

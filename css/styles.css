@@ -26,10 +26,22 @@ html {
 
 /* HEADER */
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   background-color: var(--azul-oscuro);
   color: white;
   padding: 15px 0;
+  transition: background-color 0.3s ease;
 }
+
+/* Cuando hace scroll */
+.header.scrolled {
+  background-color: rgba(10, 25, 80, 0.85); /* Azul oscuro con transparencia */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px); /* opcional: da un efecto de desenfoque elegante */
+}
+
 
 .container {
   width: 90%;
@@ -284,26 +296,109 @@ html {
 }
 
 
-/* DESTACADOS */
+/* SECCIÓN DESTACADOS / ESCUELAS */
 .destacados {
-  display: flex;
-  justify-content: space-around;
-  padding: 90px 20px;
+  padding: 80px 20px;
   background-color: var(--blanco-matizado);
+  text-align: center;
+  width: 100%;;
 }
 
+.destacados h2 {
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 10px;
+}
+
+.destacados p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contenedor de cards */
+.cards-container {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 100%;
+  
+}
+
+/* Cada card individual */
 .card {
   width: 30%;
   background-color: white;
   padding: 20px;
+  border-radius: 10px;
+  text-align: center;
   border-left: 5px solid var(--guinda);
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   transition: transform 0.3s;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
   transform: translateY(-5px);
 }
+
+.card h3 {
+  font-size:1.8rem;
+}
+
+/* Contenedor de botones en cada card */
+.buttons-escuelas {
+  display: flex;
+  flex-direction: column; /* ⬅️ Esto coloca los botones uno encima del otro */
+  align-items: center;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+/* Estilo general para los botones */
+.buttons-escuelas a {
+  display: flex; 
+  padding: 10px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;  
+}
+
+/* Brochure */
+/* Botón tipo enlace para Brochure */
+.buttons-escuelas .brochure {
+  background: none;
+  color: var(--dorado);
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+}
+
+.buttons-escuelas .brochure:hover {
+  color: var(--guinda);
+}
+
+/* Ver más */
+.buttons-escuelas a:not(.brochure) {
+  background-color: var(--azul-oscuro);
+  color: white;
+}
+.buttons-escuelas a:not(.brochure):hover {
+  background-color: var(--guinda);
+}
+
+
 
 /* CONTACTO */
 .contacto {
@@ -338,16 +433,15 @@ html {
 
 
 
-
+/* NOTICIAS CARRUSEL */
 .noticias-carousel {
   position: relative;
-  width: 90%;
-  max-width: 1100px;
-  margin: 60px auto;
+  width: 53%;  
+  margin: 0;
   overflow: hidden;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 10px 10px 0 0;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);  */
 }
 
 .noticia {
@@ -383,12 +477,14 @@ html {
 .contenido-noticia h3 {
   font-size: 1.6rem;
   margin-bottom: 10px;
-  color: var(--azul-oscuro);
+  color: var(--blanco-matizado);
+  text-shadow: #000 1px 1px 2px;
+  font-weight: bold;
 }
 
 .contenido-noticia p {
   font-size: 1rem;
-  color: #333;
+  color: var(--blanco-matizado);
 }
 
 .btn-vermasN {
@@ -449,6 +545,292 @@ html {
 .dot2.active {
   background-color: var(--dorado);
 }
+
+
+
+/* ULTIMAS NOTICIAS */
+.noticias-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: var(--blanco-matizado);  
+}
+
+
+
+.ultimas-noticias {
+  padding: 10px 20px;
+  background-color: rgba(0,0,0,0.6);
+  text-align: center;
+  width: 53%;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4); /* desplazamiento-y positivo */  
+}
+
+.ultimas-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;  
+}
+
+.noticia-card {
+  width: 30%;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.ultimas-container .noticia-card:hover {
+  transform: translateY(-5px);
+}
+
+.noticia-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.noticia-card h3 {
+  font-size: 18px;
+  padding: 10px 15px 0;
+  color: var(--negro);
+}
+
+.noticia-card .fecha {
+  font-size: 14px;
+  padding: 0 15px 15px;
+  color: #666;
+}
+
+.ver-todas{
+  margin: 20px 0 10px 0;
+}
+
+.btn-vermas {
+  margin-top: 100px;
+  padding: 10px 20px;
+  background-color: var(--azul-oscuro);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.btn-vermas:hover {
+  background-color: var(--guinda);
+}
+
+
+
+/* SECCIÓN COMUNICADOS */
+.comunicados-section {
+  background-image: url('../img/index/comunicados/fondo-comunicados.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 20px;
+  position: relative;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin: 0;  
+  box-shadow: 3px 3px 4px rgb(26, 25, 25, 0.6);
+}
+
+.comunicados-section .overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px 20px;
+  border-radius: 15px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.comunicados-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--dorado);
+}
+
+.comunicados-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.btn-comunicados {
+  background-color: var(--dorado);
+  color: black;
+  font-weight: bold;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-comunicados:hover {
+  background-color: #e1b944;
+}
+
+
+
+
+/* SECCIÓN POSGRADO */
+
+/* SECCIÓN POSGRADO GENERAL */
+.posgrado-section {
+  background-color: rgba(0,0,0,0.1);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.posgrado-section h2 {
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 10px;
+}
+
+.posgrado-section p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-posgrado {
+  display: inline-block;
+  background-color: var(--dorado);
+  color: black;
+  padding: 12px 24px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  margin-bottom: 40px;
+}
+
+.btn-posgrado:hover {
+  background-color: #e6be44;
+}
+
+/* POSGRADO CARRUSEL */
+.posgrado-carousel {
+  width: 90%;
+  margin: 60px auto;
+}
+
+.posgrado-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.posgrado-header h2 {
+  font-size: 2rem;
+  color: var(--azul-oscuro);
+}
+
+.ver-mas-link {
+  color: var(--verde);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.posgrado-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.posgrado-items {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.posgrado-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.posgrado-card img {
+  width: 100%;
+  height: 200px; /* Puedes ajustar este valor según necesidad */
+  object-fit: cover;
+  display: block;
+}
+
+.posgrado-card h3 {
+  font-size: 1rem;
+  padding: 10px;
+  color: var(--azul-oscuro);
+}
+
+.prev-posgrado-maestrias,
+.next-posgrado-maestrias,
+.prev-posgrado-doctorados,
+.next-posgrado-doctorados {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.prev-posgrado-maestrias,
+.prev-posgrado-doctorados {
+  left: 10px;
+}
+
+.next-posgrado-maestrias,
+.next-posgrado-doctorados {
+  right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -596,6 +978,14 @@ body.modo-oscuro textarea {
     flex-direction: column;
     align-items: flex-start;
   }
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
 
   .nav {
     width: 100%;
@@ -638,9 +1028,17 @@ body.modo-oscuro textarea {
   }
 
   .card {
+    width: 100%;
+  }
+  .buttons-escuelas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* .card {
     width: 90%;
     margin-bottom: 20px;
-  }
+  } */
 
   /* CARRUSEL NOTICIAS */
   .noticia {

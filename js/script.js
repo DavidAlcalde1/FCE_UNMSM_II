@@ -125,7 +125,7 @@ fetch('noticias.json')
           <a href="${noticia.enlace}" class="btn-vermasN">Ver más</a>
         </div>
       `;
-      container.insertBefore(noticiaEl, container.children[0]);
+      container.insertBefore(noticiaEl, dotsContainer);
 
       const dot = document.createElement('span');
       dot.classList.add('dot2');
@@ -169,3 +169,192 @@ fetch('noticias.json')
   });
 
 
+fetch('./noticias.json')
+  .then(response => response.json())
+  .then(data => {
+    const ultimas = data.slice(0, 3); // Últimas 3 noticias
+    const container = document.getElementById('ultimas-container');
+
+    ultimas.forEach(noticia => {
+      const card = document.createElement('div');
+      card.classList.add('noticia-card');
+
+      card.innerHTML = `
+        <img src="${noticia.imagen}" alt="${noticia.titulo}">
+        <h3>${noticia.titulo}</h3>
+        <p class="fecha"><i class="fa-regular fa-clock"></i> ${noticia.fecha}</p>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+
+
+
+  // COMUNICADOS
+  // fetch('comunicados.json')
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     const contenedor = document.getElementById('lista-comunicados');
+
+  //     // Tomar los últimos 3 comunicados
+  //     const ultimos = data.slice(0, 3);
+
+  //     ultimos.forEach(com => {
+  //       const div = document.createElement('div');
+  //       div.style.marginBottom = '15px';
+  //       div.innerHTML = `
+  //         <h4 style="margin: 5px 0; color: #fff;">📢 ${com.titulo}</h4>
+  //         <small style="color: #ccc;">${new Date(com.fecha).toLocaleDateString('es-PE')}</small>
+  //       `;
+  //       contenedor.appendChild(div);
+  //     });
+  // });
+
+
+
+
+
+  // Carrusel de posgrado con desplazamiento automático
+function setupCarrusel(id, jsonPath, prevClass, nextClass) {
+  const container = document.getElementById(id);
+  const prevBtn = document.querySelector("." + prevClass);
+  const nextBtn = document.querySelector("." + nextClass);
+
+  let currentIndex = 0;
+  let items = [];
+
+  fetch(jsonPath)
+    .then(res => res.json())
+    .then(data => {
+      items = data;
+      renderCards();
+
+      if (items.length <= 3) {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+      }
+    })
+    .catch(err => {
+      console.error("Error al cargar JSON:", err);
+    });
+
+  function renderCards() {
+    container.innerHTML = "";
+
+    const visibleItems = items.slice(currentIndex, currentIndex + 3);
+    visibleItems.forEach(item => {
+      const card = document.createElement("a");
+      card.href = item.enlace;
+      card.className = "posgrado-card";
+      card.innerHTML = `
+        <img src="${item.imagen}" alt="${item.nombre}">
+        <h3>${item.nombre}</h3>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+    } else {
+      currentIndex = Math.max(0, items.length - 3);
+    }
+    renderCards();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentIndex + 3 < items.length) {
+      currentIndex++;
+    } else {
+      currentIndex = 0;
+    }
+    renderCards();
+  });
+
+  setInterval(() => {
+    if (items.length <= 3) return; // no hacer carrusel si hay <=3
+    if (currentIndex + 3 < items.length) {
+      currentIndex++;
+    } else {
+      currentIndex = 0;
+    }
+    renderCards();
+  }, 6000);
+}
+
+// Llamadas
+setupCarrusel("maestrias-carousel", "./upg/data/maestrias.json", "prev-posgrado-maestrias", "next-posgrado-maestrias");
+setupCarrusel("doctorados-carousel", "./upg/data/doctorados.json", "prev-posgrado-doctorados", "next-posgrado-doctorados");
+
+
+
+// Efecto de scrool en el Header
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('.header');
+  if (window.scrollY > 10) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+
+
+
+// const container = document.getElementById("posgrado-items");
+// let currentIndex = 0;
+// let allPosgrados = [];
+
+// Promise.all([
+//     fetch('../upg/data/maestrias.json').then(r => r.json()),
+//     fetch('../upg/data/doctorados.json').then(r => r.json())
+// ])
+// .then(([maestrias, doctorados]) => {
+//     allPosgrados = [...maestrias, ...doctorados];
+//     renderCards();
+// });
+
+// function renderCards() {
+//     container.innerHTML = "";
+//     const visible = allPosgrados.slice(currentIndex, currentIndex + 3);
+//     visible.forEach(item => {
+//         const card = document.createElement("a");
+//         card.href = item.enlace;
+//         card.className = "posgrado-card";
+//         card.innerHTML = `
+//             <img src="${item.imagen}" alt="${item.nombre}">
+//             <h3>${item.nombre}</h3>
+//             `;
+//             container.appendChild(card);
+//     });
+// }
+
+// document.querySelector(".next-posgrado").addEventListener("click", () => {
+//     if (currentIndex + 3 < allPosgrados.length) {
+//         currentIndex++;
+//     } else {
+//         currentIndex = 0;
+//     }
+//     renderCards();
+// });
+
+// document.querySelector(".prev-posgrado").addEventListener("click", () => {
+//     if (currentIndex > 0) {
+//         currentIndex--;
+//     } else {
+//         currentIndex = Math.max(0, allPosgrados.length - 3);
+//     }
+//     renderCards();
+// });
+
+// // Auto-slide cada 6 segundos
+// setInterval(() => {
+//     if (currentIndex + 3 < allPosgrados.length) {
+//         currentIndex++;
+//     } else {
+//         currentIndex = 0;
+//     }
+//     renderCards();
+// }, 6000);
