@@ -557,8 +557,6 @@ html {
   background-color: var(--blanco-matizado);  
 }
 
-
-
 .ultimas-noticias {
   padding: 10px 20px;
   background-color: rgba(0,0,0,0.6);
@@ -814,30 +812,6 @@ html {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* REDES SOCIALES */
 .social-float {
   position: fixed;
@@ -893,11 +867,53 @@ body.modo-oscuro .footer {
   color: white;
 }
 
+body.modo-oscuro .noticias-carousel {
+background-color: rgba(0,0,0,1)
+}
+
 body.modo-oscuro .card {
   background-color: #222;
   border-left-color: var(--dorado);
   color: white;
 }
+
+body.modo-oscuro .ultimas-noticias {
+background-color: rgba(0,0,0,1)
+}
+
+body.modo-oscuro .contenido-noticia h3 {
+text-shadow: #EFB810 1px 1px 2px;
+}
+
+body.modo-oscuro .dot2 {
+background-color: rgba(255, 215, 0, 0.8); 
+}
+
+body.modo-oscuro .dot2.active {
+background-color: rgba(255, 255, 255, 1);
+}
+
+body.modo-oscuro .btn-vermas {
+border: 2px solid rgba(255, 215, 0, 0.8);
+}
+
+body.modo-oscuro .btn-vermas:hover {
+border: 2px solid rgba(255, 215, 0, 1);
+}
+
+body.modo-oscuro .posgrado-section h2{
+  color: var(--blanco-matizado);
+  text-shadow: #EFB810 1px 1px 2px;
+}
+
+body.modo-oscuro .posgrado-section p{
+  color: var(--blanco-matizado);
+}
+
+body.modo-oscuro .posgrado-card {
+  border: 2px solid rgba(255,255,255,0.8);
+}
+
 
 body.modo-oscuro .social-float {
   color: white;
@@ -907,6 +923,7 @@ body.modo-oscuro .social-btn {
   background-color: #222;
   /* color: rgb(128, 240, 156);  */
   color: rgb(8,255,8);
+  border: 1px solid rgb(8,255,8);
 }
 
 body.modo-oscuro .estadisticas {
