@@ -1,26 +1,30 @@
 [
   {
-    "titulo": "Título de la Noticia 1",
-    "resumen": "Resumen de la noticia número uno. Aquí va una breve descripción del contenido que invita al usuario a leer más.",
+    "titulo": "Matrícula Abierta para el Ciclo 2025-2",
+    "resumen": "Se aperturan las matrículas desde el 01 al 07 de Julio.",
     "imagen": "img/index/noticias/noticia1.jpg",
-    "enlace": "#"
+    "enlace": "#",
+    "fecha": "2025-01-01"
   },
   {
-    "titulo": "Título de la Noticia 2",
-    "resumen": "Resumen de la noticia número dos. Breve detalle que engancha al lector.",
+    "titulo": "Especialízate con los nuevos cursos de Posgrado",
+    "resumen": "Nuevos cursos de posgrado recientemente aperturados.",
     "imagen": "img/index/noticias/noticia2.jpg",
-    "enlace": "#"
+    "enlace": "#",
+    "fecha": "2025-06-14"
   },
   {
-    "titulo": "Título de la Noticia 3",
-    "resumen": "Resumen de la noticia número dos. Breve detalle que engancha al lector.",
+    "titulo": "Capacitación en Investigación Económica",
+    "resumen": "Curso de capacitación para el mes de Junio.",
     "imagen": "img/index/noticias/noticia3.jpg",
-    "enlace": "#"
+    "enlace": "#",
+    "fecha": "2025-06-24"
   },
   {
-    "titulo": "Título de la Noticia 4",
-    "resumen": "Resumen de la noticia número dos. Breve detalle que engancha al lector.",
+    "titulo": "Conferencia Internacional sobre Economía Digital",
+    "resumen": "Evento a realizarse gracias al apoyo de la Cámara de Comercio de Lima.",
     "imagen": "img/index/noticias/noticia4.jpg",
-    "enlace": "#"
+    "enlace": "#",
+    "fecha": "2025-07-05"
   }
 ]

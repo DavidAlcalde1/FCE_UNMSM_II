@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "nombre": "Dra. María Elena Salazar",
+        "titulo": "Economista Jefe",
+        "empresa": "Banco Central de Reserva del Perú",
+        "testimonio": "La formación en la Facultad de Ciencias Económicas de la UNMSM me proporcionó las herramientas analíticas y el rigor académico necesarios para enfrentar los desafíos de la política económica en una institución clave como el BCRP.",
+        "imagen": "./img/index/egresados/egresado_01.avif",
+        "url": "./egresados/maria-elena-salazar.html"
+    },
+    {
+        "id": 2,
+        "nombre": "Carlos Mendoza López",
+        "titulo": "Director de Análisis Financiero",
+        "empresa": "International Monetary Fund (IMF)",
+        "testimonio": "Mi paso por la UNMSM fue fundamental. La sólida base teórica y el énfasis en la investigación me permitieron integrarme con éxito al equipo del FMI, donde trabajo en análisis macroeconómicos para economías emergentes.",
+        "imagen": "./img/index/egresados/egresado_02.jpg",
+        "url": "./egresados/carlos-mendoza.html"
+    },
+    {
+        "id": 3,
+        "nombre": "Ing. Ana Sofía Castro",
+        "titulo": "Consultora Senior",
+        "empresa": "McKinsey & Company",
+        "testimonio": "La UNMSM me enseñó a pensar críticamente y a abordar problemas complejos con un enfoque multidisciplinario. Estas habilidades son esenciales en mi rol actual, donde asesoro a empresas líderes en estrategia económica y transformación digital.",
+        "imagen": "./img/index/egresados/egresado_03.jpg",
+        "url": "./egresados/ana-sofia-castro.html"
+    },
+    {
+        "id": 4,
+        "nombre": "Dr. Jorge Alberto Ramírez",
+        "titulo": "Profesor Asociado",
+        "empresa": "London School of Economics (LSE)",
+        "testimonio": "La excelencia académica y el espíritu investigador inculcado en la Facultad de Ciencias Económicas de la UNMSM fueron pilares fundamentales para mi desarrollo profesional. Me permitieron publicar en revistas especializadas y ahora formar parte del claustro del LSE.",
+        "imagen": "./img/index/egresados/egresado_04.jpg",
+        "url": "./egresados/jorge-alberto-ramirez.html"
+    }
+]

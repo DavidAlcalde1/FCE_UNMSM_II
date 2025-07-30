@@ -24,6 +24,140 @@ html {
   scroll-behavior: smooth;
 }
 
+
+
+/* === POP-UP DE TRANSPARENCIA === */
+/* Overlay que cubre toda la pantalla */
+.popup-overlay {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente oscuro */
+  backdrop-filter: blur(5px); /* Efecto de desenfoque (opcional) */
+  z-index: 2000; /* Muy alto para estar por encima de todo */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Contenido del pop-up */
+.popup-contenido {
+  background-color: white; /* Fondo blanco para el contenedor principal */
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  animation: popupEntrada 0.5s ease-out; /* Animación de entrada */
+}
+
+/* Animación de entrada del pop-up */
+@keyframes popupEntrada {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Botón de cerrar */
+.popup-cerrar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--negro); /* Color del texto del botón de cerrar */
+  font-size: 2rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  z-index: 10; /* Asegura que esté por encima del contenido */
+}
+
+.popup-cerrar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Cuerpo del pop-up */
+.popup-cuerpo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Imagen dentro del pop-up */
+.popup-imagen {
+  width: 100%;
+  overflow: hidden;
+}
+
+.popup-imagen img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* object-fit: cover; */ /* Descomenta si quieres recortar la imagen para que encaje perfectamente */
+}
+
+/* Texto del pop-up */
+.popup-texto {
+  padding: 30px;
+  text-align: center;
+  color: var(--negro); /* Color del texto */
+}
+
+.popup-texto h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: var(--azul-oscuro); /* Usar el color azul de la marca */
+}
+
+.popup-texto p {
+  margin-bottom: 25px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333; /* Color de texto más suave */
+}
+
+/* Botón del pop-up */
+.popup-boton {
+  display: inline-block;
+  background-color: var(--azul-oscuro); /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  padding: 12px 25px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-boton:hover {
+  background-color: var(--guinda); /* Color de fondo al pasar el mouse */
+  transform: translateY(-3px); /* Pequeña elevación al hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
 /* HEADER */
 .header {
   position: sticky;
@@ -31,15 +165,16 @@ html {
   z-index: 1000;
   background-color: var(--azul-oscuro);
   color: white;
-  padding: 15px 0;
-  transition: background-color 0.3s ease;
+  padding: 10px 0; /* Reducido para móviles */
+  transition: all 0.3s ease;
 }
 
-/* Cuando hace scroll */
+/* Header cuando está scrolled */
 .header.scrolled {
-  background-color: rgba(10, 25, 80, 0.85); /* Azul oscuro con transparencia */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px); /* opcional: da un efecto de desenfoque elegante */
+  background-color: rgba(10, 25, 80, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  padding: 8px 0; /* Aún más compacto al hacer scroll */
 }
 
 
@@ -79,10 +214,11 @@ html {
   color: white;
 }
 
+/*BOTÓN DARK MODE*/
 .modo-fixed {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 20px; /* Mantener un margen seguro */
   background-color: var(--azul-oscuro);
   color: var(--dorado);
   border: none;
@@ -94,11 +230,17 @@ html {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   z-index: 1000;
   transition: background 0.3s ease, transform 0.3s ease;
+  /* Añade estas líneas para mayor control */
+  max-width: calc(100vw - 40px); /* Evita que se salga del viewport */
 }
 
 .modo-fixed:hover {
   transform: scale(1.1);
 }
+
+
+
+
 
 /* CARRUSEL */
 .carousel {
@@ -106,39 +248,35 @@ html {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  
 }
-
 .carousel img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .slides {
-  display: flex;
-  width: 100%;
-  /* height: 100%; */
-}
-
-.slide {
   position: relative;
   width: 100%;
-  height: 800px;
-  object-fit: cover;
-  display: none;
+  height: 100%;
 }
-
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
 .slide.active {
-  display: block;
+  opacity: 1;
+  z-index: 1;
 }
-
 .slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .slide-content {
   position: absolute;
   top: 50%;
@@ -152,18 +290,15 @@ html {
   max-width: 90%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
-
 .slide-content h2 {
-  font-size: 36px;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
   margin-bottom: 10px;
   font-weight: bold;
 }
-
 .slide-content p {
-  font-size: 18px;
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
   margin-bottom: 20px;
 }
-
 .slide-btn {
   background-color: var(--dorado);
   color: black;
@@ -172,13 +307,11 @@ html {
   font-weight: bold;
   border-radius: 5px;
   transition: background 0.3s ease;
+  display: inline-block;
 }
-
 .slide-btn:hover {
   background-color: #e0be51;
 }
-
-
 /* Botones flecha */
 .prev, .next {
   position: absolute;
@@ -194,28 +327,23 @@ html {
   border-radius: 50%;
   transition: background 0.3s ease;
 }
-
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
 }
-
 .prev {
   left: 20px;
 }
-
 .next {
   right: 20px;
 }
-
 /* Indicadores */
 .indicators {
   position: absolute;
-  top: 20px;
+  bottom: 20px;
   width: 100%;
   text-align: center;
   z-index: 50;
 }
-
 .dot {
   display: inline-block;
   height: 12px;
@@ -226,12 +354,9 @@ html {
   cursor: pointer;
   transition: background 0.3s;
 }
-
 .dot.active, .dot:hover {
   background-color: var(--dorado);
 }
-
-
 
 
 /* DATOS ESTADÍSTICOS */
@@ -297,11 +422,12 @@ html {
 
 
 /* SECCIÓN DESTACADOS / ESCUELAS */
+
 .destacados {
   padding: 80px 20px;
   background-color: var(--blanco-matizado);
   text-align: center;
-  width: 100%;;
+  width: 100%;
 }
 
 .destacados h2 {
@@ -326,62 +452,78 @@ html {
   gap: 30px;
   flex-wrap: wrap;
   width: 100%;
-  
 }
 
-/* Cada card individual */
-.card {
-  width: 30%;
+/* Cada card individual - Corregido para evitar conflictos con AOS */
+.escuela-card {
+  width: 30%; /* Ancho para pantallas grandes */
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   border-left: 5px solid var(--guinda);
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Importante: display block o inline-block para transformaciones */
+  display: inline-block;
+  /* Transición para hover effects */
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  /* Evitar que el contenido desborde */
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+/* Hover effect corregido para trabajar con AOS */
+.escuela-card:hover {
+  /* Combinar transformación de AOS con nuestro efecto */
+  /* AOS aplica translate3d(0, 100px, 0), para elevar 10px necesitamos compensar 110px */
+  transform: translateY(-10px) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
-.card h3 {
-  font-size:1.8rem;
+.escuela-card h3 {
+  font-size: 1.4rem; /* Reducido ligeramente */
+  color: var(--azul-oscuro);
+  margin-bottom: 20px;
+  /* Control de texto largo para evitar desbordamiento */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limitar a 2 líneas */
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
 }
 
 /* Contenedor de botones en cada card */
 .buttons-escuelas {
   display: flex;
-  flex-direction: column; /* ⬅️ Esto coloca los botones uno encima del otro */
+  flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 15px; /* Reducido el gap */
   margin-top: 15px;
 }
 
 /* Estilo general para los botones */
 .buttons-escuelas a {
-  display: flex; 
+  display: inline-flex; /* Cambiado a inline-flex */
+  align-items: center;
+  justify-content: center;
   padding: 10px 18px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 0.95rem;
-  transition: background-color 0.3s ease;  
+  font-size: 0.9rem; /* Reducido ligeramente */
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ocupar todo el ancho disponible */
+  box-sizing: border-box;
 }
 
-/* Brochure */
-/* Botón tipo enlace para Brochure */
+/* Brochure - Botón tipo enlace */
 .buttons-escuelas .brochure {
   background: none;
   color: var(--dorado);
   font-weight: bold;
   text-decoration: underline;
   padding: 0;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
   border: none;
 }
 
@@ -389,12 +531,13 @@ html {
   color: var(--guinda);
 }
 
-/* Ver más */
-.buttons-escuelas a:not(.brochure) {
+/* Ver más - Botón tipo botón */
+.buttons-escuelas .ver-mas-btn {
   background-color: var(--azul-oscuro);
   color: white;
 }
-.buttons-escuelas a:not(.brochure):hover {
+
+.buttons-escuelas .ver-mas-btn:hover {
   background-color: var(--guinda);
 }
 
@@ -441,7 +584,7 @@ html {
   overflow: hidden;
   background-color: rgba(0,0,0,0.6);
   border-radius: 10px 10px 0 0;
-  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);  */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);  
 }
 
 .noticia {
@@ -583,11 +726,12 @@ html {
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   text-align: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ultimas-container .noticia-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .noticia-card img {
@@ -600,12 +744,16 @@ html {
   font-size: 18px;
   padding: 10px 15px 0;
   color: var(--negro);
+  text-align: center;
 }
 
 .noticia-card .fecha {
   font-size: 14px;
-  padding: 0 15px 15px;
-  color: #666;
+  padding: 10px 15px 15px;
+  color: var(--blanco-matizado);
+  background-color: var(--azul-oscuro);
+  text-align: center;
+  margin-top: 5px;
 }
 
 .ver-todas{
@@ -675,7 +823,6 @@ html {
 .btn-comunicados:hover {
   background-color: #e1b944;
 }
-
 
 
 
@@ -765,10 +912,16 @@ html {
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
   flex: 1;
   min-width: 0;
   text-decoration: none;
+}
+
+.posgrado-card:hover {
+  transform: translateY(-10px) !important;
+  /* transform: translate3d(0, -110px, 0) !important; */
+  opacity: 1;
 }
 
 .posgrado-card img {
@@ -816,6 +969,600 @@ html {
 
 
 
+/* === SECCIÓN INVESTIGACIÓN === */
+.investigacion-section {
+  padding: 80px 20px;
+  background-color: var(--blanco-matizado);
+  text-align: center;
+}
+
+.investigacion-header {
+  display: block; /* Fuerza el comportamiento de bloque */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 800px; /* Mantiene el centrado */
+  margin: 0 auto 40px; /* Centrado horizontal y margen inferior */
+  text-align: center; /* Centra el texto dentro */
+}
+
+.investigacion-section h2 {
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+}
+
+.investigacion-section p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.investigacion-grid {
+  display: flex; /* Esto está bien para alinear las tarjetas horizontalmente DENTRO del grid */
+  justify-content: center; /* Centra las tarjetas horizontalmente */
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto; /* Centrado horizontal del grid completo */ 
+  width: 100%; /* Asegura que el grid ocupe el ancho disponible */
+  text-align: center; /* Hereda el centrado para elementos internos si es necesario */
+}
+
+.investigacion-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  padding: 30px 20px;  
+}
+
+.investigacion-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.investigacion-icono {
+  font-size: 3rem;
+  color: var(--dorado);
+  margin-bottom: 20px;  
+}
+
+.investigacion-card h3 {
+  font-size: 1.4rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+}
+
+.investigacion-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  height: 70px;
+}
+
+.btn-investigacion {
+  display: inline-block;
+  background-color: var(--azul-oscuro);
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.investigacion-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.btn-investigacion:hover {
+  background-color: var(--guinda);
+}
+
+
+.btn-investigacion:hover {
+  background-color: var(--guinda);
+}
+
+
+
+/* === SECCIÓN CONVOCATORIAS === */
+.convocatorias-section {
+  padding: 80px 20px;
+  background-color: var(--blanco-matizado);
+  text-align: center;
+}
+
+/* Nuevo contenedor con flex-direction: column */
+.convocatorias-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* height: 70px; */
+}
+
+.convocatorias-section h2 {
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+}
+
+.convocatorias-section h3 {
+  height: 50px;
+}
+
+.convocatorias-section p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  height: 80px;
+}
+
+.convocatorias-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;  
+}
+
+.convocatoria-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  padding: 30px 20px;
+}
+
+.convocatoria-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.convocatoria-icono {
+  font-size: 3rem;
+  color: var(--dorado);
+  margin-bottom: 20px;
+}
+
+.convocatoria-card h3 {
+  font-size: 1.4rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+}
+
+.convocatoria-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.btn-convocatoria {
+  display: inline-block;
+  background-color: var(--azul-oscuro);
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-convocatoria:hover {
+  background-color: var(--guinda);
+}
+
+
+
+/* === SECCIÓN DE EVENTOS === */
+.eventos-section {
+  padding: 80px 20px;
+  background-color: var(--blanco-matizado);
+  text-align: center;
+}
+
+.eventos-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eventos-title {
+  width: 100%;
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 30px;
+  gap:20px;
+}
+
+.eventos-title h2 {
+  display: flex;
+  align-items: flex-end;
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);  
+  height: 50px;
+  
+}
+
+.vermas {
+  display:flex;
+  align-items: center;
+  align-content:flex-start; 
+  color: var(--azul-oscuro); /* Texto azul */
+  text-decoration: none; /* Elimina el subrayado predeterminado de <a> */
+  font-weight: bold;
+  padding-left:20px; /* Pequeño padding, especialmente a la izquierda para el borde */
+  margin:0;
+  border-left: 4px solid var(--azul-oscuro); /* Borde izquierdo azul */
+  background-color: transparent; /* Sin fondo */
+  transition: color 0.3s ease; /* Transición suave para el hover */  
+  cursor: pointer; /* Mantiene el cursor de enlace */
+  height: 50px;
+}
+
+.vermas:hover {
+  color: var(--guinda);
+  border-left: 4px solid var(--guinda);
+}
+
+.eventos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  border: 2px solid var(--azul-oscuro); 
+  border-radius: 10px;
+  padding: 20px; 
+  box-sizing: border-box; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* === SECCIÓN DE EVENTOS - LISTA DE EVENTOS === */
+/* Contenedor principal de la lista de eventos */
+.eventos-lista {
+  flex: 1; /* Ocupa el espacio disponible */
+  min-width: 300px; /* Ancho mínimo para mantener la forma en móviles */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre items de evento */
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+/* Item individual de evento */
+.evento-item {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  gap: 15px; /* Espacio entre la fecha y el texto */
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para hover */
+}
+
+.evento-item:hover {
+  transform: translateY(-5px); /* Elevación al pasar el mouse */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra al pasar el mouse */
+}
+
+/* Fecha del evento */
+.fechaE {
+  background-color: var(--azul-oscuro); /* Color de fondo para la fecha */
+  color: white; /* Texto blanco */
+  border-radius: 8px;
+  padding: 10px;
+  margin-top:10px;
+  text-align: center;
+  font-weight: bold;
+  min-width: 60px; /* Ancho fijo para la fecha */
+  flex-shrink: 0; /* Evita que la fecha se comprima */
+}
+
+.fechaE small {
+  font-size: 0.7em; /* Tamaño más pequeño para el mes */
+  display: block; /* Hace que el mes esté en una línea separada */
+  margin-top: 2px; /* Pequeño espacio arriba del mes */
+}
+
+/* Texto del título del evento */
+.evento-item p {
+  font-size: 1rem;
+  color: var(--negro);
+  line-height: 1.5;
+  margin: 0; /* Elimina márgenes por defecto */
+  overflow: hidden; /* Oculta texto que desborde */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+  line-clamp: 2; /* Propiedad estándar */
+}
+
+/* Enlace que contiene el item (si estás usando evento-item-link) */
+.evento-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+}
+
+.evento-item-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* === SECCIÓN DE EVENTOS - EVENTO DESTACADO === */
+/* === SECCIÓN DE EVENTOS === */
+.evento-destacado {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+  height: 600px; /* Mantén esta altura fija */
+}
+
+.evento-destacado img {
+  width: 100%;
+  height: 50%; /* 50% de la altura del contenedor */
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.evento-info {
+  background-color: white;
+  padding: 20px;
+  height: 50%; /* 50% de la altura del contenedor */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye el contenido verticalmente */
+}
+
+.evento-info h3 {
+  font-size: 1.4rem;
+  color: var(--azul-oscuro);
+  margin-top: 0;
+  margin-bottom: 10px;
+  flex-shrink: 0; /* Evita que el título se comprima */
+}
+
+.evento-info p {
+  font-size: 0.9rem;
+  color: var(--negro);
+  margin: 5px 0;
+  overflow: hidden; /* Oculta cualquier texto que desborde */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+  display: -webkit-box; /* Para WebKit */
+  -webkit-line-clamp: 3; /* Muestra hasta 3 líneas de texto en WebKit */
+  -webkit-box-orient: vertical;
+  line-clamp: 3; /* Propiedad estándar (añade esta línea) */
+  display: -moz-box; /* Para Firefox */
+}
+
+.evento-info .btn-vermasE {
+  margin-top: auto; /* Empuja el botón hacia abajo */
+  padding: 10px 20px;
+  background-color: var(--azul-oscuro);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+  transition: background-color 0.3s ease;
+}
+
+.evento-info .btn-vermasE:hover {
+  background-color: var(--guinda);
+}
+
+
+
+
+
+
+
+/* === SECCIÓN EGRESADOS DESTACADOS === */
+.egresados-section {
+  padding: 80px 20px;
+  background-color: var(--blanco-matizado);
+  text-align: center;
+}
+
+.egresados-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.egresados-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.egresados-header h2 {
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);
+  margin: 0;
+}
+
+.egresados-carrusel-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.egresados-carrusel {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  height: 350px; /* Ajusta según necesites */
+}
+
+.egresados-carrusel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.egresado-testimonio {
+  min-width: 100%;
+  padding: 30px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;
+}
+
+.egresado-imagen {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 4px solid var(--dorado);
+}
+
+.egresado-nombre {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--azul-oscuro);
+  margin-bottom: 5px;
+}
+
+.egresado-titulo {
+  font-size: 1.1rem;
+  color: var(--guinda);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.egresado-empresa {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.egresado-testimonio-texto {
+  font-size: 1rem;
+  color: var(--negro);
+  line-height: 1.6;
+  font-style: italic;
+  max-width: 800px;
+  margin: 0 auto;
+  /* Limitar líneas de texto */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Muestra hasta 4 líneas */
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.egresados-prev,
+.egresados-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: var(--azul-oscuro);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.egresados-prev:hover,
+.egresados-next:hover {
+  background-color: var(--azul-oscuro);
+  color: white;
+}
+
+.egresados-prev {
+  left: 20px;
+}
+
+.egresados-next {
+  right: 20px;
+}
+
+.egresados-indicadores {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.egresados-indicador {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.egresados-indicador.activo,
+.egresados-indicador:hover {
+  background-color: var(--dorado);
+}
 
 
 
@@ -824,6 +1571,91 @@ html {
 
 
 
+
+/* === SECCIÓN ENLACES DE INTERÉS === */
+.enlaces-section {
+  padding: 80px 20px;
+  background-color: var(--blanco-matizado);
+  text-align: center;
+}
+
+.enlaces-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.enlaces-section h2 {
+  font-size: 2.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+}
+
+.enlaces-section p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.enlaces-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.enlace-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  padding: 30px 20px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.enlace-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.enlace-icono {
+  font-size: 3rem;
+  color: var(--dorado);
+  margin-bottom: 20px;
+}
+
+.enlace-card h3 {
+  font-size: 1.4rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+}
+
+.enlace-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0;
+  line-height: 1.6;
+  height: 70px; /* Altura fija para alineación */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+}
 
 
 
@@ -842,12 +1674,15 @@ html {
 .social-float {
   position: fixed;
   top: 50%;
-  right: 20px;
+  right: 20px; /* Mantener margen derecho */
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 10px;
   z-index: 999;
+  /* Añade estas líneas para evitar overflow */
+  max-width: calc(100vw - 40px); /* Limita el ancho total */
+  box-sizing: border-box; /* Incluye padding/border en el ancho */
 }
 
 .social-btn {
@@ -862,7 +1697,9 @@ html {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transition: transform 0.2s ease, background-color 0.3s;
   font-size: 20px;
-  text-decoration: none;
+  text-decoration: none;  
+  flex-shrink: 0; /* Evita que se encojan */
+  margin: 0; /* Elimina márgenes heredados */
 }
 
 .social-btn:hover {
@@ -875,10 +1712,108 @@ html {
 
 /* FOOTER */
 .footer {
-  background-color: var(--azul-oscuro);
+  background: linear-gradient(135deg, var(--azul-oscuro) 0%, #0a1940 100%);
   color: white;
+  padding: 50px 0 20px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-columna h3 {
+  color: var(--dorado);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-columna h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--dorado);
+}
+
+.footer-columna ul {
+  list-style: none;
+}
+
+.footer-columna ul li {
+  margin-bottom: 12px;
+}
+
+.footer-columna ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.footer-columna ul li a:hover {
+  color: var(--dorado);
+  padding-left: 5px;
+}
+
+/* Redes sociales en footer */
+.redes-sociales-footer {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.redes-sociales-footer a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  color: white;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.redes-sociales-footer a:hover {
+  background-color: var(--dorado);
+  transform: translateY(-3px);
+}
+
+.footer-columna p {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Copyright */
+.footer-copyright {
   text-align: center;
-  padding: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-copyright p {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 5px 0;
 }
 
 /* MODO OSCURO */
@@ -889,25 +1824,280 @@ body.modo-oscuro {
 
 body.modo-oscuro .header,
 body.modo-oscuro .footer {
-  background-color: #000;
+  background: linear-gradient(135deg, #000 0%, #111 100%);
   color: white;
 }
 
-body.modo-oscuro .card {
-  background-color: #222;
-  border-left-color: var(--dorado);
+
+
+
+/* MODO OSCURO - POP-UP */
+body.modo-oscuro .popup-overlay {
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo aún más oscuro si estás en modo oscuro */
+}
+
+body.modo-oscuro .popup-contenido {
+  background-color: #222; /* Fondo oscuro para el contenido del pop-up */
+}
+
+body.modo-oscuro .popup-cerrar {
+  color: white; /* Asegurar color del botón de cerrar en modo oscuro */
+}
+
+body.modo-oscuro .popup-cerrar:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.modo-oscuro .popup-texto {
+  color: white; /* Color del texto en modo oscuro */
+}
+
+body.modo-oscuro .popup-texto h2 {
+  color: white; /* Color del título en modo oscuro */
+}
+
+body.modo-oscuro .popup-texto p {
+  color: #ccc; /* Color del párrafo en modo oscuro */
+}
+
+
+
+
+
+/* === MODO OSCURO - ESCUELAS PROFESIONALES === */
+/* Sección principal */
+body.modo-oscuro .destacados {
+  background-color: #111;
   color: white;
 }
+
+/* Títulos de la sección */
+body.modo-oscuro .destacados h2,
+body.modo-oscuro .destacados p {
+  color: white;
+}
+
+/* Tarjetas individuales */
+body.modo-oscuro .escuela-card {
+  background-color: #222;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-left-color: var(--dorado);
+}
+
+body.modo-oscuro .escuela-card:hover {
+  transform: translateY(-10px) !important; /* Manteniendo la corrección para AOS */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Títulos dentro de las tarjetas */
+body.modo-oscuro .escuela-card h3 {
+  color: white;
+}
+
+/* Texto descriptivo (si lo añades en el futuro) */
+body.modo-oscuro .escuela-card p {
+  color: #ccc;
+}
+
+/* Botones */
+/* Botón "Brochure" */
+body.modo-oscuro .buttons-escuelas .brochure {
+  color: var(--dorado);
+  background-color: transparent;
+}
+
+body.modo-oscuro .buttons-escuelas .brochure:hover {
+  color: #e0be51; /* Dorado más claro para el hover */
+}
+
+/* Botón "Ver más" */
+body.modo-oscuro .buttons-escuelas .ver-mas-btn {
+  background-color: #333;
+  color: var(--dorado);
+}
+
+body.modo-oscuro .buttons-escuelas .ver-mas-btn:hover {
+  background-color: var(--guinda);
+  color: white;
+}
+
+
+
+
+
+
+
 
 body.modo-oscuro .social-float {
   color: white;
 }
 
 body.modo-oscuro .social-btn {
-  background-color: #222;
-  /* color: rgb(128, 240, 156);  */
+  background-color: rgb(58, 58, 58);  
   color: rgb(8,255,8);
 }
+
+
+
+/*POSGRADO Y DEMÁS*/
+/* === MODO OSCURO - EXTENSIONES === */
+
+/* Menú Hamburguesa en Modo Oscuro */
+body.modo-oscuro .nav__list {
+  background-color: #111; /* Fondo oscuro para el menú desplegado */
+}
+
+body.modo-oscuro .nav__list li a {
+  color: white; /* Letras blancas por defecto */
+}
+
+body.modo-oscuro .nav__list li a:hover {
+  color: var(--dorado); /* Letras doradas al hacer hover */
+}
+
+/* Sección de Noticias en Modo Oscuro */
+body.modo-oscuro .noticias-section {
+  background-color: #111;
+}
+
+body.modo-oscuro .noticias-carousel {
+  background-color: rgba(30, 30, 30, 0.9); /* Fondo más oscuro para el carrusel */
+  box-shadow: 0 -2px 8px 2px rgba(255, 255, 255, 0.8);
+}
+
+body.modo-oscuro .ultimas-noticias {
+  background-color: rgba(30, 30, 30, 0.9); /* Fondo más oscuro para últimas noticias */
+  box-shadow: 0 2px 8px 2px rgba(255, 255, 255, 0.8);
+}
+
+body.modo-oscuro .noticia-card {
+  background-color: #222; /* Fondo de las tarjetas de noticias */
+  color: white;
+}
+
+body.modo-oscuro .noticia-card h3 {
+  color: white;
+  text-align: center;
+}
+
+body.modo-oscuro .noticia-card .fecha {
+  color: var(--blanco-matizado); /* Color más suave para la fecha */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra para mejorar la legibilidad */
+  background-color: var(--dorado);
+}
+
+body.modo-oscuro .contenido-noticia h3 {
+  color: var(--blanco-matizado); /* Asegura el color del título en noticias destacadas */
+}
+
+body.modo-oscuro .contenido-noticia p {
+  color: var(--blanco-matizado); /* Asegura el color del texto en noticias destacadas */
+}
+
+body.modo-oscuro .btn-vermas {
+  background-color: var(--dorado);
+  color: var(--negro)
+}
+body.modo-oscuro .btn-vermas:hover {
+  background-color: var(--guinda);
+  color: var(--blanco-matizado)
+}
+
+/* Sección de Posgrado en Modo Oscuro */
+body.modo-oscuro .posgrado-section {
+  background-color: rgba(20, 20, 20, 0.95); /* Fondo oscuro para toda la sección */
+}
+
+body.modo-oscuro .posgrado-card {
+  background-color: #222; /* Fondo de las tarjetas de posgrado */
+  color: white;
+}
+
+body.modo-oscuro .posgrado-card h3 {
+  color: white;
+}
+
+body.modo-oscuro .posgrado-header h2 {
+  color: white; /* Títulos de posgrado en blanco */
+}
+
+body.modo-oscuro .ver-mas-link {
+  color: var(--dorado); /* Enlace "Ver más" en dorado */
+}
+
+body.modo-oscuro .posgrado-section h2,
+body.modo-oscuro .posgrado-section p {
+  color: white; /* Títulos y párrafos de la sección en blanco */
+}
+
+/* Ajustes específicos para el contenido del carrusel de noticias en modo oscuro */
+body.modo-oscuro .noticia {
+  background-color: transparent; /* Fondo transparente */
+}
+
+/* Botones del carrusel de noticias en modo oscuro */
+body.modo-oscuro .prev2,
+body.modo-oscuro .next2 {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: white;
+}
+
+body.modo-oscuro .prev2:hover,
+body.modo-oscuro .next2:hover {
+  background-color: rgba(80, 80, 80, 0.9);
+}
+
+/* Indicadores del carrusel de noticias en modo oscuro */
+body.modo-oscuro .dot2 {
+  background-color: rgba(100, 100, 100, 0.5);
+}
+
+body.modo-oscuro .dot2.active {
+  background-color: var(--dorado);
+}
+
+
+/* MODO OSCURO - Investigación */
+body.modo-oscuro .investigacion-section {
+  background-color: #111;
+  color: white;
+}
+
+body.modo-oscuro .investigacion-section h2,
+body.modo-oscuro .investigacion-card h3 {
+  color: white;
+}
+
+body.modo-oscuro .investigacion-section p,
+body.modo-oscuro .investigacion-card p {
+  color: #ccc;
+}
+
+body.modo-oscuro .investigacion-card {
+  background-color: #222;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.modo-oscuro .investigacion-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.modo-oscuro .btn-investigacion {
+  background-color: #333;
+  color: var(--dorado);
+}
+
+body.modo-oscuro .btn-investigacion:hover {
+  background-color: var(--guinda);
+}
+
+
+
+
+
+
+
+
 
 body.modo-oscuro .estadisticas {
   background-color: rgba(0, 0, 0, 0.55);
@@ -932,6 +2122,267 @@ body.modo-oscuro textarea {
   color: rgb(26, 25, 25);
 }
 
+/* === MODO OSCURO - INVESTIGACIÓN === */
+body.modo-oscuro .investigacion-section {
+  background-color: #111;
+  color: white;
+}
+
+body.modo-oscuro .investigacion-section h2,
+body.modo-oscuro .investigacion-card h3 {
+  color: white;
+}
+
+body.modo-oscuro .investigacion-section p,
+body.modo-oscuro .investigacion-card p {
+  color: #ccc;
+}
+
+body.modo-oscuro .investigacion-card {
+  background-color: #222;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.modo-oscuro .investigacion-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.modo-oscuro .investigacion-icono {
+  color: var(--dorado);
+}
+
+body.modo-oscuro .btn-investigacion {
+  background-color: #333;
+  color: var(--dorado);
+}
+
+body.modo-oscuro .btn-investigacion:hover {
+  background-color: var(--guinda);
+}
+
+/* === MODO OSCURO - CONVOCATORIAS === */
+body.modo-oscuro .convocatorias-section {
+  background-color: #111;
+  color: white;
+}
+
+body.modo-oscuro .convocatorias-section h2,
+body.modo-oscuro .convocatoria-card h3 {
+  color: white;
+}
+
+body.modo-oscuro .convocatorias-section p,
+body.modo-oscuro .convocatoria-card p {
+  color: #ccc;
+}
+
+body.modo-oscuro .convocatoria-card {
+  background-color: #222;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.modo-oscuro .convocatoria-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.modo-oscuro .convocatoria-icono {
+  color: var(--dorado);
+}
+
+body.modo-oscuro .btn-convocatoria {
+  background-color: #333;
+  color: var(--dorado);
+}
+
+body.modo-oscuro .btn-convocatoria:hover {
+  background-color: var(--guinda);
+}
+
+
+
+
+
+/* === MODO OSCURO - EVENTOS === */
+/* Sección principal de eventos */
+body.modo-oscuro .eventos-section {
+  background-color: #111;
+  color: white;
+}
+
+/* Título de la sección */
+body.modo-oscuro .eventos-section h2 {
+  color: white;
+}
+
+body.modo-oscuro .eventos {
+  border: 2px solid var(--blanco-matizado); 
+  box-shadow: 0px 4px 10px rgba(255,255,255,0.5);
+}
+
+/* Enlaces "vermas" en modo oscuro */
+body.modo-oscuro .vermas {
+  color: var(--dorado); /* Usar dorado para el texto */
+  border-left-color: var(--dorado); /* Mantener el borde izquierdo dorado */
+}
+
+body.modo-oscuro .vermas:hover {
+  color: #e0be51; /* Un tono de dorado más claro para el hover */
+}
+
+
+
+/* Item individual de evento (el div interno) */
+body.modo-oscuro .evento-item {
+  background-color: #222; /* Fondo oscuro para cada item */
+  color: white;
+}
+
+body.modo-oscuro .evento-item p {
+  color: #ccc; /* Texto gris claro */
+}
+
+/* Fecha en el item de evento */
+body.modo-oscuro .fechaE {
+  background-color: var(--dorado); 
+  color: white;
+}
+
+/* Enlace que contiene el item (para el efecto hover) */
+body.modo-oscuro .evento-item-link {
+  color: inherit; /* Heredar el color del texto */
+}
+
+body.modo-oscuro .evento-item-link:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+/* Información del evento destacado */
+body.modo-oscuro .evento-info {
+  background-color: #222; /* Fondo oscuro */
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra más intensa para modo oscuro */
+}
+
+body.modo-oscuro .evento-info h3 {
+  color: white;
+}
+
+body.modo-oscuro .evento-info p {
+  color: #ccc;
+}
+
+/* Iconos en la información del evento */
+body.modo-oscuro .evento-info i {
+  color: var(--dorado); /* Iconos en dorado */
+}
+
+body.modo-oscuro .evento-info .btn-vermasE {
+  background-color: var(--dorado);
+  color: black;
+}
+
+body.modo-oscuro .evento-info .btn-vermasE:hover {
+  background-color: var(--guinda);
+  color: white;
+}
+
+/* MODO OSCURO - EGRESADOS */
+body.modo-oscuro .egresados-section {
+  background-color: #111;
+  color: white;
+}
+
+body.modo-oscuro .egresados-header h2 {
+  color: white;
+}
+
+body.modo-oscuro .egresados-carrusel {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.modo-oscuro .egresado-testimonio {
+  background-color: #222;
+}
+
+body.modo-oscuro .egresado-nombre {
+  color: white;
+}
+
+body.modo-oscuro .egresado-titulo {
+  color: var(--dorado);
+}
+
+body.modo-oscuro .egresado-empresa {
+  color: #aaa;
+}
+
+body.modo-oscuro .egresado-testimonio-texto {
+  color: #ccc;
+}
+
+body.modo-oscuro .egresados-prev,
+body.modo-oscuro .egresados-next {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: white;
+}
+
+body.modo-oscuro .egresados-prev:hover,
+body.modo-oscuro .egresados-next:hover {
+  background-color: var(--dorado);
+}
+
+body.modo-oscuro .egresados-indicador {
+  background-color: #666;
+}
+
+body.modo-oscuro .egresados-indicador.activo,
+body.modo-oscuro .egresados-indicador:hover {
+  background-color: var(--dorado);
+}
+
+
+
+
+
+/* MODO OSCURO - ENLACES DESTACADOS - DE INTERÉS */
+body.modo-oscuro .enlaces-section {
+  background-color: #111;
+  color: white;
+}
+
+body.modo-oscuro .enlaces-section h2,
+body.modo-oscuro .enlace-card h3 {
+  color: white;
+}
+
+body.modo-oscuro .enlaces-section p,
+body.modo-oscuro .enlace-card p {
+  color: #ccc;
+}
+
+body.modo-oscuro .enlace-card {
+  background-color: #222;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.modo-oscuro .enlace-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.modo-oscuro .enlace-icono {
+  color: var(--dorado);
+}
+
+
+
+
+
+
 
 
 .slide-content.animar {
@@ -948,9 +2399,6 @@ body.modo-oscuro textarea {
     transform: translate(-50%, -50%);
   }
 }
-
-
-
 
 
 
@@ -973,25 +2421,22 @@ body.modo-oscuro textarea {
   }
 }
 
-@media (max-width: 768px) {
+/* RESPONSIVE - Menú hamburguesa para pantallas <= 1020px */
+@media (max-width: 1020px) {
   .container {
     flex-direction: column;
     align-items: flex-start;
+    width: 95%; /* Asegura un poco de padding lateral */
+    padding: 10px 0; /* Añade padding vertical al contenedor */
   }
-  .cards-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    width: 90%;
-  }
-
-  .nav {
-    width: 100%;
-    position: relative;
+  
+  /* Ajusta el logo para que no se salga */
+  .logo {
+    height: 60px; /* Ligeramente más pequeño en móviles */
+    margin-bottom: 10px; /* Espacio entre logo y menú */
   }
 
+  /* Oculta el menú de navegación por defecto */
   .nav__list {
     flex-direction: column;
     align-items: center;
@@ -1002,45 +2447,58 @@ body.modo-oscuro textarea {
     left: 0;
     display: none;
     padding: 15px 0;
+    margin-top: 10px; /* Espacio entre header y menú desplegado */
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     z-index: 999;
   }
 
+  /* Muestra el menú cuando tiene la clase 'show' */
   .nav__list.show {
     display: flex;
+    animation: slideDown 0.3s ease;
   }
 
+  /* Espacio entre elementos del menú */
   .nav__list li {
     margin: 10px 0;
+    width: 100%;
+    text-align: center;
   }
 
+  /* Botón hamburguesa visible */
   .menu-toggle {
     display: block;
     font-size: 30px;
     color: white;
     cursor: pointer;
     margin-left: auto;
+    padding: 5px; /* Área de clic más grande */
   }
 
-  .destacados {
+  /* Ajustes para otras secciones en móviles */
+  .cards-container {
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
   }
 
-  .card {
-    width: 100%;
+  .escuela-card {
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 20px;
   }
+
+  .escuela-card h3 {
+    -webkit-line-clamp: 3; /* Permitir 3 líneas en móviles */
+    line-clamp: 3;
+  }
+
   .buttons-escuelas {
     flex-direction: column;
     align-items: center;
   }
 
-  /* .card {
-    width: 90%;
-    margin-bottom: 20px;
-  } */
-
-  /* CARRUSEL NOTICIAS */
+  /* CARRUSEL NOTICIAS - En móviles */
   .noticia {
     flex-direction: column;
     text-align: center;
@@ -1055,12 +2513,11 @@ body.modo-oscuro textarea {
     padding-top: 20px;
   }
 
-
-/* REDES SOCIALES */
+  /* REDES SOCIALES - En móviles */
   .social-float {
-    position: absolute;
+    position: fixed; /* Vuelve a fixed para móviles */
     top: auto;
-    bottom: 5px;
+    bottom: 70px; /* Arriba de los botones de navegación móvil si los hubiera */
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -1068,6 +2525,7 @@ body.modo-oscuro textarea {
     background-color: rgba(255, 255, 255, 0.2);
     padding: 6px 12px;
     border-radius: 12px;
+    backdrop-filter: blur(5px);
   }
 
   .social-btn {
@@ -1076,6 +2534,394 @@ body.modo-oscuro textarea {
     font-size: 18px;
   }
 
+  /* Ajustes para sección de noticias en móviles */
 
+
+  .noticias-carousel,
+  .ultimas-noticias {
+    width: 95%; /* Más ancho en móviles */
+  }
+
+  .ultimas-container .noticia-card {
+    width: 100%; /* Tarjetas ocupan todo el ancho en móviles */
+  }
+
+  /* Ajustes para estadísticas en móviles */
+  .estadisticas {
+    width: 95%;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .estadistica {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  /* Ajustes para posgrado en móviles */
+  .posgrado-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .posgrado-header h2 {
+    margin-bottom: 0;
+  }
+
+  /* Ajustes para sección de posgrado en móviles */
+  .posgrado-section {
+    padding: 40px 15px;
+  }
+
+  .posgrado-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .posgrado-section p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  .btn-posgrado {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Ajustes para carruseles de posgrado en móviles */
+  .posgrado-carousel {
+    width: 95%;
+    margin: 40px auto;
+  }
+
+  .posgrado-header {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .posgrado-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  .ver-mas-link {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .posgrado-items {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .posgrado-card {
+    width: 100%;
+    min-width: unset;
+    transition: transform 0.3s ease, box-shadow 0.3s ease ; 
+  }
+
+  .posgrado-card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+}
+
+  .posgrado-card img {
+    height: 180px;
+  }
+
+  .posgrado-card h3 {
+    font-size: 1.1rem;
+    padding: 15px 10px;
+  }
+
+  
+  .prev-posgrado-maestrias,
+  .next-posgrado-maestrias,
+  .prev-posgrado-doctorados,
+  .next-posgrado-doctorados {
+    display: none;
+  }
+
+
+  /*Responsivo - Investigación*/
+  .investigacion-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .investigacion-card {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /*Responsivo para Convocatorias*/
+    .convocatorias-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .convocatoria-card {
+    width: 90%;
+    max-width: 500px;
+  }
+
+/*Responsive para Eventos*/
+  .eventos-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .evento-card {
+    width: 90%;
+    max-width: 500px;
+  }
+
+
+
+
+
+
+
+/*Resposive para Enlaces Destacados*/
+  .enlaces-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .enlace-card {
+    width: 90%;
+    max-width: 500px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+/*RESPONSIVE PARA FOOTER*/
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Asegura que las columnas del footer se centren */
+  .footer-columna {
+    text-align: center; /* Centra el texto y elementos inline-block */
+  }
+
+  /* Estilo para la raya dorada debajo de los títulos */
+  .footer-columna h3 {
+    position: relative;
+    padding-bottom: 10px;
+    /* Asegura el centrado del texto del título también */
+    text-align: center;
+    margin-bottom: 20px; /* Espacio entre título y lista */
+  }
+
+  /* Crea y centra la raya dorada usando un pseudo-elemento */
+  .footer-columna h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Posiciona el inicio de la línea en el centro del contenedor */
+    transform: translateX(-50%); /* Mueve la línea hacia la izquierda la mitad de su ancho */
+    width: 50px; /* Ancho de la línea */
+    height: 2px; /* Grosor de la línea */
+    background-color: var(--dorado); /* Color dorado */
+  }
+
+  /* Centrar los ítems de lista si es necesario */
+  .footer-columna ul {
+    text-align: center;
+    padding-left: 0; /* Elimina el padding por defecto de la lista */
+  }
+
+  .footer-columna ul li {
+    list-style: none; /* Elimina los puntos de la lista */
+    margin-bottom: 12px; /* Espacio entre items */
+  }
+
+  /* Centrar las redes sociales */
+  .redes-sociales-footer {
+    justify-content: center;
+  }
+
+  /* Centrar el copyright */
+  .footer-copyright {
+    text-align: center;
+  }
 
 }
+
+
+/* RESPONSIVO PARA EVENTOS */
+@media (max-width: 768px) {
+  .eventos {
+    flex-direction: column; /* En móviles, uno debajo del otro */
+    align-items: center; /* Centra en móviles */
+  }
+
+  .eventos-lista,
+  .evento-destacado {
+    width: 100%; /* Ocupan todo el ancho en móviles */
+    max-width: 500px; /* Ancho máximo para mantener la proporción */
+  }
+}
+
+.egresados-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .egresados-carrusel {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .egresado-imagen {
+    width: 100px;
+    height: 100px;
+  }
+
+  .egresado-nombre {
+    font-size: 1.3rem;
+  }
+
+  .egresado-testimonio-texto {
+    font-size: 0.9rem;
+    padding: 0 10px;
+    -webkit-line-clamp: 5; /* Más líneas en móviles */
+    line-clamp: 5;
+  }
+
+  .egresados-prev,
+  .egresados-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .egresados-prev {
+    left: 10px;
+  }
+
+  .egresados-next {
+    right: 10px;
+  }
+
+
+
+
+
+@media (max-width: 480px) {
+  /*Responsive del Pop-up*/
+  .popup-contenido {
+    width: 95%;
+    border-radius: 12px;
+  }
+
+  .popup-texto {
+    padding: 20px;
+  }
+
+  .popup-texto h2 {
+    font-size: 1.5rem;
+  }
+
+  .popup-texto p {
+    font-size: 0.9rem;
+  }
+
+  .popup-boton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+
+
+
+  .destacados {
+    padding: 60px 15px;
+  }
+
+  .escuela-card {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .escuela-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .buttons-escuelas a {
+    font-size: 0.85rem;
+    padding: 8px 15px;
+  }
+
+
+
+
+
+  .egresados-section {
+    padding: 60px 15px;
+  }
+
+  .egresados-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .egresado-imagen {
+    width: 90px;
+    height: 90px;
+  }
+
+  .egresado-nombre {
+    font-size: 1.2rem;
+  }
+
+  .egresado-titulo {
+    font-size: 1rem;
+  }
+
+  .egresado-empresa {
+    font-size: 0.9rem;
+  }
+
+  .egresado-testimonio-texto {
+    font-size: 0.85rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-columna:nth-child(4) {
+    grid-column: span 1;
+  }
+}
+
+
+
+/* Animación para el menú desplegable */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
