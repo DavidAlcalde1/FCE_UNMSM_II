@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pregrado - FCE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./img/index/logo_fce.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./pregrado/styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="header__top">
+            <div class="logo">
+                <a href="./index.html" target="_blank">
+                    <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
+                </a>
+            </div>
+            <div class="social-icons">
+                <a href="https://web.facebook.com/profile.php?id=100073434511404"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://www.youtube.com/@facultaddecienciaseconomic8432"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://x.com/FCEUnmsm1"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"><i class="fas fa-user-graduate"></i> SUM docentes</a>
+                <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"><i class="fas fa-user-graduate"></i> SUM alumnos</a>
+                <a href="https://unmsm.edu.pe/"><i class="fas fa-university"></i> UNMSM</a>
+                <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"><i class="fas fa-file-alt"></i> MAT</a>
+            </div>
+        </div>
+
+        <!-- Menú principal -->
+        <nav class="navbar">
+            <ul class="menu">
+                <li><a href="#">Inicio</a></li>
+                <li class="dropdown">
+                    <a href="#">La Facultad</a>
+                    <ul class="submenu">
+                        <li><a href="https://x.com/FCEUnmsm1">Historia</a></li>
+                        <li><a href="https://unmsm.edu.pe/">Autoridades</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Académico</a>
+                    <ul class="submenu">
+                        <li><a href="#">Pregrado</a></li>
+                        <li><a href="#">Posgrado</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Noticias</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+            <!-- Sección Principal: Carrusel de Tarjetas Superpuestas -->
+    <section class="pregrado-section">
+        <div class="container">
+            <h2 class="section-title">Escuelas Profesionales</h2>
+            <p class="section-description">Conoce nuestras escuelas profesionales y sus programas académicos.</p>
+
+            <!-- Contenedor principal del carrusel -->
+            <div class="carousel-container">
+                <!-- Botón izquierdo -->
+                <div class="carousel-button carousel-button--left" onclick="shiftLeft()">
+                    <img src="https://image.ibb.co/mRsEb7/left_arrow.png" alt="Anterior">
+                </div>
+
+                <!-- Wrapper de las tarjetas -->
+                <div class="cards-wrapper">
+                    <!-- Contenedor de las tarjetas -->
+                    <ul class="cards__container" id="cards-container">
+                        <!-- Tarjeta 1: EP de Economía -->
+                        <li class="card-box" data-index="0">
+                            <div class="card-box__image">
+                                <img src="./img/pregrado/epe.png" alt="EP de Economía">
+                            </div>
+                            <div class="card-box__content">
+                                <h3 class="card-box__title">EP de Economía</h3>
+                                <p class="card-box__summary">Formación integral en análisis económico y gestión empresarial.</p>
+                                <a href="./escuelas/ep_economia.html" class="card-box__btn">Ver más</a>
+                            </div>
+                        </li>
+
+                        <!-- Tarjeta 2: EP de Economía Pública -->
+                        <li class="card-box" data-index="1">
+                            <div class="card-box__image">
+                                <img src="./img/pregrado/epep.png" alt="EP de Economía Pública">
+                            </div>
+                            <div class="card-box__content">
+                                <h3 class="card-box__title">EP de Economía Pública</h3>
+                                <p class="card-box__summary">Especialización en políticas públicas y finanzas gubernamentales.</p>
+                                <a href="./escuelas/ep_economia_publica.html" class="card-box__btn">Ver más</a>
+                            </div>
+                        </li>
+
+                        <!-- Tarjeta 3: EP de Economía Internacional -->
+                        <li class="card-box" data-index="2">
+                            <div class="card-box__image">
+                                <img src="./img/pregrado/epei.png" alt="EP de Economía Internacional">
+                            </div>
+                            <div class="card-box__content">
+                                <h3 class="card-box__title">EP de Economía Internacional</h3>
+                                <p class="card-box__summary">Enfoque en comercio internacional, finanzas globales y desarrollo económico.</p>
+                                <a href="./escuelas/ep_economia_internacional.html" class="card-box__btn">Ver más</a>
+                            </div>
+                        </li>
+                                              
+                    </ul>                  
+                    
+                </div>
+
+                <!-- Botón derecho -->
+                <div class="carousel-button carousel-button--right" onclick="shiftRight()">
+                    <img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt="Siguiente">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Columnas del footer -->
+            <div class="footer-columna">
+            <h3>Facultad</h3>
+            <ul>
+                <li><a href="#">Misión y Visión</a></li>
+                <li><a href="#">Autoridades</a></li>
+                <li><a href="#">Historia</a></li>
+                <li><a href="#">Ubicación</a></li>
+            </ul>
+            </div>
+            
+            <div class="footer-columna">
+            <h3>Académico</h3>
+            <ul>
+                <li><a href="#">Pregrado</a></li>
+                <li><a href="#">Posgrado</a></li>
+                <li><a href="#">Escuelas Profesionales</a></li>
+                <li><a href="#">Centro de Idiomas</a></li>
+            </ul>
+            </div>
+            
+            <div class="footer-columna">
+            <h3>Servicios</h3>
+            <ul>
+                <li><a href="./ocaa.html">OCAA</a></li>
+                <li><a href="#">Biblioteca</a></li>
+                <li><a href="#">Laboratorios</a></li>
+                <li><a href="#">Trámites</a></li>
+            </ul>
+            </div>
+            
+            <div class="footer-columna">
+            <h3>Conéctate</h3>
+            <div class="redes-sociales-footer">
+                <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube"></i></a>
+            </div>
+            <p><i class="bi bi-envelope"></i> contacto@fce.unmsm.edu.pe</p>
+            <p><i class="bi bi-geo-alt"></i> Av. Germán Amézaga N° 375</p>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="footer-copyright">
+            <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+            <p>Developed by Bach. José David Alcalde Cabrera</p>
+        </div>
+        </footer>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
+    <script src="./pregrado/script.js"></script>
+</body>
+</html>
