@@ -543,6 +543,405 @@ html {
 
 
 
+/*PREGRADO ********************* */
+.pregrado-section {
+
+    background-color: var(--blanco);
+    color: var(--azul-oscuro);
+    padding: 60px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.container-pregrado {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    /* color: var(--azul-oscuro); */
+    /* border-bottom: 3px solid var(--dorado); */
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+
+/* ---------------------------- */
+/* CARRUSEL DE TARJETAS SUPERPUESTAS */
+/* ---------------------------- */
+
+/* Contenedor principal del carrusel */
+.carousel-container {
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 20px;
+    position: relative; /* Para posicionar los botones absolutamente si es necesario */
+}
+
+/* Botones de navegación */
+.carousel-button {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 20;
+    flex-shrink: 0; /* Evita que se encojan */
+}
+
+.carousel-button:hover {
+    background-color: var(--dorado);
+    transform: scale(1.1);
+}
+
+.carousel-button img {
+    width: 60%;
+    display: block;
+}
+
+.carousel-button--left {
+    margin-right: 20px;
+}
+
+.carousel-button--right {
+    margin-left: 20px;
+}
+
+/* Wrapper de las tarjetas */
+.cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 0; /* Permite que se encoja en pantallas pequeñas */
+}
+
+/* Contenedor de las tarjetas */
+.cards__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px; /* Altura del área del carrusel */
+    width: 100%;
+    position: relative;
+    perspective: 1000px; /* Profundidad para efectos 3D si se añaden */
+}
+
+/* Cada tarjeta individual */
+.card-box {
+    width: 350px;
+    height: fit-content;
+    background-color: var(--blanco-matizado);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    /* box-shadow: var(--sombra-default); */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px); /* Efecto de desenfoque del fondo */
+    -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+    /* border: 1px solid rgba(255, 255, 255, 0.3); Borde sutil */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transition: transform 0.5s ease, opacity 0.5s ease, z-index 0.5s ease;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Imagen dentro de la tarjeta */
+.card-box__image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.card-box__image img {
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.card-box:hover .card-box__image img {
+    transform: scale(1.05);
+}
+
+/* Contenido de texto dentro de la tarjeta */
+.card-box__content {
+    width: 100%;
+    height: 40%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(28, 34, 56, 0.95); /* Azul mate */
+    color: var(--blanco);
+    gap: 8px;
+}
+
+.card-box__title {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--dorado);
+}
+
+.card-box__summary {
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.4;
+    color: #ccc;
+}
+
+.card-box__btn {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 6px 12px;
+    background-color: var(--dorado);
+    color: var(--azul-oscuro);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.card-box__btn:hover {
+    background-color: #e6b85b;
+    transform: scale(1.05);
+}
+
+/* === POSICIONAMIENTO Y ESCALADO DE TARJETAS === */
+/* Estas reglas definen el efecto de pila. Ajusta los valores según el número de tarjetas. */
+/* Para 3 tarjetas: */
+
+/* Tarjeta central (activa) - La más grande y al frente */
+.cards__container .card-box:nth-child(1) {
+    transform: translateX(0) scale(1);
+    z-index: 5;
+    opacity: 1;
+    /* Añade un resplandor brillante alrededor de la tarjeta */
+    box-shadow: 
+        0 0 15px rgba(202, 167, 90, 0.6), /* Sombra dorada suave */
+        0 0 30px rgba(202, 167, 90, 0.4), /* Sombra dorada más difuminada */
+        0 5px 15px rgba(0, 0, 0, 0.1);   /* Sombra base para profundidad */
+    
+    /* Opcional: Hacer el borde izquierdo un poco más brillante */
+    border-left: 1px solid #e6b85b; /* Un tono de dorado más claro */
+    
+    /* Opcional: Pequeña animación para que aparezca suavemente */
+    animation: brilloActivo 1.5s ease-in-out infinite alternate;
+}
+
+/* Tarjetas adyacentes - Más pequeñas y ligeramente desplazadas */
+.cards__container .card-box:nth-child(2) {
+    transform: translateX(-60%) scale(0.85);
+    z-index: 4;
+    opacity: 0.5;
+}
+
+.cards__container .card-box:nth-child(3) {
+    transform: translateX(60%) scale(0.85);
+    z-index: 4;
+    opacity: 0.5;
+}
+
+/* Tarjetas ocultas */
+.card-box--hide {
+    display: none;
+}
+
+
+/* Título de la tarjeta */
+.card-box__title {
+  font-size: 1.4rem;
+  color: var(--dorado);
+  margin: 0 0 15px 0;
+  /* === PROPIEDADES CLAVE PARA EVITAR DESBORDE === */
+  overflow: hidden; /* Oculta cualquier texto que desborde */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+  display: -webkit-box; /* Propiedad WebKit */
+  -webkit-line-clamp: 2; /* Limita a 2 líneas en pantallas grandes */
+  -webkit-box-orient: vertical; /* Orientación vertical para WebKit */
+  line-clamp: 2; /* Propiedad estándar */
+  display: -moz-box; /* Para Firefox */
+  /* ============================================= */
+  /* Asegurar que no crezca innecesariamente */
+  flex-shrink: 0;
+}
+
+/* Resumen de la tarjeta */
+.card-box__summary {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+  /* === PROPIEDADES CLAVE PARA EVITAR DESBORDE === */
+  overflow: hidden; /* Oculta cualquier texto que desborde */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+  display: -webkit-box; /* Propiedad WebKit */
+  -webkit-line-clamp: 3; /* Limita a 3 líneas */
+  -webkit-box-orient: vertical; /* Orientación vertical para WebKit */
+  line-clamp: 3; /* Propiedad estándar */
+  display: -moz-box; /* Para Firefox */
+  /* ============================================= */
+}
+
+/* === ANIMACIONES === */
+.move-out-from-left {
+    animation: moveOutLeft 0.5s ease-in-out forwards;
+}
+
+.move-out-from-right {
+    animation: moveOutRight 0.5s ease-in-out forwards;
+}
+
+/* ... otras animaciones para transiciones ... */
+
+/* === ANIMACIONES KEYFRAMES === */
+@keyframes moveOutLeft {
+    0% {
+        transform: translateX(0%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-150%) scale(0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0%) scale(0.25);
+        opacity: 0;
+    }
+}
+
+@keyframes moveOutRight {
+    0% {
+        transform: translateX(0%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(150%) scale(0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0%) scale(0.25);
+        opacity: 0;
+    }
+}
+
+/* Animaciones para mover a posición (ejemplo para 3 items) */
+.move-to-position3-from-left {
+    animation: moveToP3Left 0.5s ease-in-out;
+}
+.move-to-position2-from-left {
+    animation: moveToP2Left 0.5s ease-in-out;
+}
+.move-to-position3-from-right {
+    animation: moveToP3Right 0.5s ease-in-out;
+}
+.move-to-position2-from-right {
+    animation: moveToP2Right 0.5s ease-in-out;
+}
+
+@keyframes moveToP3Left {
+    from {
+        transform: translateX(100%) scale(0.75);
+    }
+    to {
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes moveToP2Left {
+    from {
+        transform: translateX(100%) scale(1);
+    }
+    to {
+        transform: translateX(-25%) scale(0.85);
+    }
+}
+
+@keyframes moveToP3Right {
+    from {
+        transform: translateX(-100%) scale(0.75);
+    }
+    to {
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes moveToP2Right {
+    from {
+        transform: translateX(-100%) scale(1);
+    }
+    to {
+        transform: translateX(25%) scale(0.85);
+    }
+}
+
+
+/* Animación para el brillo pulsante */
+@keyframes brilloActivo {
+  0% {
+    box-shadow: 
+      0 0 10px rgba(202, 167, 90, 0.5),
+      0 0 20px rgba(202, 167, 90, 0.3),
+      0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 0 20px rgba(202, 167, 90, 0.8),
+      0 0 40px rgba(202, 167, 90, 0.5),
+      0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* CONTACTO */
 .contacto {
   padding: 40px 20px;
@@ -1866,51 +2265,52 @@ body.modo-oscuro .popup-texto p {
 
 /* === MODO OSCURO - ESCUELAS PROFESIONALES === */
 /* Sección principal */
-body.modo-oscuro .destacados {
+/* body.modo-oscuro .destacados {
   background-color: #111;
   color: white;
-}
+} */
 
 /* Títulos de la sección */
-body.modo-oscuro .destacados h2,
+/* body.modo-oscuro .destacados h2,
 body.modo-oscuro .destacados p {
   color: white;
-}
+} */
 
 /* Tarjetas individuales */
-body.modo-oscuro .escuela-card {
+/* body.modo-oscuro .escuela-card {
   background-color: #222;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   border-left-color: var(--dorado);
 }
 
 body.modo-oscuro .escuela-card:hover {
-  transform: translateY(-10px) !important; /* Manteniendo la corrección para AOS */
+  transform: translateY(-10px) !important;  Manteniendo la corrección para AOS 
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
-}
+} */
 
 /* Títulos dentro de las tarjetas */
-body.modo-oscuro .escuela-card h3 {
+/* body.modo-oscuro .escuela-card h3 {
   color: white;
-}
+} */
 
 /* Texto descriptivo (si lo añades en el futuro) */
-body.modo-oscuro .escuela-card p {
+/* body.modo-oscuro .escuela-card p {
   color: #ccc;
-}
+} */
 
 /* Botones */
 /* Botón "Brochure" */
-body.modo-oscuro .buttons-escuelas .brochure {
+/* body.modo-oscuro .buttons-escuelas .brochure {
   color: var(--dorado);
   background-color: transparent;
 }
 
 body.modo-oscuro .buttons-escuelas .brochure:hover {
-  color: #e0be51; /* Dorado más claro para el hover */
+  color: #e0be51; /* Dorado más claro para el hover 
 }
 
-/* Botón "Ver más" */
+
+/* Botón "Ver más" 
 body.modo-oscuro .buttons-escuelas .ver-mas-btn {
   background-color: #333;
   color: var(--dorado);
@@ -1919,6 +2319,27 @@ body.modo-oscuro .buttons-escuelas .ver-mas-btn {
 body.modo-oscuro .buttons-escuelas .ver-mas-btn:hover {
   background-color: var(--guinda);
   color: white;
+} */
+
+
+
+/* MODO OSCURO - Glassmorphism para .card-box */
+body.modo-oscuro .card-box {
+    background-color: rgba(255, 255, 255, 0.05); /* Negro muy transparente */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Blanco muy transparente para el borde */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra más oscura y pronunciada */
+    backdrop-filter: blur(12px); /* Aumentar ligeramente el desenfoque */
+    -webkit-backdrop-filter: blur(12px);    
+}
+
+
+body.modo-oscuro .pregrado-section, .section-description{
+  color: var(--blanco) !important;
+} 
+
+
+body.modo-oscuro .carousel-button{
+  background-color: #fff;
 }
 
 

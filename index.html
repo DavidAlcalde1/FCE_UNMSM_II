@@ -1,138 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facultad de Ciencias Económicas - UNMSM</title>
-  <link rel="stylesheet" href="css/styles.css" /> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /> 
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="icon" href="./img/index/graduacion.png" type="image/x-icon" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-  <body>
-    <!-- POP-UP DE TRANSPARENCIA -->
-    <div id="transparencia-popup" class="popup-overlay">
-      <div class="popup-contenido">
-        <button id="cerrar-popup" class="popup-cerrar">&times;</button>
-        <div class="popup-cuerpo">
-          <div class="popup-imagen">
-            <img src="./img/index/popUp/facu_epe.png" alt="Portal de Transparencia UNMSM">
-          </div>
-          <div class="popup-texto">
-            <h2>Portal de Transparencia</h2>
-            <p>Accede a información institucional, presupuestos, rendición de cuentas y más.</p>
-            <a href="https://transparencia.unmsm.edu.pe/" target="_blank" class="popup-boton">Ingresar al Portal</a>
-          </div>
+
+<body>
+  <!-- POP-UP DE TRANSPARENCIA -->
+  <div id="transparencia-popup" class="popup-overlay">
+    <div class="popup-contenido">
+      <button id="cerrar-popup" class="popup-cerrar">&times;</button>
+      <div class="popup-cuerpo">
+        <div class="popup-imagen">
+          <img src="./img/index/popUp/facu_epe.png" alt="Portal de Transparencia UNMSM">
+        </div>
+        <div class="popup-texto">
+          <h2>Portal de Transparencia</h2>
+          <p>Accede a información institucional, presupuestos, rendición de cuentas y más.</p>
+          <a href="https://transparencia.unmsm.edu.pe/" target="_blank" class="popup-boton">Ingresar al Portal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Pregrado</a></li>
+          <li><a href="#">Posgrado</a></li>
+          <li><a href="#">Trámites</a></li>
+          <li><a href="#">Comunidad</a></li>
+          <li><a href="#">Noticias</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="./ocaa.html">OCAA</a></li>
+        </ul>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+      </nav>
+    </div>
+
+
+
+  </header>
+
+  <!-- CARRUSEL -->
+  <section class="carousel">
+    <div class="slides">
+      <div class="slide active">
+        <img src="./img/index/noticia_principal/banner_01.png" alt="Banner 1">
+        <div class="slide-content">
+          <h2>MATRÍCULA EXTEMPORÁNEA</h2>
+          <p>Jueves 15 de Diciembre</p>
+          <a href="#" class="slide-btn">Ver más</a>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="./img/index/noticia_principal/banner_02.png" alt="Banner 2">
+        <div class="slide-content">
+          <h2>CONFERENCIA MAGISTRAL: "LA ECONOMÍA EN EL AÑO 2025"</h2>
+          <p>Martes 13 de Diciembre</p>
+          <a href="#" class="slide-btn">Ver más</a>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="./img/index/noticia_principal/banner_03.jpg" alt="Banner 3">
+        <div class="slide-content">
+          <h2>APERTURA DE NUEVOS CURSOS DE MAESTRÍA Y DOCTORADO</h2>
+          <p>Dirigido a Bachilleres en Economía</p>
+          <a href="#" class="slide-btn">Ver más</a>
         </div>
       </div>
     </div>
 
-    <!-- HEADER -->
-    <header class="header">
-      <div class="container">
-        <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
-        <nav class="nav" id="nav">
-          <ul class="nav__list">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Pregrado</a></li>
-            <li><a href="#">Posgrado</a></li>
-            <li><a href="#">Trámites</a></li>
-            <li><a href="#">Comunidad</a></li>
-            <li><a href="#">Noticias</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="./ocaa.html">OCAA</a></li>
-          </ul>
-          <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-        </nav>
-      </div>
-      
-        
-      
-    </header>
+    <!-- Botones flecha -->
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
 
-    <!-- CARRUSEL -->
-    <section class="carousel">
-      <div class="slides">
-        <div class="slide active">
-          <img src="./img/index/noticia_principal/banner_01.png" alt="Banner 1">
-          <div class="slide-content">
-            <h2>MATRÍCULA EXTEMPORÁNEA</h2>
-            <p>Jueves 15 de Diciembre</p>
-            <a href="#" class="slide-btn">Ver más</a>
-          </div>
-        </div>
+    <!-- Indicadores -->
+    <div class="indicators">
+      <span class="dot active" data-slide="0"></span>
+      <span class="dot" data-slide="1"></span>
+      <span class="dot" data-slide="2"></span>
+    </div>
+  </section>
 
-        <div class="slide">
-          <img src="./img/index/noticia_principal/banner_02.png" alt="Banner 2">
-          <div class="slide-content">
-            <h2>CONFERENCIA MAGISTRAL: "LA ECONOMÍA EN EL AÑO 2025"</h2>
-            <p>Martes 13 de Diciembre</p>
-            <a href="#" class="slide-btn">Ver más</a>
-          </div>
-        </div>
-
-        <div class="slide">
-          <img src="./img/index/noticia_principal/banner_03.jpg" alt="Banner 3">
-          <div class="slide-content">
-            <h2>APERTURA DE NUEVOS CURSOS DE MAESTRÍA Y DOCTORADO</h2>
-            <p>Dirigido a Bachilleres en Economía</p>
-            <a href="#" class="slide-btn">Ver más</a>
-          </div>
-        </div>
-      </div>
-
-        <!-- Botones flecha -->
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
-
-      <!-- Indicadores -->
-      <div class="indicators">
-        <span class="dot active" data-slide="0"></span>
-        <span class="dot" data-slide="1"></span>
-        <span class="dot" data-slide="2"></span>
-      </div>
-    </section>
-
-        <!-- SECCIONES DESTACADAS -->
-      <section class="estadisticas">
-        <div class="estadistica" data-aos="fade-up" data-aos-delay="300">
-          <i class="fa-solid fa-user-graduate icono"></i>
-          <div class="contador" data-target="1717">0</div>
-          <p>Estudiantes de Pregrado</p>
-        </div>
-        <div class="estadistica" data-aos="fade-up" data-aos-delay="400">
-          <i class="fa-solid fa-graduation-cap icono"></i>
-          <div class="contador" data-target="434">0</div>
-          <p>Estudiantes de Posgrado</p>
-        </div>
-        <div class="estadistica" data-aos="fade-up" data-aos-delay="500">
-          <i class="fa-solid fa-microscope icono"></i>
-          <div class="contador" data-target="89">0</div>
-          <p>Docentes investigadores</p>
-        </div>
-        <div class="estadistica" data-aos="fade-up" data-aos-delay="600">
-          <i class="fa-solid fa-book icono"></i>
-          <div class="contador" data-target="33">0</div>
-          <p>Artículos publicados</p>
-        </div>
-        <!-- <p class="nota">Datos estadísticos de la Facultad de Ciencias Económicas (2025)</p> -->
-      </section>
-    </section>
+  <!-- SECCIONES DESTACADAS -->
+  <section class="estadisticas">
+    <div class="estadistica" data-aos="fade-up" data-aos-delay="300">
+      <i class="fa-solid fa-user-graduate icono"></i>
+      <div class="contador" data-target="1717">0</div>
+      <p>Estudiantes de Pregrado</p>
+    </div>
+    <div class="estadistica" data-aos="fade-up" data-aos-delay="400">
+      <i class="fa-solid fa-graduation-cap icono"></i>
+      <div class="contador" data-target="434">0</div>
+      <p>Estudiantes de Posgrado</p>
+    </div>
+    <div class="estadistica" data-aos="fade-up" data-aos-delay="500">
+      <i class="fa-solid fa-microscope icono"></i>
+      <div class="contador" data-target="89">0</div>
+      <p>Docentes investigadores</p>
+    </div>
+    <div class="estadistica" data-aos="fade-up" data-aos-delay="600">
+      <i class="fa-solid fa-book icono"></i>
+      <div class="contador" data-target="33">0</div>
+      <p>Artículos publicados</p>
+    </div>
+    <!-- <p class="nota">Datos estadísticos de la Facultad de Ciencias Económicas (2025)</p> -->
+  </section>
 
 
 
-    <!-- SECCIÓN DESTACADOS / ESCUELAS -->
-<section class="destacados">
+
+  <!-- SECCIÓN DESTACADOS / ESCUELAS -->
+  <!-- <section class="destacados">
     <h2>Escuelas Profesionales</h2>
     <p>Conoce nuestras escuelas profesionales y sus programas académicos.</p>
 
-    <section class="cards-container">    
+    <section class="cards-container">
       <div class="escuela-card" data-aos="fade-up" data-aos-delay="100">
         <h3>EP de Economía</h3>
         <div class="buttons-escuelas">
-          <a class="brochure" href="./escuelas/docs/brochure EPE 22-.pdf"><i class="fa-solid fa-file-lines"></i> Brochure</a>
+          <a class="brochure" href="./escuelas/docs/brochure EPE 22-.pdf"><i class="fa-solid fa-file-lines"></i>
+            Brochure</a>
           <a class="ver-mas-btn" href="./escuelas/epe.html">Ver más</a>
         </div>
       </div>
@@ -140,7 +143,8 @@
       <div class="escuela-card" data-aos="fade-up" data-aos-delay="200">
         <h3>EP de Economía Internacional</h3>
         <div class="buttons-escuelas">
-          <a class="brochure" href="./escuelas/docs/brochure EPEI 22.pdf"><i class="fa-solid fa-file-lines"></i> Brochure</a>
+          <a class="brochure" href="./escuelas/docs/brochure EPEI 22.pdf"><i class="fa-solid fa-file-lines"></i>
+            Brochure</a>
           <a class="ver-mas-btn" href="./escuelas/epei.html">Ver más</a>
         </div>
       </div>
@@ -148,375 +152,450 @@
       <div class="escuela-card" data-aos="fade-up" data-aos-delay="200">
         <h3>EP de Economía Pública</h3>
         <div class="buttons-escuelas">
-          <a class="brochure" href="./escuelas/docs/brochure EPEP 2022.pdf"><i class="fa-solid fa-file-lines"></i> Brochure</a>
+          <a class="brochure" href="./escuelas/docs/brochure EPEP 2022.pdf"><i class="fa-solid fa-file-lines"></i>
+            Brochure</a>
           <a class="ver-mas-btn" href="./escuelas/epep.html">Ver más</a>
         </div>
       </div>
     </section>
-</section>
+  </section> -->
 
 
-    <!-- NOTICIAS -->
-    <section class="noticias-section">
-      <section class="noticias-carousel" id="noticias-carousel">
-        <!-- Noticias generadas desde JS -->
-        <button class="prev2">&#10094;</button>
-        <button class="next2">&#10095;</button>
-        <div class="dots2" id="dots2"></div>
-      </section>
+  <!-- Sección Principal: Carrusel de Tarjetas Superpuestas -->
+  <section class="pregrado-section">
+    <div class="container-pregrado">
+      <h2 class="section-title">Escuelas Profesionales</h2>
+      <p class="section-description">Conoce nuestras escuelas profesionales y sus programas académicos.</p>
 
-
-      <!-- ÚLTIMAS NOTICIAS (ESTÁTICAS) -->
-      <section class="ultimas-noticias" id="ultimas-noticias">      
-        <div class="ultimas-container" id="ultimas-container">
-          <!-- Aquí se insertan las 3 últimas noticias desde el JSON -->
-        </div>
-        <div class="ver-todas">
-          <a href="noticias.html" class="btn-vermas">Ver todas las noticias</a>
-        </div>
-      </section>
-    </section>
-
-
-
-      <!-- SECCIÓN COMUNICADOS -->
-      <section class="comunicados-section">
-        <div class="overlay">
-          <h2>Comunicados</h2>
-          <p>Infórmate de los últimos avisos y anuncios importantes de nuestra facultad.</p>
-
-          <div id="lista-comunicados"></div>
-
-          <a href="comunicados.html" class="btn-comunicados">Ver todos los comunicados</a>
-        </div>
-      </section>
-
-
-    <!-- SECCIÓN POSGRADO -->
-    <section class="posgrado-section">
-      <h2>Programas de Posgrado</h2>
-      <p>Ofrecemos programas de maestría y doctorado con enfoque en investigación y desarrollo profesional.</p>
-      <a href="./pages/upg/posgrado.html" class="btn-posgrado">Ver más</a>    
-  
-      <!-- Carrusel de Maestrías -->
-      <section class="posgrado-carousel">
-        <div class="posgrado-header">
-          <h2>Maestrías</h2>
-          <a href="./pages/upg/maestrias.html" class="ver-mas-link">Ver más</a>
-        </div>
-        <div class="posgrado-wrapper">
-          <button class="prev-posgrado-maestrias">❮</button>
-          <div class="posgrado-items" id="maestrias-carousel"></div>
-          <button class="next-posgrado-maestrias">❯</button>
-        </div>
-      </section>
-
-      <!-- Carrusel de Doctorados -->
-      <section class="posgrado-carousel">
-        <div class="posgrado-header">
-          <h2>Doctorados</h2>
-          <a href="./pages/upg/doctorados.html" class="ver-mas-link">Ver más</a>
-        </div>
-        <div class="posgrado-wrapper">
-          <button class="prev-posgrado-doctorados">❮</button>
-          <div class="posgrado-items" id="doctorados-carousel"></div>
-          <button class="next-posgrado-doctorados">❯</button>
-        </div>
-      </section>
-    </section>
-
-
-    <!-- SECCIÓN INVESTIGACIÓN -->
-    
-    <section class="investigacion-section">
-      <div class="investigacio-container">
-        <div class="investigacion-header">
-          <h2>Investigación</h2>
-          <p>Nuestra facultad promueve la investigación científica y el desarrollo de conocimiento económico.</p>
-        </div>
-        
-        <div class="investigacion-grid">
-          <div class="investigacion-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="investigacion-icono">
-              <i class="fas fa-lightbulb"></i>
-            </div>
-            <h3>Proyectos de Investigación</h3>
-            <p>Descubre los proyectos actuales y concluidos desarrollados por nuestros docentes investigadores.</p>
-            <a href="#" class="btn-investigacion">Ver Proyectos</a>
-          </div>
-
-          <div class="investigacion-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="investigacion-icono">
-              <i class="fas fa-users"></i>
-            </div>
-            <h3>Grupos de Investigación</h3>
-            <p>Conoce nuestros grupos de investigación especializados en diversas áreas de la economía.</p>
-            <a href="#" class="btn-investigacion">Ver Grupos</a>
-          </div>
-
-          <div class="investigacion-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="investigacion-icono">
-              <i class="fas fa-book"></i>
-            </div>
-            <h3>Publicaciones</h3>
-            <p>Accede a nuestra producción científica: artículos, libros y ponencias.</p>
-            <a href="#" class="btn-investigacion">Ver Publicaciones</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- SECCIÓN CONVOCATORIAS -->
-    <section class="convocatorias-section">
-      <div class="convocatorias-container">
-        <div class="convocatorias-header">
-          <h2>Convocatorias</h2>
-          <p>Participa en las oportunidades que ofrece nuestra facultad para tu desarrollo académico y profesional.</p>
-        </div>
-        
-        <div class="convocatorias-grid">
-          <div class="convocatoria-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="convocatoria-icono">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <h3>Becas y Ayudas Económicas</h3>
-            <p>Accede a financiamiento para tus estudios de pregrado y posgrado.</p>
-            <a href="#" class="btn-convocatoria">Ver Convocatorias</a>
-          </div>
-
-          <div class="convocatoria-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="convocatoria-icono">
-              <i class="fas fa-chalkboard-teacher"></i>
-            </div>
-            <h3>Concursos Académicos</h3>
-            <p>Participa en concursos docentes y administrativos para formar parte de nuestro equipo.</p>
-            <a href="#" class="btn-convocatoria">Ver Concursos</a>
-          </div>
-
-          <div class="convocatoria-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="convocatoria-icono">
-              <i class="fas fa-briefcase"></i>
-            </div>
-            <h3>Prácticas Pre Profesionales</h3>
-            <p>Encuentra oportunidades de prácticas en empresas e instituciones aliadas.</p>
-            <a href="#" class="btn-convocatoria">Ver Oportunidades</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-
-    <!-- SECCIÓN DE EVENTOS -->
-    <section class="eventos-section">
-      <div class="eventos-container">
-        <div class="eventos-title">
-          <h2>Eventos</h2>
-          <a href="eventos.html" class="vermas">Ver más</a>
+      <!-- Contenedor principal del carrusel -->
+      <div class="carousel-container">
+        <!-- Botón izquierdo -->
+        <div class="carousel-button carousel-button--left" onclick="shiftLeft()">
+          <img src="https://image.ibb.co/mRsEb7/left_arrow.png" alt="Anterior">
         </div>
 
-        <div class="eventos">
-          <!-- Lista de Eventos Recientes (se llenará con JS) -->
-          <div class="eventos-lista" id="eventos-lista-js">
-            <!-- Contenido generado por JavaScript -->
-          </div>
+        <!-- Wrapper de las tarjetas -->
+        <div class="cards-wrapper">
+          <!-- Contenedor de las tarjetas -->
+          <ul class="cards__container" id="cards-container">
+            <!-- Tarjeta 1: EP de Economía -->
+            <li class="card-box" data-index="0">
+              <div class="card-box__image">
+                <img src="./img/pregrado/epe.png" alt="EP de Economía">
+              </div>
+              <div class="card-box__content">
+                <h3 class="card-box__title">EP de Economía</h3>
+                <p class="card-box__summary">Formación integral en análisis económico y gestión empresarial.</p>
+                <a href="./escuelas/ep_economia.html" class="card-box__btn">Ver más</a>
+              </div>
+            </li>
 
-          <!-- Tarjeta Principal de Evento Destacado (se llenará con JS) -->
-          <div class="evento-destacado" id="evento-destacado-js">
-            <!-- Contenido generado por JavaScript -->
-          </div>
-        </div>
-      </div>
-    </section>
+            <!-- Tarjeta 2: EP de Economía Pública -->
+            <li class="card-box" data-index="1">
+              <div class="card-box__image">
+                <img src="./img/pregrado/epep.png" alt="EP de Economía Pública">
+              </div>
+              <div class="card-box__content">
+                <h3 class="card-box__title">EP de Economía Pública</h3>
+                <p class="card-box__summary">Especialización en políticas públicas y finanzas gubernamentales.</p>
+                <a href="./escuelas/ep_economia_publica.html" class="card-box__btn">Ver más</a>
+              </div>
+            </li>
 
+            <!-- Tarjeta 3: EP de Economía Internacional -->
+            <li class="card-box" data-index="2">
+              <div class="card-box__image">
+                <img src="./img/pregrado/epei.png" alt="EP de Economía Internacional">
+              </div>
+              <div class="card-box__content">
+                <h3 class="card-box__title">EP de Economía Internacional</h3>
+                <p class="card-box__summary">Enfoque en comercio internacional, finanzas globales y desarrollo
+                  económico.</p>
+                <a href="./escuelas/ep_economia_internacional.html" class="card-box__btn">Ver más</a>
+              </div>
+            </li>
 
-
-    <!-- SECCIÓN EGRESADOS DESTACADOS -->
-    <section class="egresados-section">
-      <div class="egresados-container">
-        <div class="egresados-header">
-          <h2>Egresados Destacados</h2>
-          <a href="egresados.html" class="vermas">Ver todos</a>
-        </div>
-
-        <div class="egresados-carrusel-wrapper">
-          <button class="egresados-prev" aria-label="Anterior testimonio">&#10094;</button>
-          
-          <div class="egresados-carrusel">
-            <div class="egresados-carrusel-track" id="egresados-track">
-              <!-- Los testimonios se cargarán aquí dinámicamente -->
-            </div>
-          </div>
-
-          <button class="egresados-next" aria-label="Siguiente testimonio">&#10095;</button>
-        </div>
-
-        <div class="egresados-indicadores" id="egresados-indicadores">
-          <!-- Los indicadores se generarán aquí dinámicamente -->
-        </div>
-      </div>
-    </section>
-
-
-
-
-
-        <!-- SECCIÓN ENLACES DE INTERÉS -->
-    <section class="enlaces-section">
-      <div class="enlaces-container">
-        <h2>Enlaces de Interés</h2>
-        <p>Accede a recursos y servicios importantes de nuestra facultad y la universidad.</p>
-        
-        <div class="enlaces-grid">
-          <a href="https://sisbib.unmsm.edu.pe/" target="_blank" class="enlace-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="enlace-icono">
-              <i class="fas fa-book"></i>
-            </div>
-            <h3>Biblioteca Virtual</h3>
-            <p>Accede al catálogo, bases de datos y recursos digitales de la Biblioteca Central Pedro Zulen.</p>
-          </a>
-
-          <a href="https://ogbu.unmsm.edu.pe/" target="_blank" class="enlace-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="enlace-icono">
-              <i class="fas fa-heart"></i>
-            </div>
-            <h3>Bienestar Universitario</h3>
-            <p>Información sobre salud, deportes, cultura y apoyo estudiantil de la OGBU.</p>
-          </a>
-
-          <a href="#" class="enlace-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="enlace-icono">
-              <i class="fas fa-newspaper"></i>
-            </div>
-            <h3>Publicaciones</h3>
-            <p>Revistas académicas y libros publicados por especialistas de nuestra Facultad.</p>
-          </a>
-
-          <a href="https://cooperacion-unmsm.blogspot.com/" target="_blank" class="enlace-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="enlace-icono">
-              <i class="fas fa-handshake"></i>
-            </div>
-            <h3>Becas y Convenios</h3>
-            <p>Programas de becas, intercambios y cooperación institucional de la OGCRI.</p>
-          </a>
-          
-          <a href="https://sum.unmsm.edu.pe/docenteWebSum/login" target="_blank" class="enlace-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="enlace-icono">
-              <i class="fas fa-chalkboard-teacher"></i>
-            </div>
-            <h3>SUM - DOCENTES</h3>
-            <p>Sistema único de Matrículas para Docentes.</p>
-          </a>
-
-          <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login" target="_blank" class="enlace-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="enlace-icono">
-              <i class="fas fa-user-graduate"></i>
-            </div>
-            <h3>SUM - ESTUDIANTES</h3>
-            <p>Sistema único de Matrículas para Estudiantes.</p>
-          </a>
-        </div>
-      </div>
-    </section>
-
-
-
-
-
-
-
-
-
-
-    <!-- FORMULARIO DE CONTACTO -->
-    <section class="contacto">
-      <h2>Contáctanos</h2>
-      <form>
-        <input type="text" placeholder="Nombre completo" required>
-        <input type="email" placeholder="Correo electrónico" required>
-        <textarea placeholder="Escribe tu mensaje aquí" required></textarea>
-        <button type="submit">Enviar mensaje</button>
-      </form>
-    </section>
-
-
-    
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-container">
-        <!-- Columnas del footer -->
-        <div class="footer-columna">
-          <h3>Facultad</h3>
-          <ul>
-            <li><a href="#">Misión y Visión</a></li>
-            <li><a href="#">Autoridades</a></li>
-            <li><a href="#">Historia</a></li>
-            <li><a href="#">Ubicación</a></li>
           </ul>
-        </div>
-        
-        <div class="footer-columna">
-          <h3>Académico</h3>
-          <ul>
-            <li><a href="#">Pregrado</a></li>
-            <li><a href="#">Posgrado</a></li>
-            <li><a href="#">Escuelas Profesionales</a></li>
-            <li><a href="#">Centro de Idiomas</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-columna">
-          <h3>Servicios</h3>
-          <ul>
-            <li><a href="./ocaa.html">OCAA</a></li>
-            <li><a href="#">Biblioteca</a></li>
-            <li><a href="#">Laboratorios</a></li>
-            <li><a href="#">Trámites</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-columna">
-          <h3>Conéctate</h3>
-          <div class="redes-sociales-footer">
-            <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
-            <a href="https://instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
-            <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube"></i></a>
-          </div>
-          <p><i class="bi bi-envelope"></i> contacto@fce.unmsm.edu.pe</p>
-          <p><i class="bi bi-geo-alt"></i> Av. Germán Amézaga N° 375</p>
-        </div>
-      </div>
-      
-      <!-- Copyright -->
-      <div class="footer-copyright">
-        <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-        <p>Developed by Bach. José David Alcalde Cabrera</p>
-      </div>
-    </footer>
 
-    <!-- REDES SOCIALES -->
-    <div class="social-float">
-      <a href="https://facebook.com" target="_blank" class="social-btn facebook" title="Facebook">
-        <i class="bi bi-facebook"></i>
-      </a>
-      <a href="https://instagram.com" target="_blank" class="social-btn instagram" title="Instagram">
-        <i class="bi bi-instagram"></i>
-      </a>
-      <a href="https://youtube.com" target="_blank" class="social-btn youtube" title="YouTube">
-        <i class="bi bi-youtube"></i>
-      </a>
+        </div>
+
+        <!-- Botón derecho -->
+        <div class="carousel-button carousel-button--right" onclick="shiftRight()">
+          <img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt="Siguiente">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- NOTICIAS -->
+  <section class="noticias-section">
+    <section class="noticias-carousel" id="noticias-carousel">
+      <!-- Noticias generadas desde JS -->
+      <button class="prev2">&#10094;</button>
+      <button class="next2">&#10095;</button>
+      <div class="dots2" id="dots2"></div>
+    </section>
+
+
+    <!-- ÚLTIMAS NOTICIAS (ESTÁTICAS) -->
+    <section class="ultimas-noticias" id="ultimas-noticias">
+      <div class="ultimas-container" id="ultimas-container">
+        <!-- Aquí se insertan las 3 últimas noticias desde el JSON -->
+      </div>
+      <div class="ver-todas">
+        <a href="noticias.html" class="btn-vermas">Ver todas las noticias</a>
+      </div>
+    </section>
+  </section>
+
+
+
+  <!-- SECCIÓN COMUNICADOS -->
+  <section class="comunicados-section">
+    <div class="overlay">
+      <h2>Comunicados</h2>
+      <p>Infórmate de los últimos avisos y anuncios importantes de nuestra facultad.</p>
+
+      <div id="lista-comunicados"></div>
+
+      <a href="comunicados.html" class="btn-comunicados">Ver todos los comunicados</a>
+    </div>
+  </section>
+
+
+  <!-- SECCIÓN POSGRADO -->
+  <section class="posgrado-section">
+    <h2>Programas de Posgrado</h2>
+    <p>Ofrecemos programas de maestría y doctorado con enfoque en investigación y desarrollo profesional.</p>
+    <a href="./pages/upg/posgrado.html" class="btn-posgrado">Ver más</a>
+
+    <!-- Carrusel de Maestrías -->
+    <section class="posgrado-carousel">
+      <div class="posgrado-header">
+        <h2>Maestrías</h2>
+        <a href="./pages/upg/maestrias.html" class="ver-mas-link">Ver más</a>
+      </div>
+      <div class="posgrado-wrapper">
+        <button class="prev-posgrado-maestrias">❮</button>
+        <div class="posgrado-items" id="maestrias-carousel"></div>
+        <button class="next-posgrado-maestrias">❯</button>
+      </div>
+    </section>
+
+    <!-- Carrusel de Doctorados -->
+    <section class="posgrado-carousel">
+      <div class="posgrado-header">
+        <h2>Doctorados</h2>
+        <a href="./pages/upg/doctorados.html" class="ver-mas-link">Ver más</a>
+      </div>
+      <div class="posgrado-wrapper">
+        <button class="prev-posgrado-doctorados">❮</button>
+        <div class="posgrado-items" id="doctorados-carousel"></div>
+        <button class="next-posgrado-doctorados">❯</button>
+      </div>
+    </section>
+  </section>
+
+
+  <!-- SECCIÓN INVESTIGACIÓN -->
+
+  <section class="investigacion-section">
+    <div class="investigacio-container">
+      <div class="investigacion-header">
+        <h2>Investigación</h2>
+        <p>Nuestra facultad promueve la investigación científica y el desarrollo de conocimiento económico.</p>
+      </div>
+
+      <div class="investigacion-grid">
+        <div class="investigacion-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="investigacion-icono">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Proyectos de Investigación</h3>
+          <p>Descubre los proyectos actuales y concluidos desarrollados por nuestros docentes investigadores.</p>
+          <a href="#" class="btn-investigacion">Ver Proyectos</a>
+        </div>
+
+        <div class="investigacion-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="investigacion-icono">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Grupos de Investigación</h3>
+          <p>Conoce nuestros grupos de investigación especializados en diversas áreas de la economía.</p>
+          <a href="#" class="btn-investigacion">Ver Grupos</a>
+        </div>
+
+        <div class="investigacion-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="investigacion-icono">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3>Publicaciones</h3>
+          <p>Accede a nuestra producción científica: artículos, libros y ponencias.</p>
+          <a href="#" class="btn-investigacion">Ver Publicaciones</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECCIÓN CONVOCATORIAS -->
+  <section class="convocatorias-section">
+    <div class="convocatorias-container">
+      <div class="convocatorias-header">
+        <h2>Convocatorias</h2>
+        <p>Participa en las oportunidades que ofrece nuestra facultad para tu desarrollo académico y profesional.</p>
+      </div>
+
+      <div class="convocatorias-grid">
+        <div class="convocatoria-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="convocatoria-icono">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Becas y Ayudas Económicas</h3>
+          <p>Accede a financiamiento para tus estudios de pregrado y posgrado.</p>
+          <a href="#" class="btn-convocatoria">Ver Convocatorias</a>
+        </div>
+
+        <div class="convocatoria-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="convocatoria-icono">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3>Concursos Académicos</h3>
+          <p>Participa en concursos docentes y administrativos para formar parte de nuestro equipo.</p>
+          <a href="#" class="btn-convocatoria">Ver Concursos</a>
+        </div>
+
+        <div class="convocatoria-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="convocatoria-icono">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Prácticas Pre Profesionales</h3>
+          <p>Encuentra oportunidades de prácticas en empresas e instituciones aliadas.</p>
+          <a href="#" class="btn-convocatoria">Ver Oportunidades</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SECCIÓN DE EVENTOS -->
+  <section class="eventos-section">
+    <div class="eventos-container">
+      <div class="eventos-title">
+        <h2>Eventos</h2>
+        <a href="eventos.html" class="vermas">Ver más</a>
+      </div>
+
+      <div class="eventos">
+        <!-- Lista de Eventos Recientes (se llenará con JS) -->
+        <div class="eventos-lista" id="eventos-lista-js">
+          <!-- Contenido generado por JavaScript -->
+        </div>
+
+        <!-- Tarjeta Principal de Evento Destacado (se llenará con JS) -->
+        <div class="evento-destacado" id="evento-destacado-js">
+          <!-- Contenido generado por JavaScript -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SECCIÓN EGRESADOS DESTACADOS -->
+  <section class="egresados-section">
+    <div class="egresados-container">
+      <div class="egresados-header">
+        <h2>Egresados Destacados</h2>
+        <a href="egresados.html" class="vermas">Ver todos</a>
+      </div>
+
+      <div class="egresados-carrusel-wrapper">
+        <button class="egresados-prev" aria-label="Anterior testimonio">&#10094;</button>
+
+        <div class="egresados-carrusel">
+          <div class="egresados-carrusel-track" id="egresados-track">
+            <!-- Los testimonios se cargarán aquí dinámicamente -->
+          </div>
+        </div>
+
+        <button class="egresados-next" aria-label="Siguiente testimonio">&#10095;</button>
+      </div>
+
+      <div class="egresados-indicadores" id="egresados-indicadores">
+        <!-- Los indicadores se generarán aquí dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- SECCIÓN ENLACES DE INTERÉS -->
+  <section class="enlaces-section">
+    <div class="enlaces-container">
+      <h2>Enlaces de Interés</h2>
+      <p>Accede a recursos y servicios importantes de nuestra facultad y la universidad.</p>
+
+      <div class="enlaces-grid">
+        <a href="https://sisbib.unmsm.edu.pe/" target="_blank" class="enlace-card" data-aos="fade-up"
+          data-aos-delay="100">
+          <div class="enlace-icono">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3>Biblioteca Virtual</h3>
+          <p>Accede al catálogo, bases de datos y recursos digitales de la Biblioteca Central Pedro Zulen.</p>
+        </a>
+
+        <a href="https://ogbu.unmsm.edu.pe/" target="_blank" class="enlace-card" data-aos="fade-up"
+          data-aos-delay="200">
+          <div class="enlace-icono">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Bienestar Universitario</h3>
+          <p>Información sobre salud, deportes, cultura y apoyo estudiantil de la OGBU.</p>
+        </a>
+
+        <a href="#" class="enlace-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="enlace-icono">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <h3>Publicaciones</h3>
+          <p>Revistas académicas y libros publicados por especialistas de nuestra Facultad.</p>
+        </a>
+
+        <a href="https://cooperacion-unmsm.blogspot.com/" target="_blank" class="enlace-card" data-aos="fade-up"
+          data-aos-delay="400">
+          <div class="enlace-icono">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Becas y Convenios</h3>
+          <p>Programas de becas, intercambios y cooperación institucional de la OGCRI.</p>
+        </a>
+
+        <a href="https://sum.unmsm.edu.pe/docenteWebSum/login" target="_blank" class="enlace-card" data-aos="fade-up"
+          data-aos-delay="400">
+          <div class="enlace-icono">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3>SUM - DOCENTES</h3>
+          <p>Sistema único de Matrículas para Docentes.</p>
+        </a>
+
+        <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login" target="_blank" class="enlace-card" data-aos="fade-up"
+          data-aos-delay="400">
+          <div class="enlace-icono">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <h3>SUM - ESTUDIANTES</h3>
+          <p>Sistema único de Matrículas para Estudiantes.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+  <!-- FORMULARIO DE CONTACTO -->
+  <section class="contacto">
+    <h2>Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Nombre completo" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea placeholder="Escribe tu mensaje aquí" required></textarea>
+      <button type="submit">Enviar mensaje</button>
+    </form>
+  </section>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Columnas del footer -->
+      <div class="footer-columna">
+        <h3>Facultad</h3>
+        <ul>
+          <li><a href="#">Misión y Visión</a></li>
+          <li><a href="#">Autoridades</a></li>
+          <li><a href="#">Historia</a></li>
+          <li><a href="#">Ubicación</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-columna">
+        <h3>Académico</h3>
+        <ul>
+          <li><a href="#">Pregrado</a></li>
+          <li><a href="#">Posgrado</a></li>
+          <li><a href="#">Escuelas Profesionales</a></li>
+          <li><a href="#">Centro de Idiomas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-columna">
+        <h3>Servicios</h3>
+        <ul>
+          <li><a href="./ocaa.html">OCAA</a></li>
+          <li><a href="#">Biblioteca</a></li>
+          <li><a href="#">Laboratorios</a></li>
+          <li><a href="#">Trámites</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-columna">
+        <h3>Conéctate</h3>
+        <div class="redes-sociales-footer">
+          <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube"></i></a>
+        </div>
+        <p><i class="bi bi-envelope"></i> contacto@fce.unmsm.edu.pe</p>
+        <p><i class="bi bi-geo-alt"></i> Av. Germán Amézaga N° 375</p>
+      </div>
     </div>
 
-    <!-- BOTÓN MODO OSCURO -->
-    <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
+    <!-- Copyright -->
+    <div class="footer-copyright">
+      <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+      <p>Developed by Bach. José David Alcalde Cabrera</p>
+    </div>
+  </footer>
 
-      <script defer src="./js/script.js"></script>
-      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
+  <!-- REDES SOCIALES -->
+  <div class="social-float">
+    <a href="https://facebook.com" target="_blank" class="social-btn facebook" title="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="https://instagram.com" target="_blank" class="social-btn instagram" title="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="https://youtube.com" target="_blank" class="social-btn youtube" title="YouTube">
+      <i class="bi bi-youtube"></i>
+    </a>
+  </div>
+
+  <!-- BOTÓN MODO OSCURO -->
+  <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
+
+  <script defer src="./js/script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
 
-  </body>
+</body>
+
 </html>
