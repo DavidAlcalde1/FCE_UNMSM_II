@@ -38,12 +38,21 @@
       <nav class="nav" id="nav">
         <ul class="nav__list">
           <li><a href="#">Inicio</a></li>
-          <li><a href="#">Pregrado</a></li>
-          <li><a href="#">Posgrado</a></li>
-          <li><a href="#">Trámites</a></li>
-          <li><a href="#">Comunidad</a></li>
-          <li><a href="#">Noticias</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li><a href="#pregrado">Pregrado</a></li>
+          <li><a href="#posgrado">Posgrado</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Enlaces Destacados</a>
+            <ul class="dropdown-content">
+              <li><a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/">MAT</a></li>
+              <li><a href="https://sum.unmsm.edu.pe/alumnoWebSum/login">SUM Alumnos</a></li>
+              <li><a href="https://sum.unmsm.edu.pe/docenteWebSum/login">SUM Docentes</a></li>
+              <li><a href="https://spsgd.unmsm.edu.pe/sgd/login.do">SGD</a></li>
+              <li><a href="https://sisbib.unmsm.edu.pe/">Biblioteca</a></li>
+            </ul>
+          </li>          
+          <li><a href="#egresados">Egresados</a></li>
+          <li><a href="#noticias">Noticias</a></li>
+          <li><a href="#contacto">Contacto</a></li>
           <li><a href="./ocaa.html">OCAA</a></li>
         </ul>
         <div class="menu-toggle" id="menu-toggle">&#9776;</div>
@@ -124,45 +133,8 @@
 
 
 
-
-  <!-- SECCIÓN DESTACADOS / ESCUELAS -->
-  <!-- <section class="destacados">
-    <h2>Escuelas Profesionales</h2>
-    <p>Conoce nuestras escuelas profesionales y sus programas académicos.</p>
-
-    <section class="cards-container">
-      <div class="escuela-card" data-aos="fade-up" data-aos-delay="100">
-        <h3>EP de Economía</h3>
-        <div class="buttons-escuelas">
-          <a class="brochure" href="./escuelas/docs/brochure EPE 22-.pdf"><i class="fa-solid fa-file-lines"></i>
-            Brochure</a>
-          <a class="ver-mas-btn" href="./escuelas/epe.html">Ver más</a>
-        </div>
-      </div>
-
-      <div class="escuela-card" data-aos="fade-up" data-aos-delay="200">
-        <h3>EP de Economía Internacional</h3>
-        <div class="buttons-escuelas">
-          <a class="brochure" href="./escuelas/docs/brochure EPEI 22.pdf"><i class="fa-solid fa-file-lines"></i>
-            Brochure</a>
-          <a class="ver-mas-btn" href="./escuelas/epei.html">Ver más</a>
-        </div>
-      </div>
-
-      <div class="escuela-card" data-aos="fade-up" data-aos-delay="200">
-        <h3>EP de Economía Pública</h3>
-        <div class="buttons-escuelas">
-          <a class="brochure" href="./escuelas/docs/brochure EPEP 2022.pdf"><i class="fa-solid fa-file-lines"></i>
-            Brochure</a>
-          <a class="ver-mas-btn" href="./escuelas/epep.html">Ver más</a>
-        </div>
-      </div>
-    </section>
-  </section> -->
-
-
   <!-- Sección Principal: Carrusel de Tarjetas Superpuestas -->
-  <section class="pregrado-section">
+  <section class="pregrado-section" id="pregrado">
     <div class="container-pregrado">
       <h2 class="section-title">Escuelas Profesionales</h2>
       <p class="section-description">Conoce nuestras escuelas profesionales y sus programas académicos.</p>
@@ -230,7 +202,7 @@
 
 
   <!-- NOTICIAS -->
-  <section class="noticias-section">
+  <section class="noticias-section" id="noticias">
     <section class="noticias-carousel" id="noticias-carousel">
       <!-- Noticias generadas desde JS -->
       <button class="prev2">&#10094;</button>
@@ -266,7 +238,7 @@
 
 
   <!-- SECCIÓN POSGRADO -->
-  <section class="posgrado-section">
+  <section class="posgrado-section" id="posgrado">
     <h2>Programas de Posgrado</h2>
     <p>Ofrecemos programas de maestría y doctorado con enfoque en investigación y desarrollo profesional.</p>
     <a href="./pages/upg/posgrado.html" class="btn-posgrado">Ver más</a>
@@ -406,7 +378,7 @@
 
 
   <!-- SECCIÓN EGRESADOS DESTACADOS -->
-  <section class="egresados-section">
+  <section class="egresados-section" id="egresados">
     <div class="egresados-container">
       <div class="egresados-header">
         <h2>Egresados Destacados</h2>
@@ -508,7 +480,7 @@
 
 
   <!-- FORMULARIO DE CONTACTO -->
-  <section class="contacto">
+  <section class="contacto" id="contacto">
     <h2>Contáctanos</h2>
     <form>
       <input type="text" placeholder="Nombre completo" required>
@@ -537,8 +509,8 @@
       <div class="footer-columna">
         <h3>Académico</h3>
         <ul>
-          <li><a href="#">Pregrado</a></li>
-          <li><a href="#">Posgrado</a></li>
+          <li><a href="#pregrado">Pregrado</a></li>
+          <li><a href="#posgrado">Posgrado</a></li>
           <li><a href="#">Escuelas Profesionales</a></li>
           <li><a href="#">Centro de Idiomas</a></li>
         </ul>

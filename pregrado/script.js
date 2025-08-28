@@ -86,3 +86,36 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- 5. LOG DE INICIALIZACIÓN ---
     console.log("Carrusel de Pregrado: Inicializado con", totalCards, "tarjetas.");
 });
+
+
+// === FUNCIONALIDAD PARA MENÚ DESPLEGABLE RESPONSIVE ===
+document.addEventListener('DOMContentLoaded', function () {
+    // Funcionalidad para el menú desplegable en móviles
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        
+        // En móviles, mostrar/ocultar con clic
+        dropbtn.addEventListener('click', function(e) {
+            // Solo en pantallas pequeñas
+            if (window.innerWidth <= 1020) {
+                e.preventDefault(); // Evitar navegación en el botón principal
+                const dropdownContent = this.nextElementSibling;
+                dropdownContent.classList.toggle('show');
+            }
+        });
+    });
+    
+    // Cerrar dropdowns al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => {
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                }
+            });
+        }
+    });
+});
