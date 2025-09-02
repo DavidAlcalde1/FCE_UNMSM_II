@@ -228,7 +228,7 @@ html {
 }
 
 .dropdown-content a:hover {
-  background-color: rgba(202, 167, 90, 0.3);
+  /* background-color: rgba(202, 167, 90, 0.3); */
   color: var(--dorado);
 }
 
