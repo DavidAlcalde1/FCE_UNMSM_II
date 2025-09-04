@@ -1,3 +1,9 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 /* Paleta de colores */
 :root {
   --azul-oscuro: rgb(16,45,82);
@@ -7,17 +13,12 @@
   --dorado: #cfa935;
 }
 
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--blanco-matizado);
   color: var(--negro);
+  overflow-x: hidden
 }
 
 html {
@@ -158,7 +159,7 @@ html {
 
 
 
-/* HEADER */
+/* HEADER SGENERAL*/
 .header {
   position: sticky;
   top: 0;
@@ -171,12 +172,54 @@ html {
 
 /* Header cuando está scrolled */
 .header.scrolled {
-  background-color: rgba(10, 25, 80, 0.95);
+  background-color: rgba(10, 25, 80, 0.7);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
   padding: 8px 0; /* Aún más compacto al hacer scroll */
 }
 
+.container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* Para posicionar el botón toggle */
+}
+
+.logo {
+  height: 70px;
+}
+
+/* === MENÚ DE NAVEGACIÓN - ESCRITORIO (>= 1201px) === */
+.nav {
+  display: block;
+}
+
+.nav__list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav__list li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: block;
+  text-align: center;
+}
+
+.nav__list li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--dorado);
+}
+
+/* Dropdown para escritorio */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -192,33 +235,34 @@ html {
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
-  transition: color 0.3s ease;
-  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 4px;
 }
 
 .dropbtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
   color: var(--dorado);
 }
 
-/* Contenido del dropdown (oculto por defecto) */
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: var(--azul-oscuro);
-  min-width: 200px;
+  background: rgba(20, 60, 120, 0.4); 
+  /* min-width: 200px; */
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   z-index: 1001;
   list-style: none;
   padding: 0;
   margin: 0;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 15px 15px;
   overflow: hidden;
   top: 100%;
   left: 0;
   text-align: center;
+  border-top:solid 1px var(--dorado);
 }
 
-/* Enlaces dentro del dropdown */
 .dropdown-content a {
   color: white;
   padding: 12px 16px;
@@ -229,11 +273,10 @@ html {
 }
 
 .dropdown-content a:hover {
-  /* background-color: rgba(202, 167, 90, 0.3); */
+  background-color: rgba(202, 167, 90, 0.3);
   color: var(--dorado);
 }
 
-/* Mostrar el dropdown al pasar el mouse */
 .dropdown:hover .dropdown-content {
   display: block;
 }
@@ -249,45 +292,24 @@ html {
 }
 
 
-
-
-
-.container {
-  width: 90%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  height: 70px;
-}
-
-.nav__list {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.nav__list li a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.nav__list li a:hover {
-  color: var(--dorado);
-}
-
+/* === BOTÓN HAMBURGUESA - OCULTO EN ESCRITORIO === */
 .menu-toggle {
   display: none;
   font-size: 30px;
   cursor: pointer;
   color: white;
+  background: none;
+  border: none;
+  padding: 5px;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  z-index: 1002;
 }
+
+
+
 
 /*BOTÓN DARK MODE*/
 .modo-fixed {
@@ -869,19 +891,6 @@ html {
       0 5px 15px rgba(0, 0, 0, 0.1);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2402,13 +2411,6 @@ body.modo-oscuro .btn-investigacion:hover {
 }
 
 
-
-
-
-
-
-
-
 body.modo-oscuro .estadisticas {
   background-color: rgba(0, 0, 0, 0.55);
 }
@@ -2690,11 +2692,6 @@ body.modo-oscuro .enlace-icono {
 
 
 
-
-
-
-
-
 .slide-content.animar {
   animation: fadeUp 1s ease;
 }
@@ -2712,8 +2709,147 @@ body.modo-oscuro .enlace-icono {
 
 
 
-/*RESPONSIVO*/
-@media (max-width: 1400px) {
+
+
+
+/* RESPONSIVE - Menú hamburguesa para pantallas <= 1020px */
+@media (max-width: 1200px) {
+  .nav__list {
+    display: none;
+  }
+
+  /* Mostrar botón hamburguesa */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Menú lateral (off-canvas) */
+  .nav__list.offcanvas {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background: rgba(20, 60, 120, 0.6); 
+    backdrop-filter: blur(8px) saturate(120%);
+    box-shadow: -2px 0 10px rgba(0,0,0,0.25);
+    padding: 80px 20px 20px;
+    border-radius: 15px 0 0 15px;
+    overflow-y: auto;
+    transform: translateX(100%); /* Oculto por defecto */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+    text-align: center;
+  }
+
+  /* Mostrar menú cuando tiene la clase 'show' */
+  .nav__list.offcanvas.show {
+    transform: translateX(0); /* Visible desde la derecha */
+  }
+
+  .nav__list.offcanvas li {
+    margin: 15px 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav__list.offcanvas li a {
+    display: block;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav__list.offcanvas li a:hover {
+    /* background-color: rgba(202, 167, 90, 0.3); */
+    color: var(--dorado);
+    padding-left: 25px;
+  }
+
+  /* Dropdown en móvil - se comporta como acordeón */
+  .nav__list.offcanvas .dropdown {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .nav__list.offcanvas .dropbtn a {
+    width: 100%;
+    text-align: left;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    border-radius: 8px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav__list.offcanvas .dropbtn:hover {
+    /* background-color: rgba(202, 167, 90, 0.3); */
+    color: var(--dorado);
+    padding-left: 25px;
+  }
+
+  .nav__list.offcanvas .dropdown-content {
+    position: static;
+    display: none;
+    /* background-color: rgba(42, 47, 69, 0.8); */
+    box-shadow: none;
+    /* border-radius: 0; */
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;
+    z-index: 1002;
+    text-align: center;
+  }
+
+  .nav__list.offcanvas .dropdown-content.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  .nav__list.offcanvas .dropdown-content a {
+    padding: 12px 20px 12px 30px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav__list.offcanvas .dropdown-content a:hover {
+    /* background-color: rgba(202, 167, 90, 0.2);  */
+    color: var(--dorado);
+    padding-left: 35px;
+  }
+
+  .nav__list.offcanvas .dropdown-content a:last-child {
+    border-bottom: none;
+  }
+
+  /* Overlay para cerrar el menú al hacer clic fuera */
+  .offcanvas-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  .offcanvas-overlay.show {
+    display: block;
+  }
+
   .estadisticas {
     position: static;
     transform: none;
@@ -2729,136 +2865,6 @@ body.modo-oscuro .enlace-icono {
     justify-content: space-around;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
   }
-}
-
-@media (min-width: 1021px) {
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-}
-
-/* RESPONSIVE - Menú hamburguesa para pantallas <= 1020px */
-@media (max-width: 1020px) {
-  .header {
-    padding:1rem 1rem;
-  }
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 95%; /* Asegura un poco de padding lateral */
-    padding: 10px 0; /* Añade padding vertical al contenedor */
-  }
-  
-  /* Ajusta el logo para que no se salga */
-  .logo {
-    height: 60px; /* Ligeramente más pequeño en móviles */
-    margin-bottom: 10px; /* Espacio entre logo y menú */
-  }
-
-  /* Oculta el menú de navegación por defecto */
-  .nav__list {
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--azul-oscuro);
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
-    padding: 15px 0;
-    /* margin-top: 10px;  */
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    z-index: 1001;
-    list-style: none;
-  }
-
-  /* Muestra el menú cuando tiene la clase 'show' */
-  .nav__list.show {
-    display: flex;
-    animation: slideDown 0.3s ease;
-  }
-
-  /* Espacio entre elementos del menú */
-  .nav__list li {
-    margin: 10px 0;
-    width: 100%;
-    text-align: center;
-    /* align-items: center; */
-  }
-
-  .nav__list li a {
-    padding: 0.75rem 1rem;
-    display: block;
-    color: white;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar en móviles */
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    margin-left: auto;
-    padding: 5px;
-  }
-
-  .dropdown {
-    position: relative;
-    display: block;
-    width: 100%;
-  }
-  
-  .dropdown-content {
-        display: none;
-        position: static;
-        background-color: rgba(42, 47, 69, 0.8);
-        box-shadow: none;
-        border-radius: 0;
-        margin-top: 5px;
-        padding: 0;
-        width: 100%;
-        z-index: 1001;
-  }
-  
-  /* .dropdown:hover .dropdown-content {
-    display: none; 
-  } */
-  
-  .dropdown-content.show {
-    display: block; /* Se muestra con la clase 'show' en JS */
-    animation: slideDown 0.3s ease;
-  }
-  
-  .dropdown-content a {
-        padding: 12px 20px 12px 30px;
-        display: block;
-        color: white;
-        /* text-decoration: none; */
-        font-size: 0.9rem;
-        /* border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: background-color 0.3s ease; */
-  }
-
-  .dropdown-content a:hover {
-        background-color: rgba(202, 167, 90, 0.3);
-        color: var(--dorado);
-        padding-left: 35px;
-  }
-
-
-  /* Animación para el menú desplegable */
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-
 
   /* Ajustes para otras secciones en móviles */
   .cards-container {
@@ -3008,7 +3014,7 @@ body.modo-oscuro .enlace-icono {
   .posgrado-card:hover {
   transform: translateY(-5px); 
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
-}
+  }
 
   .posgrado-card img {
     height: 180px;
@@ -3041,7 +3047,7 @@ body.modo-oscuro .enlace-icono {
   }
 
   /*Responsivo para Convocatorias*/
-    .convocatorias-grid {
+  .convocatorias-grid {
     flex-direction: column;
     align-items: center;
   }
@@ -3078,12 +3084,6 @@ body.modo-oscuro .enlace-icono {
     width: 90%;
     max-width: 500px;
   }
-
-
-
-
-
-
 
 
 
@@ -3150,457 +3150,42 @@ body.modo-oscuro .enlace-icono {
 
 /* RESPONSIVO PARA EVENTOS */
 @media (max-width: 768px) {
-  .header {
-    padding: 0.5rem 1rem;
-  }
-
-  .logo {
-    height: 50px;
-  }
-
-  .social-icons {
-    flex-wrap: wrap;
-    font-size: 0.8rem;
-    gap: 10px;
-  }
-
-  .social-icons a i {
-    font-size: 1rem;
-  }
-
-  .navbar {
-    padding: 0.25rem 0.5rem;
-  }
-
-  .menu {
-    gap: 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  .nav__list {
-    display: none;
-    flex-direction: column;
-    background: var(--blanco-matizado, #fff);
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 220px;
-    padding: 15px;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
-    padding: 10px 0;
-    margin-top: 5px;
-  }
-
-  .nav__list.active {
-    display: flex;
-  }
-
-  .nav__list li {
-    margin: 8px 0;
-  }
-
-  .nav__list li a {
-    padding: 0.7rem 0.9rem;
-    font-size: 0.9rem;
-  }
-
-  .menu-toggle {
-    font-size: 28px;
-    display: block;
-    cursor: pointer;
-    padding: 4px;
-  }
-
-  .eventos {
-    flex-direction: column; /* En móviles, uno debajo del otro */
-    align-items: center; /* Centra en móviles */
-  }
-
-  .eventos-lista,
-  .evento-destacado {
-    width: 100%; /* Ocupan todo el ancho en móviles */
-    max-width: 500px; /* Ancho máximo para mantener la proporción */
-  }
-}
-
-.egresados-header {
+  .container {
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
-  }
-
-  .egresados-carrusel {
-    height: auto;
-    min-height: 400px;
-  }
-
-  .egresado-imagen {
-    width: 100px;
-    height: 100px;
-  }
-
-  .egresado-nombre {
-    font-size: 1.3rem;
-  }
-
-  .egresado-testimonio-texto {
-    font-size: 0.9rem;
-    padding: 0 10px;
-    -webkit-line-clamp: 5; /* Más líneas en móviles */
-    line-clamp: 5;
-  }
-
-  .egresados-prev,
-  .egresados-next {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-
-  .egresados-prev {
-    left: 10px;
-  }
-
-  .egresados-next {
-    right: 10px;
-  }
-
-
-
-
-
-@media (max-width: 480px) {
-
-  .header {
-    padding: 0.5rem 0.5rem;
-  }
-
-  .container {
-    width: 98%;
-    padding: 8px 0;
+    width: 95%;
+    padding: 10px 0;
   }
 
   .logo {
-    height: 45px;
+    height: 60px;
+    margin-bottom: 10px;
   }
 
-  .social-icons a span {
-    display: none; /* Ocultar texto en pantallas muy pequeñas */
+  .nav__list.offcanvas {
+    width: 200px;
+    padding: 70px 15px 15px;
   }
 
-  .social-icons a i {
-    font-size: 1.2rem; /* Solo íconos */
-  }
-
-.nav__list {
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--azul-oscuro);
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none; /* Oculto por defecto */
-    padding: 15px 0;
-    margin-top: 10px;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    z-index: 1001;
-    list-style: none;
-  }
-
-  .nav__list.show {
-    display: flex;
-    animation: slideDown 0.3s ease;
-  }
-
-  .nav__list li {
-    margin: 10px 0;
-    width: 100%;
+  .nav__list.offcanvas li a {
+    padding: 12px 18px;
+    font-size: 1rem;
     text-align: center;
   }
 
-  .menu-toggle {
-    display: block;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    margin-left: auto;
-    padding: 5px;
-  }
-
-  /* Dropdown en móviles */
-  .dropdown {
-    position: relative;
-    display: block;
-    width: 100%;
-  }
-
-  .dropdown-content {
-    position: static;
-    display: none;
-    box-shadow: none;
-    background-color: rgba(42, 47, 69, 0.8);
-    border-radius: 0;
-    margin-top: 5px;
-    padding: 0;
-    width: 100%;
-    z-index: 1001;
-  }
-
-  .dropdown-content.show {
-    display: block;
-    animation: slideDown 0.3s ease;
-  }
-
-  .dropdown-content a {
-    padding: 12px 20px 12px 30px;
-    display: block;
-    color: white;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .dropdown-content a:hover {
-    background-color: rgba(202, 167, 90, 0.3);
-    color: var(--dorado);
-    padding-left: 35px;
-  }
-
-  .dropdown-content a:last-child {
-    border-bottom: none;
-  }
-
-    from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /*Responsive del Pop-up*/
-  .popup-contenido {
-    width: 95%;
-    border-radius: 12px;
-  }
-
-  .popup-texto {
-    padding: 20px;
-  }
-
-  .popup-texto h2 {
-    font-size: 1.5rem;
-  }
-
-  .popup-texto p {
-    font-size: 0.9rem;
-  }
-
-  .popup-boton {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-
-
-
-
-  .destacados {
-    padding: 60px 15px;
-  }
-
-  .escuela-card {
-    width: 95%;
-    padding: 15px;
-  }
-
-  .escuela-card h3 {
-    font-size: 1.2rem;
-  }
-
-  .buttons-escuelas a {
-    font-size: 0.85rem;
-    padding: 8px 15px;
-  }
-
-
-
-
-
-  .egresados-section {
-    padding: 60px 15px;
-  }
-
-  .egresados-header h2 {
-    font-size: 1.8rem;
-  }
-
-  .egresado-imagen {
-    width: 90px;
-    height: 90px;
-  }
-
-  .egresado-nombre {
-    font-size: 1.2rem;
-  }
-
-  .egresado-titulo {
+  .nav__list.offcanvas .dropbtn {
+    padding: 12px 18px;
     font-size: 1rem;
   }
 
-  .egresado-empresa {
+  .nav__list.offcanvas .dropdown-content a {
+    padding: 10px 18px 10px 25px;
     font-size: 0.9rem;
   }
 
-  .egresado-testimonio-texto {
-    font-size: 0.85rem;
-  }
 
-  .footer-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-columna:nth-child(4) {
-    grid-column: span 1;
-  }
-}
+/*..............*/
 
-
-
-/* === RESPONSIVE - CARRUSEL DE TARJETAS SUPERPUESTAS (PREGRADO) === */
-
-/* 1. Para pantallas grandes (> 1400px) - Ajustes menores */
-@media (min-width: 1401px) {
-  .carousel-container {
-    max-width: 1400px; /* Aumentar ancho máximo */
-    padding: 0 40px; /* Más espacio lateral */
-  }
-
-  .card-box {
-    width: 380px; /* Tarjetas ligeramente más grandes */
-    height: fit-content;
-  }
-
-  .cards__container {
-    height: 550px; /* Aumentar altura del contenedor */
-  }
-
-  .card-box__title {
-    font-size: 1.5rem; /* Títulos más grandes */
-  }
-
-  .card-box__summary {
-    font-size: 1rem; /* Resúmenes más grandes */
-  }
-
-  .carousel-button {
-    width: 3.5rem; /* Botones ligeramente más grandes */
-    height: 3.5rem;
-  }
-}
-
-/* 2. Para pantallas medianas grandes (1021px - 1400px) */
-@media (min-width: 1021px) and (max-width: 1400px) {
-  .carousel-container {
-    max-width: 1100px; /* Reducir ancho máximo */
-    padding: 0 30px; /* Menos espacio lateral */
-    margin-top: 60px; /* Menos margen superior */
-  }
-
-  .card-box {
-    width: 320px; /* Tarjetas más pequeñas */
-    height: fit-content;
-  }
-
-  .cards__container {
-    height: 480px; /* Reducir altura del contenedor */
-  }
-
-  .card-box__title {
-    font-size: 1.3rem; /* Títulos más pequeños */
-  }
-
-  .card-box__summary {
-    font-size: 0.9rem; /* Resúmenes más pequeños */
-    -webkit-line-clamp: 2; /* Limitar a 2 líneas */
-    line-clamp: 2;
-  }
-
-  .carousel-button {
-    width: 2.8rem; /* Botones más pequeños */
-    height: 2.8rem;
-  }
-}
-
-/* 3. Para pantallas medianas (769px - 1020px) */
-@media (min-width: 769px) and (max-width: 1020px) {
-  .pregrado-section {
-    padding: 50px 15px; /* Reducir padding de la sección */
-  }
-
-  .carousel-container {
-    max-width: 900px; /* Reducir ancho máximo */
-    padding: 0 25px; /* Menos espacio lateral */
-    margin-top: 50px; /* Menos margen superior */
-    gap: 20px; /* Reducir gap entre elementos */
-  }
-
-  .section-title {
-    font-size: 2.2rem; /* Títulos más pequeños */
-    margin-bottom: 15px; /* Menos margen inferior */
-  }
-
-  .section-description {
-    font-size: 1rem; /* Descripciones más pequeñas */
-    margin-bottom: 30px; /* Menos margen inferior */
-    max-width: 700px; /* Reducir ancho máximo */
-  }
-
-  .card-box {
-    width: 280px; /* Tarjetas más pequeñas */
-    height: fit-content;
-  }
-
-  .cards__container {
-    height: 420px; /* Reducir altura del contenedor */
-  }
-
-  .card-box__title {
-    font-size: 1.2rem; /* Títulos más pequeños */
-    margin-bottom: 15px; /* Menos margen inferior */
-    -webkit-line-clamp: 2; /* Limitar a 2 líneas */
-    line-clamp: 2;
-  }
-
-  .card-box__summary {
-    font-size: 0.85rem; /* Resúmenes más pequeños */
-    margin-bottom: 15px; /* Menos margen inferior */
-    -webkit-line-clamp: 3; /* Limitar a 3 líneas */
-    line-clamp: 3;
-  }
-
-  .card-box__btn {
-    padding: 5px 10px; /* Botones más pequeños */
-    font-size: 0.75rem; /* Texto más pequeño */
-  }
-
-  .carousel-button {
-    width: 2.5rem; /* Botones más pequeños */
-    height: 2.5rem;
-    margin-right: 15px; /* Menos margen derecho */
-    margin-left: 15px; /* Menos margen izquierdo */
-  }
-
-  .carousel-button img {
-    width: 50%; /* Imagen más pequeña */
-  }
-}
-
-/* 4. Para pantallas pequeñas (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
   .pregrado-section {
     padding: 40px 10px; /* Reducir padding de la sección */
   }
@@ -3665,112 +3250,253 @@ body.modo-oscuro .enlace-icono {
   .carousel-button--right {
     display: none; /* Asegurar que estén ocultos */
   }
+
+
+/*..............*/
+
+  .eventos {
+    flex-direction: column; /* En móviles, uno debajo del otro */
+    align-items: center; /* Centra en móviles */
+  }
+
+  .eventos-lista,
+  .evento-destacado {
+    width: 100%; /* Ocupan todo el ancho en móviles */
+    max-width: 500px; /* Ancho máximo para mantener la proporción */
+  }
+
+.egresados-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .egresados-carrusel {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .egresado-imagen {
+    width: 100px;
+    height: 100px;
+  }
+
+  .egresado-nombre {
+    font-size: 1.3rem;
+  }
+
+  .egresado-testimonio-texto {
+    font-size: 0.9rem;
+    padding: 0 10px;
+    -webkit-line-clamp: 5; /* Más líneas en móviles */
+    line-clamp: 5;
+  }
+
+  .egresados-prev,
+  .egresados-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .egresados-prev {
+    left: 10px;
+  }
+
+  .egresados-next {
+    right: 10px;
+  }
+
 }
 
-/* 5. Para pantallas muy pequeñas (<= 480px) */
+/*................................*/
+
 @media (max-width: 480px) {
+  /* === HEADER Y NAVEGACIÓN === */
+  .logo {
+    height: 50px;
+  }
+
+  .nav__list.offcanvas {
+    padding: 60px 10px 10px;
+  }
+
+  .nav__list.offcanvas li {
+    margin: 12px 0;
+  }
+
+  .nav__list.offcanvas li a,
+  .nav__list.offcanvas .dropbtn {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+  }
+
+  .nav__list.offcanvas .dropdown-content a {
+    padding: 8px 15px 8px 20px;
+    font-size: 0.85rem;
+  }
+
+  .social-icons a span {
+    display: none; /* Ocultar texto en pantallas muy pequeñas */
+  }
+
+  .social-icons a i {
+    font-size: 1.2rem; /* Solo íconos */
+  }
+
+  /* === POP-UP === */
+  .popup-contenido {
+    width: 95%;
+    border-radius: 12px;
+  }
+
+  .popup-texto {
+    padding: 20px;
+  }
+
+  .popup-texto h2 {
+    font-size: 1.5rem;
+  }
+
+  .popup-texto p {
+    font-size: 0.9rem;
+  }
+
+  .popup-boton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* === SECCIÓN PREGRADO === */
   .pregrado-section {
     padding: 30px 5px; /* Reducir padding de la sección */
   }
 
-  .container {
-    width: 95%; /* Aumentar ancho del contenedor */
-  }
-
   .carousel-container {
-    flex-direction: column; /* Apilar elementos verticalmente */
-    align-items: center; /* Centrar elementos */
-    max-width: 100%; /* Ocupar todo el ancho disponible */
-    padding: 0 10px; /* Muy poco espacio lateral */
-    margin-top: 30px; /* Menos margen superior */
-    gap: 10px; /* Reducir gap entre elementos */
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    padding: 0 10px;
+    margin-top: 30px;
+    gap: 10px;
   }
 
   .section-title {
-    font-size: 1.8rem; /* Títulos más pequeños */
-    margin-bottom: 8px; /* Menos margen inferior */
-    padding-bottom: 8px; /* Menos padding inferior */
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
   }
 
   .section-description {
-    font-size: 0.9rem; /* Descripciones más pequeñas */
-    margin-bottom: 20px; /* Menos margen inferior */
-    max-width: 100%; /* Ocupar todo el ancho disponible */
-    padding: 0 5px; /* Muy poco padding lateral */
-    line-height: 1.5; /* Reducir altura de línea */
-  }
-
-  .card-box {
-    width: 95%; /* Tarjetas ocupan casi todo el ancho disponible */
-    max-width: 280px; /* Ancho máximo para mantener proporciones */
-    height: fit-content;
-    margin-bottom: 15px; /* Menos espacio entre tarjetas */
-    /* padding: 15px;  */
-    border-radius: 10px; /* Bordes más redondeados */
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    max-width: 100%;
+    padding: 0 5px;
+    line-height: 1.5;
   }
 
   .cards__container {
-    height: 350px; /* Reducir altura del contenedor */
-    flex-direction: column; /* Apilar tarjetas verticalmente */
-    align-items: center; /* Centrar tarjetas */
+    height: 350px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-box {
+    width: 95%;
+    max-width: 280px;
+    height: fit-content;
+    margin-bottom: 15px;
+    border-radius: 10px;
   }
 
   .card-box__image {
-    height: 50%; /* Reducir altura de la imagen */
+    height: 50%;
   }
 
   .card-box__image img {
-    height: 100%; /* Ajustar imagen al contenedor */
+    height: 100%;
   }
 
   .card-box__content {
-    height: 50%; /* Aumentar altura del contenido */
-    padding: 10px; /* Menos padding interno */
+    height: 50%;
+    padding: 10px;
   }
 
   .card-box__title {
-    font-size: 1rem; /* Títulos más pequeños */
-    margin-bottom: 8px; /* Menos margen inferior */
-    -webkit-line-clamp: 2; /* Limitar a 2 líneas */
+    font-size: 1rem;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     line-clamp: 2;
   }
 
   .card-box__summary {
-    font-size: 0.75rem; /* Resúmenes más pequeños */
-    margin-bottom: 8px; /* Menos margen inferior */
-    -webkit-line-clamp: 3; /* Limitar a 3 líneas */
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     line-clamp: 3;
-    line-height: 1.4; /* Reducir altura de línea */
+    line-height: 1.4;
   }
 
   .card-box__btn {
-    padding: 3px 6px; /* Botones más pequeños */
-    font-size: 0.65rem; /* Texto más pequeño */
-    border-radius: 4px; /* Bordes más redondeados */
+    padding: 3px 6px;
+    font-size: 0.65rem;
+    border-radius: 4px;
   }
 
-  .carousel-button {
+  .carousel-button,
+  .carousel-button--left,
+  .carousel-button--right {
     display: none; /* Ocultar botones de navegación en móviles */
   }
 
-  .carousel-button--left,
-  .carousel-button--right {
-    display: none; /* Asegurar que estén ocultos */
+  /* === SECCIÓN EGRESADOS === */
+  .egresados-section {
+    padding: 60px 15px;
+  }
+
+  .egresados-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .egresado-imagen {
+    width: 90px;
+    height: 90px;
+  }
+
+  .egresado-nombre {
+    font-size: 1.2rem;
+  }
+
+  .egresado-titulo {
+    font-size: 1rem;
+  }
+
+  .egresado-empresa {
+    font-size: 0.9rem;
+  }
+
+  .egresado-testimonio-texto {
+    font-size: 0.85rem;
+  }
+
+  /* === FOOTER === */
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-columna:nth-child(4) {
+    grid-column: span 1;
   }
 }
 
 
 
-
-/* Animación para el menú desplegable */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
