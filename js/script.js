@@ -50,100 +50,69 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
+
 // === MENÚ HAMBURGUESA OFF-CANVAS ===
-document.addEventListener('DOMContentLoaded', function () {
-  const menuToggle = document.getElementById('menu-toggle');
-  const navList = document.querySelector('.nav__list');
-  const header = document.querySelector('.header');
-  const body = document.body;
-  const navLinks = document.querySelectorAll('.nav__list a');
+// === MENÚ HAMBURGUESA ===
+// document.addEventListener('DOMContentLoaded', function () {
+//     console.log("DOM completamente cargado - Iniciando menú hamburguesa");
+    
+//     const menuToggle = document.getElementById('menu-toggle');
+//     const navList = document.querySelector('.nav__list');
+//     const header = document.querySelector('.header');
 
-  if (!menuToggle || !navList || !header) {
-    console.warn("Menú hamburguesa: No se encontraron elementos necesarios");
-    return;
-  }
+//     // Verificar que todos los elementos necesarios existan
+//     if (!menuToggle) {
+//         console.error("Menú hamburguesa: No se encontró el elemento #menu-toggle");
+//         return;
+//     }
+    
+//     if (!navList) {
+//         console.error("Menú hamburguesa: No se encontró el elemento .nav__list");
+//         return;
+//     }
+    
+//     if (!header) {
+//         console.error("Menú hamburguesa: No se encontró el elemento .header");
+//         return;
+//     }
 
-  // Crear overlay para cerrar menú al hacer clic fuera
-  const overlay = document.createElement('div');
-  overlay.className = 'offcanvas-overlay';
-  body.appendChild(overlay);
+//     console.log("Menú hamburguesa: Elementos encontrados correctamente");
 
-  // Función para abrir/cerrar el menú
-  function toggleMenu() {
-    navList.classList.toggle('show');
-    overlay.classList.toggle('show');
+//     // Función para alternar el menú
+//     function toggleMenu() {
+//         console.log("Botón hamburguesa clickeado");
+//         navList.classList.toggle('show');
+        
+//         // Cambiar ícono del botón
+//         if (navList.classList.contains('show')) {
+//             menuToggle.innerHTML = '&#10005;'; // Ícono de cierre (X)
+//             console.log("Menú ABIERTO");
+//         } else {
+//             menuToggle.innerHTML = '&#9776;'; // Ícono de menú (☰)
+//             console.log("Menú CERRADO");
+//         }
+//     }
 
-    if (navList.classList.contains('show')) {
-      menuToggle.innerHTML = '&#10005;'; // X
-      navList.classList.add('offcanvas');
-    } else {
-      menuToggle.innerHTML = '&#9776;'; // ☰
-      setTimeout(() => {
-        if (!navList.classList.contains('show')) {
-          navList.classList.remove('offcanvas');
-        }
-      }, 300);
-    }
-  }
+//     // Evento para el botón hamburguesa
+//     menuToggle.addEventListener('click', function(e) {
+//         e.preventDefault(); // Evitar comportamiento predeterminado
+//         console.log("Evento click en #menu-toggle disparado");
+//         toggleMenu();
+//     });
 
-  // Evento para el botón hamburguesa
-  menuToggle.addEventListener('click', function (e) {
-    e.preventDefault();
-    toggleMenu();
-  });
+//     // Cerrar menú al hacer clic fuera
+//     document.addEventListener('click', function(e) {
+//         if (!e.target.closest('.nav') && navList.classList.contains('show')) {
+//             console.log("Clic fuera del menú - Cerrando menú");
+//             navList.classList.remove('show');
+//             menuToggle.innerHTML = '&#9776;'; // Restaurar ícono
+//         }
+//     });
 
-  // Evento para cerrar menú al hacer clic en overlay
-  overlay.addEventListener('click', function () {
-    navList.classList.remove('show');
-    overlay.classList.remove('show');
-    menuToggle.innerHTML = '&#9776;';
-    setTimeout(() => {
-      navList.classList.remove('offcanvas');
-    }, 300);
-  });
-
-  // Cerrar menú al hacer clic en un enlace
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navList.classList.remove('show');
-      overlay.classList.remove('show');
-      menuToggle.innerHTML = '&#9776;';
-      setTimeout(() => {
-        navList.classList.remove('offcanvas');
-      }, 300);
-    });
-  });
-
-  // Funcionalidad para dropdowns en móvil
-  const dropdowns = document.querySelectorAll('.dropdown');
-  dropdowns.forEach(dropdown => {
-    const dropbtn = dropdown.querySelector('.dropbtn');
-    if (dropbtn) {
-      dropbtn.addEventListener('click', function (e) {
-        if (window.innerWidth <= 1020) { // breakpoint
-          e.preventDefault();
-          const dropdownContent = this.nextElementSibling;
-          if (dropdownContent) {
-            dropdownContent.classList.toggle('show');
-          }
-        }
-      });
-    }
-  });
-
-  // Cerrar dropdowns al hacer clic fuera
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.dropdown') && window.innerWidth <= 1020) {
-      dropdowns.forEach(dropdown => {
-        const dropdownContent = dropdown.querySelector('.dropdown-content');
-        if (dropdownContent && dropdownContent.classList.contains('show')) {
-          dropdownContent.classList.remove('show');
-        }
-      });
-    }
-  });
-});
-
+//     console.log("Event listeners añadidos al menú hamburguesa");
+// });
 
 
 
@@ -152,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Carrusel automático con pausa al hover
+document.addEventListener('DOMContentLoaded', function () {
   let current = 0;
   let carouselInterval; // Variable para almacenar el ID del intervalo
   const slides = document.querySelectorAll(".slide");
@@ -229,6 +199,8 @@ document.addEventListener('DOMContentLoaded', function () {
       startCarousel();
     });
   });
+  
+})
 
 
 

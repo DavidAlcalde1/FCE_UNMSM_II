@@ -5,7 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facultad de Ciencias Económicas - UNMSM</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./header/stylesHeader.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -32,7 +34,7 @@
   </div>
 
   <!-- HEADER -->
-  <header class="header">
+  <!-- <header class="header">
     <div class="container">
       <a href="#">
         <img src="../img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
@@ -61,7 +63,9 @@
       </nav>
     </div>
 
-  </header>  
+  </header>   -->
+  <!-- HEADER (Importado) -->
+  <div id="header-placeholder"></div>
 
 
   
@@ -565,11 +569,73 @@
   <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
 
   <script defer src="./js/script.js"></script>
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+  <script>AOS.init()</script>
+
   <div id="particles-js"></div>
+
+  <script src="./header/scriptHeader.js"></script>
+
+    <script>
+    // === IMPORTAR HEADER EXTERNO ===
+    fetch('./header/header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+        
+        // Inicializar funcionalidad del menú hamburguesa
+        const menuToggle = document.getElementById('menu-toggle');
+        const navList = document.querySelector('.nav__list');
+        
+        if (menuToggle && navList) {
+          menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            navList.classList.toggle('show');
+            
+            // Cambiar ícono del botón
+            if (navList.classList.contains('show')) {
+              menuToggle.innerHTML = '&#10005;'; // Ícono de cierre (X)
+            } else {
+              menuToggle.innerHTML = '&#9776;'; // Ícono de menú (☰)
+            }
+          });
+          
+          // Cerrar menú al hacer clic fuera
+          document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav') && navList.classList.contains('show')) {
+              navList.classList.remove('show');
+              menuToggle.innerHTML = '&#9776;';
+            }
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error al cargar el header:', error);
+        // Mostrar header de fallback si falla la carga
+        document.getElementById('header-placeholder').innerHTML = `
+          <header class="header">
+            <div class="container">
+              <a href="./index.html">
+                <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
+              </a>
+              <nav class="nav" id="nav">
+                <ul class="nav__list">
+                  <li><a href="./index.html">Inicio</a></li>
+                  <li><a href="./index.html#pregrado">Pregrado</a></li>
+                  <li><a href="./index.html#posgrado">Posgrado</a></li>
+                  <li><a href="./index.html#egresados">Egresados</a></li>
+                  <li><a href="./index.html#noticias">Noticias</a></li>
+                  <li><a href="./index.html#contacto">Contacto</a></li>
+                  <li><a href="./ocaa.html">OCAA</a></li>
+                </ul>
+                <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+              </nav>
+            </div>
+          </header>
+        `;
+      });
+  </script>
 
 </body>
 
