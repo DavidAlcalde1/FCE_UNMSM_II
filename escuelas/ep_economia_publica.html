@@ -1,11 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EPEP</title>
-</head>
-<body>
-    PÁGINA DE LA EPEP
-</body>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EP de Economía Pública - FCE</title>
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet"
+        />
+        <link rel="icon" href="../img/index/logo_fce.png" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="../css/styles.css"> -->
+        <link rel="stylesheet" href="./styles.css" />
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- HEADER -->
+        <header class="header">
+        <div class="container">
+            <a href="../index.html">
+            <img src="../img/index/logo_fce.png" alt="Logo UNMSM" class="logo" />
+            </a>
+            <nav class="nav" id="nav">
+            <ul class="nav__list">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#pregrado">Pregrado</a></li>
+                <li><a href="#posgrado">Posgrado</a></li>
+                <li class="dropdown">
+                <a href="#" class="dropbtn">Enlaces Destacados</a>
+                <ul class="dropdown-content">
+                    <li>
+                    <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"
+                        >MAT</a
+                    >
+                    </li>
+                    <li>
+                    <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"
+                        >SUM Alumnos</a
+                    >
+                    </li>
+                    <li>
+                    <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"
+                        >SUM Docentes</a
+                    >
+                    </li>
+                    <li>
+                    <a href="https://spsgd.unmsm.edu.pe/sgd/login.do">SGD</a>
+                    </li>
+                    <li><a href="https://sisbib.unmsm.edu.pe/">Biblioteca</a></li>
+                </ul>
+                </li>
+                <li><a href="#egresados">Egresados</a></li>
+                <li><a href="#noticias">Noticias</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="./ocaa.html">OCAA</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            </nav>
+        </div>
+        </header>
+
+        <!-- SECCIÓN PRINCIPAL DE LA ESCUELA -->
+        <section class="escuela-detalle-section">
+        <div class="container-escuela">
+            <div class="escuela-header">
+            <h1>Escuela Profesional de Economía Pública</h1>
+            <p class="escuela-subtitulo">
+                Especialización en políticas públicas y finanzas gubernamentales.
+            </p>
+            </div>
+
+            <div class="escuela-content">
+            <!-- Imagen principal -->
+            <div class="escuela-imagen-principal" data-aos="fade-up">
+                <img
+                src="./img/escuela-imagen.png"
+                alt="EP de Economía - Imagen Principal"
+                />
+            </div>
+
+            <!-- Información de la escuela -->
+            <div class="escuela-info" data-aos="fade-up" data-aos-delay="100">
+                <h2>Presentación</h2>
+                <p>
+                La Escuela Profesional de Economía Pública de la Facultad de
+                Ciencias Económicas de la Universidad Nacional Mayor de San Marcos
+                forma profesionales con una sólida base teórica y metodológica en
+                economía, preparados para analizar críticamente la gestión y el
+                impacto de las políticas públicas, y proponer soluciones que
+                contribuyan al desarrollo sostenible y al bienestar de la
+                sociedad.
+                </p>
+
+                <h3>Misión</h3>
+                <p>
+                Formar profesionales en economía con capacidad analítica,
+                pensamiento crítico y habilidades gerenciales para contribuir al
+                desarrollo económico sostenible del país, mediante una educación
+                de calidad basada en la investigación, la ética y la responsabilidad social.
+                </p>
+
+                <h3>Visión</h3>
+                <p>
+                Ser reconocida nacional e internacionalmente como una escuela
+                líder en la formación de economistas, destacando por la excelencia
+                de su cuerpo docente, la calidad de sus egresados y su
+                contribución al conocimiento económico.
+                </p>
+            </div>
+
+            <!-- Sección del Director -->
+            <div class="escuela-director" data-aos="fade-up" data-aos-delay="500">
+                <h2>Palabras del Director</h2>
+
+                <div class="director-content">
+                <div class="director-imagen">
+                    <img
+                    src="./img/directorMarioMontero.jpg"
+                    alt="Dr. Mario Montero Paredes - Director de la EPEP"
+                    />
+                </div>
+
+                <div class="director-info">
+                    <h3>Dr. Mario Montero Paredes</h3>
+                    <p class="director-cargo">
+                    Director de la Escuela Profesional de Economía Pública
+                    </p>
+                    <p class="director-contacto">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:mmonterop@unmsm.edu.pe"
+                        >mmonterop@unmsm.edu.pe</a
+                    >
+                    </p>
+                    <p class="director-contacto">
+                    <i class="fas fa-phone"></i>
+                    Anexo: 7225
+                    </p>
+
+                    <div class="director-mensaje">
+                    <p>Estimados estudiantes y futuros economistas,</p>
+                    <p>
+                        Es un honor darte la más cordial bienvenida a la Escuela
+                        Profesional de Economía Pública de la Facultad de Ciencias
+                        Económicas de la Universidad Nacional Mayor de San Marcos.
+                    </p>
+                    <p>
+                        Nuestra escuela se enorgullece de ofrecer una formación
+                        integral, rigurosa y actualizada, que te permitirá
+                        desenvolverte con excelencia en el complejo mundo económico
+                        actual. Nuestro compromiso es formarte no solo como un
+                        profesional competente, sino también como un ciudadano ético
+                        y comprometido con el desarrollo del país.
+                    </p>
+                    <p>
+                        Te invito a explorar nuestra propuesta académica, conocer a
+                        nuestro destacado cuerpo docente e integrarte a nuestra
+                        comunidad universitaria. Juntos construiremos un futuro
+                        brillante para ti y para nuestra institución.
+                    </p>
+                    <p>¡Bienvenido a la EPEP!</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Plan de estudios -->
+            <div class="escuela-plan" data-aos="fade-up" data-aos-delay="200">
+                <h2>Plan de Estudios</h2>
+                <p>
+                El plan de estudios de la Escuela Profesional de Economía está
+                estructurado en ciclos académicos que abarcan desde fundamentos
+                generales hasta especializaciones avanzadas.
+                </p>
+
+                <div class="plan-ciclos">
+                <div class="ciclo">
+                    <h4>Ciclo I - Fundamentos</h4>
+                    <ul>
+                    <li>Matemática Básica</li>
+                    <li>Introducción a la Economía</li>
+                    <li>Historia de la Cultura Occidental I</li>
+                    <li>Lenguaje y Comunicación</li>
+                    <li>Metodología del Trabajo Universitario</li>
+                    </ul>
+                </div>
+
+                <div class="ciclo">
+                    <h4>Ciclo V - Intermedio</h4>
+                    <ul>
+                    <li>Microeconomía II</li>
+                    <li>Macroeconomía II</li>
+                    <li>Econometría I</li>
+                    <li>Finanzas Públicas</li>
+                    <li>Historia Económica del Perú</li>
+                    </ul>
+                </div>
+
+                <div class="ciclo">
+                    <h4>Ciclo IX - Avanzado</h4>
+                    <ul>
+                    <li>Economía Monetaria y Financiera</li>
+                    <li>Desarrollo Económico</li>
+                    <li>Economía Internacional</li>
+                    <li>Seminario de Investigación Económica</li>
+                    <li>Electivo: Economía Conductual</li>
+                    </ul>
+                </div>
+                </div>
+
+                <a
+                href="../escuelas/docs/brochure EPE 22-.pdf"
+                class="btn-descargar"
+                target="_blank"
+                >
+                <i class="fas fa-file-pdf"></i> Descargar Brochure Completo
+                </a>
+            </div>
+
+            <!-- Perfil del Egresado -->
+            <div class="escuela-perfil" data-aos="fade-up" data-aos-delay="300">
+                <h2>Perfil del Egresado</h2>
+                <p>
+                El egresado de la Escuela Profesional de Economía estará
+                capacitado para:
+                </p>
+
+                <ul class="perfil-lista">
+                <li>
+                    Analizar críticamente fenómenos económicos a nivel micro y
+                    macroeconómico.
+                </li>
+                <li>
+                    Diseñar e implementar políticas económicas basadas en evidencia.
+                </li>
+                <li>
+                    Gestionar eficientemente recursos en el sector público y
+                    privado.
+                </li>
+                <li>Realizar estudios de mercado y evaluación de proyectos.</li>
+                <li>
+                    Contribuir a la formulación de estrategias de desarrollo
+                    económico sostenible.
+                </li>
+                </ul>
+            </div>
+
+            <!-- Campo Laboral -->
+            <div class="escuela-campo" data-aos="fade-up" data-aos-delay="400">
+                <h2>Campo Laboral</h2>
+                <p>
+                Los egresados de la Escuela Profesional de Economía tienen una
+                amplia gama de oportunidades laborales:
+                </p>
+
+                <div class="campo-grid">
+                <div class="campo-item">
+                    <i class="fas fa-building"></i>
+                    <p>
+                    Sector Privado: Empresas consultoras, bancos, corporaciones.
+                    </p>
+                </div>
+                <div class="campo-item">
+                    <i class="fas fa-landmark"></i>
+                    <p>Sector Público: Ministerios, BCRP, SUNAT, municipios.</p>
+                </div>
+                <div class="campo-item">
+                    <i class="fas fa-chart-line"></i>
+                    <p>
+                    Investigación: Universidades, think tanks, organismos
+                    internacionales.
+                    </p>
+                </div>
+                <div class="campo-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <p>Docencia: Institutos y universidades.</p>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-columna">
+            <h3>Facultad</h3>
+            <ul>
+                <li><a href="#">Misión y Visión</a></li>
+                <li><a href="#">Autoridades</a></li>
+                <li><a href="#">Historia</a></li>
+                <li><a href="#">Ubicación</a></li>
+            </ul>
+            </div>
+
+            <div class="footer-columna">
+            <h3>Académico</h3>
+            <ul>
+                <li><a href="../index.html#pregrado">Pregrado</a></li>
+                <li><a href="../index.html#posgrado">Posgrado</a></li>
+                <li><a href="../index.html#escuelas">Escuelas Profesionales</a></li>
+                <li><a href="#">Centro de Idiomas</a></li>
+            </ul>
+            </div>
+
+            <div class="footer-columna">
+            <h3>Servicios</h3>
+            <ul>
+                <li><a href="../ocaa.html">OCAA</a></li>
+                <li><a href="#">Biblioteca</a></li>
+                <li><a href="#">Laboratorios</a></li>
+                <li><a href="#">Trámites</a></li>
+            </ul>
+            </div>
+
+            <div class="footer-columna">
+            <h3>Conéctate</h3>
+            <div class="redes-sociales-footer">
+                <a
+                href="https://web.facebook.com/profile.php?id=100073434511404"
+                target="_blank"
+                ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a
+                href="https://www.youtube.com/@facultaddecienciaseconomic8432"
+                target="_blank"
+                ><i class="fab fa-youtube"></i
+                ></a>
+                <a href="https://x.com/FCEUnmsm1" target="_blank"
+                ><i class="fab fa-twitter"></i
+                ></a>
+            </div>
+            <p><i class="fas fa-envelope"></i> contacto@fce.unmsm.edu.pe</p>
+            <p><i class="fas fa-map-marker-alt"></i> Av. Germán Amézaga N° 375</p>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+            <p>Developed by Bach. José David Alcalde Cabrera</p>
+        </div>
+        </footer>
+
+        <!-- BOTÓN MODO OSCURO -->
+        <!-- <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button> -->
+
+        <script src="./js/script.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+        AOS.init();
+        </script>
+    </body>
 </html>

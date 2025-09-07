@@ -163,59 +163,162 @@ main {
 
 
 
-/* HEADER GENERAL*/
-header.header {
-  position:fixed;
+/* === HEADER GENERAL === */
+.header {
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* más que el overlay y el nav */
-  background: rgba(10, 25, 47, 0.95);
+  z-index: 1000;
+  background: rgba(16,45,82,0.95); /* var(--azul-oscuro) con transparencia */
+  color: white;
+  padding: 10px 0;
   transition: all 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(6px); /* suaviza el fondo */
-  -webkit-backdrop-filter: blur(6px); /* soporte Safari */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-header.header.scrolled {
-  background: rgba(10, 25, 47, 0.85); /* más transparente al hacer scroll */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px); /* efecto de desenfoque */
+.header.scrolled {
+  background: rgba(16,45,82,0.85);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  padding: 8px 0;
 }
 
-/* LOGO ANIMADO */
-header.header .logo {
-  height: 60px;
+.container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  height: 70px;
   transition: height 0.3s ease, transform 0.3s ease;
 }
 
-header.header.scrolled .logo {
+.header.scrolled .logo {
   height: 50px;
   transform: scale(0.95);
 }
 
-header.nav__list {
+/* === MENÚ DE NAVEGACIÓN - ESCRITORIO (>= 1201px) === */
+.nav {
+  display: block;
+}
+
+.nav__list {
+  list-style: none;
   display: flex;
   gap: 20px;
   align-items: center;
-  list-style: none;
 }
 
-header.nav__list li a {
+.nav__list li a {
   text-decoration: none;
   color: white;
-  font-size: 1rem;
+  font-weight: bold;
   padding: 10px 15px;
-  transition: color 0.3s ease;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: block;
+  text-align: center;
 }
 
-header.nav__list li a:hover {
+.nav__list li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
   color: var(--dorado);
 }
 
-.menu-toggle {
-  display: none; /* oculto en desktop */
+/* Dropdown para escritorio */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
+.dropbtn {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.dropbtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--dorado);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: rgba(20, 60, 120, 0.4); 
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1001;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+  top: 100%;
+  left: 0;
+  text-align: center;
+  border-top:solid 1px var(--dorado);
+  width: 100%;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(202, 167, 90, 0.3);
+  color: var(--dorado);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* === BOTÓN HAMBURGUESA - OCULTO EN ESCRITORIO === */
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  background: none;
+  border: none;
+  padding: 5px;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  z-index: 1002;
+}
 
 
 /*BOTÓN DARK MODE*/
@@ -283,7 +386,7 @@ header.nav__list li a:hover {
 }
 .slide-content {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -1702,7 +1805,7 @@ header.nav__list li a:hover {
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
-  height: 350px; /* Ajusta según necesites */
+  height: 400px; /* Ajusta según necesites */
 }
 
 .egresados-carrusel-track {
@@ -2620,8 +2723,13 @@ body.modo-oscuro .enlace-icono {
 
 
 /* RESPONSIVE - Menú hamburguesa para pantallas <= 1020px */
+
 @media (max-width: 1200px) {
- @media (max-width: 1200px) {
+  .nav__list {
+    display: none;
+  }
+
+
   .menu-toggle {
     display: block;
     cursor: pointer;
@@ -2629,47 +2737,65 @@ body.modo-oscuro .enlace-icono {
     z-index: 1100;
   }
 
-  /* Menú lateral (off-canvas) */
-  .nav__list.offcanvas {
-    flex-direction: column;
+  /* Overlay para menú hamburguesa */
+  .offcanvas-overlay {
     position: fixed;
     top: 0;
-    right: -100%; /* oculto por defecto */
-    width: 300px;
-    height: 100%;
-    background: rgba(20, 60, 120, 0.6);
-    backdrop-filter: blur(8px) saturate(120%);
-    box-shadow: -2px 0 10px rgba(0,0,0,0.25);
-    padding: 80px 20px 20px;
-    border-radius: 15px 0 0 15px;
-    overflow-y: auto;
-    transition: right 0.3s ease;
-    z-index: 1000;
-    text-align: center;
-    gap: 15px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(30, 30, 30, 0.6);
+    z-index: 998; /* Debajo del menú */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    display: block;
+    pointer-events: auto;
+  }
+  .offcanvas-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
   }
 
+  /* Menú hamburguesa desplegable */
+  .nav__list.offcanvas {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30%;
+    max-width: 300px;
+    height: auto;
+    background:rgba(20, 60, 120, 0.6);
+    z-index: 999; /* Encima del overlay */
+    box-shadow: -2px 0 20px rgba(0,0,0,0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    pointer-events: auto;
+    border-radius: 0 0 0 15px;  }
   .nav__list.offcanvas.show {
-    right: 0; /* se despliega */
+    transform: translateX(0);
+    pointer-events: auto;
   }
 
   /* Items del menú */
   .nav__list.offcanvas li {
     margin: 15px 0;
     width: 100%;
-    text-align: left;
+    text-align: center;
   }
-
   .nav__list.offcanvas li a {
     display: block;
     padding: 15px 20px;
     font-size: 1.1rem;
-    color: white;
+    color: var(--blanco-matizado);
     text-decoration: none;
     border-radius: 8px;
+    text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
   }
-
   .nav__list.offcanvas li a:hover {
     color: var(--dorado);
     padding-left: 25px;
@@ -2678,25 +2804,23 @@ body.modo-oscuro .enlace-icono {
   /* Dropdown móvil */
   .nav__list.offcanvas .dropdown {
     width: 100%;
+    text-align: center;
   }
-
   .nav__list.offcanvas .dropbtn {
     width: 100%;
-    text-align: left;
+    text-align: center;
     padding: 15px 20px;
     font-size: 1.1rem;
-    color: white;
+    color: #fff;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    /* justify-content: space-between; */
     align-items: center;
   }
-
   .nav__list.offcanvas .dropbtn:hover {
     color: var(--dorado);
     padding-left: 25px;
   }
-
   .nav__list.offcanvas .dropdown-content {
     position: static;
     display: none;
@@ -2704,41 +2828,26 @@ body.modo-oscuro .enlace-icono {
     width: 100%;
     text-align: center;
   }
-
   .nav__list.offcanvas .dropdown-content.show {
     display: block;
     animation: slideDown 0.3s ease;
+    background:rgba(20, 60, 120, 0.1);
   }
-
   .nav__list.offcanvas .dropdown-content a {
     padding: 12px 20px 12px 30px;
     font-size: 0.95rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-
   .nav__list.offcanvas .dropdown-content a:hover {
     color: var(--dorado);
     padding-left: 35px;
   }
-
   .nav__list.offcanvas .dropdown-content a:last-child {
     border-bottom: none;
   }
 
-  /* Overlay */
-  .offcanvas-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 900;
-    cursor: pointer;
-  }
 
-  .offcanvas-overlay.show {
-    display: block;
-  }
-}
+
 
 /* Animación desplegar dropdown */
 @keyframes slideDown {

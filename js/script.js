@@ -560,120 +560,103 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// === IMPORTAR HEADER EXTERNO + INICIALIZAR MENÚ ===
-fetch('../header/header.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
 
-    // Inicializar una vez cargado el header
-    setTimeout(() => {
-      inicializarMenuHamburguesa();
-      inicializarHeaderFijo();
-    }, 0);
-  })
-  .catch(error => {
-    console.error('Error al cargar el header:', error);
-    document.getElementById('header-placeholder').innerHTML = `
-      <header class="header">
-        <div class="container">
-          <a href="./index.html">
-            <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
-          </a>
-          <nav class="nav" id="nav">
-            <ul class="nav__list offcanvas">
-              <li><a href="./index.html">Inicio</a></li>
-              <li><a href="./index.html#pregrado">Pregrado</a></li>
-              <li><a href="./index.html#posgrado">Posgrado</a></li>
-              <li><a href="./index.html#egresados">Egresados</a></li>
-              <li><a href="./index.html#noticias">Noticias</a></li>
-              <li><a href="./index.html#contacto">Contacto</a></li>
-              <li><a href="./ocaa.html">OCAA</a></li>
-            </ul>
-            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-          </nav>
-        </div>
-      </header>
-    `;
-
-    setTimeout(() => {
-      inicializarMenuHamburguesa();
-      inicializarHeaderFijo();
-    }, 100);
-  });
 
 
 // === FUNCIÓN REUTILIZABLE PARA EL MENÚ HAMBURGUESA ===
 function inicializarMenuHamburguesa() {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const navList = document.querySelector(".nav__list.offcanvas");
-  if (!menuToggle || !navList) return;
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navList = document.querySelector(".nav__list.offcanvas");
+    if (!menuToggle || !navList) return;
 
-  // Overlay
-  let overlay = document.querySelector(".offcanvas-overlay");
-  if (!overlay) {
-    overlay = document.createElement("div");
-    overlay.classList.add("offcanvas-overlay");
-    document.body.appendChild(overlay);
-  }
-
-  let menuOpen = false;
-
-  // Toggle menú
-  menuToggle.addEventListener("click", () => {
-    menuOpen = !menuOpen;
-    navList.classList.toggle("show", menuOpen);
-    overlay.classList.toggle("show", menuOpen);
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-  });
-
-  // Cerrar menú al hacer clic en overlay
-  overlay.addEventListener("click", () => {
-    navList.classList.remove("show");
-    overlay.classList.remove("show");
-    document.body.style.overflow = "";
-    menuOpen = false;
-  });
-
-  // Cerrar menú al hacer clic en un enlace
-  document.querySelectorAll(".nav__list.offcanvas a").forEach(link => {
-    link.addEventListener("click", () => {
-      navList.classList.remove("show");
-      overlay.classList.remove("show");
-      document.body.style.overflow = "";
-      menuOpen = false;
-    });
-  });
-
-  // Dropdowns en móvil
-  document.querySelectorAll(".nav__list.offcanvas .dropdown").forEach(dropdown => {
-    const btn = dropdown.querySelector(".dropbtn");
-    const content = dropdown.querySelector(".dropdown-content");
-    if (btn && content) {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        content.classList.toggle("show");
-      });
+    // Overlay
+    let overlay = document.querySelector(".offcanvas-overlay");
+    if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.classList.add("offcanvas-overlay");
+        document.body.insertBefore(overlay, document.body.firstChild);
     }
-  });
 
-  console.log("✅ Menú hamburguesa inicializado");
+    let menuOpen = false;
+
+    // Toggle menú
+    menuToggle.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        navList.classList.toggle("show", menuOpen);
+        overlay.classList.toggle("show", menuOpen);
+        document.body.style.overflow = menuOpen ? "hidden" : "";
+    });
+
+    // Cerrar menú al hacer clic en overlay
+    overlay.addEventListener("click", (e) => {
+        // Solo cerrar si el clic fue directamente en el overlay, no en el menú
+        if (e.target === overlay) {
+            navList.classList.remove("show");
+            overlay.classList.remove("show");
+            document.body.style.overflow = "";
+            menuOpen = false;
+        }
+    });
+
+// Cerrar menú al hacer clic en un enlace (solo después de que el enlace funcione)
+document.querySelectorAll(".nav__list.offcanvas a").forEach(link => {
+    link.addEventListener("click", (e) => {
+        // Si es un botón de dropdown, NO cerrar el menú
+        if (link.classList.contains("dropbtn")) {
+            e.preventDefault(); // Solo despliega el submenú
+            return;
+        }
+        // Si el enlace es externo o tiene target="_blank", deja que navegue primero
+        if (link.target === "_blank" || link.href.startsWith("http")) {
+            setTimeout(() => {
+                navList.classList.remove("show");
+                overlay.classList.remove("show");
+                document.body.style.overflow = "";
+                menuOpen = false;
+            }, 100);
+        } else {
+            // Para enlaces internos, cierra el menú y navega
+            navList.classList.remove("show");
+            overlay.classList.remove("show");
+            document.body.style.overflow = "";
+            menuOpen = false;
+        }
+    });
+});
+
+    // Dropdowns en móvil
+    document.querySelectorAll(".nav__list.offcanvas .dropdown").forEach(dropdown => {
+        const btn = dropdown.querySelector(".dropbtn");
+        const content = dropdown.querySelector(".dropdown-content");
+        if (btn && content) {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                content.classList.toggle("show");
+            });
+        }
+    });
+
+    console.log("✅ Menú hamburguesa inicializado");
 }
 
 
 // === HEADER FIJO EN SCROLL ===
 function inicializarHeaderFijo() {
-  const header = document.querySelector(".header");
-  if (!header) return;
+    const header = document.querySelector(".header");
+    if (!header) return;
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
-  });
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+    });
 
-  console.log("✅ Header fijo inicializado");
+    console.log("✅ Header fijo inicializado");
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarMenuHamburguesa();
+    inicializarHeaderFijo();
+});

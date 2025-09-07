@@ -377,6 +377,44 @@ html {
   line-clamp: 2;
 }
 
+.escuela-enlaces {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.btn-enlace {
+  display: inline-flex;
+  align-items: center;
+  width: 250px;
+  text-align: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--azul-oscuro);
+  background: rgba(255, 255, 255, 0.1); /* transparencia tipo vidrio */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px); /* efecto glass */
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-enlace:hover {
+  background: rgba(229, 160, 13, 0.3); /* un dorado translúcido */
+  border-color: rgba(229, 160, 13, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+
+
 .escuela-content {
   width: 100%;
   display: flex;
