@@ -2749,12 +2749,13 @@ body.modo-oscuro .enlace-icono {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
-    display: block;
+    display: none;
     pointer-events: auto;
   }
   .offcanvas-overlay.show {
     opacity: 1;
     pointer-events: auto;
+    display:block;
   }
 
   /* Menú hamburguesa desplegable */
