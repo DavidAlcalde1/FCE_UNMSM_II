@@ -1,832 +1,679 @@
+// === UTILIDAD: OBTENER RUTA BASE DEL PROYECTO ===
+function getBasePath() {
+    const scripts = document.getElementsByTagName('script');
+    const currentScript = scripts[scripts.length - 1];
+    const src = currentScript.src;
+    const path = src.substring(0, src.lastIndexOf('/') + 1);
+    return path.replace('/js/', '/');
+}
+const BASE_PATH = getBasePath();
+
 // === POP-UP DE TRANSPARENCIA ===
 document.addEventListener('DOMContentLoaded', function () {
-  const popup = document.getElementById('transparencia-popup');
-  const cerrarBtn = document.getElementById('cerrar-popup');
+    const popup = document.getElementById('transparencia-popup');
+    const cerrarBtn = document.getElementById('cerrar-popup');
 
-  // Mostrar el pop-up al cargar la página (con un pequeño retraso para mejor UX)
-  // Se mostrará siempre al recargar, sin verificar localStorage
-  if (popup) { // <-- Eliminamos la verificación de localStorage
-    setTimeout(() => {
-      popup.style.display = 'flex';
-    }, 1000); // Se muestra después de 1 segundo
-  }
-
-  // ... (el resto del código del pop-up para cerrarlo puede permanecer igual) ...
-  // Función para cerrar el pop-up
-  function cerrarPopup() {
     if (popup) {
-      popup.style.opacity = '0';
-      popup.style.transform = 'scale(0.9)';
-      // Esperar a que termine la animación antes de ocultarlo completamente
-      setTimeout(() => {
-        popup.style.display = 'none';
-        // NO guardamos en localStorage que fue cerrado
-        // localStorage.setItem('transparenciaPopupCerrado', 'true'); // <-- Esta línea la comentamos o eliminamos
-      }, 300);
+        setTimeout(() => {
+            popup.style.display = 'flex';
+        }, 1000);
     }
-  }
 
-  // Cerrar al hacer clic en el botón de cerrar
-  if (cerrarBtn) {
-    cerrarBtn.addEventListener('click', cerrarPopup);
-  }
+    function cerrarPopup() {
+        if (popup) {
+            popup.style.opacity = '0';
+            popup.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
+    }
 
-  // Cerrar al hacer clic fuera del contenido del pop-up
-  if (popup) {
-    popup.addEventListener('click', function (event) {
-      // Si se hace clic directamente en el overlay (no en el contenido)
-      if (event.target === popup) {
-        cerrarPopup();
-      }
+    if (cerrarBtn) {
+        cerrarBtn.addEventListener('click', cerrarPopup);
+    }
+
+    if (popup) {
+        popup.addEventListener('click', function (event) {
+            if (event.target === popup) {
+                cerrarPopup();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && popup && popup.style.display === 'flex') {
+            cerrarPopup();
+        }
     });
-  }
-
-  // Opcional: Cerrar con la tecla Escape
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && popup && popup.style.display === 'flex') {
-      cerrarPopup();
-    }
-  });
 });
 
 
 
-
-
-// === MENÚ HAMBURGUESA OFF-CANVAS ===
-// === MENÚ HAMBURGUESA ===
-// document.addEventListener('DOMContentLoaded', function () {
-//     console.log("DOM completamente cargado - Iniciando menú hamburguesa");
-    
-//     const menuToggle = document.getElementById('menu-toggle');
-//     const navList = document.querySelector('.nav__list');
-//     const header = document.querySelector('.header');
-
-//     // Verificar que todos los elementos necesarios existan
-//     if (!menuToggle) {
-//         console.error("Menú hamburguesa: No se encontró el elemento #menu-toggle");
-//         return;
-//     }
-    
-//     if (!navList) {
-//         console.error("Menú hamburguesa: No se encontró el elemento .nav__list");
-//         return;
-//     }
-    
-//     if (!header) {
-//         console.error("Menú hamburguesa: No se encontró el elemento .header");
-//         return;
-//     }
-
-//     console.log("Menú hamburguesa: Elementos encontrados correctamente");
-
-//     // Función para alternar el menú
-//     function toggleMenu() {
-//         console.log("Botón hamburguesa clickeado");
-//         navList.classList.toggle('show');
-        
-//         // Cambiar ícono del botón
-//         if (navList.classList.contains('show')) {
-//             menuToggle.innerHTML = '&#10005;'; // Ícono de cierre (X)
-//             console.log("Menú ABIERTO");
-//         } else {
-//             menuToggle.innerHTML = '&#9776;'; // Ícono de menú (☰)
-//             console.log("Menú CERRADO");
-//         }
-//     }
-
-//     // Evento para el botón hamburguesa
-//     menuToggle.addEventListener('click', function(e) {
-//         e.preventDefault(); // Evitar comportamiento predeterminado
-//         console.log("Evento click en #menu-toggle disparado");
-//         toggleMenu();
-//     });
-
-//     // Cerrar menú al hacer clic fuera
-//     document.addEventListener('click', function(e) {
-//         if (!e.target.closest('.nav') && navList.classList.contains('show')) {
-//             console.log("Clic fuera del menú - Cerrando menú");
-//             navList.classList.remove('show');
-//             menuToggle.innerHTML = '&#9776;'; // Restaurar ícono
-//         }
-//     });
-
-//     console.log("Event listeners añadidos al menú hamburguesa");
-// });
-
-
-
-
-
-
-
-  // Carrusel automático con pausa al hover
+// === CARRUSEL PRINCIPAL (BANNERS) ===
 document.addEventListener('DOMContentLoaded', function () {
-  let current = 0;
-  let carouselInterval; // Variable para almacenar el ID del intervalo
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
-  const carouselElement = document.querySelector('.carousel'); // Selecciona el contenedor del carrusel
+    let current = 0;
+    let carouselInterval;
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+    const carouselElement = document.querySelector('.carousel');
 
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.remove("active");
-      // Oculta animaciones anteriores
-      const content = slide.querySelector('.slide-content');
-      if (content) {
-        content.classList.remove("animar");
-      }
-      if (i === index) {
-        slide.classList.add("active");
-        // Fuerza reflow para reiniciar animación
-        const newContent = slide.querySelector('.slide-content');
-        if (newContent) {
-          void newContent.offsetWidth; // reinicia animación CSS
-          newContent.classList.add("animar");
-        }
-      }
-    });
-    dots.forEach(dot => dot.classList.remove("active"));
-    if (dots[index]) dots[index].classList.add("active");
-    current = index;
-  }
+    if (!slides.length) return;
 
-  // Función para iniciar el autoplay
-  function startCarousel() {
-    carouselInterval = setInterval(() => {
-      showSlide((current + 1) % slides.length);
-    }, 4000);
-  }
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove("active");
+            const content = slide.querySelector('.slide-content');
+            if (content) {
+                content.classList.remove("animar");
+            }
+            if (i === index) {
+                slide.classList.add("active");
+                const newContent = slide.querySelector('.slide-content');
+                if (newContent) {
+                    void newContent.offsetWidth;
+                    newContent.classList.add("animar");
+                }
+            }
+        });
+        dots.forEach(dot => dot.classList.remove("active"));
+        if (dots[index]) dots[index].classList.add("active");
+        current = index;
+    }
 
-  // Función para detener el autoplay
-  function stopCarousel() {
-    clearInterval(carouselInterval);
-  }
+    function startCarousel() {
+        carouselInterval = setInterval(() => {
+            showSlide((current + 1) % slides.length);
+        }, 4000);
+    }
 
-  // Iniciar el carrusel automáticamente
-  startCarousel();
+    function stopCarousel() {
+        clearInterval(carouselInterval);
+    }
 
-  // Pausar el carrusel cuando el mouse entra
-  carouselElement.addEventListener('mouseenter', stopCarousel);
-
-  // Reanudar el carrusel cuando el mouse sale
-  carouselElement.addEventListener('mouseleave', startCarousel);
-
-  // Botones flecha - también detienen el autoplay temporalmente y lo reinician
-  prevBtn.addEventListener("click", () => {
-    showSlide((current - 1 + slides.length) % slides.length);
-    // Reiniciar el intervalo después de la interacción manual
-    stopCarousel();
     startCarousel();
-  });
 
-  nextBtn.addEventListener("click", () => {
-    showSlide((current + 1) % slides.length);
-    // Reiniciar el intervalo después de la interacción manual
-    stopCarousel();
-    startCarousel();
-  });
+    carouselElement?.addEventListener('mouseenter', stopCarousel);
+    carouselElement?.addEventListener('mouseleave', startCarousel);
 
-  // Clic en los indicadores - también detienen el autoplay temporalmente y lo reinician
-  dots.forEach(dot => {
-    dot.addEventListener("click", () => {
-      const slideTo = parseInt(dot.dataset.slide);
-      showSlide(slideTo);
-      // Reiniciar el intervalo después de la interacción manual
-      stopCarousel();
-      startCarousel();
+    prevBtn?.addEventListener("click", () => {
+        showSlide((current - 1 + slides.length) % slides.length);
+        stopCarousel();
+        startCarousel();
     });
-  });
-  
-})
 
-
-
-
-  // Menú responsive
-  document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.querySelector(".nav__list").classList.toggle("show");
-  });
-
-  // Opcional: Cerrar el menú al hacer clic en un enlace
-  document.querySelectorAll('.nav__list a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.querySelector(".nav__list").classList.remove("show");
+    nextBtn?.addEventListener("click", () => {
+        showSlide((current + 1) % slides.length);
+        stopCarousel();
+        startCarousel();
     });
-  });
 
+    dots.forEach(dot => {
+        dot.addEventListener("click", () => {
+            const slideTo = parseInt(dot.dataset.slide);
+            showSlide(slideTo);
+            stopCarousel();
+            startCarousel();
+        });
+    });
+});
 
-  // Contador animado cuando se ve en pantalla
-  const contadores = document.querySelectorAll('.contador');
-  let yaAnimado = false;
-
-  function animarContadores() {
+// === CONTADOR ANIMADO ===
+window.addEventListener('load', () => {
+    const contadores = document.querySelectorAll('.contador');
     contadores.forEach(contador => {
-      const actualizar = () => {
-        const objetivo = +contador.getAttribute('data-target');
-        const actual = +contador.innerText;
-        const incremento = Math.ceil(objetivo / 100);
-
-        if (actual < objetivo) {
-          contador.innerText = actual + incremento;
-          setTimeout(actualizar, 30);
-        } else {
-          contador.innerText = objetivo;
-        }
-      };
-      actualizar();
+        const actualizar = () => {
+            const objetivo = +contador.getAttribute('data-target');
+            const actual = +contador.innerText;
+            const incremento = Math.ceil(objetivo / 100);
+            if (actual < objetivo) {
+                contador.innerText = actual + incremento;
+                setTimeout(actualizar, 30);
+            } else {
+                contador.innerText = objetivo;
+            }
+        };
+        actualizar();
     });
-  }
+});
 
-  // Detecta si sección está en pantalla
-  function esVisible(elemento) {
-    const rect = elemento.getBoundingClientRect();
-    return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
-  }
-
-  window.addEventListener('load', () => {
-    animarContadores();
-  });
-
-
-  const boton = document.getElementById('modoBtn');
-  boton.addEventListener('click', () => {
+// === BOTÓN MODO OSCURO ===
+const boton = document.getElementById('modoBtn');
+boton?.addEventListener('click', () => {
     document.body.classList.toggle('modo-oscuro');
     boton.textContent = document.body.classList.contains('modo-oscuro') ? '☀️' : '🌙';
-  });
+});
 
-
-
-  fetch('noticias.json')
-    .then(res => res.json())
+// === CARRUSEL DE NOTICIAS PRINCIPAL ===
+fetch(BASE_PATH + 'noticias.json')
+    .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    })
     .then(noticias => {
-      const container = document.getElementById('noticias-carousel');
-      const dotsContainer = document.getElementById('dots2');
-      let index = 0;
+        const container = document.getElementById('noticias-carousel');
+        const dotsContainer = document.getElementById('dots2');
+        if (!container || !dotsContainer) return;
 
-      // Crear las noticias
-      noticias.forEach((noticia, i) => {
-        const noticiaEl = document.createElement('div');
-        noticiaEl.classList.add('noticia');
-        if (i === 0) noticiaEl.classList.add('active');
-        noticiaEl.innerHTML = `
-        <img src="${noticia.imagen}" alt="${noticia.titulo}">
-        <div class="contenido-noticia">
-          <h3>${noticia.titulo}</h3>
-          <p>${noticia.resumen}</p>
-          <a href="${noticia.enlace}" class="btn-vermasN">Ver más</a>
-        </div>
-      `;
-        container.insertBefore(noticiaEl, dotsContainer);
+        let index = 0;
 
-        const dot = document.createElement('span');
-        dot.classList.add('dot2');
-        if (i === 0) dot.classList.add('active');
-        dot.dataset.index = i;
-        dotsContainer.appendChild(dot);
-      });
+        noticias.forEach((noticia, i) => {
+            const noticiaEl = document.createElement('div');
+            noticiaEl.classList.add('noticia');
+            if (i === 0) noticiaEl.classList.add('active');
+            noticiaEl.innerHTML = `
+                <img src="${noticia.imagen}" alt="${noticia.titulo}">
+                <div class="contenido-noticia">
+                    <h3>${noticia.titulo}</h3>
+                    <p>${noticia.resumen}</p>
+                    <a href="${noticia.enlace}" class="btn-vermasN">Ver más</a>
+                </div>
+            `;
+            container.insertBefore(noticiaEl, dotsContainer);
 
-      const noticiasEls = document.querySelectorAll('.noticia');
-      const dots = document.querySelectorAll('.dot2');
-
-      function showNoticia(i) {
-        noticiasEls.forEach((n, idx) => {
-          n.classList.toggle('active', idx === i);
-          dots[idx].classList.toggle('active', idx === i);
+            const dot = document.createElement('span');
+            dot.classList.add('dot2');
+            if (i === 0) dot.classList.add('active');
+            dot.dataset.index = i;
+            dotsContainer.appendChild(dot);
         });
-        index = i;
-      }
 
-      document.querySelector('.prev2').addEventListener('click', () => {
-        index = (index - 1 + noticias.length) % noticias.length;
-        showNoticia(index);
-      });
+        const noticiasEls = document.querySelectorAll('.noticia');
+        const dots = document.querySelectorAll('.dot2');
 
-      document.querySelector('.next2').addEventListener('click', () => {
-        index = (index + 1) % noticias.length;
-        showNoticia(index);
-      });
+        function showNoticia(i) {
+            noticiasEls.forEach((n, idx) => {
+                n.classList.toggle('active', idx === i);
+                dots[idx].classList.toggle('active', idx === i);
+            });
+            index = i;
+        }
 
-      dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-          showNoticia(parseInt(dot.dataset.index));
+        document.querySelector('.prev2')?.addEventListener('click', () => {
+            index = (index - 1 + noticias.length) % noticias.length;
+            showNoticia(index);
         });
-      });
 
-      // Auto-slide
-      setInterval(() => {
-        index = (index + 1) % noticias.length;
-        showNoticia(index);
-      }, 5000);
+        document.querySelector('.next2')?.addEventListener('click', () => {
+            index = (index + 1) % noticias.length;
+            showNoticia(index);
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showNoticia(parseInt(dot.dataset.index));
+            });
+        });
+
+        setInterval(() => {
+            index = (index + 1) % noticias.length;
+            showNoticia(index);
+        }, 5000);
+    })
+    .catch(err => {
+        console.error("Error al cargar noticias principales:", err);
+        const container = document.getElementById('noticias-carousel');
+        if (container) {
+            container.innerHTML = '<p style="color:red; text-align:center;">⚠️ Error al cargar noticias.</p>';
+        }
     });
 
-
-  fetch('./noticias.json')
-    .then(response => response.json())
+// === ÚLTIMAS 3 NOTICIAS ===
+fetch(BASE_PATH + 'noticias.json')
+    .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+    })
     .then(data => {
-      const ultimas = data.slice(0, 3); // Últimas 3 noticias
-      const container = document.getElementById('ultimas-container');
+        const ultimas = data.slice(0, 3);
+        const container = document.getElementById('ultimas-container');
+        if (!container) return;
 
-      ultimas.forEach(noticia => {
-        const card = document.createElement('div');
-        card.classList.add('noticia-card');
-
-        card.innerHTML = `
-        <img src="${noticia.imagen}" alt="${noticia.titulo}">
-        <h3>${noticia.titulo}</h3>
-        <p class="fecha"><i class="fa-regular fa-clock"></i> ${noticia.fecha}</p>
-      `;
-
-        container.appendChild(card);
-      });
+        ultimas.forEach(noticia => {
+            const card = document.createElement('div');
+            card.classList.add('noticia-card');
+            card.innerHTML = `
+                <img src="${noticia.imagen}" alt="${noticia.titulo}">
+                <h3>${noticia.titulo}</h3>
+                <p class="fecha"><i class="fa-regular fa-clock"></i> ${noticia.fecha}</p>
+            `;
+            container.appendChild(card);
+        });
+    })
+    .catch(err => {
+        console.error("Error al cargar últimas noticias:", err);
+        const container = document.getElementById('ultimas-container');
+        if (container) {
+            container.innerHTML = '<p style="color:red; text-align:center;">⚠️ Error al cargar últimas noticias.</p>';
+        }
     });
 
-
-
-  // COMUNICADOS
-  // fetch('comunicados.json')
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     const contenedor = document.getElementById('lista-comunicados');
-
-  //     // Tomar los últimos 3 comunicados
-  //     const ultimos = data.slice(0, 3);
-
-  //     ultimos.forEach(com => {
-  //       const div = document.createElement('div');
-  //       div.style.marginBottom = '15px';
-  //       div.innerHTML = `
-  //         <h4 style="margin: 5px 0; color: #fff;">📢 ${com.titulo}</h4>
-  //         <small style="color: #ccc;">${new Date(com.fecha).toLocaleDateString('es-PE')}</small>
-  //       `;
-  //       contenedor.appendChild(div);
-  //     });
-  // });
-
-
-
-
-
-  // Carrusel de posgrado con desplazamiento automático
-  function setupCarrusel(id, jsonPath, prevClass, nextClass) {
+// === CARRUSEL DE POSGRADO (MAESTRÍAS Y DOCTORADOS) ===
+function setupCarrusel(id, jsonPath, prevClass, nextClass) {
     const container = document.getElementById(id);
     const prevBtn = document.querySelector("." + prevClass);
     const nextBtn = document.querySelector("." + nextClass);
+
+    if (!container || !prevBtn || !nextBtn) return;
 
     let currentIndex = 0;
     let items = [];
 
     fetch(jsonPath)
-      .then(res => res.json())
-      .then(data => {
-        items = data;
-        renderCards(); // Llamada inicial
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            items = data;
+            renderCards();
 
-        if (items.length <= 3) {
-          prevBtn.style.display = "none";
-          nextBtn.style.display = "none";
-        }
-      })
-      .catch(err => {
-        console.error("Error al cargar JSON:", err);
-      });
+            if (items.length <= 3) {
+                prevBtn.style.display = "none";
+                nextBtn.style.display = "none";
+            }
+        })
+        .catch(err => {
+            console.error("Error al cargar JSON de posgrado:", err);
+            container.innerHTML = '<p style="color:red; text-align:center;">⚠️ Error al cargar programas.</p>';
+        });
 
     function renderCards() {
-      container.innerHTML = "";
+        container.innerHTML = "";
+        const visibleItems = items.slice(currentIndex, currentIndex + 3);
+        visibleItems.forEach((item, index) => {
+            const card = document.createElement("a");
+            card.href = item.enlace;
+            card.className = "posgrado-card";
+            card.setAttribute("data-aos", "fade-up");
+            card.setAttribute("data-aos-delay", 100 + (index * 200));
+            card.innerHTML = `
+                <img src="${item.imagen}" alt="${item.nombre}">
+                <h3>${item.nombre}</h3>
+            `;
+            container.appendChild(card);
+        });
 
-      const visibleItems = items.slice(currentIndex, currentIndex + 3);
-      // Definir un delay base para el primer elemento
-      let delayBase = 100; // Puedes empezar desde 100ms
-      visibleItems.forEach((item, index) => {
-        const card = document.createElement("a");
-        card.href = item.enlace;
-        card.className = "posgrado-card";
-        // Añadir los atributos de AOS
-        card.setAttribute("data-aos", "fade-up");
-        // Incrementar el delay para cada elemento (100, 200, 300, etc.)
-        card.setAttribute("data-aos-delay", delayBase + (index * 200));
-        card.innerHTML = `
-        <img src="${item.imagen}" alt="${item.nombre}">
-        <h3>${item.nombre}</h3>
-      `;
-        container.appendChild(card);
-      });
-
-      // Opcional pero recomendado: Refresca AOS para que reconozca los nuevos elementos
-      // Asegúrate de que AOS esté completamente cargado antes de llamar a refresh
-      if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-      }
+        if (typeof AOS !== 'undefined') {
+            setTimeout(() => AOS.refresh(), 100);
+        }
     }
 
     prevBtn.addEventListener("click", () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = Math.max(0, items.length - 3);
-      }
-      renderCards();
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : Math.max(0, items.length - 3);
+        renderCards();
     });
 
     nextBtn.addEventListener("click", () => {
-      if (currentIndex + 3 < items.length) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
-      }
-      renderCards();
+        currentIndex = currentIndex + 3 < items.length ? currentIndex + 1 : 0;
+        renderCards();
     });
 
-    // Guarda el ID del intervalo si necesitas detenerlo después
     const carouselInterval = setInterval(() => {
-      if (items.length <= 3) return; // no hacer carrusel si hay <=3
-      if (currentIndex + 3 < items.length) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
-      }
-      renderCards();
+        if (items.length <= 3) return;
+        currentIndex = currentIndex + 3 < items.length ? currentIndex + 1 : 0;
+        renderCards();
     }, 6000);
-  }
+}
 
-  // Llamadas
-  setupCarrusel("maestrias-carousel", "./upg/data/maestrias.json", "prev-posgrado-maestrias", "next-posgrado-maestrias");
-  setupCarrusel("doctorados-carousel", "./upg/data/doctorados.json", "prev-posgrado-doctorados", "next-posgrado-doctorados");
+// Inicializar carruseles de posgrado
+setupCarrusel("maestrias-carousel", BASE_PATH + "upg/data/maestrias.json", "prev-posgrado-maestrias", "next-posgrado-maestrias");
+setupCarrusel("doctorados-carousel", BASE_PATH + "upg/data/doctorados.json", "prev-posgrado-doctorados", "next-posgrado-doctorados");
 
-
-  // Efecto de scrool en el Header
-  window.addEventListener('scroll', () => {
+// === EFECTO SCROLL EN HEADER ===
+window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
-    if (window.scrollY > 10) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    if (header) {
+        header.classList.toggle('scrolled', window.scrollY > 10);
     }
-  });
+});
 
+// === SECCIÓN DE EVENTOS ===
+function cargarYMostrarEventos() {
+    fetch(BASE_PATH + 'eventos.json')
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            const eventosAMostrar = data.slice(0, 5);
+            renderEventosLista(eventosAMostrar);
+            if (eventosAMostrar.length > 0) {
+                renderEventoDestacado(eventosAMostrar[0]);
+            }
+        })
+        .catch(err => {
+            console.error("Error al cargar eventos:", err);
+            const listaContenedor = document.getElementById('eventos-lista-js');
+            const destacadoContenedor = document.getElementById('evento-destacado-js');
+            if (listaContenedor) listaContenedor.innerHTML = '<p style="color:red; text-align:center;">⚠️ No se pudieron cargar los eventos.</p>';
+            if (destacadoContenedor) destacadoContenedor.innerHTML = '<p style="color:red; text-align:center;">⚠️ Evento destacado no disponible.</p>';
+        });
+}
 
-
-
-  //SECCIÓN DE EVENTOS CON JSON
-  // Función para cargar y mostrar los eventos desde el JSON
-  function cargarYMostrarEventos() {
-    // Usamos la ruta absoluta desde la raíz
-    fetch('/eventos.json')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Error HTTP! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(data => {
-        // Tomar solo los primeros 5 eventos
-        const eventosAMostrar = data.slice(0, 5);
-
-        // Renderizar la lista de eventos
-        renderEventosLista(eventosAMostrar);
-
-        // Renderizar el evento destacado (el primero de los 5)
-        if (eventosAMostrar.length > 0) {
-          renderEventoDestacado(eventosAMostrar[0]);
-        }
-      })
-      .catch(err => {
-        console.error("Error al cargar JSON de eventos:", err);
-        // Manejo de errores: mostrar mensaje en la página
-        const listaContenedor = document.getElementById('eventos-lista-js');
-        const destacadoContenedor = document.getElementById('evento-destacado-js');
-
-        if (listaContenedor) {
-          listaContenedor.innerHTML = '<p style="color: red; text-align: center;">No se pudieron cargar los eventos.</p>';
-        }
-        if (destacadoContenedor) {
-          destacadoContenedor.innerHTML = '<p style="color: red; text-align: center;">Evento destacado no disponible.</p>';
-        }
-      });
-  }
-
-  // Función para renderizar la lista de eventos
-  function renderEventosLista(eventos) {
+function renderEventosLista(eventos) {
     const contenedor = document.getElementById('eventos-lista-js');
     if (!contenedor) return;
-
-    contenedor.innerHTML = ''; // Limpiar contenido previo
+    contenedor.innerHTML = '';
 
     eventos.forEach(evento => {
-      const enlace = document.createElement('a');
-      enlace.href = evento.url;
-      enlace.className = 'evento-item-link';
-      enlace.style.textDecoration = 'none';
-      enlace.style.display = 'block';
-      enlace.style.color = 'inherit';
-      enlace.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease'; // !important si es necesario
+        const enlace = document.createElement('a');
+        enlace.href = evento.url;
+        enlace.className = 'evento-item-link';
+        enlace.style.textDecoration = 'none';
+        enlace.style.display = 'block';
+        enlace.style.color = 'inherit';
 
-      // Asumiendo que la fecha en el JSON es un string como "05 abr"
-      const partesFecha = evento.fecha.split(' ');
-      const dia = partesFecha[0];
-      const mes = partesFecha[1] || '';
+        const partesFecha = evento.fecha.split(' ');
+        const dia = partesFecha[0];
+        const mes = partesFecha[1] || '';
 
-      enlace.innerHTML = `
+        enlace.innerHTML = `
             <div class="evento-item">
                 <span class="fechaE">${dia}<br><small>${mes}</small></span>
                 <p>${evento.titulo}</p>
             </div>
         `;
 
-      // Añadir efecto hover al enlace contenedor
-      enlace.addEventListener('mouseenter', function () {
-        this.style.transform = 'translateY(-5px)';
-        this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-      });
+        enlace.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+        });
 
-      enlace.addEventListener('mouseleave', function () {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = 'none';
-      });
+        enlace.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
 
-      contenedor.appendChild(enlace);
+        contenedor.appendChild(enlace);
     });
-  }
+}
 
-  // Función para renderizar el evento destacado
-  function renderEventoDestacado(evento) {
+function renderEventoDestacado(evento) {
     const contenedor = document.getElementById('evento-destacado-js');
     if (!contenedor) return;
-
     contenedor.innerHTML = `
         <img src="${evento.imagen}" alt="${evento.titulo}">
         <div class="evento-info">
             <h3>${evento.titulo}</h3>
             <p><i class="fas fa-calendar-alt"></i> ${evento.fecha}</p>
-            <p>${evento.descripcion || 'Próximamente más información sobre este evento.'}</p>
+            <p>${evento.descripcion || 'Próximamente más información.'}</p>
             <a href="${evento.url}" class="btn-vermasE">Ver más</a>
         </div>
     `;
-  }
+}
 
-  // Cargando los eventos cuando la página esté lista
-  document.addEventListener('DOMContentLoaded', function () {
-    cargarYMostrarEventos();
-  });
+document.addEventListener('DOMContentLoaded', cargarYMostrarEventos);
 
-
-
-
-
-
-  // === CARRUSEL DE EGRESADOS DESTACADOS ===
-  document.addEventListener('DOMContentLoaded', function () {
-    // Elementos del DOM
+// === CARRUSEL DE EGRESADOS DESTACADOS ===
+document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('egresados-track');
     const indicadoresContainer = document.getElementById('egresados-indicadores');
     const prevButton = document.querySelector('.egresados-prev');
     const nextButton = document.querySelector('.egresados-next');
 
-    // Variables del carrusel
+    if (!track || !indicadoresContainer) return;
+
     let egresadosData = [];
     let currentIndex = 0;
 
-    // Cargar datos desde el JSON
-    fetch('/egresados.json') // Ajusta la ruta si es necesario
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error HTTP! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        egresadosData = data;
-        renderTestimonios();
-        createIndicadores();
-        updateCarrusel();
-        updateIndicadores();
-      })
-      .catch(error => {
-        console.error('Error al cargar los egresados:', error);
-        // Manejo de errores: mostrar mensaje en la página
-        if (track) {
-          track.innerHTML = '<p style="color: red; text-align: center; width: 100%;">No se pudieron cargar los testimonios de egresados.</p>';
-        }
-      });
-
-    // Función para renderizar los testimonios
-    function renderTestimonios() {
-      if (!track) return;
-
-      track.innerHTML = ''; // Limpiar contenido previo
-
-      egresadosData.forEach(egresado => {
-        const testimonioElement = document.createElement('div');
-        testimonioElement.className = 'egresado-testimonio';
-
-        // Crear enlace alrededor de todo el contenido del testimonio
-        const linkElement = document.createElement('a');
-        linkElement.href = egresado.url;
-        linkElement.className = 'egresado-testimonio-link';
-        linkElement.style.textDecoration = 'none';
-        linkElement.style.color = 'inherit';
-        linkElement.style.display = 'block';
-        linkElement.style.height = '100%';
-        linkElement.style.width = '100%';
-        // Evitar que el enlace interfiera con los botones del carrusel
-        linkElement.addEventListener('click', function (e) {
-          // Si el clic fue en un botón del carrusel, no navegar
-          if (e.target.closest('button')) {
-            e.preventDefault();
-          }
+    fetch(BASE_PATH + 'egresados.json')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            egresadosData = data;
+            renderTestimonios();
+            createIndicadores();
+            updateCarrusel();
+            updateIndicadores();
+        })
+        .catch(error => {
+            console.error('Error al cargar egresados:', error);
+            track.innerHTML = '<p style="color:red; text-align:center;">⚠️ No se pudieron cargar testimonios.</p>';
         });
 
-        linkElement.innerHTML = `
-                <img src="${egresado.imagen}" alt="${egresado.nombre}" class="egresado-imagen" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
+    function renderTestimonios() {
+        track.innerHTML = '';
+        egresadosData.forEach(egresado => {
+            const testimonioElement = document.createElement('div');
+            testimonioElement.className = 'egresado-testimonio';
+
+            const linkElement = document.createElement('a');
+            linkElement.href = egresado.url;
+            linkElement.className = 'egresado-testimonio-link';
+            linkElement.style.textDecoration = 'none';
+            linkElement.style.color = 'inherit';
+            linkElement.style.display = 'block';
+
+            linkElement.addEventListener('click', function (e) {
+                if (e.target.closest('button')) {
+                    e.preventDefault();
+                }
+            });
+
+            linkElement.innerHTML = `
+                <img src="${egresado.imagen}" alt="${egresado.nombre}" class="egresado-imagen" onerror="this.src='https://via.placeholder.com/150';">
                 <h3 class="egresado-nombre">${egresado.nombre}</h3>
                 <p class="egresado-titulo">${egresado.titulo}</p>
                 <p class="egresado-empresa">${egresado.empresa}</p>
                 <p class="egresado-testimonio-texto">"${egresado.testimonio}"</p>
             `;
 
-        testimonioElement.appendChild(linkElement);
-        track.appendChild(testimonioElement);
-      });
-    }
-
-    // Función para crear los indicadores
-    function createIndicadores() {
-      if (!indicadoresContainer) return;
-
-      indicadoresContainer.innerHTML = ''; // Limpiar contenido previo
-
-      egresadosData.forEach((_, index) => {
-        const indicador = document.createElement('div');
-        indicador.className = 'egresados-indicador';
-        if (index === 0) indicador.classList.add('activo');
-
-        indicador.addEventListener('click', () => {
-          goToSlide(index);
+            testimonioElement.appendChild(linkElement);
+            track.appendChild(testimonioElement);
         });
-
-        indicadoresContainer.appendChild(indicador);
-      });
     }
 
-    // Función para actualizar la posición del carrusel
+    function createIndicadores() {
+        indicadoresContainer.innerHTML = '';
+        egresadosData.forEach((_, index) => {
+            const indicador = document.createElement('div');
+            indicador.className = 'egresados-indicador';
+            if (index === 0) indicador.classList.add('activo');
+            indicador.addEventListener('click', () => goToSlide(index));
+            indicadoresContainer.appendChild(indicador);
+        });
+    }
+
     function updateCarrusel() {
-      if (track) {
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }
     }
 
-    // Función para actualizar los indicadores activos
     function updateIndicadores() {
-      const indicadores = document.querySelectorAll('.egresados-indicador');
-      indicadores.forEach((indicador, index) => {
-        if (index === currentIndex) {
-          indicador.classList.add('activo');
-        } else {
-          indicador.classList.remove('activo');
-        }
-      });
+        document.querySelectorAll('.egresados-indicador').forEach((indicador, index) => {
+            indicador.classList.toggle('activo', index === currentIndex);
+        });
     }
 
-    // Función para ir a un slide específico
     function goToSlide(index) {
-      currentIndex = index;
-      updateCarrusel();
-      updateIndicadores();
+        currentIndex = index;
+        updateCarrusel();
+        updateIndicadores();
     }
 
-    // Función para ir al slide siguiente
     function nextSlide() {
-      currentIndex = (currentIndex + 1) % egresadosData.length;
-      updateCarrusel();
-      updateIndicadores();
+        currentIndex = (currentIndex + 1) % egresadosData.length;
+        updateCarrusel();
+        updateIndicadores();
     }
 
-    // Función para ir al slide anterior
     function prevSlide() {
-      currentIndex = (currentIndex - 1 + egresadosData.length) % egresadosData.length;
-      updateCarrusel();
-      updateIndicadores();
+        currentIndex = (currentIndex - 1 + egresadosData.length) % egresadosData.length;
+        updateCarrusel();
+        updateIndicadores();
     }
 
-    // Event Listeners para los botones
-    if (prevButton) {
-      prevButton.addEventListener('click', prevSlide);
-    }
+    prevButton?.addEventListener('click', prevSlide);
+    nextButton?.addEventListener('click', nextSlide);
 
-    if (nextButton) {
-      nextButton.addEventListener('click', nextSlide);
-    }
+    let egresadosInterval = setInterval(nextSlide, 5000);
+    // Opcional: Pausar autoplay al interactuar
+    // track.addEventListener('mouseenter', () => clearInterval(egresadosInterval));
+    // track.addEventListener('mouseleave', () => egresadosInterval = setInterval(nextSlide, 5000));
+});
 
-    // Opcional: Auto-play 
-
-    let egresadosInterval;
-    function startAutoPlay() {
-      egresadosInterval = setInterval(nextSlide, 5000); // Cambia cada 5 segundos
-    }
-
-    function stopAutoPlay() {
-      clearInterval(egresadosInterval);
-    }
-
-    // Iniciar auto-play
-    startAutoPlay();
-
-    // Pausar auto-play al interactuar con el carrusel
-    // const egresadosSection = document.querySelector('.egresados-section');
-    // if (egresadosSection) {
-    //     egresadosSection.addEventListener('mouseenter', stopAutoPlay);
-    //     egresadosSection.addEventListener('mouseleave', startAutoPlay);
-    // }
-  });
-
-
-  // Esperar a que el DOM esté completamente cargado
-  document.addEventListener('DOMContentLoaded', function () {
-    // --- 1. ELEMENTOS DEL DOM ---
+// === CARRUSEL DE PREGRADO ===
+document.addEventListener('DOMContentLoaded', function () {
     const cardsContainer = document.getElementById('cards-container');
     const cardBoxes = document.querySelectorAll('.card-box');
-    const totalCards = cardBoxes.length;
-
-    // Verificación básica
-    if (!cardsContainer || totalCards === 0) {
-      console.warn("Carrusel de Pregrado: No se encontraron tarjetas o contenedor.");
-      return; // Salir si no hay elementos
+    if (!cardsContainer || cardBoxes.length === 0) {
+        console.warn("Carrusel de Pregrado: No se encontraron tarjetas.");
+        return;
     }
 
-    // --- 2. ESTADO DEL CARRUSEL ---
-    // En un carrusel infinito, no necesitamos un índice fijo.
-    // Nos basaremos en el orden del DOM.
-
-    // --- 3. FUNCIONES DEL CARRUSEL ---
-
-    /**
-     * Mueve la tarjeta más a la izquierda al final (simula avanzar a la derecha)
-     */
     window.shiftLeft = function () {
-      const firstCard = cardsContainer.firstElementChild;
-      if (firstCard) {
-        // Aplicar clase de animación de salida
-        firstCard.classList.add('move-out-from-left');
-
-        // Esperar a que termine la animación antes de mover el elemento
-        setTimeout(() => {
-          cardsContainer.removeChild(firstCard);
-          cardsContainer.appendChild(firstCard);
-          firstCard.classList.remove('move-out-from-left');
-          // Re-aplicar posiciones estáticas si es necesario
-          // (En este caso, las posiciones se derivan del orden del DOM)
-        }, 500); // Coincide con la duración de la animación CSS
-      }
+        const firstCard = cardsContainer.firstElementChild;
+        if (firstCard) {
+            firstCard.classList.add('move-out-from-left');
+            setTimeout(() => {
+                cardsContainer.removeChild(firstCard);
+                cardsContainer.appendChild(firstCard);
+                firstCard.classList.remove('move-out-from-left');
+            }, 500);
+        }
     };
 
-    /**
-     * Mueve la tarjeta más a la derecha al principio (simula retroceder a la izquierda)
-     */
     window.shiftRight = function () {
-      const lastCard = cardsContainer.lastElementChild;
-      if (lastCard) {
-        // Aplicar clase de animación de salida
-        lastCard.classList.add('move-out-from-right');
-
-        // Esperar a que termine la animación antes de mover el elemento
-        setTimeout(() => {
-          cardsContainer.removeChild(lastCard);
-          cardsContainer.insertBefore(lastCard, cardsContainer.firstChild);
-          lastCard.classList.remove('move-out-from-right');
-          // Re-aplicar posiciones estáticas si es necesario
-        }, 500); // Coincide con la duración de la animación CSS
-      }
+        const lastCard = cardsContainer.lastElementChild;
+        if (lastCard) {
+            lastCard.classList.add('move-out-from-right');
+            setTimeout(() => {
+                cardsContainer.removeChild(lastCard);
+                cardsContainer.insertBefore(lastCard, cardsContainer.firstChild);
+                lastCard.classList.remove('move-out-from-right');
+            }, 500);
+        }
     };
 
-    // --- AUTOPLAY ---   
-
-
-    let autoplayInterval;
-    const AUTOPLAY_DELAY = 4000; // 4 segundos
-
-    function startAutoplay() {
-      autoplayInterval = setInterval(() => {
-        shiftRight(); // Avanza automáticamente
-      }, AUTOPLAY_DELAY);
-    }
-
-    function stopAutoplay() {
-      clearInterval(autoplayInterval);
-    }
-
-    // Iniciar autoplay
-    startAutoplay();
-
-    // Pausar autoplay al pasar el mouse por encima del carrusel (opcional)
+    let autoplayInterval = setInterval(shiftRight, 4000);
     const carouselWrapper = document.querySelector('.cards-wrapper');
-    if (carouselWrapper) {
-      carouselWrapper.addEventListener('mouseenter', stopAutoplay);
-      carouselWrapper.addEventListener('mouseleave', startAutoplay);
-    }
+    carouselWrapper?.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+    carouselWrapper?.addEventListener('mouseleave', () => autoplayInterval = setInterval(shiftRight, 4000));
+
+    console.log("Carrusel de Pregrado: Inicializado con", cardBoxes.length, "tarjetas.");
+});
 
 
-    // --- LOG DE INICIALIZACIÓN ---
-    console.log("Carrusel de Pregrado: Inicializado con", totalCards, "tarjetas.");
+
+
+// === IMPORTAR HEADER EXTERNO + INICIALIZAR MENÚ ===
+fetch('../header/header.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    // Inicializar una vez cargado el header
+    setTimeout(() => {
+      inicializarMenuHamburguesa();
+      inicializarHeaderFijo();
+    }, 0);
+  })
+  .catch(error => {
+    console.error('Error al cargar el header:', error);
+    document.getElementById('header-placeholder').innerHTML = `
+      <header class="header">
+        <div class="container">
+          <a href="./index.html">
+            <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
+          </a>
+          <nav class="nav" id="nav">
+            <ul class="nav__list offcanvas">
+              <li><a href="./index.html">Inicio</a></li>
+              <li><a href="./index.html#pregrado">Pregrado</a></li>
+              <li><a href="./index.html#posgrado">Posgrado</a></li>
+              <li><a href="./index.html#egresados">Egresados</a></li>
+              <li><a href="./index.html#noticias">Noticias</a></li>
+              <li><a href="./index.html#contacto">Contacto</a></li>
+              <li><a href="./ocaa.html">OCAA</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+          </nav>
+        </div>
+      </header>
+    `;
+
+    setTimeout(() => {
+      inicializarMenuHamburguesa();
+      inicializarHeaderFijo();
+    }, 100);
   });
+
+
+// === FUNCIÓN REUTILIZABLE PARA EL MENÚ HAMBURGUESA ===
+function inicializarMenuHamburguesa() {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navList = document.querySelector(".nav__list.offcanvas");
+  if (!menuToggle || !navList) return;
+
+  // Overlay
+  let overlay = document.querySelector(".offcanvas-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.classList.add("offcanvas-overlay");
+    document.body.appendChild(overlay);
+  }
+
+  let menuOpen = false;
+
+  // Toggle menú
+  menuToggle.addEventListener("click", () => {
+    menuOpen = !menuOpen;
+    navList.classList.toggle("show", menuOpen);
+    overlay.classList.toggle("show", menuOpen);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  });
+
+  // Cerrar menú al hacer clic en overlay
+  overlay.addEventListener("click", () => {
+    navList.classList.remove("show");
+    overlay.classList.remove("show");
+    document.body.style.overflow = "";
+    menuOpen = false;
+  });
+
+  // Cerrar menú al hacer clic en un enlace
+  document.querySelectorAll(".nav__list.offcanvas a").forEach(link => {
+    link.addEventListener("click", () => {
+      navList.classList.remove("show");
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+      menuOpen = false;
+    });
+  });
+
+  // Dropdowns en móvil
+  document.querySelectorAll(".nav__list.offcanvas .dropdown").forEach(dropdown => {
+    const btn = dropdown.querySelector(".dropbtn");
+    const content = dropdown.querySelector(".dropdown-content");
+    if (btn && content) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        content.classList.toggle("show");
+      });
+    }
+  });
+
+  console.log("✅ Menú hamburguesa inicializado");
+}
+
+
+// === HEADER FIJO EN SCROLL ===
+function inicializarHeaderFijo() {
+  const header = document.querySelector(".header");
+  if (!header) return;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+
+  console.log("✅ Header fijo inicializado");
+}
+

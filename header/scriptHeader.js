@@ -25,8 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
             menuToggle.innerHTML = '&#10005;'; // Ícono de cierre (X)
             // Añadir clase offcanvas solo cuando se abre
             navList.classList.add('offcanvas');
+            overlay.classList.add('show');
         } else {
             menuToggle.innerHTML = '&#9776;'; // Ícono de menú (☰)
+            overlay.classList.remove('show');
             // Quitar clase offcanvas después de la animación
             setTimeout(() => {
                 if (!navList.classList.contains('show')) {

@@ -25,6 +25,10 @@ html {
   scroll-behavior: smooth;
 }
 
+main {
+  padding-top: 80px;
+}
+
 
 
 /* === POP-UP DE TRANSPARENCIA === */
@@ -160,8 +164,57 @@ html {
 
 
 /* HEADER GENERAL*/
+header.header {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* más que el overlay y el nav */
+  background: rgba(10, 25, 47, 0.95);
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(6px); /* suaviza el fondo */
+  -webkit-backdrop-filter: blur(6px); /* soporte Safari */
+}
 
+header.header.scrolled {
+  background: rgba(10, 25, 47, 0.85); /* más transparente al hacer scroll */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px); /* efecto de desenfoque */
+}
 
+/* LOGO ANIMADO */
+header.header .logo {
+  height: 60px;
+  transition: height 0.3s ease, transform 0.3s ease;
+}
+
+header.header.scrolled .logo {
+  height: 50px;
+  transform: scale(0.95);
+}
+
+header.nav__list {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  list-style: none;
+}
+
+header.nav__list li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 15px;
+  transition: color 0.3s ease;
+}
+
+header.nav__list li a:hover {
+  color: var(--dorado);
+}
+
+.menu-toggle {
+  display: none; /* oculto en desktop */
+}
 
 
 
@@ -238,7 +291,7 @@ html {
   background: rgba(0, 0, 0, 0.4);
   padding: 30px;
   border-radius: 10px;
-  max-width: 90%;
+  max-width: 100%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 .slide-content h2 {
@@ -317,7 +370,7 @@ html {
   text-align: center;
   left:50%;
   transform: translate(-50%);
-  width: 50%;
+  width: 70%;
   padding: 10px 10px;
   border-radius: 20px 20px 20px 20px;
   display: flex;
@@ -325,7 +378,7 @@ html {
   justify-content: space-around;
   position: absolute;  
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  bottom: 2vh; 
+  bottom: 0.5vh; 
   /* bottom: 2%; */
   z-index:10;
   margin-top: 30px; 
@@ -2568,42 +2621,39 @@ body.modo-oscuro .enlace-icono {
 
 /* RESPONSIVE - Menú hamburguesa para pantallas <= 1020px */
 @media (max-width: 1200px) {
-  .nav__list {
-    display: none;
-  }
-  
-
-  /* Mostrar botón hamburguesa */
+ @media (max-width: 1200px) {
   .menu-toggle {
     display: block;
+    cursor: pointer;
+    font-size: 28px;
+    z-index: 1100;
   }
 
   /* Menú lateral (off-canvas) */
   .nav__list.offcanvas {
-    display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    right: 0;
+    right: -100%; /* oculto por defecto */
     width: 300px;
-    height: 100vh;
-    background: rgba(20, 60, 120, 0.6); 
+    height: 100%;
+    background: rgba(20, 60, 120, 0.6);
     backdrop-filter: blur(8px) saturate(120%);
     box-shadow: -2px 0 10px rgba(0,0,0,0.25);
     padding: 80px 20px 20px;
     border-radius: 15px 0 0 15px;
     overflow-y: auto;
-    transform: translateX(100%); /* Oculto por defecto */
-    transition: transform 0.3s ease-in-out;
-    z-index: 1001;
+    transition: right 0.3s ease;
+    z-index: 1000;
     text-align: center;
+    gap: 15px;
   }
 
-  /* Mostrar menú cuando tiene la clase 'show' */
   .nav__list.offcanvas.show {
-    transform: translateX(0); /* Visible desde la derecha */
+    right: 0; /* se despliega */
   }
 
+  /* Items del menú */
   .nav__list.offcanvas li {
     margin: 15px 0;
     width: 100%;
@@ -2617,30 +2667,24 @@ body.modo-oscuro .enlace-icono {
     color: white;
     text-decoration: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
   }
 
   .nav__list.offcanvas li a:hover {
-    /* background-color: rgba(202, 167, 90, 0.3); */
     color: var(--dorado);
     padding-left: 25px;
   }
 
-  /* Dropdown en móvil - se comporta como acordeón */
+  /* Dropdown móvil */
   .nav__list.offcanvas .dropdown {
-    position: relative;
-    display: block;
     width: 100%;
   }
 
-  .nav__list.offcanvas .dropbtn a {
+  .nav__list.offcanvas .dropbtn {
     width: 100%;
     text-align: left;
     padding: 15px 20px;
     font-size: 1.1rem;
-    /* background-color: rgba(255, 255, 255, 0.1); */
-    border-radius: 8px;
-    border: none;
     color: white;
     cursor: pointer;
     display: flex;
@@ -2649,7 +2693,6 @@ body.modo-oscuro .enlace-icono {
   }
 
   .nav__list.offcanvas .dropbtn:hover {
-    /* background-color: rgba(202, 167, 90, 0.3); */
     color: var(--dorado);
     padding-left: 25px;
   }
@@ -2657,13 +2700,8 @@ body.modo-oscuro .enlace-icono {
   .nav__list.offcanvas .dropdown-content {
     position: static;
     display: none;
-    /* background-color: rgba(42, 47, 69, 0.8); */
-    box-shadow: none;
-    /* border-radius: 0; */
     margin-top: 10px;
-    padding: 0;
     width: 100%;
-    z-index: 1002;
     text-align: center;
   }
 
@@ -2679,7 +2717,6 @@ body.modo-oscuro .enlace-icono {
   }
 
   .nav__list.offcanvas .dropdown-content a:hover {
-    /* background-color: rgba(202, 167, 90, 0.2);  */
     color: var(--dorado);
     padding-left: 35px;
   }
@@ -2688,23 +2725,38 @@ body.modo-oscuro .enlace-icono {
     border-bottom: none;
   }
 
-  /* Overlay para cerrar el menú al hacer clic fuera */
+  /* Overlay */
   .offcanvas-overlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 900;
     cursor: pointer;
   }
 
   .offcanvas-overlay.show {
     display: block;
   }
+}
 
+/* Animación desplegar dropdown */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+  /*ESTADISTICAS*/
   .estadisticas {
     position: static;
     transform: none;
