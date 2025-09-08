@@ -2731,7 +2731,7 @@ body.modo-oscuro .enlace-icono {
 
 
   .menu-toggle {
-    display: block;
+    display: block ;
     cursor: pointer;
     font-size: 28px;
     z-index: 1100;

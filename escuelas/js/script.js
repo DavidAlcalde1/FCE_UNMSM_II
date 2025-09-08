@@ -1,84 +1,97 @@
-// === MENÚ HAMBURGUESA OFF-CANVAS ===
-document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.getElementById('menu-toggle');
-    const navList = document.querySelector('.nav__list');
-    const header = document.querySelector('.header');
-    const body = document.body;
+// === FUNCIÓN REUTILIZABLE PARA EL MENÚ HAMBURGUESA ===
+function inicializarMenuHamburguesa() {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navList = document.querySelector(".nav__list.offcanvas");
+    if (!menuToggle || !navList) return;
 
-    if (!menuToggle || !navList || !header) {
-        console.warn("Menú hamburguesa: No se encontraron elementos necesarios");
-        return;
+    // Overlay
+    let overlay = document.querySelector(".offcanvas-overlay");
+    if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.classList.add("offcanvas-overlay");
+        document.body.insertBefore(overlay, document.body.firstChild);
     }
 
-    // Crear overlay para cerrar menú al hacer clic fuera
-    const overlay = document.createElement('div');
-    overlay.className = 'offcanvas-overlay';
-    body.appendChild(overlay);
+    let menuOpen = false;
 
-    // Función para abrir/cerrar el menú
-    function toggleMenu() {
-        navList.classList.toggle('show');
-        // overlay.classList.toggle('show');
-        
-        // Cambiar ícono del botón
-        if (navList.classList.contains('show')) {
-            menuToggle.innerHTML = '&#10005;'; // Ícono de cierre (X)
-            // Añadir clase offcanvas solo cuando se abre
-            navList.classList.add('offcanvas');
-        } else {
-            menuToggle.innerHTML = '&#9776;'; // Ícono de menú (☰)
-            // Quitar clase offcanvas después de la animación
+    // Toggle menú
+    menuToggle.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        navList.classList.toggle("show", menuOpen);
+        overlay.classList.toggle("show", menuOpen);
+        document.body.style.overflow = menuOpen ? "hidden" : "";
+    });
+
+    // Cerrar menú al hacer clic en overlay
+    overlay.addEventListener("click", (e) => {
+        // Solo cerrar si el clic fue directamente en el overlay, no en el menú
+        if (e.target === overlay) {
+            navList.classList.remove("show");
+            overlay.classList.remove("show");
+            document.body.style.overflow = "";
+            menuOpen = false;
+        }
+    });
+
+// Cerrar menú al hacer clic en un enlace (solo después de que el enlace funcione)
+document.querySelectorAll(".nav__list.offcanvas a").forEach(link => {
+    link.addEventListener("click", (e) => {
+        // Si es un botón de dropdown, NO cerrar el menú
+        if (link.classList.contains("dropbtn")) {
+            e.preventDefault(); // Solo despliega el submenú
+            return;
+        }
+        // Si el enlace es externo o tiene target="_blank", deja que navegue primero
+        if (link.target === "_blank" || link.href.startsWith("http")) {
             setTimeout(() => {
-                if (!navList.classList.contains('show')) {
-                    navList.classList.remove('offcanvas');
-                }
-            }, 300); // Coincide con la duración de la transición CSS
+                navList.classList.remove("show");
+                overlay.classList.remove("show");
+                document.body.style.overflow = "";
+                menuOpen = false;
+            }, 100);
+        } else {
+            // Para enlaces internos, cierra el menú y navega
+            navList.classList.remove("show");
+            overlay.classList.remove("show");
+            document.body.style.overflow = "";
+            menuOpen = false;
         }
-    }
-
-    // Evento para el botón hamburguesa
-    menuToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        toggleMenu();
     });
+});
 
-    // Evento para cerrar menú al hacer clic en overlay
-    overlay.addEventListener('click', function() {
-        navList.classList.remove('show');
-        overlay.classList.remove('show');
-        menuToggle.innerHTML = '&#9776;';
-        // Quitar clase offcanvas después de la animación
-        setTimeout(() => {
-            navList.classList.remove('offcanvas');
-        }, 300);
-    });
-
-    // Funcionalidad para dropdowns en móvil
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        const dropbtn = dropdown.querySelector('.dropbtn');
-        if (dropbtn) {
-            dropbtn.addEventListener('click', function(e) {
-                if (window.innerWidth <= 1200) {
-                    e.preventDefault();
-                    const dropdownContent = this.nextElementSibling;
-                    if (dropdownContent) {
-                        dropdownContent.classList.toggle('show');
-                    }
-                }
+    // Dropdowns en móvil
+    document.querySelectorAll(".nav__list.offcanvas .dropdown").forEach(dropdown => {
+        const btn = dropdown.querySelector(".dropbtn");
+        const content = dropdown.querySelector(".dropdown-content");
+        if (btn && content) {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                content.classList.toggle("show");
             });
         }
     });
 
-    // Cerrar dropdowns al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown') && window.innerWidth <= 1200) {
-            dropdowns.forEach(dropdown => {
-                const dropdownContent = dropdown.querySelector('.dropdown-content');
-                if (dropdownContent && dropdownContent.classList.contains('show')) {
-                    dropdownContent.classList.remove('show');
-                }
-            });
+    console.log("✅ Menú hamburguesa inicializado");
+}
+
+
+// === HEADER FIJO EN SCROLL ===
+function inicializarHeaderFijo() {
+    const header = document.querySelector(".header");
+    if (!header) return;
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
         }
     });
+
+    console.log("✅ Header fijo inicializado");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarMenuHamburguesa();
+    inicializarHeaderFijo();
 });
