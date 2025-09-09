@@ -1615,11 +1615,12 @@ main {
 /* Contenedor principal de la lista de eventos */
 .eventos-lista {
   flex: 1; /* Ocupa el espacio disponible */
-  min-width: 300px; /* Ancho mínimo para mantener la forma en móviles */
+  width: auto; /* Ancho mínimo para mantener la forma en móviles */
   display: flex;
   flex-direction: column;
   gap: 15px; /* Espacio entre items de evento */
   text-align: left; /* Alinea el texto a la izquierda */
+  justify-content: center;
 }
 
 /* Item individual de evento */
@@ -1630,7 +1631,9 @@ main {
   display: flex;
   gap: 15px; /* Espacio entre la fecha y el texto */
   align-items: center;
+  justify-content: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para hover */
+  width: auto;
 }
 
 .evento-item:hover {
@@ -1678,6 +1681,7 @@ main {
   display: block;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 8px;
+  width: auto;
 }
 
 .evento-item-link:hover {
@@ -1689,7 +1693,7 @@ main {
 /* === SECCIÓN DE EVENTOS === */
 .evento-destacado {
   flex: 1;
-  min-width: 300px;
+  min-width: auto;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -1722,6 +1726,7 @@ main {
   margin-top: 0;
   margin-bottom: 10px;
   flex-shrink: 0; /* Evita que el título se comprima */
+  /* text-align: center; */
 }
 
 .evento-info p {
@@ -1735,6 +1740,7 @@ main {
   -webkit-box-orient: vertical;
   line-clamp: 3; /* Propiedad estándar (añade esta línea) */
   display: -moz-box; /* Para Firefox */
+  /* text-align: center; */
 }
 
 .evento-info .btn-vermasE {
@@ -1746,7 +1752,7 @@ main {
   font-weight: bold;
   border-radius: 5px;
   align-self: flex-start; /* Alinea el botón a la izquierda */
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;  
 }
 
 .evento-info .btn-vermasE:hover {
@@ -1824,7 +1830,7 @@ main {
   justify-content: center;
   box-sizing: border-box;
   text-align: center;
-  height: 100%;
+  height: auto;
 }
 
 .egresado-imagen {
@@ -3287,7 +3293,7 @@ body.modo-oscuro .enlace-icono {
   .eventos-lista,
   .evento-destacado {
     width: 100%; /* Ocupan todo el ancho en móviles */
-    max-width: 500px; /* Ancho máximo para mantener la proporción */
+    /* max-width: 500px;  */
   }
 
 .egresados-header {
@@ -3497,7 +3503,7 @@ body.modo-oscuro .enlace-icono {
   }
 
   .egresados-header h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   .egresado-imagen {
