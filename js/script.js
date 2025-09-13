@@ -147,7 +147,7 @@ boton?.addEventListener('click', () => {
 });
 
 // === CARRUSEL DE NOTICIAS PRINCIPAL ===
-fetch(BASE_PATH + 'noticias.json')
+fetch(BASE_PATH + '../json/noticias.json')
     .then(res => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();
@@ -221,7 +221,7 @@ fetch(BASE_PATH + 'noticias.json')
     });
 
 // === ÚLTIMAS 3 NOTICIAS ===
-fetch(BASE_PATH + 'noticias.json')
+fetch(BASE_PATH + '../json/noticias.json')
     .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
@@ -332,7 +332,7 @@ window.addEventListener('scroll', () => {
 
 // === SECCIÓN DE EVENTOS ===
 function cargarYMostrarEventos() {
-    fetch(BASE_PATH + 'eventos.json')
+    fetch(BASE_PATH + '../json/eventos.json')
         .then(res => {
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return res.json();
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let egresadosData = [];
     let currentIndex = 0;
 
-    fetch(BASE_PATH + 'egresados.json')
+    fetch(BASE_PATH + '../json/egresados.json')
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return response.json();
