@@ -1,43 +1,258 @@
+/* ==========================================
+   CONSEJO DE FACULTAD 
+   ========================================== */
+
 .consejo {
-  padding: 60px 0;
-  background: var(--blanco-matizado);
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
 }
+
+.consejo .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Título principal */
 .consejo h2 {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
   color: var(--azul-oscuro);
+  letter-spacing: 1px;
+  position: relative;
 }
+
+.consejo h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--dorado);
+  border-radius: 2px;
+}
+
+/* Sección Presentación y Funciones */
+.presentacion-funciones {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(16, 45, 82, 0.15);
+  padding: 40px 30px;
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.presentacion-funciones h3 {
+  font-size: 1.8rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 15px;
+  border-left: 4px solid var(--dorado);
+  padding-left: 15px;
+}
+
+.presentacion-funciones p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.funciones-lista {
+  list-style: none;
+  padding-left: 0;
+}
+
+.funciones-lista li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* .funciones-lista li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--dorado);
+  font-weight: bold;
+  font-size: 1.1rem;
+} */
+
+/* Grid de tarjetas */
 .consejo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  justify-content: center;
 }
+
+/* Tarjeta individual */
 .consejo-grid .card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  padding: 25px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(16, 45, 82, 0.15);
+  padding: 30px 20px;
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
+
+.consejo-grid .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(16, 45, 82, 0.25);
+}
+
 .consejo-grid .card img {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid var(--dorado);
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.consejo-grid .card:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(207, 169, 53, 0.6);
+}
+
+.consejo-grid .card h3 {
+  font-size: 1.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.consejo-grid .card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Documentos */
 .documentos {
-  margin-top: 50px;
+  margin-top: 70px;
+  text-align: center;
 }
+
+.documentos h3 {
+  font-size: 1.8rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+.documentos h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--dorado);
+  border-radius: 2px;
+}
+
 .documentos ul {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
-.documentos li {
-  margin-bottom: 10px;
-}
+
 .documentos a {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
   color: var(--guinda);
+  padding: 12px 24px;
+  border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(122, 2, 38, 0.1);
+  transition: all 0.3s ease;
+}
+
+.documentos a:hover {
+  background: var(--guinda);
+  color: #fff;
+  box-shadow: 0 6px 25px rgba(122, 2, 38, 0.3);
+  transform: translateY(-3px);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .consejo h2 {
+    font-size: 2rem;
+  }
+
+  .presentacion-funciones {
+    padding: 25px 20px;
+  }
+
+  .consejo-grid {
+    gap: 25px;
+  }
+
+  .consejo-grid .card {
+    padding: 20px 15px;
+  }
+
+  .consejo-grid .card img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .documentos ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .consejo {
+    padding: 40px 15px;
+  }
+
+  .consejo h2 {
+    font-size: 1.6rem;
+  }
+
+  .consejo-grid .card h3 {
+    font-size: 1rem;
+  }
+
+  .consejo-grid .card p {
+    font-size: 0.85rem;
+  }
 }

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posgrado - Facultad de Ciencias Económicas</title>
+
+  <link rel="stylesheet" href="./componentes/styles.css" />
+  <link rel="stylesheet" href="./upg/posgrado.css" />
+  <link rel="icon" href="./facultad/autoridades/img/unidades.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div id="header-include"></div>
+
+  <main>
+    <!-- CARRUSEL -->
+    <section class="carousel">
+        <div class="slides">
+            <div class="slide active">
+                <img src="./upg/img/doctorados/doctorado_eco.jpg" alt="Banner 1">
+                <div class="slide-content">
+                <h2>DOCTORADO EN ECONOMÍA</h2>
+                <p>INICIO: Jueves 15 de Diciembre</p>
+                <a href="#" class="slide-btn">Ver más</a>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="./upg/img/maestrias/maestria_ef.png" alt="Banner 2">
+                <div class="slide-content">
+                <h2>MAESTRÍA EN ECONOMÍA</h2>
+                <p>INICIO: Martes 13 de Diciembre</p>
+                <a href="#" class="slide-btn">Ver más</a>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="./upg/img/doctorados/doctorado_geg.png" alt="Banner 3">
+                <div class="slide-content">
+                <h2>DOCTORADO EN GESTIÓN DE ECONOMÍA GLOBAL</h2>
+                <p>INICIO: Miércoles 14 de Diciembre</p>
+                <a href="#" class="slide-btn">Ver más</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones flecha -->
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+
+        <!-- Indicadores -->
+        <div class="indicators">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+
+    <!-- Sección de acciones -->
+    <section class="acciones-section">
+      <div class="container">
+        <h2>Acciones Rápidas</h2>
+
+        <div class="acciones-grid">
+          <a href="./facultad/posgrado/docs/brochure.pdf" class="accion-card brochure" download>
+            <i class="fa-solid fa-download"></i>
+            <h3>Descargar Brochure</h3>
+            <p>Información completa de nuestros programas.</p>
+          </a>
+
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSd4FuvfPJt0w24w3mF3qkSm-ww80GL0YM-R7XpJscDnbH-Zzg/viewform?pli=1" class="accion-card formulario" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-signature"></i>
+            <h3>Solicitar Información</h3>
+            <p>Completa el formulario y nos contactaremos.</p>
+          </a>
+
+          <a href="./upg/img/cronograma.png" class="accion-card cronograma" data-lightbox="cronograma">
+            <i class="fa-solid fa-calendar-days"></i>
+            <h3>Ver Cronograma</h3>
+            <p>Fechas importantes del proceso de admisión.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programas de Posgrado -->
+    <section class="programas-section">
+      <div class="container">
+        <h2>Programas de Posgrado</h2>
+
+        <div class="programas-grid">
+          <!-- Maestrías -->
+          <div class="programa-card maestria">
+            <h3>Maestrías</h3>
+            <ul>
+              <li><a href="./facultad/posgrado/maestria-economia-gestion.html">Economía con Mención en Gestión y Política Pública</a></li>
+              <li><a href="./facultad/posgrado/maestria-gestion-economica.html">Ciencias de la Gestión Económica Empresarial</a></li>
+              <li><a href="./facultad/posgrado/maestria-economia-finanzas.html">Economía con mención en Finanzas</a></li>
+            </ul>
+          </div>
+
+          <!-- Doctorados -->
+          <div class="programa-card doctorado">
+            <h3>Doctorados</h3>
+            <ul>
+              <li><a href="./facultad/posgrado/doctorado-economia.html">Doctorado en Economía</a></li>
+              <li><a href="./facultad/posgrado/doctorado-gestion-global.html">Doctorado en Gestión Económica Global</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-include"></div>
+
+  <!-- Scripts -->
+  <script src="./componentes/script.js"></script>
+  <script src="./componentes/loader.js"></script>
+  <script src="./upg/js/script.js"></script>
+  <!-- Lightbox para cronograma (opcional) -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" /> -->
+
+
+</body>
+</html>

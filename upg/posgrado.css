@@ -1,0 +1,372 @@
+/* ==========================================
+   POSGRADO - VANGUARDISTA Y RESPONSIVE
+   ========================================== */
+
+.posgrado {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.posgrado .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Títulos */
+.posgrado h2 {
+  text-align: center;
+  margin-bottom: 60px;
+  font-size: 2.5rem;
+  color: var(--azul-oscuro);
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.posgrado h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--dorado);
+  border-radius: 2px;
+}
+
+/* ==========================================
+   CARRUSEL
+   ========================================== */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.slide-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+.slide-content h2 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.slide-content p {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  margin-bottom: 20px;
+}
+.slide-btn {
+  background-color: var(--dorado);
+  color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  display: inline-block;
+}
+.slide-btn:hover {
+  background-color: #e0be51;
+}
+/* Botones flecha */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 100;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+.prev {
+  left: 20px;
+}
+.next {
+  right: 20px;
+}
+/* Indicadores */
+.indicators {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  z-index: 50;
+}
+.dot {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.dot.active, .dot:hover {
+  background-color: var(--dorado);
+}
+
+/* ==========================================
+   ACCIONES
+   ========================================== */
+
+.acciones-section {
+  margin-bottom: 60px;
+}
+
+.acciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  justify-content: center;
+}
+
+.accion-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(16, 45, 82, 0.15);
+  padding: 30px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--azul-oscuro);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.accion-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(16, 45, 82, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.accion-card i {
+  font-size: 2.5rem;
+  color: var(--dorado);
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.accion-card:hover i {
+  color: var(--azul-oscuro);
+}
+
+.accion-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.accion-card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Colores por tipo */
+.accion-card.brochure:hover {
+  border-color: var(--dorado);
+}
+
+.accion-card.formulario:hover {
+  border-color: #3A7BC8;
+}
+
+.accion-card.cronograma:hover {
+  border-color: var(--guinda);
+}
+
+/* ==========================================
+   PROGRAMAS
+   ========================================== */
+
+.programas-section {
+  margin-bottom: 60px;
+}
+
+.programas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  justify-content: center;
+}
+
+.programa-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(16, 45, 82, 0.15);
+  padding: 30px 20px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.programa-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(16, 45, 82, 0.25);
+}
+
+.programa-card h3 {
+  font-size: 1.5rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 20px;
+  border-left: 4px solid var(--dorado);
+  padding-left: 15px;
+  text-align: left;
+}
+
+.programa-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.programa-card li {
+  margin-bottom: 12px;
+}
+
+.programa-card a {
+  color: var(--azul-oscuro);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 0;
+  display: block;
+  border-left: 3px solid transparent;
+  padding-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.programa-card a:hover {
+  color: var(--dorado);
+  border-left-color: var(--dorado);
+  padding-left: 15px;
+}
+
+/* Colores por tipo */
+.programa-card.maestria {
+  border-left: 5px solid var(--dorado);
+}
+
+.programa-card.doctorado {
+  border-left: 5px solid var(--guinda);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .posgrado h2 {
+    font-size: 2rem;
+  }
+
+  /* .carrusel-fondo {
+    height: 300px;
+  }
+
+  .carrusel-text {
+    left: 20px;
+    right: 20px;
+    max-width: 90%;
+    padding: 15px 20px;
+  } */
+
+  .acciones-grid,
+  .programas-grid {
+    gap: 25px;
+  }
+
+  .accion-card,
+  .programa-card {
+    padding: 20px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .posgrado {
+    padding: 40px 15px;
+  }
+
+  .posgrado h2 {
+    font-size: 1.6rem;
+  }
+
+  .carrusel-fondo {
+    height: 250px;
+  }
+
+  .carrusel-text h2 {
+    font-size: 1.5rem;
+  }
+
+  .carrusel-text p {
+    font-size: 0.9rem;
+  }
+
+  .accion-card i {
+    font-size: 2rem;
+  }
+
+  .accion-card h3,
+  .programa-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .accion-card p,
+  .programa-card a {
+    font-size: 0.85rem;
+  }
+}

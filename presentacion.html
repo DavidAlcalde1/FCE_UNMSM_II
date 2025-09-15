@@ -13,68 +13,12 @@
       rel="stylesheet"
     />
     <link rel="icon" href="./img/index/logo_fce.png" type="image/x-icon" />
-    <link rel="stylesheet" href="./facultad/presentacion/styles.css" />
+    <link rel="stylesheet" href="./facultad/presentacion/presentacion.css" />
+    <link rel="stylesheet" href="./componentes/styles.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- HEADER -->
-    <header class="header">
-      <div class="container">
-        <a href="../index.html">
-          <img src="../img/index/logo_fce.png" alt="Logo UNMSM" class="logo" />
-        </a>
-        <nav class="nav" id="nav">
-          <ul class="nav__list offcanvas">
-            <li><a href="#">Comunidad</a></li>
-            <li><a href="#">Directorio</a></li>
-            <li><a href="#">Posgrado</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropbtn">Enlaces Destacados</a>
-              <ul class="dropdown-content">
-                <li>
-                  <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"
-                    >MAT</a
-                  >
-                </li>
-                <li>
-                  <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"
-                    >SUM Alumnos</a
-                  >
-                </li>
-                <li>
-                  <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"
-                    >SUM Docentes</a
-                  >
-                </li>
-                <li>
-                  <a href="https://spsgd.unmsm.edu.pe/sgd/login.do">SGD</a>
-                </li>
-                <li><a href="https://sisbib.unmsm.edu.pe/">Biblioteca</a></li>
-                <li><a href="https://ceidletras.unmsm.edu.pe/">Idiomas</a></li>
-                <li>
-                  <a href="https://cybertesis.unmsm.edu.pe/">Cybertesis</a>
-                </li>
-                <li>
-                  <a href="https://cooperacion.unmsm.edu.pe/">Becas OGCRI</a>
-                </li>
-                <li>
-                  <a
-                    href="https://educacion.unmsm.edu.pe/comunidad/vinculacion-y-seguimiento-al-egresado-y-graduado"
-                    >Egresados</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li><a href="#noticias">Noticias</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-            <li><a href="#bienestar">Bienestar</a></li>
-          </ul>
-          <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
-            &#9776;
-          </div>
-        </nav>
-      </div>
-    </header>
+    <div id="header-include"></div>
 
     <!-- SECCIÓN PRINCIPAL DE PRESENTACIÓN -->
     <section class="presentacion-section">
@@ -240,86 +184,12 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-columna">
-          <h3>Facultad</h3>
-          <ul>
-            <li><a href="#">Misión y Visión</a></li>
-            <li><a href="#">Autoridades</a></li>
-            <li><a href="#">Historia</a></li>
-            <li><a href="#">Ubicación</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-columna">
-          <h3>Académico</h3>
-          <ul>
-            <li><a href="../index.html#pregrado">Pregrado</a></li>
-            <li><a href="../index.html#posgrado">Posgrado</a></li>
-            <li><a href="../index.html#escuelas">Escuelas Profesionales</a></li>
-            <li><a href="#">Centro de Idiomas</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-columna">
-          <h3>Servicios</h3>
-          <ul>
-            <li><a href="../ocaa.html">OCAA</a></li>
-            <li><a href="#">Biblioteca</a></li>
-            <li><a href="#">Laboratorios</a></li>
-            <li><a href="#">Trámites</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-columna">
-          <h3>Conéctate</h3>
-          <div class="redes-sociales-footer">
-            <a
-              href="https://web.facebook.com/profile.php?id=100073434511404"
-              target="_blank"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a
-              href="https://www.youtube.com/@facultaddecienciaseconomic8432"
-              target="_blank"
-              ><i class="fab fa-youtube"></i
-            ></a>
-            <a href="https://x.com/FCEUnmsm1" target="_blank"
-              ><i class="fab fa-twitter"></i
-            ></a>
-          </div>
-          <p><i class="fas fa-envelope"></i> contacto@fce.unmsm.edu.pe</p>
-          <p><i class="fas fa-map-marker-alt"></i> Av. Germán Amézaga N° 375</p>
-        </div>
-      </div>
-
-      <div class="footer-copyright">
-        <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-        <p>Developed by Bach. José David Alcalde Cabrera</p>
-      </div>
-    </footer>
-
-    <!-- BOTONES FLOTANTES -->
-    <!-- <div class="social-float">
-        <a href="https://web.facebook.com/profile.php?id=100073434511404" target="_blank" class="social-btn facebook" title="Facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://www.youtube.com/@facultaddecienciaseconomic8432" target="_blank" class="social-btn youtube" title="YouTube">
-            <i class="fab fa-youtube"></i>
-        </a>
-        <a href="https://x.com/FCEUnmsm1" target="_blank" class="social-btn twitter" title="Twitter">
-            <i class="fab fa-twitter"></i>
-        </a>
-    </div> -->
-
-    <!-- BOTÓN MODO OSCURO -->
-    <!-- <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button> -->
+    <div id="footer-include"></div>
 
     <!-- SCRIPTS -->
-    <script src="./facultad/presentacion/js/script.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./componentes/script.js"></script>    
+    <script src="./componentes/loader.js"></script>   
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
     <script>
       AOS.init();
     </script>
