@@ -1,0 +1,43 @@
+.consejo {
+  padding: 60px 0;
+  background: var(--blanco-matizado);
+}
+.consejo h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--azul-oscuro);
+}
+.consejo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+.consejo-grid .card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  text-align: center;
+}
+.consejo-grid .card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--dorado);
+  margin-bottom: 15px;
+}
+.documentos {
+  margin-top: 50px;
+}
+.documentos ul {
+  list-style: none;
+}
+.documentos li {
+  margin-bottom: 10px;
+}
+.documentos a {
+  color: var(--guinda);
+  text-decoration: none;
+  font-weight: 600;
+}

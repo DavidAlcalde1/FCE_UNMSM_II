@@ -674,13 +674,13 @@ html {
 
 /* === TABLETS (max-width: 1200px) === */
 @media (max-width: 1200px) {
-      .nav__list {
+  /* Navegación: ocultar menú y mostrar hamburguesa */
+  .nav__list {
     display: none;
   }
 
-
   .menu-toggle {
-    display: block ;
+    display: block;
     cursor: pointer;
     font-size: 28px;
     z-index: 1100;
@@ -694,17 +694,17 @@ html {
     width: 100vw;
     height: 100vh;
     background: rgba(30, 30, 30, 0.6);
-    z-index: 998; /* Debajo del menú */
+    z-index: 998;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
     display: none;
-    pointer-events: auto;
   }
+
   .offcanvas-overlay.show {
     opacity: 1;
     pointer-events: auto;
-    display:block;
+    display: block;
   }
 
   /* Menú hamburguesa desplegable */
@@ -715,31 +715,30 @@ html {
     width: min(80vw, 300px);
     max-width: 100vw;
     height: 100vh;
-    background:rgba(20, 60, 120, 0.6);
-    z-index: 999; /* Encima del overlay */
-    box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+    background: rgba(20, 60, 120, 0.6);
+    z-index: 999;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
     transform: translateX(100%);
     transition: transform 0.3s;
     display: none;
     flex-direction: column;
     padding-top: 60px;
     pointer-events: auto;
-    border-radius: 15px 0 0 15px;  
-    overflow-y: auto; /* Permitir scroll si el contenido es largo */
+    border-radius: 15px 0 0 15px;
+    overflow-y: auto;
   }
 
   .nav__list.offcanvas.show {
     transform: translateX(0);
-    pointer-events: auto;
     display: flex;
   }
 
-  /* Items del menú */
   .nav__list.offcanvas li {
     margin: 15px 0;
     width: 100%;
     text-align: center;
   }
+
   .nav__list.offcanvas li a {
     display: block;
     padding: 15px 20px;
@@ -747,9 +746,9 @@ html {
     color: var(--blanco-matizado);
     text-decoration: none;
     border-radius: 8px;
-    text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
   }
+
   .nav__list.offcanvas li a:hover {
     color: var(--dorado);
     padding-left: 25px;
@@ -760,21 +759,20 @@ html {
     width: 100%;
     text-align: center;
   }
+
   .nav__list.offcanvas .dropbtn {
     width: 100%;
-    text-align: center;
     padding: 15px 20px;
     font-size: 1.1rem;
     color: #fff;
     cursor: pointer;
-    /* display: flex; */
-    /* justify-content: space-between; */
-    align-items: center;
   }
+
   .nav__list.offcanvas .dropbtn:hover {
     color: var(--dorado);
     padding-left: 25px;
   }
+
   .nav__list.offcanvas .dropdown-content {
     position: static;
     display: none;
@@ -782,27 +780,29 @@ html {
     width: 100%;
     text-align: center;
   }
+
   .nav__list.offcanvas .dropdown-content.show {
     display: block;
     animation: slideDown 0.3s ease;
-    background:rgba(20, 60, 120, 0.1);
+    background: rgba(20, 60, 120, 0.1);
   }
+
   .nav__list.offcanvas .dropdown-content a {
     padding: 12px 20px 12px 30px;
     font-size: 0.95rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .nav__list.offcanvas .dropdown-content a:hover {
     color: var(--dorado);
     padding-left: 35px;
   }
+
   .nav__list.offcanvas .dropdown-content a:last-child {
     border-bottom: none;
   }
 
-
-
-
+  /* Ajustes de layout general */
   .presentacion-header h1 {
     font-size: 2rem;
   }
@@ -816,6 +816,21 @@ html {
     width: 250px;
   }
 
+  .btn-decano {
+    align-self: center;
+  }
+
+  .historia-facultad {
+    text-align: center;
+  }
+
+  .mision-card,
+  .vision-card {
+    align-self: center;
+    text-align: center;
+    min-height: 370px;
+  }
+
   .mision-vision {
     grid-template-columns: 1fr;
   }
@@ -823,28 +838,9 @@ html {
   .autoridades-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-}
 
-/* Animación desplegar dropdown */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-}
-
-
-
-
-@media (max-width: 1200px) {
-  
-
-.container {
+  /* Header y navegación */
+  .container {
     flex-direction: column;
     align-items: flex-start;
     width: 95%;
@@ -864,7 +860,6 @@ html {
   .nav__list.offcanvas li a {
     padding: 12px 18px;
     font-size: 1rem;
-    text-align: center;
   }
 
   .nav__list.offcanvas .dropbtn {
@@ -877,14 +872,13 @@ html {
     font-size: 0.9rem;
   }
 
-
+  /* Footer */
   .footer-container {
     grid-template-columns: 1fr;
     gap: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
   }
 
@@ -892,27 +886,23 @@ html {
     grid-column: span 1;
   }
 
-    .footer-columna h3 {
+  .footer-columna h3 {
     position: relative;
     padding-bottom: 10px;
-    margin-bottom: 20px; /* Espacio entre título y lista */
-    text-align: center; /* Centra el texto del título */
-    width: 100%; /* Asegura que el título ocupe todo el ancho */
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
   }
-  
-  /* Crea y centra la raya dorada usando un pseudo-elemento */
+
   .footer-columna h3::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%); /* Centra la línea dorada bajo el texto del título */
+    transform: translateX(-50%);
     width: 50px;
     height: 2px;
     background-color: var(--dorado);
-    /* Asegura que la línea no se desplace si hay mucho texto */
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .redes-sociales-footer {
@@ -927,21 +917,31 @@ html {
     justify-content: center;
   }
 
-  .footer-columna p {
-    font-size: 0.85rem;
-  }
-
+  .footer-columna p,
   .footer-copyright p {
     font-size: 0.85rem;
   }
 }
 
+/* Animación dropdown */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 
-
-
-
+@media (max-width: 768px) {
+  .mision-card, .vision-card {
+    min-height: 230px;
+  }
+}
 
 
 
@@ -1010,6 +1010,14 @@ html {
   .autoridad-card img {
     width: 100px;
     height: 100px;
+  }
+
+  .mision-card, .vision-card {
+    min-height: 300px;
+  }
+
+  .mapa-ubicacion {
+    height: auto;
   }
 
   .mapa-ubicacion iframe {

@@ -1,0 +1,129 @@
+/* ==========================================
+   DOCENTES - ESTILOS ESPECÍFICOS
+   ========================================== */
+
+.docentes {
+  padding: 60px 0;
+  background-color: var(--blanco-matizado);
+}
+
+.docentes .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.docentes h2 {
+  font-size: 2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 40px;
+  position: relative;
+  text-align: center;
+}
+
+.docentes h2::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background: var(--dorado);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.docentes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.docentes-grid .card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  padding: 25px 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.docentes-grid .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.docentes-grid .card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--dorado);
+  margin-bottom: 15px;
+}
+
+.docentes-grid .card h3 {
+  font-size: 1.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 5px;
+}
+
+.docentes-grid .card .especialidad {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.docentes-grid .card .correo {
+  font-size: 0.85rem;
+  color: var(--guinda);
+  text-decoration: none;
+}
+
+.btn-cv {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 18px;
+  background: var(--dorado);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-cv:hover {
+  background: #b8972f;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .docentes h2 { font-size: 1.6rem; }
+  .docentes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .docentes-grid .card img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .docentes { padding: 40px 10px; }
+  .docentes h2 { font-size: 1.4rem; }
+  .docentes-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  .docentes-grid .card {
+    padding: 20px 10px;
+  }
+  .docentes-grid .card img {
+    width: 90px;
+    height: 90px;
+  }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galería - Facultad de Ciencias Económicas</title>
+
+  <link rel="stylesheet" href="./componentes/styles.css" />
+  <link rel="stylesheet" href="./facultad/galeria/galeria.css" />
+  <link rel="icon" href="./facultad/autoridades/img/unidades.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div id="header-include"></div>
+
+  <main>
+    <section class="galeria">
+      <div class="container">
+        <h2>Galería de Fotos</h2>
+
+        <div class="galeria-grid">
+          <div class="item">
+            <img src="./facultad/galeria/img/15.jpeg" alt="Descripción 15" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/14.jpeg" alt="Descripción 14" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/13.jpeg" alt="Descripción 13" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/12.jpeg" alt="Descripción 12" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/11.jpeg" alt="Descripción 11" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/10.jpeg" alt="Descripción 10" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/9.jpeg" alt="Descripción 9" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/8.jpeg" alt="Descripción 8" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/7.jpeg" alt="Descripción 7" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/6.jpeg" alt="Descripción 6" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/5.jpeg" alt="Descripción 5" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/4.jpeg" alt="Descripción 4" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/3.jpeg" alt="Descripción 3" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/2.jpeg" alt="Descripción 2" />
+          </div>
+          <div class="item">
+            <img src="./facultad/galeria/img/1.jpeg" alt="Capacitación BCRP" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-include"></div>
+
+  <!-- Scripts -->
+  <script src="../../componentes/script.js"></script>
+  <script src="../../componentes/loader.js"></script>
+
+  <!-- Pop-up vanguardista -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Cerrar">&times;</button>
+      <img id="popup-img" src="" alt="Imagen ampliada" />
+    </div>
+  </div>
+  <script>
+    const popup = document.getElementById('popup');
+    const popupImg = document.getElementById('popup-img');
+    const closeBtn = document.querySelector('.popup-close');
+
+    // Abrir pop-up al hacer clic en cualquier imagen de la galería
+    document.querySelectorAll('.galeria-grid .item img').forEach(img => {
+        img.addEventListener('click', () => {
+        popupImg.src = img.src;
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden'; // evita scroll de fondo
+        });
+    });
+
+    // Cerrar pop-up
+    function cerrarPopup() {
+        popup.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', cerrarPopup);
+    popup.addEventListener('click', (e) => {
+        if (e.target === popup) cerrarPopup();
+    });
+
+    // Cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') cerrarPopup();
+    });
+    </script>
+
+</body>
+</html>   

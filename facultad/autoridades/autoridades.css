@@ -1,0 +1,129 @@
+
+
+
+
+/* ==========================================
+   AUTORIDADES - ESTILOS ESPECÍFICOS
+   ========================================== */
+
+.autoridades {
+  padding: 60px 0;
+  background-color: var(--blanco-matizado);
+}
+
+.autoridades .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.autoridades h2 {
+  font-size: 2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.autoridades h2::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background: var(--dorado);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.autoridades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.autoridades-grid .card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  padding: 25px 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.autoridades-grid .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.autoridades-grid .card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--dorado);
+  margin-bottom: 15px;
+}
+
+.autoridades-grid .card h3 {
+  font-size: 1.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 5px;
+}
+
+.autoridades-grid .card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .autoridades h2 {
+    font-size: 1.6rem;
+  }
+
+  .autoridades-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+  }
+
+  .autoridades-grid .card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .autoridades-grid .card h3 {
+    font-size: 1.05rem;
+  }
+
+  .autoridades-grid .card p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .autoridades {
+    padding: 40px 10px;
+  }
+
+  .autoridades h2 {
+    font-size: 1.4rem;
+  }
+
+  .autoridades-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .autoridades-grid .card {
+    padding: 20px 10px;
+  }
+
+  .autoridades-grid .card img {
+    width: 90px;
+    height: 90px;
+  }
+}

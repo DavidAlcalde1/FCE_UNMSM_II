@@ -1,208 +1,305 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Presentación - FCE UNMSM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="./img/index/logo_fce.png" type="image/x-icon" />
     <link rel="stylesheet" href="./facultad/presentacion/styles.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-</head>
-<body>
-
-        <!-- HEADER -->
-        <header class="header">
-        <div class="container">
-            <a href="../index.html">
-            <img src="../img/index/logo_fce.png" alt="Logo UNMSM" class="logo" />
-            </a>
-            <nav class="nav" id="nav">
-            <ul class="nav__list offcanvas">
-                <li><a href="#">Comunidad</a></li>
-                <li><a href="#">Directorio</a></li>
-                <li><a href="#">Posgrado</a></li>
-                <li class="dropdown">
-                <a href="#" class="dropbtn">Enlaces Destacados</a>
-                <ul class="dropdown-content">
-                    <li>
-                    <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"
-                        >MAT</a
-                    >
-                    </li>
-                    <li>
-                    <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"
-                        >SUM Alumnos</a
-                    >
-                    </li>
-                    <li>
-                    <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"
-                        >SUM Docentes</a
-                    >
-                    </li>
-                    <li>
-                    <a href="https://spsgd.unmsm.edu.pe/sgd/login.do">SGD</a>
-                    </li>
-                    <li><a href="https://sisbib.unmsm.edu.pe/">Biblioteca</a></li>
-                    <li><a href="https://ceidletras.unmsm.edu.pe/">Idiomas</a></li>
-                    <li><a href="https://cybertesis.unmsm.edu.pe/">Cybertesis</a></li> 
-                    <li><a href="https://cooperacion.unmsm.edu.pe/">Becas OGCRI</a></li>
-                    <li><a href="https://educacion.unmsm.edu.pe/comunidad/vinculacion-y-seguimiento-al-egresado-y-graduado">Egresados</a></li>
-                </ul>
-                </li>                
-                <li><a href="#noticias">Noticias</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <li><a href="#bienestar">Bienestar</a></li>
-
-            </ul>
-            <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">&#9776;</div>
-            </nav>
-        </div>
-        </header>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="container">
+        <a href="../index.html">
+          <img src="../img/index/logo_fce.png" alt="Logo UNMSM" class="logo" />
+        </a>
+        <nav class="nav" id="nav">
+          <ul class="nav__list offcanvas">
+            <li><a href="#">Comunidad</a></li>
+            <li><a href="#">Directorio</a></li>
+            <li><a href="#">Posgrado</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropbtn">Enlaces Destacados</a>
+              <ul class="dropdown-content">
+                <li>
+                  <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"
+                    >MAT</a
+                  >
+                </li>
+                <li>
+                  <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"
+                    >SUM Alumnos</a
+                  >
+                </li>
+                <li>
+                  <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"
+                    >SUM Docentes</a
+                  >
+                </li>
+                <li>
+                  <a href="https://spsgd.unmsm.edu.pe/sgd/login.do">SGD</a>
+                </li>
+                <li><a href="https://sisbib.unmsm.edu.pe/">Biblioteca</a></li>
+                <li><a href="https://ceidletras.unmsm.edu.pe/">Idiomas</a></li>
+                <li>
+                  <a href="https://cybertesis.unmsm.edu.pe/">Cybertesis</a>
+                </li>
+                <li>
+                  <a href="https://cooperacion.unmsm.edu.pe/">Becas OGCRI</a>
+                </li>
+                <li>
+                  <a
+                    href="https://educacion.unmsm.edu.pe/comunidad/vinculacion-y-seguimiento-al-egresado-y-graduado"
+                    >Egresados</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="#noticias">Noticias</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#bienestar">Bienestar</a></li>
+          </ul>
+          <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+            &#9776;
+          </div>
+        </nav>
+      </div>
+    </header>
 
     <!-- SECCIÓN PRINCIPAL DE PRESENTACIÓN -->
     <section class="presentacion-section">
-        <div class="presentation-container">
-            <div class="presentacion-header" data-aos="fade-up">
-                <h1>Facultad de Ciencias Económicas</h1>
-                <p class="presentacion-subtitulo">Universidad Nacional Mayor de San Marcos</p>
-            </div>
-
-            <div class="presentacion-content">
-                <!-- Mensaje del Decano -->
-                <div class="decano-message" data-aos="fade-up" data-aos-delay="100">
-                    <div class="decano-imagen">
-                        <img src="./facultad/presentacion/img/decano.jpg" alt="Dr. Juan Pérez González - Decano FCE UNMSM">
-                    </div>
-                    <div class="decano-info">
-                        <h2>Mensaje del Decano</h2>
-                        <h3>Dr. Juan Pérez González</h3>
-                        <p>Estimados estudiantes, docentes y amigos de la comunidad académica,</p>
-                        <p>Es un honor darte la más cordial bienvenida a la Facultad de Ciencias Económicas de la Universidad Nacional Mayor de San Marcos. Nuestra facultad se enorgullece de ser un centro de excelencia académica y de investigación, formando profesionales altamente calificados en Economía, Economía Pública y Economía Internacional.</p>
-                        <p>Comprometidos con la formación integral, promovemos el pensamiento crítico, la ética y la responsabilidad social. Te invito a explorar nuestra propuesta académica, conocer a nuestro destacado cuerpo docente e integrarte a nuestra comunidad universitaria. Juntos construiremos un futuro brillante para ti y para nuestra institución.</p>
-                        <p>¡Bienvenido a la FCE UNMSM!</p>
-                        <a href="./decano.html" class="btn-decano">Conoce más sobre el Decano</a>
-                    </div>
-                </div>
-
-                <!-- Historia de la Facultad -->
-                <div class="historia-facultad" data-aos="fade-up" data-aos-delay="200">
-                    <h2>Historia de la Facultad</h2>
-                    <p>La Facultad de Ciencias Económicas de la Universidad Nacional Mayor de San Marcos fue creada el 15 de agosto de 1963, mediante Resolución del Consejo Universitario N° 0083-CU-63. Desde sus inicios, se ha destacado por su compromiso con la excelencia académica y la formación de profesionales en el campo de las ciencias económicas.</p>
-                    <p>A lo largo de los años, ha evolucionado constantemente, incorporando nuevas áreas de conocimiento, actualizando sus planes de estudio y fortaleciendo sus programas de investigación. Hoy en día, es reconocida como una de las facultades más prestigiosas de la UNMSM y del país, formando economistas que contribuyen significativamente al desarrollo del Perú.</p>
-                    <a href="./historia.html" class="btn-historia">Ver Historia Completa</a>
-                </div>
-
-                <!-- Misión y Visión -->
-                <div class="mision-vision" data-aos="fade-up" data-aos-delay="300">
-                    <div class="mision-card">
-                        <h3>Misión</h3>
-                        <p>Formar profesionales en ciencias económicas con capacidad analítica, pensamiento crítico y habilidades gerenciales para contribuir al desarrollo económico sostenible del país, mediante una educación de calidad basada en la investigación, la ética y la responsabilidad social.</p>
-                    </div>
-                    <div class="vision-card">
-                        <h3>Visión</h3>
-                        <p>Ser reconocida nacional e internacionalmente como una facultad líder en la formación de economistas, destacando por la excelencia de su cuerpo docente, la calidad de sus egresados y su contribución al conocimiento económico.</p>
-                    </div>
-                </div>
-
-                <!-- Autoridades -->
-                <div class="autoridades-section" data-aos="fade-up" data-aos-delay="400">
-                    <h2>Autoridades</h2>
-                    <div class="autoridades-grid">
-                        <div class="autoridad-card">
-                            <img src="./facultad/presentacion/img/decano.jpg" alt="Dr. Juan Pérez González - Decano">
-                            <h3>Dr. Juan Pérez González</h3>
-                            <p>Decano</p>
-                        </div>
-                        <div class="autoridad-card">
-                            <img src="./facultad/presentacion/img/viceAcad.jpg" alt="Dr. Mario López Ruiz - Vicedecano Académico">
-                            <h3>Dra. Mario López Ruiz</h3>
-                            <p>Vicedecano Académico</p>
-                        </div>
-                        <div class="autoridad-card">
-                            <img src="./facultad/presentacion/img/viceInv.jpg" alt="Dr. Carlos Mendoza Torres - Vicedecano de Investigación">
-                            <h3>Dr. Carlos Mendoza Torres</h3>
-                            <p>Vicedecano de Investigación</p>
-                        </div>
-                    </div>
-                    <a href="./autoridades.html" class="btn-autoridades">Ver todas las autoridades</a>
-                </div>
-
-                <!-- Ubicación -->
-                <div class="ubicacion-section" data-aos="fade-up" data-aos-delay="500">
-                    <h2>Ubicación</h2>
-                    <p>Nuestra facultad se encuentra ubicada en el corazón de la Ciudad Universitaria, en un entorno privilegiado que favorece el aprendizaje y la investigación.</p>
-                    <div class="mapa-ubicacion">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.647..."></iframe>
-                    </div>
-                    <p><i class="fas fa-map-marker-alt"></i> Av. Germán Amézaga N° 375</p>
-                    <a href="./ubicacion.html" class="btn-ubicacion">Cómo llegar</a>
-                </div>
-            </div>
+      <div class="presentation-container">
+        <div class="presentacion-header" data-aos="fade-up">
+          <h1>Facultad de Ciencias Económicas</h1>
+          <p class="presentacion-subtitulo">
+            Universidad Nacional Mayor de San Marcos
+          </p>
         </div>
+
+        <div class="presentacion-content">
+          <!-- Mensaje del Decano -->
+          <div class="decano-message" data-aos="fade-up" data-aos-delay="100">
+            <div class="decano-imagen">
+              <img
+                src="./facultad/presentacion/img/decano.jpg"
+                alt="Dr. Juan Pérez González - Decano FCE UNMSM"
+              />
+            </div>
+            <div class="decano-info">
+              <h2>Mensaje del Decano</h2>
+              <h3>Dr. Juan Pérez González</h3>
+              <p>
+                Estimados estudiantes, docentes y amigos de la comunidad
+                académica,
+              </p>
+              <p>
+                Es un honor darte la más cordial bienvenida a la Facultad de
+                Ciencias Económicas de la Universidad Nacional Mayor de San
+                Marcos. Nuestra facultad se enorgullece de ser un centro de
+                excelencia académica y de investigación, formando profesionales
+                altamente calificados en Economía, Economía Pública y Economía
+                Internacional.
+              </p>
+              <p>
+                Comprometidos con la formación integral, promovemos el
+                pensamiento crítico, la ética y la responsabilidad social. Te
+                invito a explorar nuestra propuesta académica, conocer a nuestro
+                destacado cuerpo docente e integrarte a nuestra comunidad
+                universitaria. Juntos construiremos un futuro brillante para ti
+                y para nuestra institución.
+              </p>
+              <p>¡Bienvenido a la FCE UNMSM!</p>
+              <a href="./decano.html" class="btn-decano"
+                >Conoce más sobre el Decano</a
+              >
+            </div>
+          </div>
+
+          <!-- Historia de la Facultad -->
+          <div
+            class="historia-facultad"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h2>Historia de la Facultad</h2>
+            <p>
+              La Facultad de Ciencias Económicas de la Universidad Nacional
+              Mayor de San Marcos fue creada el 15 de agosto de 1963, mediante
+              Resolución del Consejo Universitario N° 0083-CU-63. Desde sus
+              inicios, se ha destacado por su compromiso con la excelencia
+              académica y la formación de profesionales en el campo de las
+              ciencias económicas.
+            </p>
+            <p>
+              A lo largo de los años, ha evolucionado constantemente,
+              incorporando nuevas áreas de conocimiento, actualizando sus planes
+              de estudio y fortaleciendo sus programas de investigación. Hoy en
+              día, es reconocida como una de las facultades más prestigiosas de
+              la UNMSM y del país, formando economistas que contribuyen
+              significativamente al desarrollo del Perú.
+            </p>
+            <a href="./historia.html" class="btn-historia"
+              >Ver Historia Completa</a
+            >
+          </div>
+
+          <!-- Misión y Visión -->
+          <div class="mision-vision" data-aos="fade-up" data-aos-delay="300">
+            <div class="mision-card">
+              <h3>Misión</h3>
+              <p>
+                Formar profesionales en ciencias económicas con capacidad
+                analítica, pensamiento crítico y habilidades gerenciales para
+                contribuir al desarrollo económico sostenible del país, mediante
+                una educación de calidad basada en la investigación, la ética y
+                la responsabilidad social.
+              </p>
+            </div>
+            <div class="vision-card">
+              <h3>Visión</h3>
+              <p>
+                Ser reconocida nacional e internacionalmente como una facultad
+                líder en la formación de economistas, destacando por la
+                excelencia de su cuerpo docente, la calidad de sus egresados y
+                su contribución al conocimiento económico.
+              </p>
+            </div>
+          </div>
+
+          <!-- Autoridades -->
+          <div
+            class="autoridades-section"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <h2>Autoridades</h2>
+            <div class="autoridades-grid">
+              <div class="autoridad-card">
+                <img
+                  src="./facultad/presentacion/img/decano.jpg"
+                  alt="Dr. Juan Pérez González - Decano"
+                />
+                <h3>Dr. Juan Pérez González</h3>
+                <p>Decano</p>
+              </div>
+              <div class="autoridad-card">
+                <img
+                  src="./facultad/presentacion/img/viceAcad.jpg"
+                  alt="Dr. Mario López Ruiz - Vicedecano Académico"
+                />
+                <h3>Dra. Mario López Ruiz</h3>
+                <p>Vicedecano Académico</p>
+              </div>
+              <div class="autoridad-card">
+                <img
+                  src="./facultad/presentacion/img/viceInv.jpg"
+                  alt="Dr. Carlos Mendoza Torres - Vicedecano de Investigación"
+                />
+                <h3>Dr. Carlos Mendoza Torres</h3>
+                <p>Vicedecano de Investigación</p>
+              </div>
+            </div>
+            <a href="./autoridades.html" class="btn-autoridades"
+              >Ver todas las autoridades</a
+            >
+          </div>
+
+          <!-- Ubicación -->
+          <div
+            class="ubicacion-section"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <h2>Ubicación</h2>
+            <p>
+              Nuestra facultad se encuentra ubicada en el corazón de la Ciudad
+              Universitaria, en un entorno privilegiado que favorece el
+              aprendizaje y la investigación.
+            </p>
+            <div class="mapa-ubicacion">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d975.4476507079665!2d-77.08082193805944!3d-12.057923663940961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDAzJzI4LjQiUyA3N8KwMDQnNTAuNiJX!5e0!3m2!1ses!2spe!4v1757796009692!5m2!1ses!2spe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            </div>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Av. Germán Amézaga N° 375
+            </p>
+            <a href="https://maps.google.com/?q=Facultad+de+Ciencias+Económicas+UNMSM+Lima+Perú" class="btn-ubicacion">Cómo llegar</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-        <!-- FOOTER -->
-        <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-columna">
-            <h3>Facultad</h3>
-            <ul>
-                <li><a href="#">Misión y Visión</a></li>
-                <li><a href="#">Autoridades</a></li>
-                <li><a href="#">Historia</a></li>
-                <li><a href="#">Ubicación</a></li>
-            </ul>
-            </div>
-
-            <div class="footer-columna">
-            <h3>Académico</h3>
-            <ul>
-                <li><a href="../index.html#pregrado">Pregrado</a></li>
-                <li><a href="../index.html#posgrado">Posgrado</a></li>
-                <li><a href="../index.html#escuelas">Escuelas Profesionales</a></li>
-                <li><a href="#">Centro de Idiomas</a></li>
-            </ul>
-            </div>
-
-            <div class="footer-columna">
-            <h3>Servicios</h3>
-            <ul>
-                <li><a href="../ocaa.html">OCAA</a></li>
-                <li><a href="#">Biblioteca</a></li>
-                <li><a href="#">Laboratorios</a></li>
-                <li><a href="#">Trámites</a></li>
-            </ul>
-            </div>
-
-            <div class="footer-columna">
-            <h3>Conéctate</h3>
-            <div class="redes-sociales-footer">
-                <a
-                href="https://web.facebook.com/profile.php?id=100073434511404"
-                target="_blank"
-                ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a
-                href="https://www.youtube.com/@facultaddecienciaseconomic8432"
-                target="_blank"
-                ><i class="fab fa-youtube"></i
-                ></a>
-                <a href="https://x.com/FCEUnmsm1" target="_blank"
-                ><i class="fab fa-twitter"></i
-                ></a>
-            </div>
-            <p><i class="fas fa-envelope"></i> contacto@fce.unmsm.edu.pe</p>
-            <p><i class="fas fa-map-marker-alt"></i> Av. Germán Amézaga N° 375</p>
-            </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-columna">
+          <h3>Facultad</h3>
+          <ul>
+            <li><a href="#">Misión y Visión</a></li>
+            <li><a href="#">Autoridades</a></li>
+            <li><a href="#">Historia</a></li>
+            <li><a href="#">Ubicación</a></li>
+          </ul>
         </div>
 
-        <div class="footer-copyright">
-            <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-            <p>Developed by Bach. José David Alcalde Cabrera</p>
+        <div class="footer-columna">
+          <h3>Académico</h3>
+          <ul>
+            <li><a href="../index.html#pregrado">Pregrado</a></li>
+            <li><a href="../index.html#posgrado">Posgrado</a></li>
+            <li><a href="../index.html#escuelas">Escuelas Profesionales</a></li>
+            <li><a href="#">Centro de Idiomas</a></li>
+          </ul>
         </div>
-        </footer>
+
+        <div class="footer-columna">
+          <h3>Servicios</h3>
+          <ul>
+            <li><a href="../ocaa.html">OCAA</a></li>
+            <li><a href="#">Biblioteca</a></li>
+            <li><a href="#">Laboratorios</a></li>
+            <li><a href="#">Trámites</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-columna">
+          <h3>Conéctate</h3>
+          <div class="redes-sociales-footer">
+            <a
+              href="https://web.facebook.com/profile.php?id=100073434511404"
+              target="_blank"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.youtube.com/@facultaddecienciaseconomic8432"
+              target="_blank"
+              ><i class="fab fa-youtube"></i
+            ></a>
+            <a href="https://x.com/FCEUnmsm1" target="_blank"
+              ><i class="fab fa-twitter"></i
+            ></a>
+          </div>
+          <p><i class="fas fa-envelope"></i> contacto@fce.unmsm.edu.pe</p>
+          <p><i class="fas fa-map-marker-alt"></i> Av. Germán Amézaga N° 375</p>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+        <p>Developed by Bach. José David Alcalde Cabrera</p>
+      </div>
+    </footer>
 
     <!-- BOTONES FLOTANTES -->
     <!-- <div class="social-float">
@@ -224,7 +321,7 @@
     <script src="./facultad/presentacion/js/script.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+      AOS.init();
     </script>
-</body>
+  </body>
 </html>
