@@ -67,3 +67,74 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+/* PESTAÑAS MVV */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tabId = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  });
+});
+
+/* CARRUSEL AUTORIDADES */
+(function () {
+  'use strict';
+
+  let idxAut = 0;
+  const slidesAut = document.querySelectorAll('.aut-slide');
+  const totalAut = slidesAut.length;
+  if (!totalAut) return;          // si no hay slides, no hace nada
+
+  const track   = document.querySelector('.aut-slides');
+  const nextBtn = document.querySelector('.next-aut');
+  const prevBtn = document.querySelector('.prev-aut');
+  const carouselBox = document.querySelector('.autoridades-carousel');
+
+  let autoAut = null;
+
+  /* ---------- FUNCIONES ---------- */
+  function showAut(index) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    slidesAut.forEach(s => s.classList.remove('active'));
+    slidesAut[index].classList.add('active');
+  }
+
+  function nextAutSlide() {
+    idxAut = (idxAut + 1) % totalAut;
+    showAut(idxAut);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();               // evita duplicados
+    autoAut = setInterval(nextAutSlide, 4000); // 4 s
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoAut);
+  }
+
+  /* ---------- EVENTOS ---------- */
+  nextBtn.addEventListener('click', () => {
+    stopAutoplay();
+    nextAutSlide();
+    startAutoplay();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    stopAutoplay();
+    idxAut = (idxAut - 1 + totalAut) % totalAut;
+    showAut(idxAut);
+    startAutoplay();
+  });
+
+  /* pausa al hover (opcional) */
+  carouselBox.addEventListener('mouseenter', stopAutoplay);
+  carouselBox.addEventListener('mouseleave', startAutoplay);
+
+  /* ---------- INICIO ---------- */
+  showAut(idxAut);
+  startAutoplay();
+})();
