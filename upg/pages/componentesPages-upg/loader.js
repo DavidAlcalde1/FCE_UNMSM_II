@@ -4,7 +4,7 @@
 async function cargarPlantilla() {
   try {
     // 1. Cargar header
-    const headHTML = await fetch('../componentesPages-upg/headerPagesUPG.html').then(r => r.text());
+    const headHTML = await fetch('./pages/componentesPages-upg/headerPagesUPG.html').then(r => r.text());
     const headerDiv = document.getElementById('headerPagesUPG-include');
     if (headerDiv) headerDiv.innerHTML = headHTML;
     
@@ -15,7 +15,7 @@ async function cargarPlantilla() {
     headerDiv.after(spacer);
 
     // 3. Cargar footer
-    const footHTML = await fetch('../componentesPages-upg/footerPagesUPG.html').then(r => r.text());
+    const footHTML = await fetch('./pages/componentesPages-upg/footerPagesUPG.html').then(r => r.text());
     const footerDiv = document.getElementById('footerPagesUPG-include');
     if (footerDiv) footerDiv.innerHTML = footHTML;
 
