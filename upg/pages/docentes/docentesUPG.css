@@ -2,6 +2,22 @@
    DOCENTES
    ========================================== */
 
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Paleta de colores */
+:root {
+  --azul-oscuro: rgb(16,45,82);
+  --blanco-matizado: #f5f5f5;
+  --guinda: #7a0026;
+  --negro: #111;
+  --dorado: #cfa935;
+}
+
+
 .docentes {
   padding: 80px 20px;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -109,7 +125,7 @@
   display: inline-block;
   margin-top: 15px;
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--dorado);
   backdrop-filter: blur(4px);
   color: var(--guinda);
   text-decoration: none;

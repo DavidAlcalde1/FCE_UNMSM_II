@@ -1,0 +1,90 @@
+/* ----------  VARIABLES  ---------- */
+:root{
+  --guinda   : #7a1f3a;
+  --dorado   : #c5a35d;
+  --azul-mar : #003366;
+  --gris-1   : #fafafa;
+  --gris-2   : #f2f2f2;
+  --texto    : #222;
+  --max-width: 860px;
+  --radius   : 8px;
+  --sombra   : 0 4px 18px rgba(0,0,0,.08);
+}
+
+/* ----------  RESET  ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--texto);line-height:1.65;background:var(--gris-1);}
+main{max-width:var(--max-width);margin:3rem auto 4rem;padding:0 1.25rem;}
+
+/* ----------  TIPOGRAFÍA  ---------- */
+.paragraph{margin-bottom:1.1em;text-align:justify;font-size:1.05rem;}
+.paragraph:first-of-type{font-size:1.25rem;font-weight:600;color:var(--azul-mar);}
+.container-list{margin:1.2rem 0 1.2rem 1.4rem;}
+.list {margin-bottom:.7rem;list-style:none;position:relative;padding-left:1.4rem;}
+.list::before{content:"\f0da";font-family:"Font Awesome 6 Free";font-weight:900;color:var(--guinda);position:absolute;left:0;top:2px;}
+
+/* ----------  BOTÓN  ---------- */
+.btn{
+  display:inline-block;
+  background:var(--azul-mar);
+  color:#fff !important;
+  padding:.75rem 1.8rem;
+  border-radius:var(--radius);
+  text-decoration:none;
+  font-weight:600;
+  transition:background .3s, color .3s, transform .3s;
+}
+.btn:hover{
+  background:var(--guinda);
+  color:var(--dorado) !important;
+  transform:translateY(-3px) scale(1.03);
+}
+
+/* ----------  DECORATIVOS  ---------- */
+main p{animation:fadeIn .8s ease-out forwards;opacity:0;}
+main p:nth-child(2){animation-delay:.1s}
+main p:nth-child(3){animation-delay:.2s}
+main p:nth-child(4){animation-delay:.3s}
+main p:nth-child(5){animation-delay:.4s}
+main p:nth-child(6){animation-delay:.5s}
+main p:nth-child(7){animation-delay:.6s}
+main p:nth-child(8){animation-delay:.7s}
+main p:nth-child(9){animation-delay:.8s}
+main p:nth-child(10){animation-delay:.9s}
+main ul{animation:fadeIn 1s ease-out 1s forwards;opacity:0}
+
+@keyframes fadeIn{to{opacity:1}}
+
+/* ----------  FOTO DEL DIRECTOR  ---------- */
+.director{
+  --size: 160px;               /* tamaño de la foto */
+  float:right;                 /* se pegará a la derecha del texto */
+  margin:0 0 1rem 2rem;
+  text-align:center;
+  width:var(--size);
+}
+.director img{
+  width:100%;
+  height:var(--size);
+  object-fit:cover;            /* recorta sin deformar */
+  border-radius:50%;
+  border:4px solid var(--dorado);
+  box-shadow:var(--sombra);
+  transition:transform .4s;
+}
+.director:hover img{transform:scale(1.05)}
+.director figcaption{
+  margin-top:.5rem;
+  font-size:.85rem;
+  color:var(--azul-mar);
+  font-weight:600;
+}
+
+/* ----------  RESPONSIVE  ---------- */
+@media (max-width: 600px){
+  .director{
+    float:none;               /* anula el flotado */
+    margin:2rem auto;         /* centrado */
+    display:block;
+  }
+}

@@ -1,0 +1,126 @@
+
+/* ----------  VARIABLES  ---------- */
+:root{
+  --guinda   : #7a1f3a;
+  --dorado   : #c5a35d;
+  --azul-mar : #003366;
+  --gris-1   : #fafafa;
+  --gris-2   : #f2f2f2;
+  --texto    : #222;
+  --max-width: 860px;
+  --radius   : 8px;
+  --sombra   : 0 4px 18px rgba(0,0,0,.08);
+}
+
+main{
+    background-color: var(--gris-2);
+}
+/* Hero */
+.hero {
+  background: url('../matricula/img/matricula-upg.jpg') center/cover no-repeat;
+  /* color: white; */
+  color: var(--dorado);
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;  
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* Sección */
+.container-matricula {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card i {
+  font-size: 2.5rem;
+  color: var(--dorado);
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #003366;
+}
+
+.card p {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.card a:hover{
+    background-color: var(--azul-mar);
+    color: var(--gris-1);
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--guinda);
+  color: var(--dorado);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+/* .btn:hover {
+  background-color: #002244;
+} */
+
+.avisos-lista {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.avisos-lista li {
+  background: var(--dorado);
+  color: var(--guinda);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-left: 5px solid #003366;
+  border-radius: 5px;
+}
