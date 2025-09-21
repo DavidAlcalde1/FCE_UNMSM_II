@@ -1,30 +1,38 @@
 [
   {
+    "id": 1,
     "titulo": "Matrícula Abierta para el Ciclo 2025-2",
     "resumen": "Se aperturan las matrículas desde el 01 al 07 de Julio.",
     "imagen": "img/index/noticias/noticia1.jpg",
     "enlace": "#",
-    "fecha": "2025-01-01"
+    "fecha": "2025-01-01",
+    "contenido": "La Facultad de Ingeniería abre el proceso de matrícula para el ciclo 2025-2. Los interesados podrán completar su inscripción en línea a través del portal institucional. El proceso incluye la entrega de documentación, validación de requisitos y asignación de horarios. No dejes pasar esta oportunidad de formarte en una de las mejores facultades del país."
   },
   {
+    "id": 2,
     "titulo": "Especialízate con los nuevos cursos de Posgrado",
     "resumen": "Nuevos cursos de posgrado recientemente aperturados.",
     "imagen": "img/index/noticias/noticia2.jpg",
     "enlace": "#",
-    "fecha": "2025-06-14"
+    "fecha": "2025-06-14",
+    "contenido": "La Facultad pone a disposición de los profesionales y egresados una nueva oferta de cursos de posgrado en áreas emergentes: Inteligencia Artificial aplicada a la industria, Economía Circular, Energías Renovables y Gestión de Proyectos BIM. Los cursos son dictados por docentes con grado de maestría o doctorado y se otorga certificación internacional al finalizar cada módulo."
   },
   {
+    "id": 3,
     "titulo": "Capacitación en Investigación Económica",
     "resumen": "Curso de capacitación para el mes de Junio.",
     "imagen": "img/index/noticias/noticia3.jpg",
     "enlace": "#",
-    "fecha": "2025-06-24"
+    "fecha": "2025-06-24",
+    "contenido": "Durante todo el mes de junio se desarrollará el curso de capacitación en investigación económica, dirigido a estudiantes de pregrado y profesionales afines. Se abordarán técnicas cuantitativas y cualitativas, manejo de bases de datos, redacción científica y análisis de políticas públicas. Las sesiones serán presenciales los días sábados en el auditorio principal y se entregará constancia con créditos académicos."
   },
   {
+    "id": 4,
     "titulo": "Conferencia Internacional sobre Economía Digital",
     "resumen": "Evento a realizarse gracias al apoyo de la Cámara de Comercio de Lima.",
     "imagen": "img/index/noticias/noticia4.jpg",
     "enlace": "#",
-    "fecha": "2025-07-05"
+    "fecha": "2025-07-05",
+    "contenido": "El 5 de julio se realizará la Conferencia Internacional sobre Economía Digital, organizada por la Facultad en alianza con la Cámara de Comercio de Lima. Participarán expertos de Chile, Colombia, México y España quienes expondrán sobre transformación digital, fintech, criptomonedas y regulación de plataformas. El evento es gratuito con inscripción previa y se emitirán certificados de asistencia."
   }
 ]

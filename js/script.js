@@ -167,8 +167,8 @@ fetch(BASE_PATH + '/json/noticias.json')
                 <img src="${noticia.imagen}" alt="${noticia.titulo}">
                 <div class="contenido-noticia">
                     <h3>${noticia.titulo}</h3>
-                    <p>${noticia.resumen}</p>
-                    <a href="${noticia.enlace}" class="btn-vermasN">Ver más</a>
+                    <p>${noticia.resumen}</p>                    
+                    <a href="noticia.html?id=${noticia.id}" class="btn-vermasN">Ver más</a>                    
                 </div>
             `;
             container.insertBefore(noticiaEl, dotsContainer);
