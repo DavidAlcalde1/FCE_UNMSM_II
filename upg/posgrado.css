@@ -296,7 +296,8 @@
 
 /* Colores por tipo */
 .accion-card.brochure:hover,
-.programa-card.maestria:hover {
+.programa-card.maestria:hover, 
+.programa-card.doctorado:hover {
   border-left: 5px solid var(--dorado);
 }
 
@@ -409,7 +410,8 @@
 }
 
 /* Colores por tipo */
-.programa-card.maestria {
+.programa-card.maestria,
+.programa-card.doctorado {
   border-left: 5px solid var(--dorado);
 }
 

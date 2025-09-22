@@ -5,6 +5,58 @@
     --accent: #415a77;
     --bg: #f9fafb;
     --max-width: 900px;
+    --barra-amarillo: #ffb74d;
+    --barra-azul: #0d1b2a;
+    --barra-ancho: 8px;
+    --barra-alto: 40px;
+    --barra-veloc: 0.8s; 
+}
+
+/* ========= SPINNER BARRAS - ECONOMÍA UNMSM ========= */
+
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.bars-spinner {
+  display: flex;
+  gap: 4px;
+  height: var(--barra-alto);
+  align-items: flex-end;
+}
+
+.bars-spinner div {
+  width: var(--barra-ancho);
+  background: var(--barra-amarillo);
+  animation: upDown var(--barra-veloc) ease-in-out infinite;
+}
+
+.bars-spinner div:nth-child(2) {
+  background: var(--barra-azul);
+  animation-delay: 0.1s;
+}
+
+.bars-spinner div:nth-child(3) {
+  background: var(--barra-amarillo);
+  animation-delay: 0.2s;
+}
+
+.bars-spinner div:nth-child(4) {
+  background: var(--barra-azul);
+  animation-delay: 0.3s;
+}
+
+@keyframes upDown {
+  0%, 100% { height: 5%; }
+  50% { height: 100%; }
 }
 
 /* Animaciones */

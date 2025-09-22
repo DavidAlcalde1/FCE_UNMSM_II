@@ -10,292 +10,298 @@
     <link rel="stylesheet" href="./ocaa/styles.css" />
     </head>
     <body>
-
-    <!-- Encabezado -->
-    <header class="header">
-        <div class="header__top">
-            <div class="logo">
-                <a href="./index.html" target="_blank">
-                    <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
-                </a>
-            </div>
-            <div class="social-icons">
-                <a href="https://web.facebook.com/profile.php?id=100073434511404"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="https://www.youtube.com/@facultaddecienciaseconomic8432"><i class="fab fa-youtube"></i> YouTube</a>
-                <a href="https://x.com/FCEUnmsm1"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"><i class="fas fa-user-graduate"></i> SUM docentes</a>
-                <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"><i class="fas fa-user-graduate"></i> SUM alumnos</a>
-                <a href="https://unmsm.edu.pe/"><i class="fas fa-university"></i> UNMSM</a>
-                <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"><i class="fas fa-file-alt"></i> MAT</a>
-            </div>
+        <!-- Loader -->
+        <div id="loader" class="loader-overlay">
+        <div class="bars-spinner">
+            <div></div><div></div><div></div><div></div>
+        </div>
         </div>
 
-        <!-- Menú principal -->
-        <nav class="navbar">
-        <ul class="menu">
-            <li><a href="#">Inicio</a></li>
-            <li class="dropdown">
-            <a href="#">La Facultad</a>
-            <ul class="submenu">
-                <li><a href="https://x.com/FCEUnmsm1">Historia</a></li>
-                <li><a href="https://unmsm.edu.pe/">Autoridades</a></li>
-            </ul>
-            </li>
-            <li class="dropdown">
-            <a href="#">Académico</a>
-            <ul class="submenu">
-                <li><a href="https://x.com/FCEUnmsm1">Pregrado</a></li>
-                <li><a href="https://x.com/FCEUnmsm1">Posgrado</a></li>
-            </ul>
-            </li>
-            <li><a href="#">Noticias</a></li>
-        </ul>
-        </nav>
-    </header>
-
-    <!-- Carrusel -->
-    <section class="carousel">
-        <div class="carousel-container" id="carousel">
-            <div class="slide active">
-            <img src="./img/ocaa/banner_1.jpg" alt="Banner 1">
-            <div class="slide-content">
-                <h2>Facultad de Ciencias Económicas</h2>
-                <p>Trabajamos por la Calidad Académica</p>
-                <a href="#" class="btn-info">Más Información</a>
-            </div>
-            </div>
-            <div class="slide">
-            <img src="./img/ocaa/banner_2.jpg" alt="Banner 2">
-            <div class="slide-content">
-                <h2>Comprometidos con la Calidad</h2>
-                <p>Excelencia académica y compromiso social</p>
-                <a href="#" class="btn-info">Ver Detalles</a>
-            </div>
-            </div>
-            <div class="slide">
-            <img src="./img/ocaa/banner_3.jpg" alt="Banner 3">
-            <div class="slide-content">
-                <h2>Formación Integral</h2>
-                <p>Educamos con vocación y ciencia</p>
-                <a href="#" class="btn-info">Conócenos</a>
-            </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section class="presentacion" id="presentacion">
-
-        <!-- Columna izquierda: texto -->
-        <div class="container presentacion__content">
-            <div class="presentacion__text">
-                <h2>PRESENTACIÓN</h2>
-                <p>
-                    La Oficina de Calidad Académica y Acreditación de la Facultad de Ciencias Económicas, fue creada por Resolución Rectoral N° 04336-R-03. Ante la necesidad de la Universidad de buscar 
-                    mecanismos para elevar el nivel académico, tomando en cuenta la búsqueda de eficiencia entre el personal docente, estudiantes y trabajadores no docentes, de manera que se asegure el 
-                    logro de los fines y objetivos de la Facultad, 
-                    la Oficina se ha propuesto llevar a cabo un proceso de autoevaluación que permita elaborar un Plan de Mejora en la Calidad Académica, cuya ejecución nos permitirá obtener un reconocimiento de 
-                    acreditación.
-                
-                </p>
-            </div>
-
-            <!-- Columna derecha: imagen -->
-            <div class="presentacion__image">
-                <img src="./img/ocaa/jefe_image.jpg" alt="Oficina de Calidad" />
-            </div>
-        </div>
-    </section>
-
-
-    <section class="imagen-fullwidth">
-        <img src="./img/ocaa/central_image.jpg" alt="Banner institucional" />
-    </section>
-
-
-    <section class="ocaa" id="ocaa">
-        <div class="container ocaa__content">
-
-            <!-- Columna izquierda: imagen -->
-            <div class="ocaa__image">
-                <img src="./img/ocaa/image_1.jpg" alt="Oficina de Calidad" />
-            </div>
-            
-            <!-- Columna derecha: texto -->
-            <div class="ocaa__text">
-                <h2>OFICINA DE CALIDAD ACADÉMICA Y ACREDITACIÓN (OCAA)</h2>
-                <p>
-                    La Facultad de Ciencias Económicas, en su compromiso con la excelencia académica y el mejoramiento continuo, 
-                    promueve políticas de calidad educativa a través de procesos sistemáticos de autoevaluación y acreditación. 
-                    La Oficina de Calidad Académica y Acreditación (OCAA) lidera estas iniciativas alineadas con estándares 
-                    nacionales e internacionales, fortaleciendo la formación profesional con enfoque humanista y científico.
-                </p>
-            </div>   
-
-        </div>
-    </section>
-
-    <section class="tabs-section" id="info">
-        <div class="container tabs-container">
-        
-            <!-- Columna izquierda: imagen con overlay -->
-            <div class="tabs-image-overlay">
-                <img src="./img/ocaa/mision_image.jpg" alt="Imagen institucional" />
-                <div class="overlay-texto">
-                    <h2>Nuestra Misión</h2>
-                </div>
-            </div>
-
-            <!-- Columna derecha: pestañas -->
-            <div class="tabs-content">
-                <div class="tabs-header">
-                    <button class="tab-button active" data-tab="mision">Misión</button>
-                    <button class="tab-button" data-tab="funciones">Funciones</button>
-                    <button class="tab-button" data-tab="objetivos">Objetivos</button>
-                </div>
-
-                <div class="tab-panel active" id="mision">
-                    <p>
-                    Contribuir al aseguramiento de la calidad académica mediante procesos de evaluación y mejora continua, 
-                    fomentando una cultura institucional orientada a la excelencia.
-                    </p>
-                </div>
-                <div class="tab-panel" id="funciones">
-                    <p>
-                    Planificar, ejecutar y supervisar los procesos de autoevaluación y acreditación, brindar asesoramiento técnico 
-                    y coordinar con las unidades académicas para implementar mejoras.
-                    </p>
-                </div>
-                <div class="tab-panel" id="objetivos">
-                    <p>
-                    Promover el desarrollo institucional sostenible, garantizando estándares de calidad nacional e internacional 
-                    en la formación profesional de los estudiantes.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-
-    <section class="quality-policy-section">
-        <div class="quality-container">
-            
-            <div class="quality-content">
-                <div class="quality-text" data-aos="fade-right">
-                    <h2 class="section-title" data-aos="fade-up">Políticas de Calidad</h2>
-                    <p>
-                    La Facultad adopta la Política de Calidad emanada de la Oficina Central de Calidad Académica y Acreditación (OCCAA), en coherencia con su misión como formadora de profesionales competentes que contribuyen al desarrollo nacional. Esta política se basa en una gestión ética, transparente y centrada en la mejora continua, con énfasis en la calidad de vida de las personas. 
-                    </p>
-                    <p>
-                    La política deberá estar disponible, comunicarse, comprenderse y aplicarse en todos los ámbitos de la vida universitaria.
-                    </p>
-                </div>
-
-                <div class="quality-image-banner" data-aos="fade-left">
-                    <img src="./img/ocaa/politicasDeCalidad_image.jpg" alt="Política de Calidad" />
-                    <div class="banner-overlay">
-                    <h3>Descarga la documentación</h3>
-                    <a href="https://medicina.unmsm.edu.pe/wp-content/uploads/2024/10/RESOLUCION-RECTORAL-005291-2024-Politica-y-Objetivos-de-Calidad-1.pdf"
-                        target="_blank" class="banner-button">
-                        <i class="fa-solid fa-file-arrow-down"></i> Descargar PDF
+        <!-- Encabezado -->
+        <header class="header">
+            <div class="header__top">
+                <div class="logo">
+                    <a href="./index.html" target="_blank">
+                        <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
                     </a>
+                </div>
+                <div class="social-icons">
+                    <a href="https://web.facebook.com/profile.php?id=100073434511404"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://www.youtube.com/@facultaddecienciaseconomic8432"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://x.com/FCEUnmsm1"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://sum.unmsm.edu.pe/docenteWebSum/login"><i class="fas fa-user-graduate"></i> SUM docentes</a>
+                    <a href="https://sum.unmsm.edu.pe/alumnoWebSum/login"><i class="fas fa-user-graduate"></i> SUM alumnos</a>
+                    <a href="https://unmsm.edu.pe/"><i class="fas fa-university"></i> UNMSM</a>
+                    <a href="https://tramiteonline.unmsm.edu.pe/sgdfd/mat/"><i class="fas fa-file-alt"></i> MAT</a>
+                </div>
+            </div>
+
+            <!-- Menú principal -->
+            <nav class="navbar">
+            <ul class="menu">
+                <li><a href="#">Inicio</a></li>
+                <li class="dropdown">
+                <a href="#">La Facultad</a>
+                <ul class="submenu">
+                    <li><a href="https://x.com/FCEUnmsm1">Historia</a></li>
+                    <li><a href="https://unmsm.edu.pe/">Autoridades</a></li>
+                </ul>
+                </li>
+                <li class="dropdown">
+                <a href="#">Académico</a>
+                <ul class="submenu">
+                    <li><a href="https://x.com/FCEUnmsm1">Pregrado</a></li>
+                    <li><a href="https://x.com/FCEUnmsm1">Posgrado</a></li>
+                </ul>
+                </li>
+                <li><a href="#">Noticias</a></li>
+            </ul>
+            </nav>
+        </header>
+
+        <!-- Carrusel -->
+        <section class="carousel">
+            <div class="carousel-container" id="carousel">
+                <div class="slide active">
+                <img src="./img/ocaa/banner_1.jpg" alt="Banner 1">
+                <div class="slide-content">
+                    <h2>Facultad de Ciencias Económicas</h2>
+                    <p>Trabajamos por la Calidad Académica</p>
+                    <a href="#" class="btn-info">Más Información</a>
+                </div>
+                </div>
+                <div class="slide">
+                <img src="./img/ocaa/banner_2.jpg" alt="Banner 2">
+                <div class="slide-content">
+                    <h2>Comprometidos con la Calidad</h2>
+                    <p>Excelencia académica y compromiso social</p>
+                    <a href="#" class="btn-info">Ver Detalles</a>
+                </div>
+                </div>
+                <div class="slide">
+                <img src="./img/ocaa/banner_3.jpg" alt="Banner 3">
+                <div class="slide-content">
+                    <h2>Formación Integral</h2>
+                    <p>Educamos con vocación y ciencia</p>
+                    <a href="#" class="btn-info">Conócenos</a>
+                </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="presentacion" id="presentacion">
+
+            <!-- Columna izquierda: texto -->
+            <div class="container presentacion__content">
+                <div class="presentacion__text">
+                    <h2>PRESENTACIÓN</h2>
+                    <p>
+                        La Oficina de Calidad Académica y Acreditación de la Facultad de Ciencias Económicas, fue creada por Resolución Rectoral N° 04336-R-03. Ante la necesidad de la Universidad de buscar 
+                        mecanismos para elevar el nivel académico, tomando en cuenta la búsqueda de eficiencia entre el personal docente, estudiantes y trabajadores no docentes, de manera que se asegure el 
+                        logro de los fines y objetivos de la Facultad, 
+                        la Oficina se ha propuesto llevar a cabo un proceso de autoevaluación que permita elaborar un Plan de Mejora en la Calidad Académica, cuya ejecución nos permitirá obtener un reconocimiento de 
+                        acreditación.
+                    
+                    </p>
+                </div>
+
+                <!-- Columna derecha: imagen -->
+                <div class="presentacion__image">
+                    <img src="./img/ocaa/jefe_image.jpg" alt="Oficina de Calidad" />
+                </div>
+            </div>
+        </section>
+
+
+        <section class="imagen-fullwidth">
+            <img src="./img/ocaa/central_image.jpg" alt="Banner institucional" />
+        </section>
+
+
+        <section class="ocaa" id="ocaa">
+            <div class="container ocaa__content">
+
+                <!-- Columna izquierda: imagen -->
+                <div class="ocaa__image">
+                    <img src="./img/ocaa/image_1.jpg" alt="Oficina de Calidad" />
+                </div>
+                
+                <!-- Columna derecha: texto -->
+                <div class="ocaa__text">
+                    <h2>OFICINA DE CALIDAD ACADÉMICA Y ACREDITACIÓN (OCAA)</h2>
+                    <p>
+                        La Facultad de Ciencias Económicas, en su compromiso con la excelencia académica y el mejoramiento continuo, 
+                        promueve políticas de calidad educativa a través de procesos sistemáticos de autoevaluación y acreditación. 
+                        La Oficina de Calidad Académica y Acreditación (OCAA) lidera estas iniciativas alineadas con estándares 
+                        nacionales e internacionales, fortaleciendo la formación profesional con enfoque humanista y científico.
+                    </p>
+                </div>   
+
+            </div>
+        </section>
+
+        <section class="tabs-section" id="info">
+            <div class="container tabs-container">
+            
+                <!-- Columna izquierda: imagen con overlay -->
+                <div class="tabs-image-overlay">
+                    <img src="./img/ocaa/mision_image.jpg" alt="Imagen institucional" />
+                    <div class="overlay-texto">
+                        <h2>Nuestra Misión</h2>
                     </div>
                 </div>
+
+                <!-- Columna derecha: pestañas -->
+                <div class="tabs-content">
+                    <div class="tabs-header">
+                        <button class="tab-button active" data-tab="mision">Misión</button>
+                        <button class="tab-button" data-tab="funciones">Funciones</button>
+                        <button class="tab-button" data-tab="objetivos">Objetivos</button>
+                    </div>
+
+                    <div class="tab-panel active" id="mision">
+                        <p>
+                        Contribuir al aseguramiento de la calidad académica mediante procesos de evaluación y mejora continua, 
+                        fomentando una cultura institucional orientada a la excelencia.
+                        </p>
+                    </div>
+                    <div class="tab-panel" id="funciones">
+                        <p>
+                        Planificar, ejecutar y supervisar los procesos de autoevaluación y acreditación, brindar asesoramiento técnico 
+                        y coordinar con las unidades académicas para implementar mejoras.
+                        </p>
+                    </div>
+                    <div class="tab-panel" id="objetivos">
+                        <p>
+                        Promover el desarrollo institucional sostenible, garantizando estándares de calidad nacional e internacional 
+                        en la formación profesional de los estudiantes.
+                        </p>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <section class="quality-system-section">
-        <div class="quality-system-container">
 
-                <div class="quality-system-image-banner" data-aos="fade-left">
-                    <img src="./img/ocaa/SistemasDeGestionDeCalidad.jpg" alt="Política de Calidad"/>
-                    <div class="banner-overlay">
+        <section class="quality-policy-section">
+            <div class="quality-container">
+                
+                <div class="quality-content">
+                    <div class="quality-text" data-aos="fade-right">
+                        <h2 class="section-title" data-aos="fade-up">Políticas de Calidad</h2>
+                        <p>
+                        La Facultad adopta la Política de Calidad emanada de la Oficina Central de Calidad Académica y Acreditación (OCCAA), en coherencia con su misión como formadora de profesionales competentes que contribuyen al desarrollo nacional. Esta política se basa en una gestión ética, transparente y centrada en la mejora continua, con énfasis en la calidad de vida de las personas. 
+                        </p>
+                        <p>
+                        La política deberá estar disponible, comunicarse, comprenderse y aplicarse en todos los ámbitos de la vida universitaria.
+                        </p>
+                    </div>
+
+                    <div class="quality-image-banner" data-aos="fade-left">
+                        <img src="./img/ocaa/politicasDeCalidad_image.jpg" alt="Política de Calidad" />
+                        <div class="banner-overlay">
                         <h3>Descarga la documentación</h3>
                         <a href="https://medicina.unmsm.edu.pe/wp-content/uploads/2024/10/RESOLUCION-RECTORAL-005291-2024-Politica-y-Objetivos-de-Calidad-1.pdf"
                             target="_blank" class="banner-button">
                             <i class="fa-solid fa-file-arrow-down"></i> Descargar PDF
                         </a>
+                        </div>
                     </div>
                 </div>
-            
-            <div class="quality-system-content">
-                <div class="quality-system-text" data-aos="fade-right">
-                    <h2 class="section-text-title" data-aos="fade-up">Sistemas de Gestión de la Calidad</h2>
+            </div>
+        </section>
+
+
+        <section class="quality-system-section">
+            <div class="quality-system-container">
+
+                    <div class="quality-system-image-banner" data-aos="fade-left">
+                        <img src="./img/ocaa/SistemasDeGestionDeCalidad.jpg" alt="Política de Calidad"/>
+                        <div class="banner-overlay">
+                            <h3>Descarga la documentación</h3>
+                            <a href="https://medicina.unmsm.edu.pe/wp-content/uploads/2024/10/RESOLUCION-RECTORAL-005291-2024-Politica-y-Objetivos-de-Calidad-1.pdf"
+                                target="_blank" class="banner-button">
+                                <i class="fa-solid fa-file-arrow-down"></i> Descargar PDF
+                            </a>
+                        </div>
+                    </div>
+                
+                <div class="quality-system-content">
+                    <div class="quality-system-text" data-aos="fade-right">
+                        <h2 class="section-text-title" data-aos="fade-up">Sistemas de Gestión de la Calidad</h2>
+                        <p>
+                        El Sistema de Gestión de la Calidad Educativa de la Facultad de Ciencias Económicas, se constituye como un conjunto de principios, políticas, objetivos, lineamientos, procesos, especificaciones técnicas y procedimientos, organizados y sistemáticos, que tienen por finalidad ejercer la conducción compartida y la supervisión y evaluación de acciones y actividades a favor del cumplimiento de los objetivos de la calidad educativa, en la comunidad universitaria. 
+                        </p>                    
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="quality-faq-section">
+            <div class="quality-faq-container">
+
+                <!-- Texto introductorio -->
+                <div class="quality-faq-text" data-aos="fade-up">
+                    <h2 class="section-text-title">Evaluación de la Calidad Educativa en la Facultad de Ciencias Económicas</h2>
                     <p>
-                    El Sistema de Gestión de la Calidad Educativa de la Facultad de Ciencias Económicas, se constituye como un conjunto de principios, políticas, objetivos, lineamientos, procesos, especificaciones técnicas y procedimientos, organizados y sistemáticos, que tienen por finalidad ejercer la conducción compartida y la supervisión y evaluación de acciones y actividades a favor del cumplimiento de los objetivos de la calidad educativa, en la comunidad universitaria. 
-                    </p>                    
+                        La acreditación conduce a que las escuelas de economía comprometan recursos y participen en actividades de autoevaluación que representan las mejores prácticas de MCC, lo que lleva al desarrollo dentro de las escuelas de una cultura de mejora de la calidad (MC).
+                    </p>
                 </div>
-            </div>
-        </div>
-    </section>
 
+                <!-- Botones de enlaces -->
+                <div class="quality-faq-links" data-aos="fade-up">
+                    <a href="#" class="faq-link-box">EP. ECONOMÍA</a>
+                    <a href="#" class="faq-link-box">EP. ECONOMÍA PÚBLICA</a>
+                    <a href="#" class="faq-link-box">EP. ECONOMÍA INTERNACIONAL</a>
+                </div>
 
-    <section class="quality-faq-section">
-        <div class="quality-faq-container">
+                <!-- Acordeón de preguntas -->
+                <div class="faq-accordion" data-aos="fade-up">
+                    <div class="faq-item active">
+                        <div class="faq-question">¿Qué es el Sistema de Gestión de Calidad?</div>
+                        <div class="faq-answer">
+                        Es un conjunto de procesos, políticas y objetivos que permiten garantizar la mejora continua en la gestión académica y administrativa.
+                        </div>
+                    </div>
 
-            <!-- Texto introductorio -->
-            <div class="quality-faq-text" data-aos="fade-up">
-                <h2 class="section-text-title">Evaluación de la Calidad Educativa en la Facultad de Ciencias Económicas</h2>
-                <p>
-                    La acreditación conduce a que las escuelas de economía comprometan recursos y participen en actividades de autoevaluación que representan las mejores prácticas de MCC, lo que lleva al desarrollo dentro de las escuelas de una cultura de mejora de la calidad (MC).
-                </p>
-            </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Qué beneficios tiene?</div>
+                        <div class="faq-answer">
+                        Mejora la eficiencia operativa, la satisfacción estudiantil y permite una mejor toma de decisiones basada en evidencia.
+                        </div>
+                    </div>
 
-            <!-- Botones de enlaces -->
-            <div class="quality-faq-links" data-aos="fade-up">
-                <a href="#" class="faq-link-box">EP. ECONOMÍA</a>
-                <a href="#" class="faq-link-box">EP. ECONOMÍA PÚBLICA</a>
-                <a href="#" class="faq-link-box">EP. ECONOMÍA INTERNACIONAL</a>
-            </div>
-
-            <!-- Acordeón de preguntas -->
-            <div class="faq-accordion" data-aos="fade-up">
-                <div class="faq-item active">
-                    <div class="faq-question">¿Qué es el Sistema de Gestión de Calidad?</div>
-                    <div class="faq-answer">
-                    Es un conjunto de procesos, políticas y objetivos que permiten garantizar la mejora continua en la gestión académica y administrativa.
+                    <div class="faq-item">
+                        <div class="faq-question">¿Cómo participar en el sistema?</div>
+                        <div class="faq-answer">
+                        Puedes involucrarte respondiendo encuestas de satisfacción, asistiendo a charlas de calidad y participando en evaluaciones internas.
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <div class="faq-question">¿Qué beneficios tiene?</div>
-                    <div class="faq-answer">
-                    Mejora la eficiencia operativa, la satisfacción estudiantil y permite una mejor toma de decisiones basada en evidencia.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">¿Cómo participar en el sistema?</div>
-                    <div class="faq-answer">
-                    Puedes involucrarte respondiendo encuestas de satisfacción, asistiendo a charlas de calidad y participando en evaluaciones internas.
-                    </div>
-                </div>
             </div>
-
-        </div>
-    </section>
+        </section>
 
 
-    <!-- <button id="darkModeToggle" class="dark-mode-toggle" title="Alternar modo oscuro">
-        <i id="darkModeIcon" class="fas fa-moon"></i>
-    </button> -->
+        <!-- <button id="darkModeToggle" class="dark-mode-toggle" title="Alternar modo oscuro">
+            <i id="darkModeIcon" class="fas fa-moon"></i>
+        </button> -->
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-        <p>Developed by Bach. José David Alcalde Cabrera</p>
-    </footer>
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+            <p>Developed by Bach. José David Alcalde Cabrera</p>
+        </footer>
 
 
 
 
 
 
-    <script src="./ocaa/script.js"></script>
-</body>
+        <script src="./ocaa/script.js"></script>
+    </body>
 </html>
