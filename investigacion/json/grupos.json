@@ -1,0 +1,23 @@
+[
+  {
+    "nombre": "Grupo de Economía Aplicada y Desarrollo (GEAD)",
+    "coordinador": "Dr. Juan Pérez Salas",
+    "descripcion": "Análisis de políticas públicas, crecimiento económico y desarrollo regional.",
+    "miembros": 12,
+    "url": "#"
+  },
+  {
+    "nombre": "Grupo de Investigación en Economía Internacional (GECI)",
+    "coordinador": "Dra. María López Ríos",
+    "descripcion": "Estudios sobre comercio internacional, integración regional y finanzas globales.",
+    "miembros": 8,
+    "url": "#"
+  },
+  {
+    "nombre": "Grupo de Economía Pública y Gestión Social (GEPGS)",
+    "coordinador": "Dr. Luis Fernández Gómez",
+    "descripcion": "Investigación en políticas sociales, gestión pública y economía del sector público.",
+    "miembros": 10,
+    "url": "#"
+  }
+]

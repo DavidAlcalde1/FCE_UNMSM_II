@@ -1,0 +1,79 @@
+/* ========= GRUPOS DE INVESTIGACIÓN ========= */
+:root {
+  --color-principal: #0d1b2a;
+  --color-acento: #415a77;
+  --color-ambar: #ffb74d;
+  --fondo-gris: #f9fafb;
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, .08);
+  --radio: 12px;
+  --transicion: .3s ease;
+}
+
+.grupos-lista {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grupo-card {
+  background: #fff;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-suave);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.grupo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .12);
+}
+
+.grupo-nombre {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-principal);
+  margin-bottom: .5rem;
+}
+
+.grupo-coordinador {
+  font-size: .9rem;
+  color: var(--color-acento);
+  margin-bottom: 1rem;
+}
+
+.grupo-descripcion {
+  flex-grow: 1;
+  color: #444;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.grupo-miembros {
+  font-size: .8rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.grupo-btn {
+  align-self: flex-start;
+  background: var(--color-acento);
+  color: #fff;
+  padding: .5rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background var(--transicion);
+}
+
+.grupo-btn:hover {
+  background: #2c3e50;
+}
+
+@media (max-width: 600px) {
+  .grupo-card {
+    padding: 1.5rem;
+  }
+}

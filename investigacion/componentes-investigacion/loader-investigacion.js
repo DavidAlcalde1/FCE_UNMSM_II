@@ -1,3 +1,7 @@
+
+
+
+
 // /componentes/loader.js
 // Carga header/footer + inserta espaciador dinámico + inicializa funciones
 

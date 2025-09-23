@@ -1,0 +1,20 @@
+[
+  {
+    "titulo": "Impacto de la inflación en el consumo de los hogares limeños",
+    "responsable": "Dr. Carlos E. Pérez Salcedo",
+    "resumen": "Análisis empírico de los efectos de la inflación sobre el gasto familiar en Lima Metropolitana (2020-2024).",
+    "estado": "activo",
+    "inicio": "2023-01",
+    "fin": "2025-12",
+    "url": "#"
+  },
+  {
+    "titulo": "Economía naranja y emprendimiento creativo en Perú",
+    "responsable": "Dra. Lucía A. Ríos Palomino",
+    "resumen": "Estudio de las barreras y oportunidades para los emprendedores culturales y creativos a nivel nacional.",
+    "estado": "finalizado",
+    "inicio": "2021-06",
+    "fin": "2023-06",
+    "url": "./pdf/proyecto-economia-naranja.pdf"
+  }
+]
