@@ -1,0 +1,68 @@
+/* ========= FICHA INTERNA GRUPO ========= */
+.grupo-hero {
+  background: linear-gradient(135deg, var(--color-principal) 60%, var(--color-acento) 100%);
+  color: #fff;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.grupo-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+}
+
+.grupo-hero p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: .9;
+}
+
+.grupo-info, .grupo-miembros, .grupo-publicaciones, .grupo-contacto {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.grupo-info ul, .pub-list {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.8;
+}
+
+.miembros-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.miembro-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.miembro-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.btn-contacto {
+  display: inline-block;
+  background: var(--color-ambar);
+  color: var(--color-principal);
+  padding: .8rem 1.8rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-contacto:hover {
+  background: #ffa726;
+}
