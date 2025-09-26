@@ -1,0 +1,163 @@
+:root {  
+  --barra-amarillo: #ffb74d;
+  --barra-azul: #0d1b2a;
+  --barra-ancho: 8px;
+  --barra-alto: 40px;
+  --barra-veloc: 0.8s;
+  --color-principal: #0d1b2a;
+  --color-acento: #415a77;
+  --color-ambar: #ffb74d;
+  --blanco: rgba(255, 255, 255, 0.85);
+  --sombra-suave: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --radio: 12px;
+  --transicion: 0.3s ease;             
+}
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.bars-spinner {
+  display: flex;
+  gap: 4px;
+  height: var(--barra-alto);
+  align-items: flex-end;
+}
+
+.bars-spinner div {
+  width: var(--barra-ancho);
+  background: var(--barra-amarillo);
+  animation: upDown var(--barra-veloc) ease-in-out infinite;
+}
+
+.bars-spinner div:nth-child(2) {
+  background: var(--barra-azul);
+  animation-delay: 0.1s;
+}
+
+.bars-spinner div:nth-child(3) {
+  background: var(--barra-amarillo);
+  animation-delay: 0.2s;
+}
+
+.bars-spinner div:nth-child(4) {
+  background: var(--barra-azul);
+  animation-delay: 0.3s;
+}
+
+@keyframes upDown {
+  0%, 100% { height: 5%; }
+  50% { height: 100%; }
+}
+
+/* ========= PUBLICACIONES - TARJETAS MODERNAS ========= */
+.investigacion-header {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+
+.publicaciones-lista {
+  max-width: 1200px;
+  margin: 3rem auto;
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  padding: 0 1rem;
+}
+
+.publicacion-card {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--sombra-suave);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.publicacion-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.publicacion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.publicacion-tipo {
+  background: var(--color-ambar);
+  color: var(--color-principal);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.publicacion-fecha {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.publicacion-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-principal);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.publicacion-autores {
+  font-size: 0.9rem;
+  color: var(--color-acento);
+  margin-bottom: 1rem;
+}
+
+.publicacion-resumen {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.publicacion-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.publicacion-btn {
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--color-acento), var(--color-ambar));
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.publicacion-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(65, 90, 119, 0.4);
+}
+
+.btn-pdf {
+  margin-top: 1rem;
+  align-self: flex-start;
+}

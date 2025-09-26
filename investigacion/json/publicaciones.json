@@ -1,0 +1,29 @@
+[
+  {
+    "titulo": "Impacto de la inflación en el consumo de los hogares limeños",
+    "autores": ["Dr. Carlos Pérez", "Dra. Lucía Ríos"],
+    "resumen": "Análisis empírico de los efectos de la inflación sobre el gasto familiar en Lima Metropolitana (2020-2024).",
+    "tipo": "Artículo",
+    "fecha": "2024-06",
+    "url": "./investigacion/pdf/2024-inflacion-consumo.pdf",
+    "issn": "ISSN 1234-5678"
+  },
+  {
+    "titulo": "Economía naranja y emprendimiento creativo en Perú",
+    "autores": ["Dra. Lucía Ríos", "Dr. Luis Fernández"],
+    "resumen": "Estudio de las barreras y oportunidades para emprendedores culturales y creativos.",
+    "tipo": "Capítulo de libro",
+    "fecha": "2023-12",
+    "url": "./investigacion/pdf/2023-economia-naranja.pdf",
+    "isbn": "ISBN 978-612-34567-8-9"
+  },
+  {
+    "titulo": "Evaluación de impacto de programas de empleo juvenil",
+    "autores": ["Dr. Juan Pérez", "Dra. María López"],
+    "resumen": "Evaluación cuasi-experimental del programa Jóvenes a la Obra en regiones del Perú.",
+    "tipo": "Artículo",
+    "fecha": "2023-08",
+    "url": "./investigacion/pdf/2023-empleo-juvenil.pdf",
+    "issn": "ISSN 9876-5432"
+  }
+]
