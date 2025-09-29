@@ -72,17 +72,17 @@
 }
 
 /* ========= NUEVO SPINNER 3D CON LOGO FCE ========= */
-:root {
-  /* personaliza aquí si quieres */
+/* :root {
+  
   --moneda-tam: 70px;
   --moneda-borde: 5px;
-  --moneda-color: var(--accent); /* #415a77 */
-  --moneda-borde-color: var(--primary); /* #0d1b2a */
+  --moneda-color: var(--accent); 
+  --moneda-borde-color: var(--primary); 
 }
 
 @keyframes giro3d {
   to { transform: rotateY(360deg); }
-}
+} */
 
 .loader-overlay {
   position: fixed;
@@ -96,42 +96,7 @@
   transition: opacity 0.5s ease;
 }
 
-/* .coin-3d {
-  width: var(--moneda-tam);
-  height: var(--moneda-tam);
-  position: relative;
-  transform-style: preserve-3d;
-  animation: giro3d 1.2s linear infinite;
-}
 
-.coin-3d .cara {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: var(--moneda-color);
-  background-image: url("../img/index/logo_fce.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 0 0 var(--moneda-borde) var(--moneda-borde-color);
-}
-
-.coin-3d .cara:nth-child(1) { transform: translateZ(calc(var(--moneda-tam) * 0.05)); }
-.coin-3d .cara:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--moneda-tam) * 0.05)); }
-
-.sombra {
-  width: var(--moneda-tam);
-  height: calc(var(--moneda-tam) * 0.25);
-  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.25), transparent);
-  border-radius: 50%;
-  margin-top: 8px;
-  animation: sombra 1.2s linear infinite;
-}
-
-@keyframes sombra {
-  0%, 100% { transform: scale(1); opacity: 0.25; }
-  50% { transform: scale(0.8); opacity: 0.15; }
-} */
 
 /* Barras con colores UNMSM */
 .bars-spinner div {
@@ -176,17 +141,7 @@
   to   { height: 100%; }
 }
 
-/* Header */
-/* .header {
-    background: var(--primary);
-    padding: 1rem 0;
-}
 
-.logo {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-} */
 
 /* Título */
 .titulo-pagina {

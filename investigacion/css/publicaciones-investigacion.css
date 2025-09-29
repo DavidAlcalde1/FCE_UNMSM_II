@@ -142,7 +142,8 @@
 
 .publicacion-btn {
   align-self: flex-start;
-  background: linear-gradient(135deg, var(--color-acento), var(--color-ambar));
+  /* background: linear-gradient(135deg, var(--color-acento), var(--color-ambar)); */
+  background:  var(--color-acento);
   color: #fff;
   padding: 0.6rem 1.2rem;
   border-radius: 25px;
@@ -159,5 +160,44 @@
 
 .btn-pdf {
   margin-top: 1rem;
-  align-self: flex-start;
+  align-self:self-end;
+  text-align: center;
+  background:  var(--color-ambar);
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: var(--color-principal);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-pdf:hover {
+  background: #ffa726;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(255, 183, 77, 0.4);
+}
+
+/* ========= RAYO DE LUZ (brillo al hover) ========= */
+.publicacion-card {
+  position: relative;   /* ya lo tienes, pero lo dejamos explícito */
+  overflow: hidden;     /* corta el rayo fuera de los bordes redondeados */
+}
+
+.publicacion-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+                              transparent,
+                              rgba(255,255,255,.45),
+                              transparent);
+  transition: left .6s ease;
+  pointer-events: none;   /* no interfiera con clics */
+}
+
+.publicacion-card:hover::before {
+  left: 100%;
 }

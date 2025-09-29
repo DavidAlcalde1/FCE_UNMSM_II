@@ -1,0 +1,16 @@
+[
+  {
+    "titulo": "Beca Excelencia Académica 2025",
+    "fecha": "2025-07-15",
+    "descripcion": "Dirigida a estudiantes con promedio ≥ 16. Cubre 100% de matrícula y pensión.",
+    "estado": "Abierto",
+    "pdf": "docs/beca-excelencia-2025.pdf"
+  },
+  {
+    "titulo": "Ayuda Económica de Emergencia",
+    "fecha": "2025-06-30",
+    "descripcion": "Apoyo económico para alumnos en situación de vulnerabilidad.",
+    "estado": "Abierto",
+    "pdf": "docs/ayuda-emergencia-2025.pdf"
+  }
+]
