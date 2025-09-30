@@ -10,35 +10,35 @@
     "fecha": "03 feb",
     "titulo": "Avances Científicos y Metodológicos para la Planificación Económica y Social",
     "descripcion": "",
-    "imagen": "https://via.placeholder.com/600x300?text=Evento+2",
+    "imagen": "../eventos/img/avances_cientificos.jpg",
     "url": "evento.html?id=2"
   },
   {
     "fecha": "22 nov",
     "titulo": "UNMSM promueve una economía resiliente con jornada de Gestión Integral del Riesgo de Desastres.",
     "descripcion": "",
-    "imagen": "https://via.placeholder.com/600x300?text=Evento+3",
+    "imagen": "../eventos/img/economia_resiliente.jpg",
     "url": "evento.html?id=3"
   },
   {
     "fecha": "05 set",
     "titulo": "Inauguración del semestre 2025-2 para los ingresantes de estudios de posgrado en la Facultad de Economía",
     "descripcion": "",
-    "imagen": "https://via.placeholder.com/600x300?text=Evento+4",
+    "imagen": "../eventos/img/inauguracion_posgrado.jpg",
     "url": "evento.html?id=4"
   },
   {
     "fecha": "07 ago",
     "titulo": "\"Programa de formación de Auxiliares en Economía Pública\"",
     "descripcion": "",
-    "imagen": "https://via.placeholder.com/600x300?text=Evento+5",
+    "imagen": "../eventos/img/auxiliares_economia.jpg",
     "url": "evento.html?id=5"
   },
   {
     "fecha": "10 ago",
     "titulo": "\"Conferencia Magistral: La Economía Global y sus efectos en el medio ambiente\"",
     "descripcion": "",
-    "imagen": "https://via.placeholder.com/600x300?text=Evento+6",
+    "imagen": "../eventos/img/economia_ambiente.jpg",
     "url": "evento.html?id=6"
   }
 ]
