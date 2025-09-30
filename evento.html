@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title id="titulo-pagina">Evento – Facultad de Economía UNMSM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .evento-individual { max-width:800px; margin:3rem auto; padding:0 1rem; }
+    .evento-individual img { width:100%; border-radius:6px; }
+    .fecha { color:#c9302c; font-weight:bold; margin-top:1rem; }
+    .btn-inscripcion { display:inline-block; margin-top:1rem; background:#c9302c; color:#fff; padding:.6rem 1.2rem; border-radius:4px; text-decoration:none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">Facultad de Economía – UNMSM</a>
+    <nav>
+      <a href="eventos.html">← Todos los eventos</a>
+    </nav>
+  </div>
+</header>
+
+<main class="evento-individual">
+  <div id="loading">Cargando evento…</div>
+  <div id="evento-wrap" style="display:none;">
+    <img id="ev-img" src="" alt="">
+    <h1 id="ev-titulo"></h1>
+    <p class="fecha" id="ev-fecha"></p>
+    <div id="ev-desc"></div>
+    <a class="btn-inscripcion" href="#" id="ev-link">Inscríbete aquí</a>
+  </div>
+  <div id="error" style="display:none;color:#c9302c;"></div>
+</main>
+
+<footer>
+  <p>© 2025 Facultad de Economía – UNMSM</p>
+</footer>
+
+<script>
+// ---------- UTILIDADES ----------
+/* Obtener parámetro GET */
+const params = new URLSearchParams(location.search);
+const id     = params.get('id');          // ej: ?id=2
+if (!id || isNaN(id))  { muestraError('Falta el parámetro ?id='); }
+
+/* Cargar JSON */
+fetch('./json/eventos.json')
+  .then(r => r.ok ? r.json() : Promise.reject('Error al cargar eventos'))
+  .then(data => {
+      const ev = data[parseInt(id)-1];    // array empieza en 0
+      if (!ev)  { muestraError('Evento no encontrado'); return; }
+      pintaEvento(ev);
+  })
+  .catch(err => muestraError(err));
+
+// ---------- FUNCIONES ----------
+function pintaEvento(ev) {
+  document.getElementById('titulo-pagina').textContent = ev.titulo;
+  document.getElementById('ev-img').src       = ev.imagen;
+  document.getElementById('ev-img').alt       = ev.titulo;
+  document.getElementById('ev-titulo').textContent = ev.titulo;
+  document.getElementById('ev-fecha').textContent  = ev.fecha;
+  document.getElementById('ev-desc').innerHTML     = ev.descripcion || '<p>Próximamente más información.</p>';
+  document.getElementById('ev-link').href          = ev.url_inscripcion || '#';
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('evento-wrap').style.display = 'block';
+}
+
+function muestraError(msg) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display   = 'block';
+  document.getElementById('error').textContent     = msg;
+}
+</script>
+</body>
+</html>
