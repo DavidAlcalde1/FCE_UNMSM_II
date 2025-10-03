@@ -4,53 +4,34 @@
   <meta charset="UTF-8">
   <title>Eventos – Facultad de Economía UNMSM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./eventos/css/eventos.css" />
+  <link rel="stylesheet" href="./eventos/componentes-eventos/styles-eventos.css" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <!-- <link rel="stylesheet" href="css/styles.css"> -->
-  <style>
-    /* estilos rápidos para la lista completa */
-    .eventos-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem; margin-top:2rem;}
-    .evento-card { border:1px solid #ddd; border-radius:8px; overflow:hidden; transition:.3s;}
-    .evento-card:hover { box-shadow:0 5px 15px rgba(0,0,0,.15); transform:translateY(-3px);}
-    .evento-card img { width:100%; height:180px; object-fit:cover;}
-    .evento-card .content { padding:1rem;}
-    .evento-card .fecha { color:#c9302c; font-weight:bold;}
-    .evento-card h3 { margin:.5rem 0; font-size:1.1rem;}
-    .evento-card a { display:inline-block; margin-top:.8rem; color:#fff; background:#c9302c; padding:.5rem 1rem; border-radius:4px; text-decoration:none;}
-  </style>
+ 
 </head>
 <body>
-<header>
-  <div class="container">
-    <a href="index.html" class="logo">Facultad de Economía – UNMSM</a>
+    <!-- Loader -->
+  <div id="loader" class="loader-overlay">
+    <div class="bars-spinner">
+      <div></div><div></div><div></div><div></div>
+    </div>
   </div>
-</header>
 
-<section class="container" style="padding:3rem 0;">
-  <h1>Próximos eventos</h1>
-  <div id="todos-eventos" class="eventos-grid">Cargando…</div>
-</section>
+  <div id="header-eventos-include"></div>
 
-<footer>
-  <p>© 2025 Facultad de Economía – UNMSM</p>
-</footer>
+  <section class="container" style="padding:3rem 0;">
+    <h1>Próximos eventos</h1>
+    <div id="todos-eventos" class="eventos-grid">Cargando…</div>
+  </section>
 
-<script>
-// igual que tu código, pero pintando TODOS
-fetch('./json/eventos.json')
-  .then(r=>r.json())
-  .then(data=>{
-     const wrap = document.getElementById('todos-eventos');
-     wrap.innerHTML = data.map(ev=>`
-       <article class="evento-card">
-         <img src="${ev.imagen}" alt="${ev.titulo}">
-         <div class="content">
-           <div class="fecha">${ev.fecha}</div>
-           <h3>${ev.titulo}</h3>
-           <p>${ev.descripcion || ''}</p>
-           <a href="${ev.url}">Ver más</a>
-         </div>
-       </article>`).join('');
-  })
-  .catch(()=> document.getElementById('todos-eventos').innerHTML = '<p>Error al cargar los eventos.</p>');
-</script>
+  <div id="footer-eventos-include"></div>
+
+  <script src="./eventos/js/eventos.js"></script>
+  <script src="./eventos/componentes-eventos/loader-eventos.js"></script>
+  <script src="./eventos/componentes-eventos/script-eventos.js"></script>
+
+
 </body>
 </html>
