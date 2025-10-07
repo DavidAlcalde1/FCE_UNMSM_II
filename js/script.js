@@ -669,4 +669,16 @@ function inicializarHeaderFijo() {
 document.addEventListener('DOMContentLoaded', () => {
     inicializarMenuHamburguesa();
     inicializarHeaderFijo();
+
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.scroll-fade-up').forEach(el => {
+        const delay = el.dataset.delay || 0;
+        gsap.from(el, {
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            delay: delay / 1000,
+            scrollTrigger: el
+        });
+    });
 });
