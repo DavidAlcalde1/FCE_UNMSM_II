@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Egresados Destacados - FCE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <link rel="stylesheet" href="egresados/css/egresados.css">
+    <link rel="stylesheet" href="egresados/componentes-egresados/styles-egresados.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    </head>
+    <body>
+
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="bars-spinner">
+        <div></div><div></div><div></div><div></div>
+        </div>
+    </div>
+
+    <div id="header-egresados-include"></div>
+
+    <main>
+        <section class="egresados-lista-section">
+        <div class="container-egresados-lista">
+            <h2>Egresados Destacados</h2>
+            <p>Conoce las historias de éxito de nuestros egresados.</p>
+            <div class="egresados-grid" id="lista-egresados"></div>
+        </div>
+        </section>
+    </main>
+
+    <div id="footer-egresados-include"></div>
+
+    <script src="egresados/js/egresados-lista.js"></script>
+    <script src="egresados/componentes-egresados/loader-egresados.js"></script>
+    <script src="egresados/componentes-egresados/script-egresados.js"></script>
+</body>
+</html>

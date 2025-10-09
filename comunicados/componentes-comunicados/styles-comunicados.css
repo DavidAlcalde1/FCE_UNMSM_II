@@ -252,7 +252,7 @@ FOOTER COMPLETO - ESCRITORIO
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .redes-sociales-footer a {
@@ -474,6 +474,7 @@ HEADER + FOOTER - RESPONSIVE (max-width: 1200px)
 
   .redes-sociales-footer {
     gap: 12px;
+    justify-content: center;
   }
 
   .redes-sociales-footer a {
@@ -522,6 +523,10 @@ HEADER + FOOTER - MÓVILES (max-width: 480px)
   .footer-columna p,
   .footer-copyright p {
     font-size: 0.8rem;
+  }
+
+  .redes-sociales-footer {
+    justify-content: center;
   }
 }
 

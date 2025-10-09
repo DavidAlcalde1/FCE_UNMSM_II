@@ -965,7 +965,7 @@ html {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .redes-sociales-footer a {
@@ -1544,6 +1544,7 @@ body.modo-oscuro .footer-copyright p {
 
   .redes-sociales-footer {
     gap: 10px;
+    justify-content: center;
   }
 
   .redes-sociales-footer a {
@@ -1561,4 +1562,6 @@ body.modo-oscuro .footer-copyright p {
   .footer-copyright p {
     font-size: 0.8rem;
   }
+
+
 }

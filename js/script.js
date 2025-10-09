@@ -453,17 +453,12 @@ document.addEventListener('DOMContentLoaded', function () {
             testimonioElement.className = 'egresado-testimonio';
 
             const linkElement = document.createElement('a');
-            linkElement.href = egresado.url;
+            // 🔥 enlace dinámico al detalle
+            linkElement.href = `egresado.html?id=${egresado.id}`;
             linkElement.className = 'egresado-testimonio-link';
             linkElement.style.textDecoration = 'none';
             linkElement.style.color = 'inherit';
             linkElement.style.display = 'block';
-
-            linkElement.addEventListener('click', function (e) {
-                if (e.target.closest('button')) {
-                    e.preventDefault();
-                }
-            });
 
             linkElement.innerHTML = `
                 <img src="${egresado.imagen}" alt="${egresado.nombre}" class="egresado-imagen" onerror="this.src='https://via.placeholder.com/150';">
@@ -666,19 +661,45 @@ function inicializarHeaderFijo() {
     console.log("✅ Header fijo inicializado");
 }
 
+
+
+
+// === ANIMACIÓN REINICIABLE PARA SECCIONES CON .scroll-fade-up ===
+function animarTarjetas(selector) {
+    gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray(selector).forEach((card, i) => {
+            gsap.from(card, {
+            opacity: 0,
+            scale: 0.5,
+            rotation: 8,
+            duration: 1.2,
+            delay: i * 0.3,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                toggleActions: "restart none none reverse", // 🔥 siempre reinicia
+                preventOverlaps: true,
+                fastScrollEnd: true
+            },
+            clearProps: "scale,rotation,opacity"
+            });
+        });
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     inicializarMenuHamburguesa();
     inicializarHeaderFijo();
+    // --- ANIMACIONES REINICIABLES ---
+    animarTarjetas(".investigacion-card");
+    animarTarjetas(".convocatoria-card");
+    animarTarjetas(".enlace-card");
 
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.scroll-fade-up').forEach(el => {
-        const delay = el.dataset.delay || 0;
-        gsap.from(el, {
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            delay: delay / 1000,
-            scrollTrigger: el
-        });
-    });
+
+    
 });
+
+
