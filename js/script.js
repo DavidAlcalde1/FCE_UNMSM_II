@@ -297,8 +297,8 @@ function setupCarrusel(id, jsonPath, prevClass, nextClass) {
             const card = document.createElement("a");
             card.href = item.enlace;
             card.className = "posgrado-card";
-            card.setAttribute("data-aos", "fade-up");
-            card.setAttribute("data-aos-delay", 100 + (index * 200));
+            // card.setAttribute("data-aos", "fade-up");
+            // card.setAttribute("data-aos-delay", 100 + (index * 200));
             card.innerHTML = `
                 <img src="${item.imagen}" alt="${item.nombre}">
                 <h3>${item.nombre}</h3>
@@ -306,9 +306,9 @@ function setupCarrusel(id, jsonPath, prevClass, nextClass) {
             container.appendChild(card);
         });
 
-        if (typeof AOS !== 'undefined') {
-            setTimeout(() => AOS.refresh(), 100);
-        }
+        // if (typeof AOS !== 'undefined') {
+        //     setTimeout(() => AOS.refresh(), 100);
+        // }
     }
 
     prevBtn.addEventListener("click", () => {
