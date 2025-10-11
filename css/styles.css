@@ -1379,7 +1379,7 @@ main {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 24px;
+  font-size: 18px;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
@@ -1387,6 +1387,8 @@ main {
   border-radius: 50%;
   cursor: pointer;
   z-index: 2;
+  width: 50px;
+  height: 50px;
 }
 
 .prev-posgrado-maestrias,
