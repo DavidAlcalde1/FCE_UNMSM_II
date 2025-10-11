@@ -1,84 +1,64 @@
-// ===== TABS PRINCIPALES =====
-const tabButtons = document.querySelectorAll('.tab-btn');
-const tabPanels = document.querySelectorAll('.tab-panel');
+// ===== CARGAR SECCIÓN + AÑO POR PARÁMETRO =====
+function mostrarSeccionPorParametro() {
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get('tab');
+  const year = params.get('year') || '2025'; // default 2025
 
-tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const target = btn.dataset.tab;
+  if (!tab) return;
 
-        // Botones activos
-        tabButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+  const seccion = document.getElementById('seccion-dinamica');
+  const titulo = document.getElementById('titulo-dinamico');
+  const lista = document.getElementById('lista-dinamica');
 
-        // Paneles activos
-        tabPanels.forEach(p => {
-            p.classList.remove('active');
-            if (p.id === target) p.classList.add('active');
-        });
+  // Títulos
+  const titulos = {
+    matriculados: `Matriculados ${year}`,
+    informes: `Informes Económicos ${year}`,
+    actas: `Actas ${year}`,
+    acuerdos: `Acuerdos de Consejo ${year}`
+  };
 
-        // Cargar archivos si no se ha hecho
-        const panel = document.getElementById(target);
-        if (!panel.dataset.loaded) {
-            loadFiles(panel);
-            panel.dataset.loaded = 'true';
-            }
-        });
-});
+  titulo.textContent = titulos[tab] || `Documentos ${year}`;
+  seccion.classList.remove('hidden');
 
-// ===== SUB-TABS (DOCENTES / ACTAS) =====
-document.addEventListener('click', e => {
-    if (e.target.classList.contains('sub-tab-btn')) {
-        const parent = e.target.closest('.tab-panel');
-        const sub = e.target.dataset.sub;
-
-        // Botones
-        parent.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-
-        // Listas
-        parent.querySelectorAll('.download-list').forEach(l => l.classList.add('hidden'));
-        const targetList = parent.querySelector(`.download-list[data-sub="${sub}"]`);
-        if (targetList) targetList.classList.remove('hidden');
-    }
-});
-
-// ===== SELECTORES DE AÑO =====
-document.addEventListener('change', e => {
-    if (e.target.classList.contains('year-selector')) {
-        const year = e.target.value;
-        const panel = e.target.closest('.tab-panel');
-        const folder = panel.querySelector('.download-list:not(.hidden)')?.dataset.folder;
-        const sub = panel.querySelector('.download-list:not(.hidden)')?.dataset.sub || '';
-        if (folder) loadFiles(panel, folder, sub, year);
-    }
-});
-
-// ===== CARGAR ARCHIVOS SIMULADOS (puedes cambiar por fetch real) =====
-function loadFiles(panel, folder, sub = '', year = '2025') {
-    const list = panel.querySelector(`.download-list[data-folder="${folder}"]${sub ? `[data-sub="${sub}"]` : ''}[data-year="${year}"]`);
-    if (!list) return;
-
-    // Simulación de archivos (reemplaza con fetch a tu JSON o carpeta real)
-    const files = [
-        { name: `Archivo ${year} - ${folder}${sub ? '-' + sub : ''}.pdf`, url: `pdf/${folder}/${year}/${sub || 'default'}.pdf` }
-    ];
-
-    list.innerHTML = files.map(f => `
-        <li><a href="${f.url}" download>${f.name} <i class="fas fa-download"></i></a></li>
-    `).join('');
+  // Cargar JSON por año
+  cargarJsonPorAnio(tab, year, lista);
 }
 
-// ===== ANIMACIÓN SUAVE AL ENTRAR =====
-gsap.utils.toArray('.tab-panel').forEach(panel => {
-    gsap.from(panel, {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-        trigger: panel,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse'
-        }
+// ===== FETCH POR AÑO =====
+function cargarJsonPorAnio(tab, year, lista) {
+  // Mapeo de carpetas
+  const carpetas = {
+    matriculados: 'matriculados',
+    informes: 'informes-economicos',
+    actas: 'actas-conciliacion', // o la subcarpeta que uses
+    acuerdos: 'acuerdos-consejo'
+  };
+
+  const jsonFile = `json/${carpetas[tab]}/${year}.json`;
+  console.log('🎯 Intentando cargar:', jsonFile);
+
+  fetch(jsonFile)
+    .then(res => {
+      if (!res.ok) throw new Error('No se encontró el archivo');
+      return res.json();
+    })
+    .then(data => {
+      lista.innerHTML = data.map(item => `
+        <li>
+          <a href="${item.url}" download>
+            ${item.nombre} <i class="fas fa-download"></i>
+          </a>
+        </li>
+      `).join('');
+    })
+    .catch(err => {
+      lista.innerHTML = `<li style="color:red;">No hay documentos para ${year}.</li>`;
+      console.error('Error al cargar JSON:', err);
     });
+}
+
+// ===== EJECUTAR AL CARGAR =====
+document.addEventListener('DOMContentLoaded', () => {
+  mostrarSeccionPorParametro();
 });

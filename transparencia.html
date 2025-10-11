@@ -1,212 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <title>Transparencia - Facultad de Ciencias Económicas</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../css/styles.css" />
-        <link rel="stylesheet" href="css/styles-transparencia.css" />
-        <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        />
-        <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    </head>
-    <body>
-        <!-- HEADER -->
-        <header class="header">
-        <div class="container">
-            <a href="../index.html"
-            ><img src="../img/index/logo_fce.png" alt="Logo FCE" class="logo"
-            /></a>
-            <nav class="nav">
-            <ul class="nav__list">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="#" class="active">Transparencia</a></li>
-            </ul>
-            </nav>
+<head>
+  <meta charset="utf-8">
+  <title>Transparencia - Facultad de Ciencias Económicas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="./transparencia/css/styles-transparencia.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+
+
+  <!-- HERO -->
+  <section class="transparencia-hero">
+    <div class="container">
+      <h1>Transparencia</h1>
+      <p>Accede a toda la información institucional de manera clara y responsable.</p>
+    </div>
+  </section>
+
+  <!-- SECCIONES VISUALES -->
+  <main class="transparencia-main">
+
+    <!-- 📋 Normativas -->
+    <section class="bloque-visual normativas scroll-fade-up">
+      <div class="container">
+        <div class="bloque-header">
+          <i class="fas fa-file-alt"></i>
+          <h2>Normativas</h2>
         </div>
-        </header>
-
-        <!-- HERO -->
-        <section class="transparencia-hero">
-        <div class="container">
-            <h1>Transparencia</h1>
-            <p>
-            Accede a toda la información institucional de manera clara y
-            responsable.
-            </p>
+        <div class="bloque-cards">
+          <a href="pdf/mof.pdf" class="card-link" download>
+            <i class="fas fa-book"></i>
+            <h3>MOF</h3>
+            <p>Manual Organizacional de Funciones</p>
+          </a>
+          <a href="transparencia.html?tab=resoluciones&year=2025" class="card-link">
+            <i class="fas fa-gavel"></i>
+            <h3>Resoluciones</h3>
+            <p>Normativas vigentes</p>
+          </a>
         </div>
-        </section>
+      </div>
+    </section>
 
-        <!-- PESTAÑAS -->
-        <section class="transparencia-tabs">
-        <div class="container">
-            <div class="tabs-nav">
-            <button class="tab-btn active" data-tab="mof">MOF</button>
-            <button class="tab-btn" data-tab="resoluciones">Resoluciones</button>
-            <button class="tab-btn" data-tab="docentes">Docentes</button>
-            <button class="tab-btn" data-tab="matriculados">Matriculados</button>
-            <button class="tab-btn" data-tab="tarifario">Tarifario</button>
-            <button class="tab-btn" data-tab="informes">
-                Informes Económicos
-            </button>
-            <button class="tab-btn" data-tab="actas">Actas</button>
-            <button class="tab-btn" data-tab="acuerdos">
-                Acuerdos de Consejo
-            </button>
-            <button class="tab-btn" data-tab="concursos">
-                Resultados de Concursos
-            </button>
-            </div>
-
-            <!-- Contenido de cada pestaña -->
-            <div class="tabs-content">
-            <div class="tab-panel active" id="mof">
-                <h2>Manual Organizacional de Funciones (MOF)</h2>
-                <a href="pdf/mof.pdf" class="download-btn" download
-                >Descargar MOF <i class="fas fa-download"></i
-                ></a>
-            </div>
-
-            <div class="tab-panel" id="resoluciones">
-                <h2>Resoluciones</h2>
-                <ul class="download-list" data-folder="resoluciones"></ul>
-            </div>
-
-            <div class="tab-panel" id="docentes">
-                <h2>Docentes</h2>
-                <div class="sub-tabs">
-                <button class="sub-tab-btn active" data-sub="pregrado">
-                    Pregrado
-                </button>
-                <button class="sub-tab-btn" data-sub="posgrado">Posgrado</button>
-                </div>
-                <ul
-                class="download-list"
-                data-folder="docentes-pregrado"
-                data-sub="pregrado"
-                ></ul>
-                <ul
-                class="download-list hidden"
-                data-folder="docentes-posgrado"
-                data-sub="posgrado"
-                ></ul>
-            </div>
-
-            <div class="tab-panel" id="matriculados">
-                <h2>Matriculados por Año</h2>
-                <select class="year-selector">
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                </select>
-                <ul
-                class="download-list"
-                data-folder="matriculados"
-                data-year="2025"
-                ></ul>
-            </div>
-
-            <div class="tab-panel" id="tarifario">
-                <h2>Tarifario</h2>
-                <a href="pdf/tarifario.pdf" class="download-btn" download
-                >Descargar Tarifario <i class="fas fa-download"></i
-                ></a>
-            </div>
-
-            <div class="tab-panel" id="informes">
-                <h2>Informes Económicos</h2>
-                <select class="year-selector">
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                </select>
-                <ul
-                class="download-list"
-                data-folder="informes-economicos"
-                data-year="2025"
-                ></ul>
-            </div>
-
-            <div class="tab-panel" id="actas">
-                <h2>Actas</h2>
-                <select class="year-selector">
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                </select>
-                <div class="sub-tabs">
-                <button class="sub-tab-btn active" data-sub="conciliacion">
-                    Conciliación
-                </button>
-                <button class="sub-tab-btn" data-sub="ingresos">Ingresos</button>
-                <button class="sub-tab-btn" data-sub="egresos">Egresos</button>
-                </div>
-                <ul
-                class="download-list"
-                data-folder="actas-conciliacion"
-                data-sub="conciliacion"
-                data-year="2025"
-                ></ul>
-                <ul
-                class="download-list hidden"
-                data-folder="actas-ingresos"
-                data-sub="ingresos"
-                data-year="2025"
-                ></ul>
-                <ul
-                class="download-list hidden"
-                data-folder="actas-egresos"
-                data-sub="egresos"
-                data-year="2025"
-                ></ul>
-            </div>
-
-            <div class="tab-panel" id="acuerdos">
-                <h2>Acuerdos de Consejo de Facultad</h2>
-                <select class="year-selector">
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                </select>
-                <ul
-                class="download-list"
-                data-folder="acuerdos-consejo"
-                data-year="2025"
-                ></ul>
-            </div>
-
-            <div class="tab-panel" id="concursos">
-                <h2>Resultados de Concursos</h2>
-                <p>Concursos 2025</p>
-                <ul
-                class="download-list"
-                data-folder="resultados-concursos-2025"
-                ></ul>
-            </div>
-            </div>
+    <!-- 👥 Personal -->
+    <section class="bloque-visual personal scroll-fade-up">
+      <div class="container">
+        <div class="bloque-header">
+          <i class="fas fa-users"></i>
+          <h2>Personal</h2>
         </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="footer">
-        <div class="footer-container">
-            <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
+        <div class="bloque-cards">
+          <a href="transparencia.html?tab=docentes&year=2025" class="card-link">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h3>Docentes</h3>
+            <p>Pregrado y Posgrado</p>
+          </a>
+          <a href="transparencia.html?tab=matriculados&year=2025" class="card-link">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Matriculados</h3>
+            <p>Por año</p>
+          </a>
         </div>
-        </footer>
+      </div>
+    </section>
 
-        <!-- SCRIPTS -->
-        <script src="../js/script.js"></script>
-        <script src="js/script-transparencia.js"></script>
-    </body>
+    <!-- 💰 Económico -->
+    <section class="bloque-visual economico scroll-fade-up">
+      <div class="container">
+        <div class="bloque-header">
+          <i class="fas fa-chart-line"></i>
+          <h2>Económico</h2>
+        </div>
+        <div class="bloque-cards">
+          <a href="pdf/tarifario.pdf" class="card-link" download>
+            <i class="fas fa-tag"></i>
+            <h3>Tarifario</h3>
+            <p>Costos oficiales</p>
+          </a>
+          <a href="transparencia.html?tab=informes&year=2025" class="card-link">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <h3>Informes</h3>
+            <p>Económicos por año</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📄 Actas y Acuerdos -->
+    <section class="bloque-visual actas scroll-fade-up">
+      <div class="container">
+        <div class="bloque-header">
+          <i class="fas fa-handshake"></i>
+          <h2>Actas y Acuerdos</h2>
+        </div>
+        <div class="bloque-cards">
+          <a href="transparencia.html?tab=actas&year=2025" class="card-link">
+            <i class="fas fa-file-signature"></i>
+            <h3>Actas</h3>
+            <p>Conciliación, ingresos, egresos</p>
+          </a>
+          <a href="transparencia.html?tab=acuerdos&year=2025" class="card-link">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>Acuerdos</h3>
+            <p>Del Consejo de Facultad</p>
+          </a>
+          <a href="transparencia.html?tab=concursos&year=2025" class="card-link">
+            <i class="fas fa-trophy"></i>
+            <h3>Concursos</h3>
+            <p>Resultados 2025</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DINÁMICA (solo se muestra si hay ?tab=xxx) -->
+    <section class="seccion-dinamica hidden" id="seccion-dinamica">
+    <div class="container">
+        <h2 id="titulo-dinamico"></h2>
+        <ul class="download-list" id="lista-dinamica"></ul>
+    </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+
+
+  <!-- SCRIPTS -->
+  <script src="../js/script.js"></script>
+  <script src="./transparencia/js/script-transparencia.js"></script>
+</body>
 </html>
