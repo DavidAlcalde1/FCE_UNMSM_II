@@ -25,110 +25,67 @@
   </section>
 
   <!-- SECCIONES VISUALES -->
-  <main class="transparencia-main">
+  <!-- SECCIÓN CARDS POR TIPO DE DOCUMENTO -->
+<section class="documentos-cards">
+  <div class="container">
+    <h2>Documentos Institucionales</h2>
+    <p>Selecciona el tipo de documento que deseas consultar.</p>
 
-    <!-- 📋 Normativas -->
-    <section class="bloque-visual normativas scroll-fade-up">
-      <div class="container">
-        <div class="bloque-header">
-          <i class="fas fa-file-alt"></i>
-          <h2>Normativas</h2>
-        </div>
-        <div class="bloque-cards">
-          <a href="pdf/mof.pdf" class="card-link" download>
-            <i class="fas fa-book"></i>
-            <h3>MOF</h3>
-            <p>Manual Organizacional de Funciones</p>
-          </a>
-          <a href="transparencia.html?tab=resoluciones&year=2025" class="card-link">
-            <i class="fas fa-gavel"></i>
-            <h3>Resoluciones</h3>
-            <p>Normativas vigentes</p>
-          </a>
-        </div>
-      </div>
-    </section>
+    <div class="cards-grid">
 
-    <!-- 👥 Personal -->
-    <section class="bloque-visual personal scroll-fade-up">
-      <div class="container">
-        <div class="bloque-header">
-          <i class="fas fa-users"></i>
-          <h2>Personal</h2>
-        </div>
-        <div class="bloque-cards">
-          <a href="transparencia.html?tab=docentes&year=2025" class="card-link">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <h3>Docentes</h3>
-            <p>Pregrado y Posgrado</p>
-          </a>
-          <a href="transparencia.html?tab=matriculados&year=2025" class="card-link">
-            <i class="fas fa-user-graduate"></i>
-            <h3>Matriculados</h3>
-            <p>Por año</p>
-          </a>
-        </div>
-      </div>
-    </section>
+      <!-- 📋 Resoluciones -->
+      <a href="./transparencia/resoluciones.html" class="doc-card">
+        <i class="fas fa-gavel"></i>
+        <h3>Resoluciones</h3>
+        <p>Normativas y acuerdos oficiales</p>
+      </a>
 
-    <!-- 💰 Económico -->
-    <section class="bloque-visual economico scroll-fade-up">
-      <div class="container">
-        <div class="bloque-header">
-          <i class="fas fa-chart-line"></i>
-          <h2>Económico</h2>
-        </div>
-        <div class="bloque-cards">
-          <a href="pdf/tarifario.pdf" class="card-link" download>
-            <i class="fas fa-tag"></i>
-            <h3>Tarifario</h3>
-            <p>Costos oficiales</p>
-          </a>
-          <a href="transparencia.html?tab=informes&year=2025" class="card-link">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <h3>Informes</h3>
-            <p>Económicos por año</p>
-          </a>
-        </div>
-      </div>
-    </section>
+      <!-- 👥 Docentes -->
+      <a href="./transparencia/docentes.html" class="doc-card">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <h3>Docentes</h3>
+        <p>Personal docente por año</p>
+      </a>
 
-    <!-- 📄 Actas y Acuerdos -->
-    <section class="bloque-visual actas scroll-fade-up">
-      <div class="container">
-        <div class="bloque-header">
-          <i class="fas fa-handshake"></i>
-          <h2>Actas y Acuerdos</h2>
-        </div>
-        <div class="bloque-cards">
-          <a href="transparencia.html?tab=actas&year=2025" class="card-link">
-            <i class="fas fa-file-signature"></i>
-            <h3>Actas</h3>
-            <p>Conciliación, ingresos, egresos</p>
-          </a>
-          <a href="transparencia.html?tab=acuerdos&year=2025" class="card-link">
-            <i class="fas fa-clipboard-list"></i>
-            <h3>Acuerdos</h3>
-            <p>Del Consejo de Facultad</p>
-          </a>
-          <a href="transparencia.html?tab=concursos&year=2025" class="card-link">
-            <i class="fas fa-trophy"></i>
-            <h3>Concursos</h3>
-            <p>Resultados 2025</p>
-          </a>
-        </div>
-      </div>
-    </section>
+      <!-- 🎓 Matriculados -->
+      <a href="./transparencia/matriculados.html" class="doc-card">
+        <i class="fas fa-user-graduate"></i>
+        <h3>Matriculados</h3>
+        <p>Estudiantes matriculados por año</p>
+      </a>
 
-    <!-- SECCIÓN DINÁMICA (solo se muestra si hay ?tab=xxx) -->
-    <section class="seccion-dinamica hidden" id="seccion-dinamica">
-    <div class="container">
-        <h2 id="titulo-dinamico"></h2>
-        <ul class="download-list" id="lista-dinamica"></ul>
+      <!-- 💰 Informes -->
+      <a href="./transparencia/informes.html" class="doc-card">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <h3>Informes Económicos</h3>
+        <p>Informes financieros por año</p>
+      </a>
+
+      <!-- 📄 Actas -->
+      <a href="./transparencia/actas.html" class="doc-card">
+        <i class="fas fa-file-signature"></i>
+        <h3>Actas</h3>
+        <p>Actas de conciliación, ingresos y egresos</p>
+      </a>
+
+      <!-- 🤝 Acuerdos -->
+      <a href="./transparencia/acuerdos.html" class="doc-card">
+        <i class="fas fa-clipboard-list"></i>
+        <h3>Acuerdos</h3>
+        <p>Acuerdos del Consejo de Facultad</p>
+      </a>
+
+      <!-- 🏆 Concursos -->
+      <a href="./transparencia/concursos.html" class="doc-card">
+        <i class="fas fa-trophy"></i>
+        <h3>Concursos</h3>
+        <p>Resultados de concursos 2025</p>
+      </a>
+
     </div>
-    </section>
-
-  </main>
+  </div>
+</section>
+  
 
   <!-- FOOTER -->
 
