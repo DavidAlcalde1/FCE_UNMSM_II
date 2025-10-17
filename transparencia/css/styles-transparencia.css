@@ -70,3 +70,31 @@
   font-size: 0.95rem;
   line-height: 1.4;
 }
+
+
+
+
+/* lista-documentos */
+.lista-documentos {
+  padding: 2rem 1rem;
+  background: #fafafa;
+}
+.lista-documentos ul {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.lista-documentos li {
+  margin-bottom: 0.75rem;
+}
+.lista-documentos a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--azul-oscuro);
+  text-decoration: none;
+  font-weight: 500;
+}
+.lista-documentos a:hover {
+  text-decoration: underline;
+}

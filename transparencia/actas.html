@@ -2,75 +2,38 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Actas 2025 - Facultad de Ciencias Económicas</title>
+  <title>Actas - Facultad de Ciencias Económicas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="css/styles.css"> -->
-  <link rel="stylesheet" href="css/styles-transparencia.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="./css/styles-transparencia.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-
-
-  <main class="detalle-anio">
+  <section class="transparencia-hero">
     <div class="container">
-      <h1>Actas 2025</h1>
-      <p>Descarga los actas oficiales de este año.</p>
+      <h1>Actas</h1>
+      <p>Actas de conciliación, ingresos y egresos por año.</p>
+    </div>
+  </section>
 
-      <div class="acordeon-anio">
-        <div class="acordeon-item">
-          <button class="acordeon-btn" data-target="actas-2025">
-            <i class="fas fa-calendar"></i>
-            <span>Actas 2025</span>
-            <i class="fas fa-chevron-down flecha"></i>
-          </button>
-          <div class="acordeon-content" id="actas-2025">
-            <ul class="download-list" id="lista-actas-2025"></ul>
-          </div>
-        </div>
-
-        <div class="acordeon-item">
-          <button class="acordeon-btn" data-target="actas-2024">
-            <i class="fas fa-calendar"></i>
-            <span>Actas 2024</span>
-            <i class="fas fa-chevron-down flecha"></i>
-          </button>
-          <div class="acordeon-content" id="actas-2024">
-            <ul class="download-list" id="lista-actas-2024"></ul>
-          </div>
-        </div>
-
-        <div class="acordeon-item">
-          <button class="acordeon-btn" data-target="actas-2023">
-            <i class="fas fa-calendar"></i>
-            <span>Actas 2023</span>
-            <i class="fas fa-chevron-down flecha"></i>
-          </button>
-          <div class="acordeon-content" id="actas-2023">
-            <ul class="download-list" id="lista-actas-2023"></ul>
-          </div>
-        </div>
-
-        <div class="acordeon-item">
-          <button class="acordeon-btn" data-target="actas-2022">
-            <i class="fas fa-calendar"></i>
-            <span>Actas 2022</span>
-            <i class="fas fa-chevron-down flecha"></i>
-          </button>
-          <div class="acordeon-content" id="actas-2022">
-            <ul class="download-list" id="lista-actas-2022"></ul>
-          </div>
-        </div>
+  <section class="documentos-cards">
+    <div class="container">
+      <h2>Selecciona un año</h2>
+      <div class="cards-grid" id="anios-grid">
+        <!-- Se llenará con JS -->
       </div>
     </div>
-  </main>
+  </section>
 
+  <section class="lista-documentos">
+    <div class="container">
+      <ul id="lista-docs"></ul>
+    </div>
+  </section>
 
-
-  <!-- <script src="./js/script.js"></script> -->
-  <script src="./js/script-acordeon.js"></script>
+  <!-- <script src="../js/script.js"></script> -->
+  <script src="./js/script-transparencia.js"></script>
 </body>
 </html>
