@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: fce_db
+      POSTGRES_USER: fce_user
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"   # sólo para desarrollo local
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fce_user -d fce_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./server
+    env_file: ./server/.env
+    depends_on:
+        db:
+          condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:          # hot-reload en desarrollo
+      - ./server:/app
+      - /app/node_modules
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      # - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # - ./client:/usr/share/nginx/html:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./client:/usr/share/nginx/html:ro
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

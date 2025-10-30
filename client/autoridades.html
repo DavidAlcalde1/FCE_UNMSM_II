@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Autoridades - Facultad de Ciencias Económicas</title>
+
+    <!-- Estilos comunes -->
+    <link rel="stylesheet" href="./componentes/styles.css" />
+    <link rel="stylesheet" href="./facultad/autoridades/autoridades.css">
+    <link rel="icon" href="./facultad/autoridades/img/unidades.ico" type="image/x-icon">
+    <!-- Font Awesome (si usas íconos en footer) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="bars-spinner">
+            <div></div><div></div><div></div><div></div>
+        </div>
+    </div>
+
+    <!-- Include Header -->
+    <div id="header-include"></div>
+
+    <!-- Contenido específico de la página -->
+    <main>
+        <section class="autoridades">
+        <div class="container">
+            <h2>Autoridades de la Facultad</h2>
+            <div class="autoridades-grid">
+            <div class="card">
+                <img src="./facultad/autoridades/img/decano.jpg" alt="Decano" />
+                <h3>Dr. Carlos López</h3>
+                <p>Decano</p>
+            </div>
+            <div class="card">
+                <img src="./facultad/autoridades/img/viceAcad.jpg" alt="Vicedecano" />
+                <h3>Dra. María García</h3>
+                <p>Vicedecana Académica</p>
+            </div>
+            <div class="card">
+                <img src="./facultad/autoridades/img/viceInv.jpg" alt="Vicedecano" />
+                <h3>Dra. María García</h3>
+                <p>Vicedecana Académica</p>
+            </div>
+            <!-- Agrega más tarjetas -->
+            </div>
+        </div>
+        </section>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-include"></div>
+
+    <!-- Scripts -->
+    <script>
+    /* Oculta loader cuando todo esté listo + retardo  */
+    window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => {              // ← tiempo extra que quieras
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 500);
+    }, 1200); // 1.2s extra 
+    });
+    </script>
+    <script src="componentes/script.js"></script>
+    <script src="componentes/loader.js"></script>
+
+    </body>
+</html>

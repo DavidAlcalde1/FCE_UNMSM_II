@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organigrama - Facultad de Ciencias Económicas</title>
+
+    <link rel="stylesheet" href="./componentes/styles.css" />
+    <link rel="stylesheet" href="./facultad/organigrama/organigrama.css" />
+    <link
+      rel="icon"
+      href="./facultad/autoridades/img/unidades.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Loader -->
+  <div id="loader" class="loader-overlay">
+    <div class="bars-spinner">
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+    <div id="header-include"></div>
+
+    <main>
+      <section class="organigrama">
+        <div class="container">
+          <h2>ORGANIGRAMA DE LA FACULTAD</h2>
+
+          <!-- Imagen del organigrama -->
+          <div class="org-image-container">
+            <img
+              src="./facultad/organigrama/img/organigrama.png"
+              alt="Organigrama de la Facultad de Ciencias Económicas"
+                            
+              class="org-image"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-include"></div>
+
+    <!-- Scripts -->
+     <script>
+    /* Oculta loader cuando todo esté listo + retardo  */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => {              // ← tiempo extra que quieras
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 500);
+      }, 1200); // 1.2s extra 
+    });
+    </script>
+    <script src="./componentes/script.js"></script>
+    <script src="./componentes/loader.js"></script>
+  </body>
+</html>

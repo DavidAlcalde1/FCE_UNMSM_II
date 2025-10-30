@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= evento ? 'Editar Evento' : 'Nuevo Evento' %> - Admin FCE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .form-container { max-width: 800px; margin: 2rem auto; }
+    .btn-back { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container form-container">
+    <a href="/admin/eventos" class="btn btn-secondary btn-back">← Volver a Eventos</a>
+    
+    <h2><%= evento ? 'Editar Evento' : 'Nuevo Evento' %></h2>
+    
+    <form method="POST" action="<%= evento ? `/admin/eventos/${evento.id}` : '/admin/eventos' %>">
+      <div class="mb-3">
+        <label for="titulo" class="form-label">Título *</label>
+        <input type="text" class="form-control" id="titulo" name="titulo" 
+               value="<%= evento?.titulo || '' %>" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea class="form-control" id="descripcion" name="descripcion" rows="4">
+<%= evento?.descripcion || '' %></textarea>
+      </div>
+      
+      <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha *</label>
+        <input type="date" class="form-control" id="fecha" name="fecha" 
+               value="<%= evento?.fecha || '' %>" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen (Ruta relativa)</label>
+        <input type="text" class="form-control" id="imagen" name="imagen" 
+               placeholder="Ej: img/index/eventos/evento1.jpg"
+               value="<%= evento?.imagen || '' %>">
+        <div class="form-text">
+          Ruta desde la carpeta client/ (ej: img/index/eventos/evento1.jpg)
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="url" class="form-label">URL del evento</label>
+        <input type="text" class="form-control" id="url" name="url" 
+               placeholder="https://ejemplo.com/evento"
+               value="<%= evento?.url || '' %>">
+      </div>
+      
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-primary">
+          <%= evento ? 'Actualizar' : 'Crear' %>
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

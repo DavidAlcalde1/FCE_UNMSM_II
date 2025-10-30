@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todas las noticias - Facultad de Ingeniería</title>
+  <link rel="stylesheet" href="./noticias/css/noticias-lista.css" />
+  <link rel="stylesheet" href="./noticias/componentes-noticias/styles-noticias.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader" class="loader-overlay">
+    <div class="bars-spinner">
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+  
+  <div id="header-noticias-include"></div>
+
+  <main class="main">
+    <h1 class="titulo-pagina">Economía al día</h1>
+    <section id="lista-noticias" class="lista-noticias">
+      <!-- Se llena dinámicamente -->
+    </section>
+  </main>
+
+  <div id="footer-noticias-include"></div>
+
+  <script src="./noticias/js/noticias-lista.js"></script>
+  <script src="./noticias/componentes-noticias/script-noticias.js"></script>
+  <script src="./noticias/componentes-noticias/loader-noticias.js"></script>
+</body>
+</html>

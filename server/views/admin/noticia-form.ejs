@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title><%= noticia ? 'Editar' : 'Nueva' %> Noticia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-4">
+    <h2><%= noticia ? 'Editar' : 'Nueva' %> Noticia</h2>
+    <form action="<%= noticia ? '/admin/noticias/' + noticia.id : '/admin/noticias' %>" method="post">
+      <div class="mb-3">
+        <label>Título</label>
+        <input type="text" name="titulo" class="form-control" value="<%= noticia ? noticia.titulo : '' %>" required>
+      </div>
+      <div class="mb-3">
+        <label>Resumen</label>
+        <textarea name="resumen" class="form-control" required><%= noticia ? noticia.resumen : '' %></textarea>
+      </div>
+      <div class="mb-3">
+        <label>Contenido</label>
+        <textarea name="contenido" class="form-control" rows="5" required><%= noticia ? noticia.contenido : '' %></textarea>
+      </div>
+      <div class="mb-3">
+        <label>Fecha (YYYY-MM-DD)</label>
+        <input type="date" name="fecha" class="form-control" value="<%= noticia ? noticia.fecha : '' %>" required>
+      </div>
+      <div class="mb-3">
+        <label>URL Imagen</label>
+        <input type="text" name="imagen" class="form-control" value="<%= noticia ? noticia.imagen : '' %>" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="/admin" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+</body>
+</html>

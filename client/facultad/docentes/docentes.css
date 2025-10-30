@@ -1,0 +1,222 @@
+/* ========= SPINNER BARRAS - ECONOMÍA UNMSM ========= */
+:root {
+  --barra-amarillo: #ffb74d;
+  --barra-azul: #0d1b2a;
+  --barra-ancho: 8px;
+  --barra-alto: 40px;
+  --barra-veloc: 0.8s; 
+}
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.bars-spinner {
+  display: flex;
+  gap: 4px;
+  height: var(--barra-alto);
+  align-items: flex-end;
+}
+
+.bars-spinner div {
+  width: var(--barra-ancho);
+  background: var(--barra-amarillo);
+  animation: upDown var(--barra-veloc) ease-in-out infinite;
+}
+
+.bars-spinner div:nth-child(2) {
+  background: var(--barra-azul);
+  animation-delay: 0.1s;
+}
+
+.bars-spinner div:nth-child(3) {
+  background: var(--barra-amarillo);
+  animation-delay: 0.2s;
+}
+
+.bars-spinner div:nth-child(4) {
+  background: var(--barra-azul);
+  animation-delay: 0.3s;
+}
+
+@keyframes upDown {
+  0%, 100% { height: 5%; }
+  50% { height: 100%; }
+}
+
+/* ==========================================
+   DOCENTES
+   ========================================== */
+
+.docentes {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.docentes .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Título principal */
+.docentes h2 {
+  text-align: center;
+  margin-bottom: 60px;
+  font-size: 2.5rem;
+  color: var(--azul-oscuro);
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.docentes h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--dorado);
+  border-radius: 2px;
+}
+
+/* Grid moderno */
+.docentes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  justify-content: center;
+}
+
+/* Tarjeta con glassmorfismo */
+.docentes-grid .card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(16, 45, 82, 0.15);
+  padding: 30px 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.docentes-grid .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(16, 45, 82, 0.25);
+}
+
+/* Imagen con borde dorado y animación */
+.docentes-grid .card img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--dorado);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.docentes-grid .card:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(207, 169, 53, 0.6);
+}
+
+/* Nombre en mayúsculas y dorado */
+.docentes-grid .card h3 {
+  font-size: 1.2rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+/* Especialidad y correo */
+.docentes-grid .card .especialidad {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.docentes-grid .card .correo {
+  font-size: 0.85rem;
+  color: var(--guinda);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+/* Botón CV moderno */
+.btn-cv {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  color: var(--guinda);
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(122, 2, 38, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-cv:hover {
+  background: var(--guinda);
+  color: #fff;
+  box-shadow: 0 6px 25px rgba(122, 2, 38, 0.3);
+  transform: translateY(-3px);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .docentes h2 {
+    font-size: 2rem;
+  }
+
+  .docentes-grid {
+    gap: 25px;
+  }
+
+  .docentes-grid .card {
+    padding: 20px 15px;
+  }
+
+  .docentes-grid .card img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .docentes {
+    padding: 40px 15px;
+  }
+
+  .docentes h2 {
+    font-size: 1.6rem;
+  }
+
+  .docentes-grid .card h3 {
+    font-size: 1rem;
+  }
+
+  .docentes-grid .card p {
+    font-size: 0.85rem;
+  }
+}

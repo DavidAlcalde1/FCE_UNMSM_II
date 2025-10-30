@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "titulo": "Comunicado N° 001-2025",
+        "resumen": "Recordatorio sobre el calendario académico 2025-2.",
+        "imagen": "../comunicados/img/calendario.jpg",
+        "fecha": "2025-06-30",
+        "contenido": "La Dirección de la Facultad recuerda a todos los estudiantes que el calendario académico 2025-2 se encuentra disponible en el portal institucional. Las fechas límite para retiro de cursos y solicitud de reposición serán estrictamente las publicadas."
+    },
+    {
+        "id": 2,
+        "titulo": "Comunicado N° 002-2025",
+        "resumen": "Inicio del proceso de elección de delegados estudiantiles 2025-2.",
+        "imagen": "../comunicados/img/votaciones.jpg",
+        "fecha": "2025-07-10",
+        "contenido": "La Comisión Electoral de la Facultad informa que del 10 al 20 de julio se recepcionarán las candidaturas de estudiantes que deseen postularse como delegados de ciclo. Los requisitos y formularios están disponibles en la Oficina de Registros Académicos y en el portal institucional. Las votaciones se realizarán de forma virtual el 25 de julio."
+    },
+    {
+        "id": 3,
+        "titulo": "Comunicado N° 003-2025",
+        "resumen": "Suspensión de clases el 28 de julio por feriado nacional.",
+        "imagen": "../comunicados/img/suspension de clases.jpg",
+        "fecha": "2025-07-15",
+        "contenido": "Se comunica a la comunidad estudiantil y docente que el lunes 28 de julio no habrá actividades académicas con motivo del feriado patrio. Las clases y evaluaciones programadas para esa fecha serán reprogramadas por cada docente. El campus permanecerá cerrado; los servicios de biblioteca y laboratorios reanudarán sus actividades el martes 29 de julio en horario normal."
+    },
+    {
+        "id": 4,
+        "titulo": "Comunicado N° 004-2025",
+        "resumen": "Apertura de convocatoria para ayudantías 2025-2.",
+        "imagen": "../comunicados/img/pasantia.jpg",
+        "fecha": "2025-07-18",
+        "contenido": "La Facultad abre convocatoria para 40 ayudantías de docencia en las áreas de Matemáticas, Física, Programación y Economía. Los interesados deben tener promedio mínimo de 14/20 y haber aprobado el curso con nota ≥ 16. La postulación es hasta el 30 de julio a través del formulario en el portal. Se ofrece beca mensual y certificado de ayudantía."
+    },
+    {
+        "id": 5,
+        "titulo": "Comunicado N° 005-2025",
+        "resumen": "Mantenimiento del sistema académico este fin de semana.",
+        "imagen": "../comunicados/img/mantenimiento de sistema.jpg",
+        "fecha": "2025-07-22",
+        "contenido": "El área de Tecnologías de la Información informa que el sábado 26 y domingo 27 de julio el sistema académico estará fuera de servicio por mantenimiento programado. No se podrán realizar matrículas, consultas de notas ni solicitudes durante ese lapso. Agradecemos su comprensión y recomendamos realizar sus trámites antes del viernes 25 de julio hasta las 6:00 p.m."
+    }
+]

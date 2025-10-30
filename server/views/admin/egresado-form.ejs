@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= egresado ? 'Editar Egresado' : 'Nuevo Egresado' %> - Admin FCE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .form-container { max-width: 800px; margin: 2rem auto; }
+    .btn-back { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container form-container">
+    <a href="/admin/egresados" class="btn btn-secondary btn-back">← Volver a Egresados</a>
+    
+    <h2><%= egresado ? 'Editar Egresado' : 'Nuevo Egresado' %></h2>
+    
+    <form method="POST" action="<%= egresado ? `/admin/egresados/${egresado.id}` : '/admin/egresados' %>">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre Completo *</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" 
+               value="<%= egresado?.nombre || '' %>" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="titulo" class="form-label">Título Profesional</label>
+        <input type="text" class="form-control" id="titulo" name="titulo" 
+               placeholder="Ej: Economista, Magíster en Finanzas"
+               value="<%= egresado?.titulo || '' %>">
+      </div>
+      
+      <div class="mb-3">
+        <label for="empresa" class="form-label">Empresa / Institución</label>
+        <input type="text" class="form-control" id="empresa" name="empresa" 
+               placeholder="Dónde trabaja actualmente"
+               value="<%= egresado?.empresa || '' %>">
+      </div>
+      
+      <div class="mb-3">
+        <label for="testimonio" class="form-label">Testimonio</label>
+        <textarea class="form-control" id="testimonio" name="testimonio" rows="4" 
+                  placeholder="Testimonio del egresado sobre su experiencia">
+<%= egresado?.testimonio || '' %></textarea>
+      </div>
+      
+      <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen (Ruta relativa)</label>
+        <input type="text" class="form-control" id="imagen" name="imagen" 
+               placeholder="Ej: img/index/egresados/egresado_01.jpg"
+               value="<%= egresado?.imagen || '' %>">
+        <div class="form-text">
+          La imagen debe estar en la carpeta client/img/index/egresados/nombre.jpg
+        </div>
+      </div>
+      
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-primary">
+          <%= egresado ? 'Actualizar' : 'Crear' %>
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

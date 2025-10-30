@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Noticias - Admin FCE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .container { max-width: 1200px; }
+    .card { margin-bottom: 1rem; }
+    .btn-action { margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Noticias</h1>
+      <a href="/admin/noticias/nueva" class="btn btn-success">+ Nueva Noticia</a>
+    </div>
+    
+    <div class="row">
+      <% if (noticias && noticias.length > 0) { %>
+        <% noticias.forEach(noticia => { %>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="card-title"><%= noticia.titulo %></h5>
+                    <p class="text-muted"><%= noticia.fecha %></p>
+                  </div>
+                  <div>
+                    <a href="/admin/noticias/<%= noticia.id %>/editar" class="btn btn-primary btn-sm btn-action">Editar</a>
+                    <form action="/admin/noticias/<%= noticia.id %>/eliminar" method="POST" style="display: inline;">
+                      <button type="submit" class="btn btn-danger btn-sm" 
+                              onclick="return confirm('¿Eliminar esta noticia?')">Eliminar</button>
+                    </form>
+                  </div>
+                </div>
+                <p class="card-text"><%= noticia.resumen?.substring(0, 150) %><%= noticia.resumen?.length > 150 ? '...' : '' %></p>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="col-12">
+          <div class="alert alert-info">No hay noticias registradas.</div>
+        </div>
+      <% } %>
+    </div>
+    
+    <div class="mt-3">
+      <a href="/admin" class="btn btn-secondary">← Volver al Panel Principal</a>
+    </div>
+  </div>
+</body>
+</html>

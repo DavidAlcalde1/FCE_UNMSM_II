@@ -1,0 +1,12 @@
+[
+    {
+        "nombre": "Doctorado en Economía",
+        "imagen": "upg/img/doctorados/doctorado_eco.jpg",
+        "enlace": "pages/doctorado-eco.html"
+    },
+    {
+        "nombre": "Doctorado en Gestión Económica Global",
+        "imagen": "upg/img/doctorados/doctorado_geg.png",
+        "enlace": "pages/doctorado-geg.html"
+    }
+]
