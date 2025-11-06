@@ -40,5 +40,12 @@
     "descripcion": "",
     "imagen": "../eventos/img/economia_ambiente.jpg",
     "url": "evento.html?id=6"
+  },
+    {
+    "fecha": "10 oct",
+    "titulo": "\"Conferencia Magistral: Tiempos de cambios económicos\"",
+    "descripcion": "",
+    "imagen": "../eventos/img/economia_ambiente.jpg",
+    "url": "evento.html?id=7"
   }
 ]

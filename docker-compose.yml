@@ -11,8 +11,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"   # sólo para desarrollo local
-
+      - "5432:5432"   # solo para desarrollo local
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U fce_user -d fce_db"]
       interval: 5s
@@ -23,23 +22,22 @@ services:
     build: ./server
     env_file: ./server/.env
     depends_on:
-        db:
-          condition: service_healthy
+      db:
+        condition: service_healthy
     ports:
       - "4000:4000"
-    volumes:          # hot-reload en desarrollo
+    volumes:
       - ./server:/app
-      - /app/node_modules
+      - ./client:/app/client          # ✅ ¡CLAVE! Comparte client/ con el backend
+      - /app/node_modules             # evita sobrescribir node_modules
 
   nginx:
     image: nginx:alpine
     ports:
       - "80:80"
     volumes:
-      # - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      # - ./client:/usr/share/nginx/html:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./client:/usr/share/nginx/html:ro
+      - ./client:/usr/share/nginx/html:ro   # sirve los mismos archivos
     depends_on:
       - api
 

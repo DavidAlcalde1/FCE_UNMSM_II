@@ -8,6 +8,13 @@
     body { background-color: #f8f9fa; }
     .form-container { max-width: 800px; margin: 2rem auto; }
     .btn-back { margin-bottom: 1rem; }
+    .preview-img {
+      max-height: 120px;
+      width: auto;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -16,7 +23,10 @@
     
     <h2><%= comunicado ? 'Editar Comunicado' : 'Nuevo Comunicado' %></h2>
     
-    <form method="POST" action="<%= comunicado ? `/admin/comunicados/${comunicado.id}` : '/admin/comunicados' %>">
+    <form method="POST" 
+          action="<%= comunicado ? `/admin/comunicados/${comunicado.id}` : '/admin/comunicados' %>" 
+          enctype="multipart/form-data">
+      
       <div class="mb-3">
         <label for="titulo" class="form-label">Título *</label>
         <input type="text" class="form-control" id="titulo" name="titulo" 
@@ -25,8 +35,7 @@
       
       <div class="mb-3">
         <label for="contenido" class="form-label">Contenido</label>
-        <textarea class="form-control" id="contenido" name="contenido" rows="6">
-<%= comunicado?.contenido || '' %></textarea>
+        <textarea class="form-control" id="contenido" name="contenido" rows="6"><%= comunicado?.contenido || '' %></textarea>
       </div>
       
       <div class="mb-3">
@@ -36,11 +45,35 @@
       </div>
       
       <div class="mb-3">
-        <label for="archivo" class="form-label">Archivo (URL del PDF o documento)</label>
-        <input type="text" class="form-control" id="archivo" name="archivo" 
-               placeholder="Ej: /docs/comunicado1.pdf" 
-               value="<%= comunicado?.archivo || '' %>">
-        <div class="form-text">Deja vacío si no hay archivo adjunto</div>
+        <label for="imagen" class="form-label">Imagen (opcional)</label>
+        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+        <% if (comunicado?.imagen) { %>
+          <div class="mt-2">
+            <img src="/<%= comunicado.imagen %>" alt="Vista previa" class="preview-img">
+          </div>
+        <% } %>
+      </div>
+
+      <div class="mb-3">
+        <label for="archivo" class="form-label">Archivo adjunto (PDF, DOC, etc.)</label>
+        <input type="file" class="form-control" id="archivo" name="archivo" accept=".pdf,.doc,.docx,.txt">
+        <% if (comunicado?.archivo) { %>
+          <div class="mt-2">
+            <a href="/<%= comunicado.archivo %>" target="_blank" class="btn btn-sm btn-outline-primary">
+              📄 Ver archivo actual
+            </a>
+          </div>
+        <% } %>
+        <div class="form-text">
+          Formatos permitidos: PDF, DOC, DOCX, TXT (máx. 10 MB)
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento (opcional)</label>
+        <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento"
+              value="<%= comunicado?.fecha_vencimiento || '' %>">
+        <div class="form-text">Si se deja vacío, el contenido nunca caduca.</div>
       </div>
       
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">

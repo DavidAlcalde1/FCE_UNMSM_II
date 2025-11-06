@@ -8,7 +8,7 @@
 <body>
   <div class="container mt-4">
     <h2><%= noticia ? 'Editar' : 'Nueva' %> Noticia</h2>
-    <form action="<%= noticia ? '/admin/noticias/' + noticia.id : '/admin/noticias' %>" method="post">
+    <form action="<%= noticia ? '/admin/noticias/' + noticia.id : '/admin/noticias' %>" method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label>Título</label>
         <input type="text" name="titulo" class="form-control" value="<%= noticia ? noticia.titulo : '' %>" required>
@@ -26,11 +26,26 @@
         <input type="date" name="fecha" class="form-control" value="<%= noticia ? noticia.fecha : '' %>" required>
       </div>
       <div class="mb-3">
-        <label>URL Imagen</label>
-        <input type="text" name="imagen" class="form-control" value="<%= noticia ? noticia.imagen : '' %>" required>
+        <label>Imagen</label>
+        <% if (noticia && noticia.imagen) { %>
+          <div class="mb-2">
+            <img src="/<%= noticia.imagen %>" alt="Vista previa" style="max-height: 150px; max-width: 150px; object-fit: cover; border-radius: 4px;">
+          </div>
+        <% } %>
+        <input type="file" name="imagen" class="form-control" accept="image/*">
+        <% if (noticia && noticia.imagen) { %>
+          <div class="form-text">Deja vacío para mantener la imagen actual</div>
+        <% } %>
       </div>
+
+      <div class="mb-3">
+        <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento (opcional)</label>
+        <input type="date" name="fecha_vencimiento" value="<%= noticia?.fecha_vencimiento || '' %>">
+        <div class="form-text">Si se deja vacío, el contenido nunca caduca.</div>
+      </div>
+
       <button type="submit" class="btn btn-primary">Guardar</button>
-      <a href="/admin" class="btn btn-secondary">Cancelar</a>
+      <a href="/admin/noticias" class="btn btn-secondary">Cancelar</a>
     </form>
   </div>
 </body>

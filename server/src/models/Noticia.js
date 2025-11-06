@@ -6,6 +6,7 @@ const Noticia = sequelize.define('Noticia', {
   resumen:    { type: DataTypes.TEXT },
   contenido:  { type: DataTypes.TEXT },
   fecha:      { type: DataTypes.DATEONLY },
+  fecha_vencimiento: { type: DataTypes.DATEONLY },
   imagen:     { type: DataTypes.STRING }
 }, { tableName: 'noticias', timestamps: false });
 

@@ -10,13 +10,11 @@
       cursor: pointer; 
       transition: transform 0.2s; 
       margin-bottom: 2rem;
-      min-height: 90px ;
+      min-height: 90px;
     }
     .stat-card:hover { 
       transform: translateY(-5px); 
     }
-
-    
   </style>
 </head>
 <body>
@@ -70,6 +68,15 @@
           <div class="card stat-card text-center p-3 bg-dark text-white">
             <h3><%= stats.doctorados %></h3>
             <h5>Doctorados</h5>
+          </div>
+        </a>
+      </div>
+      <!-- ✅ Botón de Contactos (sin lógica asíncrona) -->
+      <div class="col-md-3">
+        <a href="/admin/contactos" class="text-decoration-none">
+          <div class="card stat-card text-center p-3 bg-danger text-white">
+            <h3><%= stats.contactos || 0 %></h3>
+            <h5>Contactos</h5>
           </div>
         </a>
       </div>

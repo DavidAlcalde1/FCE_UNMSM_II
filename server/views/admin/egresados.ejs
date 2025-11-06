@@ -8,7 +8,7 @@
     body { background-color: #f8f9fa; }
     .container { max-width: 1200px; }
     .card { margin-bottom: 1rem; }
-    .btn-action { margin-right: 0.5rem; }
+    .content-buttons {height: 100px; display: flex; flex-direction: column; justify-content: center; gap: 10px; margin: 10px; align-items: center;}    
     .egresado-img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; }
   </style>
 </head>
@@ -37,7 +37,7 @@
                   <small class="text-muted"><%= egresado.titulo %></small>
                   <p class="mb-0"><%= egresado.empresa %></p>
                 </div>
-                <div>
+                <div class="content-buttons">
                   <a href="/admin/egresados/<%= egresado.id %>/editar" class="btn btn-primary btn-sm btn-action">Editar</a>
                   <form action="/admin/egresados/<%= egresado.id %>/eliminar" method="POST" style="display: inline;">
                     <button type="submit" class="btn btn-danger btn-sm" 

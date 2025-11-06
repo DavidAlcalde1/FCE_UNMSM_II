@@ -7,30 +7,72 @@ window.addEventListener('load', () => {
   }, 1200); // 1.2s extra 
 });
 
+// comunicados/js/comunicado.js
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Obtener el ID de la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
 
+  if (!id || isNaN(id)) {
+    document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">ID de comunicado inválido.</h2>';
+    return;
+  }
 
-const id = Number(new URLSearchParams(location.search).get('id'));
-if (!id) document.body.innerHTML = '<p style="text-align:center;margin-top:3rem;">Comunicado no encontrado.</p>';
+  // 2. Cargar desde la API
+  try {
+    const res = await fetch(`/api/comunicados/${id}`);
+    if (!res.ok) {
+      if (res.status === 404) {
+        document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">Comunicado no encontrado.</h2>';
+      } else {
+        document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">Error al cargar el comunicado.</h2>';
+      }
+      return;
+    }
 
-fetch('./json/comunicados.json')
-  .then(r => r.json())
-  .then(d => {
-    const c = d.find(x => x.id === id);
-    if (!c) throw new Error('Comunicado no encontrado');
-    document.getElementById('comunicado-container').innerHTML = `
-      <img src="${c.imagen}" alt="">
-      <h1>${c.titulo}</h1>
-      <p class="comunicado-fecha">${new Date(c.fecha).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      <div class="comunicado-texto">${c.contenido}</div>
-    `;
-  })
-  .catch(e => {
-    document.body.innerHTML = `<p style="text-align:center;margin-top:3rem;">${e.message}</p>`;
-  });
+    const com = await res.json();
 
-  // Aplicar animación a cada tarjeta
-const cards = document.querySelectorAll('.comunicado-card');
-cards.forEach((card, index) => {
-  card.classList.add('fade-in');
-  card.style.animationDelay = `${index * 0.1}s`;
+    // 3. Rellenar el contenido
+    document.title = `Comunicado - ${com.titulo}`;
+    document.getElementById('comunicado-titulo').textContent = com.titulo;
+    document.getElementById('comunicado-fecha').textContent = 
+      new Date(com.fecha).toLocaleDateString('es-PE', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+    // Imagen (si existe)
+    const imgEl = document.getElementById('comunicado-imagen');
+    if (com.imagen) {
+      imgEl.src = '/' + com.imagen;
+      imgEl.style.display = 'block';
+    } else {
+      imgEl.style.display = 'none';
+    }
+
+    // Contenido
+    document.getElementById('comunicado-contenido').innerHTML = 
+      com.contenido ? com.contenido.replace(/\n/g, '<br>') : '';
+
+    // Botón de descarga (si hay archivo)
+    const archivoEl = document.getElementById('comunicado-archivo');
+    const enlaceEl = document.getElementById('enlace-archivo');
+
+    if (com.archivo) {
+      // Asegurar que la ruta sea absoluta si es relativa
+      let urlArchivo = com.archivo;
+      if (!urlArchivo.startsWith('http') && !urlArchivo.startsWith('/')) {
+        urlArchivo = '/' + urlArchivo;
+      }
+      enlaceEl.href = urlArchivo;
+      archivoEl.style.display = 'block';
+    } else {
+      archivoEl.style.display = 'none';
+    }
+
+  } catch (err) {
+    console.error('Error:', err);
+    document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">Error de conexión.</h2>';
+  }
 });

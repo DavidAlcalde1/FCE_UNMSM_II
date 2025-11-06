@@ -16,7 +16,7 @@
     
     <h2><%= egresado ? 'Editar Egresado' : 'Nuevo Egresado' %></h2>
     
-    <form method="POST" action="<%= egresado ? `/admin/egresados/${egresado.id}` : '/admin/egresados' %>">
+    <form method="POST" action="<%= egresado ? `/admin/egresados/${egresado.id}` : '/admin/egresados' %>" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre Completo *</label>
         <input type="text" class="form-control" id="nombre" name="nombre" 
@@ -45,13 +45,16 @@
       </div>
       
       <div class="mb-3">
-        <label for="imagen" class="form-label">Imagen (Ruta relativa)</label>
-        <input type="text" class="form-control" id="imagen" name="imagen" 
-               placeholder="Ej: img/index/egresados/egresado_01.jpg"
-               value="<%= egresado?.imagen || '' %>">
-        <div class="form-text">
-          La imagen debe estar en la carpeta client/img/index/egresados/nombre.jpg
-        </div>
+        <label for="imagen" class="form-label">Imagen</label>
+        <% if (egresado && egresado.imagen) { %>
+          <div class="mb-2">
+            <img src="/<%= egresado.imagen %>" alt="Vista previa" style="max-height: 150px; max-width: 150px; object-fit: cover; border-radius: 4px;">
+          </div>
+        <% } %>
+        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+        <% if (egresado && egresado.imagen) { %>
+          <div class="form-text">Deja vacío para mantener la imagen actual</div>
+        <% } %>
       </div>
       
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">

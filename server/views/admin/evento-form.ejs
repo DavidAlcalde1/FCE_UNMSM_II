@@ -16,7 +16,7 @@
     
     <h2><%= evento ? 'Editar Evento' : 'Nuevo Evento' %></h2>
     
-    <form method="POST" action="<%= evento ? `/admin/eventos/${evento.id}` : '/admin/eventos' %>">
+    <form method="POST" action="<%= evento ? `/admin/eventos/${evento.id}` : '/admin/eventos' %>" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="titulo" class="form-label">Título *</label>
         <input type="text" class="form-control" id="titulo" name="titulo" 
@@ -36,20 +36,28 @@
       </div>
       
       <div class="mb-3">
-        <label for="imagen" class="form-label">Imagen (Ruta relativa)</label>
-        <input type="text" class="form-control" id="imagen" name="imagen" 
-               placeholder="Ej: img/index/eventos/evento1.jpg"
-               value="<%= evento?.imagen || '' %>">
-        <div class="form-text">
-          Ruta desde la carpeta client/ (ej: img/index/eventos/evento1.jpg)
-        </div>
+        <label for="imagen" class="form-label">Imagen</label>
+        <% if (evento && evento.imagen) { %>
+          <div class="mb-2">
+            <img src="/<%= evento.imagen %>" alt="Vista previa" style="max-height: 150px; max-width: 150px; object-fit: cover; border-radius: 4px;">
+          </div>
+        <% } %>
+        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+        <% if (evento && evento.imagen) { %>
+          <div class="form-text">Deja vacío para mantener la imagen actual</div>
+        <% } %>
       </div>
       
       <div class="mb-3">
         <label for="url" class="form-label">URL del evento</label>
-        <input type="text" class="form-control" id="url" name="url" 
-               placeholder="https://ejemplo.com/evento"
-               value="<%= evento?.url || '' %>">
+        <input type="url" name="url" value="<%= evento?.url || '' %>" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento (opcional)</label>
+        <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento"
+              value="<%= evento?.fecha_vencimiento || '' %>">
+        <div class="form-text">Si se deja vacío, el contenido nunca caduca.</div>
       </div>
       
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">

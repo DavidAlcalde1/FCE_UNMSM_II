@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Comunicado - Facultad de Ciencias Económicas</title>
-        <link rel="stylesheet" href="./comunicados/css/comunicados.css" />
-        <link rel="stylesheet" href="./comunicados/componentes-comunicados/styles-comunicados.css" />  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    </head>
-    <body>
-        <!-- Loader -->
-        <div id="loader" class="loader-overlay">
-            <div class="bars-spinner">
-                <div></div><div></div><div></div><div></div>
-            </div>
-        </div>
-        
-        <div id="header-comunicados-include"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comunicado - Facultad de Ciencias Económicas</title>
+  <link rel="stylesheet" href="comunicados/css/comunicado.css" />
+  <link rel="stylesheet" href="./comunicados/componentes-comunicados/styles-comunicados.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
 
+  <!-- Loader -->
+  <div id="loader" class="loader-overlay">
+    <div class="bars-spinner">
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
 
-        <main class="main">
-            <article id="comunicado-container" class="comunicado-container"></article>
-        </main>
+  <div id="header-comunicados-include"></div>
 
-        <div id="footer-comunicados-include"></div>
+  <main class="main">
+    <article class="comunicado-detalle">
+      <img id="comunicado-imagen" src="" alt="Imagen del comunicado" class="comunicado-imagen">
+      <h1 id="comunicado-titulo" class="titulo-comunicado">Cargando...</h1>
+      <p id="comunicado-fecha" class="fecha-comunicado">Cargando fecha...</p>
+      <div id="comunicado-contenido" class="contenido-comunicado">
+        Cargando contenido...
+      </div>
+      <!-- Botón de descarga (se mostrará solo si hay archivo) -->
+      <div id="comunicado-archivo" class="archivo-descarga" style="display:none; margin-top: 1.5rem;">
+        <a id="enlace-archivo" href="#" target="_blank" class="btn-descargar">
+            <i class="fas fa-file-download"></i> Descargar documento adjunto
+        </a>
+      </div>
+    </article>
+  </main>
 
-        <script src="./comunicados/js/comunicado.js"></script>
-        <script src="./comunicados/componentes-comunicados/script-comunicados.js"></script>
-        <script src="./comunicados/componentes-comunicados/loader-comunicados.js"></script>
-    </body>
+  <div id="footer-comunicados-include"></div>
+
+  <script src="./comunicados/js/comunicado.js"></script>
+  <script src="./comunicados/componentes-comunicados/script-comunicados.js"></script>
+  <script src="./comunicados/componentes-comunicados/loader-comunicados.js"></script>
+
+  <!-- Scripts de efectos -->
+  <!-- <script>
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => {                      
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 500);
+    }, 1500);
+  });
+  </script> -->
+
+</body>
 </html>

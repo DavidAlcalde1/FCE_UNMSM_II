@@ -10,37 +10,54 @@ window.addEventListener('load', () => {
     
     
     
-    // ---------- UTILIDADES ----------
-      /* Obtener parámetro GET */
-const params = new URLSearchParams(location.search);
-const id     = params.get('id');          // ej: ?id=2
-if (!id || isNaN(id))  { muestraError('Falta el parámetro ?id='); }
+document.addEventListener('DOMContentLoaded', async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
 
-/* Cargar JSON */
-fetch('./json/eventos.json')
-    .then(r => r.ok ? r.json() : Promise.reject('Error al cargar eventos'))
-    .then(data => {
-        const ev = data[parseInt(id)-1];    // array empieza en 0
-        if (!ev)  { muestraError('Evento no encontrado'); return; }
-        pintaEvento(ev);
-        })
-    .catch(err => muestraError(err));
+  if (!id || isNaN(id)) {
+    document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">ID de evento inválido.</h2>';
+    return;
+  }
 
-// ---------- FUNCIONES ----------
-function pintaEvento(ev) {
-    document.getElementById('titulo-pagina').textContent = ev.titulo;
-    document.getElementById('ev-img').src       = ev.imagen;
-    document.getElementById('ev-img').alt       = ev.titulo;
-    document.getElementById('ev-titulo').textContent = ev.titulo;
-    document.getElementById('ev-fecha').textContent  = ev.fecha;
-    document.getElementById('ev-desc').innerHTML     = ev.descripcion || '<p>Próximamente más información.</p>';
-    document.getElementById('ev-link').href          = ev.url_inscripcion || '#';
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('evento-wrap').style.display = 'block';
-}
+  try {
+    const res = await fetch(`/api/eventos/${id}`);
+    if (!res.ok) throw new Error('Evento no encontrado');
+    const evento = await res.json();
 
-function muestraError(msg) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('error').style.display   = 'block';
-    document.getElementById('error').textContent     = msg;
-}
+    document.title = `Evento - ${evento.titulo}`;
+    document.getElementById('evento-titulo').textContent = evento.titulo;
+    document.getElementById('evento-fecha').textContent = 
+      new Date(evento.fecha).toLocaleDateString('es-PE', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+    if (evento.imagen) {
+      document.getElementById('evento-imagen').src = '/' + evento.imagen;
+      document.getElementById('evento-imagen').style.display = 'block';
+    }
+
+    document.getElementById('evento-descripcion').innerHTML = 
+      evento.descripcion ? evento.descripcion.replace(/\n/g, '<br>') : '';
+
+    const enlaceEl = document.getElementById('evento-enlace');
+    const linkEl = document.getElementById('enlace-evento');
+    if (evento.url) {
+      linkEl.href = evento.url;
+      enlaceEl.style.display = 'block';
+    }
+
+    // Ocultar loader
+    const loader = document.getElementById('loader');
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 500);
+    }
+
+  } catch (err) {
+    console.error(err);
+    document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">Error al cargar el evento.</h2>';
+  }
+});

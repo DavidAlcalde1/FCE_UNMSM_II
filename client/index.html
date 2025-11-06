@@ -96,33 +96,16 @@
 
   
 
-  <!-- CARRUSEL -->
+  <!-- CARRUSEL DINÁMICO -->
   <section class="carousel">
-    <div class="slides">
+    <div class="slides" id="carrusel-slides">
+      <!-- Se llenará con JavaScript -->
       <div class="slide active">
         <img src="./img/index/noticia_principal/banner_01.png" alt="Banner 1">
         <div class="slide-content">
-          <h2>MATRÍCULA EXTEMPORÁNEA</h2>
-          <p>Jueves 15 de Diciembre</p>
-          <a target="_blank" href="./slides/MATRÍCULA EXTEMPORÁNEA.png" class="slide-btn" target="_blank">Ver más</a>
-        </div>
-      </div>
-
-      <div class="slide">
-        <img src="./img/index/noticia_principal/banner_02.png" alt="Banner 2">
-        <div class="slide-content">
-          <h2>CONFERENCIA MAGISTRAL: "LA ECONOMÍA EN EL AÑO 2025"</h2>
-          <p>Martes 13 de Diciembre</p>
-          <a target="_blank" href="./slides/CONFERENCIA MAGISTRAL.jpg" class="slide-btn" target="_blank">Ver más</a>
-        </div>
-      </div>
-
-      <div class="slide">
-        <img src="./img/index/noticia_principal/banner_03.jpg" alt="Banner 3">
-        <div class="slide-content">
-          <h2>APERTURA DE NUEVOS CURSOS DE MAESTRÍA Y DOCTORADO</h2>
-          <p>Dirigido a Bachilleres en Economía</p>
-          <a target="_blank" href="./slides/CURSOS POSGRADO.jpg" class="slide-btn" target="_blank">Ver más</a>
+          <h2>Cargando...</h2>
+          <p>Espera un momento</p>
+          <a href="#" class="slide-btn">Ver más</a>
         </div>
       </div>
     </div>
@@ -132,10 +115,9 @@
     <button class="next">&#10095;</button>
 
     <!-- Indicadores -->
-    <div class="indicators">
+    <div class="indicators" id="carrusel-indicators">
+      <!-- Se llenará con JavaScript -->
       <span class="dot active" data-slide="0"></span>
-      <span class="dot" data-slide="1"></span>
-      <span class="dot" data-slide="2"></span>
     </div>
   </section>
 
@@ -263,11 +245,10 @@
   <section class="comunicados-section">
     <div class="overlay">
       <h2>Comunicados</h2>
-      <p>Infórmate de los últimos avisos y anuncios importantes de nuestra facultad.</p>
-
-      <div id="lista-comunicados"></div>
-
-      <a target="_blank" href="./comunicados-lista.html" class="btn-comunicados">Ver todos los comunicados</a>
+      <div id="comunicados-estado" class="comunicados-estado">
+        <!-- Mensaje dinámico aquí -->
+      </div>
+      <a href="./comunicados-lista.html" class="btn-comunicados">Ver todos los comunicados</a>
     </div>
   </section>
 
@@ -397,7 +378,7 @@
     <div class="eventos-container">
       <div class="eventos-title">
         <h2>Eventos</h2>
-        <a target="_blank" href="eventos.html" class="vermas">Ver más</a>
+        <a href="./eventos-lista.html" class="vermas">Ver más</a>
       </div>
 
       <div class="eventos">
@@ -503,10 +484,12 @@
   <!-- FORMULARIO DE CONTACTO -->
   <section class="contacto" id="contacto">
     <h2>Contáctanos</h2>
-    <form>
-      <input type="text" placeholder="Nombre completo" required>
-      <input type="email" placeholder="Correo electrónico" required>
-      <textarea placeholder="Escribe tu mensaje aquí" required></textarea>
+    <form id="form-contacto">
+      <input type="hidden" name="oficina" value="fce">
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
+      <textarea name="mensaje" placeholder="Escribe tu mensaje aquí" required></textarea>
       <button type="submit">Enviar mensaje</button>
     </form>
   </section>
@@ -581,6 +564,15 @@
 
   <!-- BOTÓN MODO OSCURO -->
   <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
+
+  <!-- Modal de éxito -->
+  <div id="successModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3>✅ ¡Mensaje enviado con éxito!</h3>
+      <p>Nos pondremos en contacto contigo lo antes posible.</p>
+    </div>
+  </div>
 
   
   <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->

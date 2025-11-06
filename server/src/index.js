@@ -12,6 +12,7 @@ const comunicadoRoute = require('./routes/comunicados');
 const eventoRoute = require('./routes/eventos');
 const egresadoRoute = require('./routes/egresados');
 const adminRoute = require('./routes/admin');
+const contactoRoute = require('./routes/contacto');
 
 // Crear app
 const app = express();
@@ -38,6 +39,8 @@ app.use('/api/eventos', eventoRoute);
 app.use('/api/egresados', egresadoRoute);
 app.use('/api/posgrado', posgradoRoute);
 app.use('/admin', adminRoute);
+app.use('/api/contacto', contactoRoute);
+
 
 // Health-check
 app.get('/api', (_req, res) => {
