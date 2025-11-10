@@ -225,6 +225,120 @@ window.addEventListener('load', () => {
     });
 });
 
+
+
+
+
+// === CARRUSEL PREGRADO (3 visibles, 6 reales, sin espacio a la derecha) ===
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.getElementById('pregrado-carousel');
+  if (!carousel) return;
+
+  const cards = Array.from(carousel.children);
+  const totalOriginal = cards.length;
+  const visible = 3;
+
+  if (totalOriginal === 0) return;
+
+  // ✅ Paso 1: Clonar las primeras tarjetas al final (para loop infinito)
+  const clones = [];
+  for (let i = 0; i < Math.min(visible, totalOriginal); i++) {
+    const clone = cards[i].cloneNode(true);
+    clone.setAttribute('data-cloned', 'true');
+    clones.push(clone);
+    carousel.appendChild(clone);
+  }
+
+  // ✅ Paso 2: Recalcular lista (ahora incluye clones)
+  const allCards = Array.from(carousel.children);
+  let currentIndex = 0;
+  let isTransitioning = false;
+
+  // ✅ Obtener ancho + gap de una tarjeta (seguro)
+  function getCardOuterWidth() {
+    const card = allCards[0];
+    const rect = card.getBoundingClientRect();
+    const style = getComputedStyle(card);
+    const marginLeft = parseFloat(style.marginLeft);
+    const marginRight = parseFloat(style.marginRight);
+    return rect.width + marginLeft + marginRight;
+  }
+
+  // ✅ Desplazar
+  function moveToIndex(index) {
+    if (isTransitioning) return;
+    
+    const cardWidth = getCardOuterWidth();
+    const translateX = -index * cardWidth;
+
+    isTransitioning = true;
+    carousel.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    carousel.style.transform = `translateX(${translateX}px)`;
+
+    // ✅ Loop inteligente: cuando llega al clon, saltar sin animación al original
+    setTimeout(() => {
+      if (index >= totalOriginal && allCards[index]?.hasAttribute('data-cloned')) {
+        // Saltar al principio (sin transición)
+        carousel.style.transition = 'none';
+        carousel.style.transform = `translateX(0px)`;
+        currentIndex = 0;
+      } else if (index < 0) {
+        // Saltar al final (al último grupo original)
+        const lastValidIndex = totalOriginal - visible;
+        carousel.style.transition = 'none';
+        carousel.style.transform = `translateX(${-lastValidIndex * cardWidth}px)`;
+        currentIndex = lastValidIndex;
+      }
+      isTransitioning = false;
+    }, 600);
+  }
+
+  // ✅ Funciones públicas
+  function next() {
+    if (currentIndex < totalOriginal) { // Permitir ir hasta el clon
+      currentIndex++;
+      moveToIndex(currentIndex);
+    }
+  }
+
+  function prev() {
+    if (currentIndex > 0 || totalOriginal > visible) {
+      currentIndex--;
+      moveToIndex(currentIndex);
+    }
+  }
+
+  // ✅ Botones
+  const prevBtn = document.querySelector('.prev-pregrado-escuelas');
+  const nextBtn = document.querySelector('.next-pregrado-escuelas');
+  prevBtn?.addEventListener('click', prev);
+  nextBtn?.addEventListener('click', next);
+
+  // ✅ Auto
+  let auto = setInterval(next, 4000);
+  const pause = () => clearInterval(auto);
+  const resume = () => {
+    pause();
+    auto = setInterval(next, 4000);
+  };
+
+  [carousel, prevBtn, nextBtn].forEach(el => {
+    el?.addEventListener('mouseenter', pause);
+    el?.addEventListener('mouseleave', resume);
+  });
+
+  // ✅ Iniciar
+  setTimeout(() => {
+    moveToIndex(0);
+  }, 100);
+});
+
+
+
+
+
+
+
 // === BOTÓN MODO OSCURO ===
 const boton = document.getElementById('modoBtn');
 boton?.addEventListener('click', () => {
@@ -665,46 +779,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // track.addEventListener('mouseleave', () => egresadosInterval = setInterval(nextSlide, 5000));
 });
 
-// === CARRUSEL DE PREGRADO ===
-document.addEventListener('DOMContentLoaded', function () {
-    const cardsContainer = document.getElementById('cards-container');
-    const cardBoxes = document.querySelectorAll('.card-box');
-    if (!cardsContainer || cardBoxes.length === 0) {
-        console.warn("Carrusel de Pregrado: No se encontraron tarjetas.");
-        return;
-    }
 
-    window.shiftLeft = function () {
-        const firstCard = cardsContainer.firstElementChild;
-        if (firstCard) {
-            firstCard.classList.add('move-out-from-left');
-            setTimeout(() => {
-                cardsContainer.removeChild(firstCard);
-                cardsContainer.appendChild(firstCard);
-                firstCard.classList.remove('move-out-from-left');
-            }, 500);
-        }
-    };
-
-    window.shiftRight = function () {
-        const lastCard = cardsContainer.lastElementChild;
-        if (lastCard) {
-            lastCard.classList.add('move-out-from-right');
-            setTimeout(() => {
-                cardsContainer.removeChild(lastCard);
-                cardsContainer.insertBefore(lastCard, cardsContainer.firstChild);
-                lastCard.classList.remove('move-out-from-right');
-            }, 500);
-        }
-    };
-
-    let autoplayInterval = setInterval(shiftRight, 4000);
-    const carouselWrapper = document.querySelector('.cards-wrapper');
-    carouselWrapper?.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-    carouselWrapper?.addEventListener('mouseleave', () => autoplayInterval = setInterval(shiftRight, 4000));
-
-    console.log("Carrusel de Pregrado: Inicializado con", cardBoxes.length, "tarjetas.");
-});
 
 
 

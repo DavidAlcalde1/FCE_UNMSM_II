@@ -148,71 +148,56 @@
 
 
 
-  <!-- Sección Principal: Carrusel de Tarjetas Superpuestas -->
-  <section class="pregrado-section" id="pregrado">
-    <div class="container-pregrado">
-      <h2 class="section-title">Escuelas Profesionales</h2>
-      <p class="section-description">Conoce nuestras escuelas profesionales y sus programas académicos.</p>
 
-      <!-- Contenedor principal del carrusel -->
-      <div class="carousel-container">
-        <!-- Botón izquierdo -->
-        <div class="carousel-button carousel-button--left" onclick="shiftLeft()">
-          <img src="https://image.ibb.co/mRsEb7/left_arrow.png" alt="Anterior">
+<!-- SECCIÓN PREGRADO -->
+<section class="pregrado-section" id="pregrado">
+  <div class="container-pregrado">
+    <div class="content-pregrado-title">
+      <h2 class="section-pregrado-title">Pregrado</h2>
+      <p class="section-pregrado-description">Conoce nuestras escuelas profesionales y sus programas académicos.</p>
+    </div>
+      <div class="pregrado-carousel">
+        <div class="pregrado-header">
+          <h2>Escuelas Profesionales</h2>
+          <a href="./escuelas.html" class="ver-mas-link">Ver más</a>
         </div>
 
-        <!-- Wrapper de las tarjetas -->
-        <div class="cards-wrapper">
-          <!-- Contenedor de las tarjetas -->
-          <ul class="cards__container" id="cards-container">
-            <!-- Tarjeta 1: EP de Economía -->
-            <li class="card-box" data-index="0">
-              <div class="card-box__image">
+        <div class="pregrado-wrapper">
+          <button class="carousel-pregrado-btn prev-pregrado-escuelas" aria-label="Anterior">❮</button>
+
+          <div class="pregrado-items-container">
+            <div class="pregrado-items" id="pregrado-carousel">
+              <!-- Tus 3 tarjetas originales -->
+              <a href="./escuelas/ep_economia.html" class="pregrado-card">
                 <img src="./img/pregrado/epe.png" alt="EP de Economía">
-              </div>
-              <div class="card-box__content">
-                <h3 class="card-box__title">EP de Economía</h3>
-                <p class="card-box__summary">Formación integral en análisis económico y gestión empresarial.</p>
-                <a target="_blank" href="./escuelas/ep_economia.html" class="card-box__btn">Ver más</a>
-              </div>
-            </li>
+                <h3>EP de Economía</h3>
+              </a>
 
-            <!-- Tarjeta 2: EP de Economía Pública -->
-            <li class="card-box" data-index="1">
-              <div class="card-box__image">
+              <a href="./escuelas/ep_economia_publica.html" class="pregrado-card">
                 <img src="./img/pregrado/epep.png" alt="EP de Economía Pública">
-              </div>
-              <div class="card-box__content">
-                <h3 class="card-box__title">EP de Economía Pública</h3>
-                <p class="card-box__summary">Especialización en políticas públicas y finanzas gubernamentales.</p>
-                <a target="_blank" href="./escuelas/ep_economia_publica.html" class="card-box__btn">Ver más</a>
-              </div>
-            </li>
+                <h3>EP de Economía Pública</h3>
+              </a>
 
-            <!-- Tarjeta 3: EP de Economía Internacional -->
-            <li class="card-box" data-index="2">
-              <div class="card-box__image">
+              <a href="./escuelas/ep_economia_internacional.html" class="pregrado-card">
                 <img src="./img/pregrado/epei.png" alt="EP de Economía Internacional">
-              </div>
-              <div class="card-box__content">
-                <h3 class="card-box__title">EP de Economía Internacional</h3>
-                <p class="card-box__summary">Enfoque en comercio internacional, finanzas globales y desarrollo
-                  económico.</p>
-                <a target="_blank" href="./escuelas/ep_economia_internacional.html" class="card-box__btn">Ver más</a>
-              </div>
-            </li>
+                <h3>EP de Economía Internacional</h3>
+              </a>
+            </div>
+          </div>
 
-          </ul>
-
-        </div>
-
-        <!-- Botón derecho -->
-        <div class="carousel-button carousel-button--right" onclick="shiftRight()">
-          <img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt="Siguiente">
+          <button class="carousel-pregrado-btn next-pregrado-escuelas" aria-label="Siguiente">❯</button>
         </div>
       </div>
-    </div>
-  </section>
+    
+  </div>
+</section>
+
+
+
+
+
+
+
 
 
 
@@ -295,7 +280,7 @@
         <h2>Investigación</h2>
         <p>Nuestra facultad promueve la investigación científica y el desarrollo de conocimiento económico.</p>
       </div>
-
+      
       <div class="investigacion-grid">
         <!-- Tarjeta 1 -->
           <div class="investigacion-card scroll-fade-up" data-delay="100">
@@ -542,11 +527,25 @@
       </div>
     </div>
 
+    <!-- === LIBRO DE RECLAMACIONES (visible y prominente) === -->
+    <div class="footer-libro-reclamaciones">
+      <a href="./libro-reclamaciones.html" class="libro-link">
+        <div class="libro-icono">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="libro-texto">
+          <h3>Libro de Reclamaciones</h3>
+          <p>¿Tienes una queja, sugerencia o reclamo? ¡Déjanos tu opinión aquí!</p>
+        </div>
+      </a>
+    </div>
+
     <!-- Copyright -->
     <div class="footer-copyright">
       <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
       <p>Developed by Bach. José David Alcalde Cabrera</p>
     </div>
+
   </footer>
 
   <!-- REDES SOCIALES -->
@@ -560,6 +559,13 @@
     <a target="_blank" href="https://youtube.com" target="_blank" class="social-btn youtube" title="YouTube">
       <i class="bi bi-youtube"></i>
     </a>
+  </div>
+
+    <!-- === CHATBOT (placeholder) === -->
+  <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="chatbot-toggle" class="btn btn-primary" style="border-radius: 50%; width: 60px; height: 60px; padding: 0; font-size: 1.5rem;">
+      💬
+    </button>
   </div>
 
   <!-- BOTÓN MODO OSCURO -->

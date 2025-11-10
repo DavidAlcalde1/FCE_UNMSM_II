@@ -11,6 +11,9 @@
   --guinda: #7a0026;
   --negro: #111;
   --dorado: #cfa935;
+  --gap: 15px;
+  --cards: 6;
+  --card-pc: calc((100% - (var(--gap) * (var(--cards) - 1))) / var(--cards));
 }
 
 
@@ -596,378 +599,180 @@ main {
 
 
 
-/*PREGRADO ********************* */
-.pregrado-section {
 
-    background-color: var(--blanco);
-    color: var(--azul-oscuro);
-    padding: 60px 20px;
-    text-align: center;
-    width: 100%;
-}
+
+
+
+
+
+/* CARRUSEL - PREGRADO */
+/* Estilos base para el carrusel */
 
 .container-pregrado {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 40px 20px; */
+  background-color: var(--blanco-matizado);
 }
-
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-    /* color: var(--azul-oscuro); */
-    /* border-bottom: 3px solid var(--dorado); */
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-.section-description {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 20px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
+.content-pregrado-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 
-/* ---------------------------- */
-/* CARRUSEL DE TARJETAS SUPERPUESTAS */
-/* ---------------------------- */
-
-/* Contenedor principal del carrusel */
-.carousel-container {
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 80px auto 0;
-    padding: 0 20px;
-    position: relative; /* Para posicionar los botones absolutamente si es necesario */
+.pregrado-carousel {
+  margin: 2rem 0;
+  width: 90%;
+  align-items: center;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Botones de navegación */
-.carousel-button {
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 20;
-    flex-shrink: 0; /* Evita que se encojan */
-    position: static;
+.pregrado-header {
+  display: flex;
+  justify-content:space-between;
+  /* align-items: center;   */
+  margin: 1rem; 
+  width: 90%;
 }
 
-.carousel-button:hover {
-    background-color: var(--dorado);
-    transform: scale(1.1);
+.pregrado-header h2 {
+  margin: 0;
 }
 
-.carousel-button img {
-    width: 40%;
-    display: block;
+.ver-mas-link {
+  color: #1a5fb4;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.carousel-button--left {
-    margin-right: 20px;
-    /* transform: translateX(-100%);  */
-     
+.ver-mas-link:hover {
+  text-decoration: underline;
 }
 
-.carousel-button--right {
-    margin-left: 20px;
-    /* transform: translateX(100%);  */
+/* Contenedor de los ítems */
+.pregrado-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 20rem;
+  margin: 5rem 0 5rem 0;
 }
 
-/* Wrapper de las tarjetas */
-.cards-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1; /* Ocupa el espacio disponible */
-    min-width: 0; /* Permite que se encoja en pantallas pequeñas */
-    width: 50%;
+.carousel-pregrado-btn {
+  background: #1a5fb4;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
 }
 
-/* Contenedor de las tarjetas */
-.cards__container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 500px; /* Altura del área del carrusel */
-    width: 100%;
-    position: relative;
-    perspective: 1000px; /* Profundidad para efectos 3D si se añaden */
+.carousel-btn:hover {
+  background: #0d4a9e;
 }
 
-/* Cada tarjeta individual */
-.card-box {
-    width: 350px;
-    height: fit-content;
-    background-color: var(--blanco-matizado);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
-    /* box-shadow: var(--sombra-default); */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(10px); /* Efecto de desenfoque del fondo */
-    -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
-    /* border: 1px solid rgba(255, 255, 255, 0.3); Borde sutil */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    transition: transform 0.5s ease, opacity 0.5s ease, z-index 0.5s ease;
-    overflow: hidden;
-    cursor: pointer;
+/* Contenedor desplazable */
+.pregrado-items-container {
+  flex: 1;
+  overflow: hidden;
+  width: calc(100% - 80px); /* espacio para botones */
 }
 
-/* Imagen dentro de la tarjeta */
-.card-box__image {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+.pregrado-items {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: min-content;
 }
 
-.card-box__image img {
-    width: 100%;
-    height: 100%;
-    /* object-fit: cover; */
-    display: block;
-    transition: transform 0.3s ease;
+/* Tarjeta */
+.pregrado-card {
+  flex: 0 0 calc(33.333% - 1rem); /* 3 por vista ≈ 33.33% menos margen */
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30rem;
+  width: 15rem;
+  position: relative;
+  overflow: hidden;
+  perspective: 800px; 
 }
 
-.card-box:hover .card-box__image img {
-    transform: scale(1.05);
+.pregrado-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
-/* Contenido de texto dentro de la tarjeta */
-.card-box__content {
-    width: 100%;
-    height: 40%;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(28, 34, 56, 0.95); /* Azul mate */
-    color: var(--blanco);
-    gap: 8px;
+.pregrado-card img {
+  width: 25rem;
+  height: 25rem;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform 0.5s ease;
+  transform-origin: center;
 }
 
-
-.card-box__btn {
-    display: inline-block;
-    margin-top: 5px;
-    padding: 6px 12px;
-    background-color: var(--dorado);
-    color: var(--azul-oscuro);
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.pregrado-card:hover img {
+  transform: rotateY(8deg) scale(1.05);
 }
 
-.card-box__btn:hover {
-    background-color: #e6b85b;
-    transform: scale(1.05);
+.pregrado-card h3 {
+  font-size: 1.1rem;
+  margin: 0;
 }
 
-/* === POSICIONAMIENTO Y ESCALADO DE TARJETAS === */
-/* Estas reglas definen el efecto de pila. Ajusta los valores según el número de tarjetas. */
-/* Para 3 tarjetas: */
-
-/* Tarjeta central (activa) - La más grande y al frente */
-.cards__container .card-box:nth-child(1) {
-    transform: translateX(0) scale(1);
-    z-index: 5;
-    opacity: 1;
-    /* Añade un resplandor brillante alrededor de la tarjeta */
-    box-shadow: 
-        0 0 15px rgba(202, 167, 90, 0.6), /* Sombra dorada suave */
-        0 0 30px rgba(202, 167, 90, 0.4), /* Sombra dorada más difuminada */
-        0 5px 15px rgba(0, 0, 0, 0.1);   /* Sombra base para profundidad */
-    
-    /* Opcional: Hacer el borde izquierdo un poco más brillante */
-    border-left: 1px solid #e6b85b; /* Un tono de dorado más claro */
-    
-    /* Opcional: Pequeña animación para que aparezca suavemente */
-    animation: brilloActivo 1.5s ease-in-out infinite alternate;
-}
-
-/* Tarjetas adyacentes - Más pequeñas y ligeramente desplazadas */
-.cards__container .card-box:nth-child(2) {
-    transform: translateX(-60%) scale(0.85);
-    z-index: 4;
-    opacity: 0.5;
-}
-
-.cards__container .card-box:nth-child(3) {
-    transform: translateX(60%) scale(0.85);
-    z-index: 4;
-    opacity: 0.5;
-}
-
-/* Tarjetas ocultas */
-.card-box--hide {
-    display: none;
-}
-
-
-/* Título de la tarjeta */
-.card-box__title {
-  font-size: 1.4rem;
-  color: var(--dorado);
-  margin: 0 0 15px 0;
-  /* === PROPIEDADES CLAVE PARA EVITAR DESBORDE === */
-  overflow: hidden; /* Oculta cualquier texto que desborde */
-  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
-  display: -webkit-box; /* Propiedad WebKit */
-  -webkit-line-clamp: 2; /* Limita a 2 líneas en pantallas grandes */
-  -webkit-box-orient: vertical; /* Orientación vertical para WebKit */
-  line-clamp: 2; /* Propiedad estándar */
-  display: -moz-box; /* Para Firefox */
-  /* ============================================= */
-  /* Asegurar que no crezca innecesariamente */
-  flex-shrink: 0;
-}
-
-/* Resumen de la tarjeta */
-.card-box__summary {
-  font-size: 0.9rem;
-  color: #ccc;
-  margin: 0 0 20px 0;
-  line-height: 1.5;
-  /* === PROPIEDADES CLAVE PARA EVITAR DESBORDE === */
-  overflow: hidden; /* Oculta cualquier texto que desborde */
-  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
-  display: -webkit-box; /* Propiedad WebKit */
-  -webkit-line-clamp: 3; /* Limita a 3 líneas */
-  -webkit-box-orient: vertical; /* Orientación vertical para WebKit */
-  line-clamp: 3; /* Propiedad estándar */
-  display: -moz-box; /* Para Firefox */
-  /* ============================================= */
-}
-
-/* === ANIMACIONES === */
-.move-out-from-left {
-    animation: moveOutLeft 0.5s ease-in-out forwards;
-}
-
-.move-out-from-right {
-    animation: moveOutRight 0.5s ease-in-out forwards;
-}
-
-/* ... otras animaciones para transiciones ... */
-
-/* === ANIMACIONES KEYFRAMES === */
-@keyframes moveOutLeft {
-    0% {
-        transform: translateX(0%) scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: translateX(-150%) scale(0.5);
-        opacity: 0.5;
-    }
-    100% {
-        transform: translateX(0%) scale(0.25);
-        opacity: 0;
-    }
-}
-
-@keyframes moveOutRight {
-    0% {
-        transform: translateX(0%) scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: translateX(150%) scale(0.5);
-        opacity: 0.5;
-    }
-    100% {
-        transform: translateX(0%) scale(0.25);
-        opacity: 0;
-    }
-}
-
-/* Animaciones para mover a posición (ejemplo para 3 items) */
-.move-to-position3-from-left {
-    animation: moveToP3Left 0.5s ease-in-out;
-}
-.move-to-position2-from-left {
-    animation: moveToP2Left 0.5s ease-in-out;
-}
-.move-to-position3-from-right {
-    animation: moveToP3Right 0.5s ease-in-out;
-}
-.move-to-position2-from-right {
-    animation: moveToP2Right 0.5s ease-in-out;
-}
-
-@keyframes moveToP3Left {
-    from {
-        transform: translateX(100%) scale(0.75);
-    }
-    to {
-        transform: translateX(0) scale(1);
-    }
-}
-
-@keyframes moveToP2Left {
-    from {
-        transform: translateX(100%) scale(1);
-    }
-    to {
-        transform: translateX(-25%) scale(0.85);
-    }
-}
-
-@keyframes moveToP3Right {
-    from {
-        transform: translateX(-100%) scale(0.75);
-    }
-    to {
-        transform: translateX(0) scale(1);
-    }
-}
-
-@keyframes moveToP2Right {
-    from {
-        transform: translateX(-100%) scale(1);
-    }
-    to {
-        transform: translateX(25%) scale(0.85);
-    }
-}
-
-
-/* Animación para el brillo pulsante */
-@keyframes brilloActivo {
-  0% {
-    box-shadow: 
-      0 0 10px rgba(202, 167, 90, 0.5),
-      0 0 20px rgba(202, 167, 90, 0.3),
-      0 5px 15px rgba(0, 0, 0, 0.1);
+/* Responsive: en móviles, 1 tarjeta */
+@media (max-width: 768px) {
+  .pregrado-card {
+    flex: 0 0 100%;
   }
-  100% {
-    box-shadow: 
-      0 0 20px rgba(202, 167, 90, 0.8),
-      0 0 40px rgba(202, 167, 90, 0.5),
-      0 5px 15px rgba(0, 0, 0, 0.1);
+
+  .pregrado-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .carousel-btn {
+    align-self: stretch;
+    width: 100%;
+    height: 44px;
+  }
+
+  .pregrado-items-container {
+    width: 100%;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
