@@ -1,14 +1,38 @@
 {
-  "name": "server",
+  "name": "fce-unmsm-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sistema de Gestión Web - Facultad de Ciencias Económicas UNMSM",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "build": "echo 'Node.js app - no build step required'",
+    "test": "echo 'Error: No tests specified' && exit 1",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:seed": "sequelize-cli db:seed:all",
+    "db:seed:undo": "sequelize-cli db:seed:undo:all",
+    "db:reset": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate",
+    "install:clean": "npm ci && echo 'Dependencies installed successfully'",
+    "docker:build": "docker-compose build --no-cache",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "unmsm",
+    "fce",
+    "economics",
+    "web",
+    "system",
+    "education"
+  ],
+  "author": "José David Alcalde Cabrera",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -25,5 +49,9 @@
   "devDependencies": {
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DavidAlcalde1/FCE_UNMSM_II.git"
   }
 }

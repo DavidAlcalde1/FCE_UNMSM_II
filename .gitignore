@@ -1,0 +1,156 @@
+# ============================================
+# .gitignore para Proyecto FCE_UNMSM_II
+# Sistema de Gestión Web - Proyecto de Titulación
+# Universidad Peruana Los Andes
+# ============================================
+
+# ====== DEPENDENCIAS ======
+node_modules/
+server/node_modules/
+client/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ====== ARCHIVOS DE ENTORNO Y CONFIGURACIÓN SENSIBLE ======
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+server/.env
+server/.env.*
+!server/.env.example
+
+# ====== ARCHIVOS SUBIDOS POR USUARIOS ======
+# IMPORTANTE: Los uploads no deben versionarse
+uploads/
+client/uploads/
+server/uploads/
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.gif
+# Excepciones para assets del diseño (logos, imágenes fijas)
+!client/img/**
+!client/assets/**
+
+# ====== ARCHIVOS TEMPORALES Y NUMERADOS ======
+# Archivos de prueba que no deben estar en Git
+**/[0-9]*_*.jpg
+**/[0-9]*_*.pdf
+**/[0-9]*_*.png
+
+# ====== BASE DE DATOS ======
+*.sqlite
+*.sqlite3
+*.db
+pgdata/
+postgres-data/
+*.sql.gz
+backups/
+
+# ====== LOGS ======
+logs/
+*.log
+server/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ====== DOCKER ======
+docker-compose.override.yml
+
+# ====== SISTEMA OPERATIVO ======
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ====== IDEs y EDITORES ======
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# JetBrains (WebStorm, IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# ====== TESTING ======
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+test-results/
+
+# ====== BUILD Y DISTRIBUCIÓN ======
+dist/
+build/
+*.tgz
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# ====== CERTIFICADOS Y CLAVES ======
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+certificates/
+
+# ====== VARIOS ======
+.npm
+.eslintcache
+.node_repl_history
+.yarn-integrity
+.env.backup
+.venv
+venv/
+pip-log.txt
+
+# ====== ARCHIVOS DE DOCUMENTACIÓN TEMPORAL ======
+*draft*.md
+*borrador*.md
