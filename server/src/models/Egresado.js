@@ -2,6 +2,14 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Egresado = sequelize.define('Egresado', {
+  oficina: { 
+    type: DataTypes.STRING, 
+    allowNull: false,
+    defaultValue: 'fce',
+    validate: {
+      isIn: [['fce', 'cesepi', 'ocaa', 'cerseu', 'posgrado']]
+    }
+  },
   nombre:     { type: DataTypes.STRING, allowNull: false },
   titulo:     { type: DataTypes.STRING },
   empresa:    { type: DataTypes.STRING },

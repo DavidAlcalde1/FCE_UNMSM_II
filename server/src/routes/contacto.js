@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     }
 
     await Contacto.create(req.body);
-    await enviarCorreo(oficina, req.body);
+    // await enviarCorreo(oficina, req.body); // 
 
     res.json({ success: true });
   } catch (error) {

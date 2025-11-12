@@ -17,7 +17,7 @@ services:
       # IMPORTANTE: Estas variables vienen del archivo .env
       POSTGRES_DB: ${POSTGRES_DB:-fce_db}
       POSTGRES_USER: ${POSTGRES_USER:-fce_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # ✅ CORREGIDO: usar variable del .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  
       # El "?error" hace que falle si no está definida - SEGURIDAD
       
       # Configuraciones adicionales
@@ -79,10 +79,12 @@ services:
       # Otras variables del .env
       SESSION_SECRET: ${SESSION_SECRET}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
+      ADMIN_USER: ${ADMIN_USER}
+      ADMIN_PASS: ${ADMIN_PASS}
     
     # Cargar archivo .env completo
-    env_file:
-      - ./server/.env
+    # env_file:
+    #   - ./server/.env
     
     ports:
       - "${API_PORT:-4000}:4000"

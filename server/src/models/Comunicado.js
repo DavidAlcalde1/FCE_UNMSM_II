@@ -2,6 +2,14 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Comunicado = sequelize.define('Comunicado', {
+  oficina: { 
+    type: DataTypes.STRING, 
+    allowNull: false,
+    defaultValue: 'fce',
+    validate: {
+      isIn: [['fce', 'cesepi', 'ocaa', 'cerseu', 'posgrado']]
+    }
+  },
   titulo:   { type: DataTypes.STRING, allowNull: false },
   contenido:  { type: DataTypes.TEXT },
   fecha:    { type: DataTypes.DATEONLY },

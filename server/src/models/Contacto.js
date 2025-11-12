@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db'); // ← Importa la instancia de Sequelize
 
 const Contacto = sequelize.define('Contacto', {
-  oficina: { type: DataTypes.STRING, allowNull: false },
+  oficina: { type: DataTypes.STRING, allowNull: false, defaultValue: 'fce' },
   nombre: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, allowNull: false },
   telefono: { type: DataTypes.STRING },
