@@ -406,7 +406,7 @@ main {
 
 
 /* CARRUSEL */
-.carousel{
+.carousel {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -660,11 +660,10 @@ main {
   gap: 1rem;
   height: 20rem;
   margin: 5rem 0 5rem 0;
-  width: 100%;
 }
 
 .carousel-pregrado-btn {
-  background: var(--azul-oscuro);
+  background: #1a5fb4;
   color: white;
   border: none;
   width: 40px;
@@ -691,21 +690,18 @@ main {
 
 .pregrado-items {
   display: flex;
-  gap: 0.5rem;
+  gap: 1.5rem;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-width: min-content;
-  padding: 0 4.5rem 0 0; 
 }
 
 /* Tarjeta */
 .pregrado-card {
-  flex: 0 0 33.33%; 
-  /* flex: 0 0 16rem; */
-  /* max-width: 16rem; */
+  flex: 0 0 calc(33.333% - 1rem); /* 3 por vista ≈ 33.33% menos margen */
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 1rem; 
+  padding: 1.25rem;
   text-align: center;
   text-decoration: none;
   color: #333;
@@ -714,12 +710,10 @@ main {
   flex-direction: column;
   align-items: center;
   height: 30rem;
-  width: 13rem;
-  /* min-width: 14rem; */
+  width: 15rem;
   position: relative;
   overflow: hidden;
   perspective: 800px; 
-  margin-right: 20px; 
 }
 
 .pregrado-card:hover {
@@ -746,7 +740,27 @@ main {
   margin: 0;
 }
 
+/* Responsive: en móviles, 1 tarjeta */
+@media (max-width: 768px) {
+  .pregrado-card {
+    flex: 0 0 100%;
+  }
 
+  .pregrado-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .carousel-btn {
+    align-self: stretch;
+    width: 100%;
+    height: 44px;
+  }
+
+  .pregrado-items-container {
+    width: 100%;
+  }
+}
 
 
 
@@ -3110,7 +3124,70 @@ body.modo-oscuro .enlace-icono {
 
 /*..............*/
 
-  
+  .pregrado-section {
+    padding: 40px 10px; /* Reducir padding de la sección */
+  }
+
+  .carousel-container {
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: center; /* Centrar elementos */
+    max-width: 600px; /* Reducir ancho máximo */
+    padding: 0 20px; /* Menos espacio lateral */
+    margin-top: 40px; /* Menos margen superior */
+    gap: 15px; /* Reducir gap entre elementos */
+  }
+
+  .section-title {
+    font-size: 2rem; /* Títulos más pequeños */
+    margin-bottom: 10px; /* Menos margen inferior */
+  }
+
+  .section-description {
+    font-size: 0.95rem; /* Descripciones más pequeñas */
+    margin-bottom: 25px; /* Menos margen inferior */
+    max-width: 600px; /* Reducir ancho máximo */
+  }
+
+  .card-box {
+    width: 90%; /* Tarjetas ocupan todo el ancho disponible */
+    max-width: 300px; /* Ancho máximo para mantener proporciones */
+    height: fit-content;
+    margin-bottom: 20px; /* Espacio entre tarjetas */
+  }
+
+  .cards__container {
+    height: 380px; /* Reducir altura del contenedor */
+    flex-direction: column; /* Apilar tarjetas verticalmente */
+    align-items: center; /* Centrar tarjetas */
+  }
+
+  .card-box__title {
+    font-size: 1.1rem; /* Títulos más pequeños */
+    margin-bottom: 10px; /* Menos margen inferior */
+    -webkit-line-clamp: 2; /* Limitar a 2 líneas */
+    line-clamp: 2;
+  }
+
+  .card-box__summary {
+    font-size: 0.8rem; /* Resúmenes más pequeños */
+    margin-bottom: 10px; /* Menos margen inferior */
+    -webkit-line-clamp: 3; /* Limitar a 3 líneas */
+    line-clamp: 3;
+  }
+
+  .card-box__btn {
+    padding: 4px 8px; /* Botones más pequeños */
+    font-size: 0.7rem; /* Texto más pequeño */
+  }
+
+  .carousel-button {
+    display: none; /* Ocultar botones de navegación en móviles */
+  }
+
+  .carousel-button--left,
+  .carousel-button--right {
+    display: none; /* Asegurar que estén ocultos */
+  }
 
 
 /*..............*/
@@ -3238,8 +3315,8 @@ body.modo-oscuro .enlace-icono {
   }
 
   /* === SECCIÓN PREGRADO === */
-  /* .pregrado-section {
-    padding: 30px 5px; 
+  .pregrado-section {
+    padding: 30px 5px; /* Reducir padding de la sección */
   }
 
   .carousel-container {
@@ -3324,191 +3401,8 @@ body.modo-oscuro .enlace-icono {
   .carousel-button,
   .carousel-button--left,
   .carousel-button--right {
-    display: none; Ocultar botones de navegación en móviles 
-  } */
-
-
-
-
-/* =========================================================
-   RESPONSIVE – HEADER DEL CARRUSEL PREGRADO
-   ========================================================= */
-
-/* 1. Hasta 1200px – tablets y pantallas medianas */
-@media (max-width: 1200px) {
-  .content-pregrado-title {
-    padding: 0 1rem;
+    display: none; /* Ocultar botones de navegación en móviles */
   }
-  .section-pregrado-title {
-    font-size: 1.75rem;
-  }
-  .section-pregrado-description {
-    font-size: 1rem;
-  }
-  .pregrado-header {
-    width: 95%;
-    margin: 0.5rem 0 1rem;
-  }
-  .pregrado-header h2 {
-    font-size: 1.25rem;
-  }
-  .ver-mas-link {
-    font-size: 0.9rem;
-  }
-}
-
-/* =========================================================
-   RESPONSIVE – TABLETS / MÓVILES GRANDES (hasta 768 px)
-   ========================================================= */
-@media (max-width: 768px) {
-  /* ---------- HEADER ---------- */
-  .content-pregrado-title {
-    padding: 0 1rem;
-  }
-  .section-pregrado-title {
-    font-size: 1.5rem;
-  }
-  .section-pregrado-description {
-    font-size: 0.95rem;
-  }
-  .pregrado-header {
-    width: 100%;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .pregrado-header h2 {
-    font-size: 1.1rem;
-  }
-  .ver-mas-link {
-    font-size: 0.85rem;
-  }
-
-  /* ---------- CARRUSEL ---------- */
-  .pregrado-wrapper {
-    margin: 1.5rem 0 2.5rem;
-    width: 100%;
-  }
-  .pregrado-items-container {
-    width: 100%;
-    overflow: hidden;
-  }
-  .pregrado-items {
-    gap: 0;
-    padding: 0;
-    scroll-snap-type: x mandatory;
-  }
-
-  /* ---------- TARJETA ---------- */
-  .pregrado-card {
-    flex: 0 0 calc(85vw - 2rem);   /* mismo truco que 480 px */
-    max-width: calc(85vw - 2rem);
-    height: auto;
-    margin: 0 ;
-    padding: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-snap-align: center;
-  }
-  .pregrado-card img {
-    width: 100%;
-    height: auto;
-    max-height: 24rem;          /* un poco más alto que en móvil */
-    object-fit: contain;
-    object-position: center;
-    border-radius: 8px;
-  }
-  .pregrado-card h3 {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    text-align: center;
-  }
-
-  /* ---------- BOTONES ---------- */
-  .carousel-pregrado-btn.prev-pregrado-escuelas,
-  .carousel-pregrado-btn.next-pregrado-escuelas {
-    display: none;
-  }
-}
-
-/* 3. Hasta 480px – móviles pequeños */
-@media (max-width: 480px) {
-  /* ---------- HEADER ---------- */
-  .content-pregrado-title {
-    padding: 0 0.75rem;
-  }
-  .section-pregrado-title {
-    font-size: 1.25rem;
-  }
-  .section-pregrado-description {
-    font-size: 0.85rem;
-  }
-  .pregrado-header {
-    width: 100%;
-    padding: 0 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .pregrado-header h2 {
-    font-size: 1rem;
-  }
-  .ver-mas-link {
-    font-size: 0.8rem;
-  }
-
-  /* ---------- CARRUSEL ---------- */
-  .pregrado-wrapper {
-    margin: 1rem 0 2rem;
-    width: 100%;
-  }
-  .pregrado-items-container {
-    width: 100%;
-    overflow: hidden;
-  }
-  .pregrado-items {
-    gap: 0;
-    padding: 0;
-    scroll-snap-type: x mandatory; 
-  }
-
-  /* ---------- TARJETA ---------- */
-  .pregrado-card {
-    flex: 0 0 calc(94vw - 2rem);
-    max-width: calc(94vw - 2rem);
-    height: auto;
-    margin: 0 0.5rem;
-    padding: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-snap-align: center; 
-  }
-  .pregrado-card img {
-    width: 100%;
-    height: auto;
-    max-height: 22rem;   /* ↑↑↑  MÁS GRANDE  */
-    object-fit: contain;
-    object-position: center;
-    border-radius: 8px;
-  }
-  .pregrado-card h3 {
-    font-size: 0.9rem;   /* ↓↓ texto más pequeño */
-    margin-top: 0.5rem;
-    text-align: center;
-  }
-
-  /* ---------- BOTONES ---------- */
-  .carousel-pregrado-btn {
-    display: none;
-  }
-}
-
-
-
-
 
   /* === SECCIÓN EGRESADOS === */
   .egresados-section {
@@ -3615,10 +3509,208 @@ body.modo-oscuro .enlace-icono {
 
 
 
+  /* =============================================================
+   ESTANDARIZACIÓN DE ANCHOS - FCE UNMSM
+   Sistema unificado para usar 95-100% del viewport
+   ============================================================= */
 
+/* 1. VARIABLES GLOBALES PARA ANCHOS */
+:root {
+  /* Anchos principales */
+  --ancho-maximo: 98vw;           /* 98% del viewport (casi todo) */
+  --ancho-contenido: 95vw;        /* 95% del viewport (más conservador) */
+  --ancho-navegacion: 96vw;       /* 96% para header/nav */
+  
+  /* Anchos por sección */
+  --ancho-main: 97vw;             /* Contenido principal */
+  --ancho-cards: 98vw;            /* Sección de cards/cartas */
+  --ancho-sidebar: 95vw;          /* Sidebar si existe */
+  
+  /* Paddings y márgenes */
+  --padding-horizontal: 1vw;       /* Padding horizontal automático */
+  --padding-seccion: 1.5rem;       /* Padding para secciones */
+  
+  /* Breakpoints responsive */
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+}
 
+/* 2. SISTEMA DE CONTENEDORES UNIFICADO */
+.container,
+.container-fluid,
+.contenedor-principal,
+.contenedor-seccion {
+  width: var(--ancho-maximo);
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+  padding-left: var(--padding-horizontal);
+  padding-right: var(--padding-horizontal);
+}
 
+/* 3. CONTENEDOR PARA PÁGINAS PRINCIPALES */
+body > .container,
+main .container,
+#main .container {
+  width: var(--ancho-contenido);
+  max-width: var(--ancho-contenido);
+}
 
+/* 4. HEADER Y NAVEGACIÓN */
+.header .container,
+nav .container,
+.navbar .container {
+  width: var(--ancho-navegacion);
+  max-width: var(--ancho-navegacion);
+}
 
+/* 5. SECCIONES PRINCIPALES */
+section,
+.section,
+.seccion {
+  width: var(--ancho-main);
+  max-width: var(--ancho-main);
+  margin: 0 auto;
+  padding: var(--padding-seccion) var(--padding-horizontal);
+}
 
+/* 6. TARJETAS Y CARDS UNIFICADAS */
+.cards-container,
+.grid-cards,
+.card-grid,
+.tarjetas-container {
+  width: var(--ancho-cards);
+  max-width: var(--ancho-cards);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+}
 
+/* 7. CONTENEDORES DE NOTICIAS */
+.noticias-container,
+.eventos-container,
+.comunicados-container {
+  width: var(--ancho-contenido);
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
+  padding: var(--padding-seccion) var(--padding-horizontal);
+}
+
+/* 8. SIDEBAR Y LATERALES */
+.sidebar,
+.lateral,
+.aside {
+  width: var(--ancho-sidebar);
+  max-width: var(--ancho-sidebar);
+  margin: 0 auto;
+}
+
+/* 9. FOOTER */
+footer .container,
+.footer .container {
+  width: var(--ancho-maximo);
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+}
+
+/* 10. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  :root {
+    --ancho-maximo: 100vw;        /* En móvil usar 100% */
+    --ancho-contenido: 100vw;
+    --ancho-navegacion: 100vw;
+    --ancho-main: 100vw;
+    --padding-horizontal: 2vw;     /* Más padding en móvil */
+  }
+  
+  .container,
+  .container-fluid {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+
+/* 11. OVERRIDES ESPECÍFICOS POR SECCIÓN */
+
+/* Noticia/EVENTOS/COMUNICADOS */
+.noticias-section .container,
+.eventos-section .container,
+.comunicados-section .container {
+  width: var(--ancho-contenido);
+  max-width: var(--ancho-contenido);
+}
+
+/* EGRESADOS/INVESTIGACIÓN */
+.egresados-section .container,
+.investigacion-section .container,
+.transparencia-section .container {
+  width: var(--ancho-main);
+  max-width: var(--ancho-main);
+}
+
+/* PÁGINAS ESPECIALES (ADMIN, LOGIN, etc.) */
+.admin-page .container,
+.login-page .container,
+.dashboard .container {
+  width: var(--ancho-contenido);
+  max-width: var(--ancho-contenido);
+}
+
+/* 12. UTILIDADES DE ANCHO */
+.ancho-completo {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.ancho-viewport {
+  width: var(--ancho-maximo);
+  margin: 0 auto;
+}
+
+.texto-centrado-ancho {
+  width: var(--ancho-contenido);
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
+}
+
+/* 13. SISTEMA DE CARDS MEJORADO */
+:root {
+  --card-width: calc((var(--ancho-contenido) - (1rem * 5)) / 6); /* 6 cards por fila */
+  --card-min-width: 250px;
+}
+
+@media (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* 14. ANIMACIONES Y TRANSICIONES SUAVES */
+.container,
+.section,
+.cards-container {
+  transition: width 0.3s ease, max-width 0.3s ease;
+}
+
+/* 15. CLASES DE EMERGENCIA PARA CASOS ESPECÍFICOS */
+.ancho-95-por-ciento {
+  width: 95vw !important;
+  max-width: 95vw !important;
+}
+
+.ancho-98-por-ciento {
+  width: 98vw !important;
+  max-width: 98vw !important;
+}
+
+.ancho-100-por-ciento {
+  width: 100vw !important;
+  max-width: 100vw !important;
+}

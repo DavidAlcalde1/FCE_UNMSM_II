@@ -1,0 +1,265 @@
+/* =============================================================
+   SOLUCIÓN ESPECÍFICA: CARRUSEL FULL-WIDTH
+   Para corregir el espacio en blanco y ancho limitado del carrusel
+   ============================================================= */
+
+/* 1. CARRUSEL - ANCHO COMPLETO SIN ESPACIOS */
+.carousel,
+.carousel-section,
+.carrusel-principal {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  margin-left: calc(-50vw + 50%) !important;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2. SLIDES - ANCHO COMPLETO */
+.carousel .slides,
+.carousel .slides-container,
+#carrusel-slides {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 3. SLIDE INDIVIDUAL - ANCHO COMPLETO */
+.carousel .slide,
+.carousel .slide-item {
+  width: 100% !important;
+  height: 60vh; /* Altura responsive */
+  min-height: 400px;
+  max-height: 80vh;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 4. IMÁGENES DEL CARRUSEL - ANCHO Y ALTURA COMPLETA */
+.carousel .slide img,
+.carousel .slide-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 5. CONTENIDO DEL SLIDE - POSICIÓN SUPERPUESTA */
+.carousel .slide-content,
+.slide-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  z-index: 2;
+}
+
+.carousel .slide-content h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.carousel .slide-content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.carousel .slide-content .slide-btn {
+  background: var(--dorado);
+  color: var(--negro);
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.carousel .slide-content .slide-btn:hover {
+  background: #b8941e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* 6. BOTONES DE NAVEGACIÓN */
+.carousel .prev,
+.carousel .next,
+.carousel button.prev,
+.carousel button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel .prev:hover,
+.carousel .prev:hover,
+.carousel button.prev:hover {
+  background: rgba(255,255,255,0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel .next,
+.carousel button.next {
+  right: 2rem;
+}
+
+.carousel .prev,
+.carousel button.prev {
+  left: 2rem;
+}
+
+/* 7. INDICADORES */
+.carousel .indicators,
+.carousel #carrusel-indicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 3;
+}
+
+.carousel .dot,
+.carousel .indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel .dot.active,
+.carousel .indicator.active {
+  background: var(--dorado);
+  transform: scale(1.3);
+}
+
+/* 8. RESPONSIVE - MÓVIL */
+@media (max-width: 768px) {
+  .carousel .slide {
+    height: 50vh;
+    min-height: 300px;
+  }
+  
+  .carousel .slide-content h2 {
+    font-size: 2rem;
+  }
+  
+  .carousel .slide-content p {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+  
+  .carousel .slide-content .slide-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .carousel .prev,
+  .carousel .next,
+  .carousel button.prev,
+  .carousel button.next {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+  
+  .carousel .prev,
+  .carousel button.prev {
+    left: 1rem;
+  }
+  
+  .carousel .next,
+  .carousel button.next {
+    right: 1rem;
+  }
+}
+
+/* 9. RESPONSIVE - TABLET */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .carousel .slide {
+    height: 55vh;
+    min-height: 350px;
+  }
+  
+  .carousel .slide-content h2 {
+    font-size: 2.5rem;
+  }
+  
+  .carousel .slide-content p {
+    font-size: 1.3rem;
+  }
+}
+
+/* 10. ELIMINAR ESPACIOS EN BLANCO GENERALES */
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+main {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 11. CORRECCIÓN PARA HEADER QUE PUEDE CAUSAR ESPACIO */
+.header + * {
+  margin-top: 0 !important;
+}
+
+/* 12. ANIMACIONES SUAVES */
+.carousel .slide {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel .slide.active {
+  opacity: 1;
+}
+
+/* 13. OVERRIDES ESPECÍFICOS SI ES NECESARIO */
+.carousel-fullwidth {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+}

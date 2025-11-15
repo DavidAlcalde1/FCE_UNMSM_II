@@ -255,7 +255,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let isTransitioning = false;
 
   // ✅ Obtener ancho + gap de una tarjeta (seguro)
-  function getCardOuterWidth() {
+  function getCardOuterWidth() {  
+    if (window.innerWidth <= 480) {
+      return window.innerWidth;   // 100 vw exactos
+    }
+  
     const card = allCards[0];
     const rect = card.getBoundingClientRect();
     const style = getComputedStyle(card);
@@ -270,6 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const cardWidth = getCardOuterWidth();
     const translateX = -index * cardWidth;
+    // const gap = parseFloat(getComputedStyle(carousel).gap) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    // const translateX = -index * (cardWidth + gap);
 
     isTransitioning = true;
     carousel.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
