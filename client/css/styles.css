@@ -605,147 +605,241 @@ main {
 
 
 
-/* CARRUSEL - PREGRADO */
-/* Estilos base para el carrusel */
-
-.container-pregrado {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* padding: 40px 20px; */
+/* === SECCIÓN PREGRADO (versión degradé) === */
+/* === SECCIÓN PREGRADO === */
+.pregrado-section {
+  padding: 70px 0;
   background-color: var(--blanco-matizado);
 }
+
+.container-pregrado {
+  width: min(1600px, 98vw);
+  margin: 0 auto;
+}
+
+/* Título principal de sección */
 .content-pregrado-title {
-  text-align: center;
-  margin-bottom: 1.5rem;
+  text-align: left;
+  margin-bottom: 1.25rem;
 }
 
-
-.pregrado-carousel {
-  margin: 2rem 0;
-  width: 90%;
-  align-items: center;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
+.section-pregrado-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+  margin-bottom: 0.4rem;
 }
 
-.pregrado-header {
+.section-pregrado-description {
+  font-size: 0.95rem;
+  color: #555;
+  max-width: 520px;
+}
+
+/* Header "Escuelas Profesionales" + link */
+.pregrado-grid-header {
   display: flex;
-  justify-content:space-between;
-  /* align-items: center;   */
-  margin: 1rem; 
-  width: 90%;
-}
-
-.pregrado-header h2 {
-  margin: 0;
-}
-
-.ver-mas-link {
-  color: #1a5fb4;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.ver-mas-link:hover {
-  text-decoration: underline;
-}
-
-/* Contenedor de los ítems */
-.pregrado-wrapper {
-  position: relative;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  height: 20rem;
-  margin: 5rem 0 5rem 0;
-  width: 100%;
+  margin-bottom: 1.5rem;
+  margin-top: 0.75rem;
 }
 
-.carousel-pregrado-btn {
-  background: var(--azul-oscuro);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
+.pregrado-grid-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--azul-oscuro);
 }
 
-.carousel-btn:hover {
-  background: #0d4a9e;
+/* GRID de tarjetas */
+.pregrado-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2.8rem;
 }
 
-/* Contenedor desplazable */
-.pregrado-items-container {
-  flex: 1;
-  overflow: hidden;
-  width: calc(100% - 80px); /* espacio para botones */
-}
-
-.pregrado-items {
-  display: flex;
-  gap: 0.5rem;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  min-width: min-content;
-  padding: 0 4.5rem 0 0; 
-}
-
-/* Tarjeta */
+/* Tarjeta en bloque degradé */
 .pregrado-card {
-  flex: 0 0 33.33%; 
-  /* flex: 0 0 16rem; */
-  /* max-width: 16rem; */
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 1rem; 
-  text-align: center;
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 30rem;
-  width: 13rem;
-  /* min-width: 14rem; */
-  position: relative;
+  min-height: 340px;
+  border-radius: 1.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+    135deg,
+    var(--azul-oscuro) 0%,
+    #0a1940 45%,
+    #162b4d 100%
+  );
+  background-size: 180% 180%;
+  color: #f9fafb;
   overflow: hidden;
-  perspective: 800px; 
-  margin-right: 20px; 
+  text-decoration: none;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
+  /* sin opacity:0 ni animation; GSAP se encarga del fade */
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background-position 0.25s ease;
 }
 
+/* Brillo suave global */
+.pregrado-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(255, 255, 255, 0.18),
+    transparent 60%
+  );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Imagen como marca de agua grande */
+.pregrado-card-media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.pregrado-card-media img {
+  width: 95%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  margin-right: 0.6rem;
+  margin-bottom: -0.4rem;
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.55));
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Cuerpo de la tarjeta */
+.pregrado-card-body {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 2.1rem 2.4rem;
+}
+
+/* Línea dorada decorativa */
+.pregrado-card-body::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  left: 1.7rem;
+  width: 2.6rem;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--dorado), transparent);
+}
+
+.pregrado-card-title {
+  font-weight: 700;
+  color: #f9fafb;
+  margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.pregrado-card-text {
+  color: #e5e7eb;
+  line-height: 1.5;
+  max-width: 90%;
+  font-size: 1.2rem;
+}
+
+/* Transiciones suaves para texto */
+.pregrado-card-title,
+.pregrado-card-text {
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Hover: brillo en título y texto */
+.pregrado-card:hover .pregrado-card-title {
+  color: var(--dorado);
+  text-shadow:
+    0 0 6px rgba(207, 169, 53, 0.7),
+    0 0 18px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.pregrado-card:hover .pregrado-card-text {
+  color: #f3f4f6;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover: levantado + glow */
 .pregrado-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  border-color: rgba(207, 169, 53, 0.6);
+  background-position: 100% 0%;
+  transform: translateY(-10px) scale(1.015);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.38);
 }
 
-.pregrado-card img {
-  width: 25rem;
-  height: 25rem;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  transition: transform 0.5s ease;
-  transform-origin: center;
+.pregrado-card:hover .pregrado-card-media img {
+  transform: translateY(-6px) scale(1.05);
+  opacity: 0.5;
 }
 
-.pregrado-card:hover img {
-  transform: rotateY(8deg) scale(1.05);
+.pregrado-card:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 3px;
 }
 
-.pregrado-card h3 {
-  font-size: 1.1rem;
-  margin: 0;
-}
+/* Responsivo móvil */
+@media (max-width: 768px) {
 
+  .section-pregrado-title {
+    font-size: 1.7rem;
+  }
+
+  .pregrado-grid-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pregrado-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* más angostas */
+    gap: 1.8rem;
+  }
+
+  .pregrado-card {
+    min-height: 280px;
+    border-radius: 1rem;
+  }
+
+  .pregrado-card-body {
+    padding: 1.4rem 1.3rem 1.6rem;
+  }
+
+  .pregrado-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .pregrado-card-text {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  .pregrado-card-media img {
+    width: 70%;
+    max-width: 200px;
+    margin-right: 0.2rem;
+    opacity: 0.3;
+  }
+}
 
 
 
@@ -1140,11 +1234,15 @@ main {
   color: var(--azul-oscuro);
 }
 
-.ver-mas-link {
-  color: var(--verde);
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
+.posgrado-section .ver-mas-link {
+  font-weight: 600;
+  font-size: 0.95rem;
+  /* Usamos solo color para matizar, dejamos el pill global */
+  color: var(--dorado);
+}
+
+.posgrado-section .ver-mas-link:hover {
+  color: #111;
 }
 
 .posgrado-wrapper {
@@ -2140,9 +2238,9 @@ body.modo-oscuro .card-box {
 }
 
 
-body.modo-oscuro .pregrado-section, .section-description{
+/* body.modo-oscuro .pregrado-section, .section-description{
   color: var(--blanco) !important;
-} 
+}  */
 
 
 body.modo-oscuro .carousel-button{
@@ -2599,6 +2697,42 @@ body.modo-oscuro .enlace-icono {
   color: var(--dorado);
 }
 
+/* MODO OSCURO - PREGRADO */
+body.modo-oscuro .pregrado-section {
+  background-color: #111;
+}
+
+body.modo-oscuro .pregrado-section .section-pregrado-title,
+body.modo-oscuro .pregrado-section .section-pregrado-description,
+body.modo-oscuro .pregrado-section .pregrado-grid-title {
+  color: #f5f5f5;
+}
+
+body.modo-oscuro .pregrado-section .pregrado-card {
+  background-color: #1c1c1c;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
+}
+
+body.modo-oscuro .pregrado-section .pregrado-card-title,
+body.modo-oscuro .pregrado-section .pregrado-card-text {
+  color: #e5e5e5;
+}
+
+body.modo-oscuro .pregrado-section .ver-mas-link {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--dorado);
+}
+
+body.modo-oscuro .pregrado-section .ver-mas-link:hover {
+  background-color: var(--dorado);
+  color: #111;
+}
+
+
+
+
 
 
 .slide-content.animar {
@@ -2615,6 +2749,8 @@ body.modo-oscuro .enlace-icono {
     transform: translate(-50%, -50%);
   }
 }
+
+
 
 
 
@@ -3330,181 +3466,6 @@ body.modo-oscuro .enlace-icono {
 
 
 
-/* =========================================================
-   RESPONSIVE – HEADER DEL CARRUSEL PREGRADO
-   ========================================================= */
-
-/* 1. Hasta 1200px – tablets y pantallas medianas */
-@media (max-width: 1200px) {
-  .content-pregrado-title {
-    padding: 0 1rem;
-  }
-  .section-pregrado-title {
-    font-size: 1.75rem;
-  }
-  .section-pregrado-description {
-    font-size: 1rem;
-  }
-  .pregrado-header {
-    width: 95%;
-    margin: 0.5rem 0 1rem;
-  }
-  .pregrado-header h2 {
-    font-size: 1.25rem;
-  }
-  .ver-mas-link {
-    font-size: 0.9rem;
-  }
-}
-
-/* =========================================================
-   RESPONSIVE – TABLETS / MÓVILES GRANDES (hasta 768 px)
-   ========================================================= */
-@media (max-width: 768px) {
-  /* ---------- HEADER ---------- */
-  .content-pregrado-title {
-    padding: 0 1rem;
-  }
-  .section-pregrado-title {
-    font-size: 1.5rem;
-  }
-  .section-pregrado-description {
-    font-size: 0.95rem;
-  }
-  .pregrado-header {
-    width: 100%;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .pregrado-header h2 {
-    font-size: 1.1rem;
-  }
-  .ver-mas-link {
-    font-size: 0.85rem;
-  }
-
-  /* ---------- CARRUSEL ---------- */
-  .pregrado-wrapper {
-    margin: 1.5rem 0 2.5rem;
-    width: 100%;
-  }
-  .pregrado-items-container {
-    width: 100%;
-    overflow: hidden;
-  }
-  .pregrado-items {
-    gap: 0;
-    padding: 0;
-    scroll-snap-type: x mandatory;
-  }
-
-  /* ---------- TARJETA ---------- */
-  .pregrado-card {
-    flex: 0 0 calc(85vw - 2rem);   /* mismo truco que 480 px */
-    max-width: calc(85vw - 2rem);
-    height: auto;
-    margin: 0 ;
-    padding: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-snap-align: center;
-  }
-  .pregrado-card img {
-    width: 100%;
-    height: auto;
-    max-height: 24rem;          /* un poco más alto que en móvil */
-    object-fit: contain;
-    object-position: center;
-    border-radius: 8px;
-  }
-  .pregrado-card h3 {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    text-align: center;
-  }
-
-  /* ---------- BOTONES ---------- */
-  .carousel-pregrado-btn.prev-pregrado-escuelas,
-  .carousel-pregrado-btn.next-pregrado-escuelas {
-    display: none;
-  }
-}
-
-/* 3. Hasta 480px – móviles pequeños */
-@media (max-width: 480px) {
-  /* ---------- HEADER ---------- */
-  .content-pregrado-title {
-    padding: 0 0.75rem;
-  }
-  .section-pregrado-title {
-    font-size: 1.25rem;
-  }
-  .section-pregrado-description {
-    font-size: 0.85rem;
-  }
-  .pregrado-header {
-    width: 100%;
-    padding: 0 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .pregrado-header h2 {
-    font-size: 1rem;
-  }
-  .ver-mas-link {
-    font-size: 0.8rem;
-  }
-
-  /* ---------- CARRUSEL ---------- */
-  .pregrado-wrapper {
-    margin: 1rem 0 2rem;
-    width: 100%;
-  }
-  .pregrado-items-container {
-    width: 100%;
-    overflow: hidden;
-  }
-  .pregrado-items {
-    gap: 0;
-    padding: 0;
-    scroll-snap-type: x mandatory; 
-  }
-
-  /* ---------- TARJETA ---------- */
-  .pregrado-card {
-    flex: 0 0 calc(94vw - 2rem);
-    max-width: calc(94vw - 2rem);
-    height: auto;
-    margin: 0 0.5rem;
-    padding: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-snap-align: center; 
-  }
-  .pregrado-card img {
-    width: 100%;
-    height: auto;
-    max-height: 22rem;   /* ↑↑↑  MÁS GRANDE  */
-    object-fit: contain;
-    object-position: center;
-    border-radius: 8px;
-  }
-  .pregrado-card h3 {
-    font-size: 0.9rem;   /* ↓↓ texto más pequeño */
-    margin-top: 0.5rem;
-    text-align: center;
-  }
-
-  /* ---------- BOTONES ---------- */
-  .carousel-pregrado-btn {
-    display: none;
-  }
-}
 
 
 
