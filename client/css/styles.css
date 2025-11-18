@@ -665,11 +665,7 @@ main {
   font-weight: 600;
   color: var(--azul-oscuro);
   text-decoration: none;
-  background: linear-gradient(
-    135deg,
-    rgba(207, 169, 53, 0.15),
-    rgba(122, 0, 38, 0.05)
-  );
+  background: var(--dorado);
   transition:
     background 0.25s ease,
     color 0.25s ease,
@@ -980,11 +976,16 @@ main {
   overflow: hidden;
   background: linear-gradient(
     135deg,
-    #1b375a 0%,
-    #16325a 40%,
-    #0c2344 80%
+    /* #1b375a 0%, */
+    /* #7aa0ce 0%, 
+    #16325a 70%,
+    #0c2344 80% */
+  #12294d 0%,
+  #1e3a65 50%, 
+  #20426f 75%,
+  #0e1e3c 100%
   );
-  border-radius: 1.1rem 1.1rem 0 0;
+  border-radius: 1.8rem 1.8rem 0 0;
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
   color: var(--blanco-matizado);
 }
@@ -1006,7 +1007,7 @@ main {
 .noticia.active {
   opacity: 1;
   transform: translateX(0);
-  position: relative;
+  position: relative;  
 }
 
 .noticia img {
@@ -1133,15 +1134,25 @@ main {
 
 .noticia-card {
   width: 30%;
-  background-color: #ffffff;
+  /* background-color: #2e2e2e; */
+  /* background-color: #1b2942; */
+  background: linear-gradient(
+  180deg,
+  #31476e 0%,   /* un azul medio con brillo inicial */
+  #243657 55%,  /* tono intermedio sólido */
+  #192b45 100% 
+);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10); */
   text-align: left;
+  border-top: 3px solid #caa731;
+  /* border-radius: 10px; */
+  box-shadow: inset 0 0 60px rgba(255,255,255,0.05);
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+    /* box-shadow 0.25s ease; */
+  /* border: 1px solid rgba(0, 0, 0, 0.03); */
 }
 
 .ultimas-container .noticia-card:hover {
@@ -1159,7 +1170,8 @@ main {
 .noticia-card h3 {
   font-size: 18px;
   padding: 10px 15px 0;
-  color: var(--azul-oscuro);
+  /* color: var(--azul-oscuro); */
+  color:#ffffff;
   text-align: center;
   min-height: 80px;
 }
@@ -1180,8 +1192,10 @@ main {
 
 .btn-vermas {
   padding: 10px 22px;
-  background: var(--azul-oscuro);
-  color: white;
+  /* background: var(--azul-oscuro); */
+  background-color: var(--dorado);
+  color: #0c2344;
+  /* color: white; */
   text-decoration: none;
   font-weight: 600;
   border-radius: 999px;
@@ -1192,7 +1206,7 @@ main {
 }
 
 .btn-vermas:hover {
-  background: var(--dorado);  
+  background: #dabe63;  
   color: #111;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
   transform: translateY(-2px);
@@ -2432,9 +2446,9 @@ body.modo-oscuro .ver-mas-link:hover {
 /* === CARD GLASSMORFISMO === */
 body.modo-oscuro .pregrado-card {
   background: linear-gradient(
-      135deg,
-      rgba(30, 35, 55, 0.75),
-      rgba(16, 20, 35, 0.55)
+    135deg,
+    rgba(40, 55, 85, 0.9),
+    rgba(22, 32, 56, 0.8)
   );
   /* border-color: rgba(255, 255, 255, 0.16); */
   border-color: rgba(207, 169, 53, 0.75);
@@ -2574,81 +2588,140 @@ body.modo-oscuro .nav__list li a:hover {
   color: var(--dorado); /* Letras doradas al hacer hover */
 }
 
-/* Sección de Noticias en Modo Oscuro */
+
 /* ===== MODO OSCURO - NOTICIAS ===== */
+
 body.modo-oscuro .noticias-section {
-  background-color: #111;
+  /* Degradado con esfumado superior para fundirse con la sección anterior */
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 25, 0) 0%,      /* inicio transparente */
+    rgba(14, 20, 35, 0.85) 10%,  /* transición suave */
+    #0e1423 100%                 /* fondo principal oscuro */
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 body.modo-oscuro .noticias-section .section-title,
 body.modo-oscuro .noticias-section .section-description {
-  color: #f5f5f5;
+  color: #e6e6e6;
 }
 
+/* Bloque principal del carrusel */
 body.modo-oscuro .noticias-carousel {
   background: linear-gradient(
     135deg,
-    #020817 0%,
-    #071327 40%,
-    #0d1f3a 100%
+    #081224 0%,
+    #0e1d36 50%,
+    #12294d 100%
   );
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(207, 169, 53, 0.35); /* línea dorada sutil */
 }
 
+/* Texto dentro del carrusel */
 body.modo-oscuro .contenido-noticia h3,
 body.modo-oscuro .contenido-noticia p {
   color: #e9edf5;
 }
 
+/* Contenedor de cards inferiores */
 body.modo-oscuro .ultimas-noticias {
-  background-color: #151515;
-  border-top-color: var(--dorado);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-}
-
-body.modo-oscuro .noticia-card {
-  background-color: #1f1f1f;
-  border-color: rgba(255, 255, 255, 0.04);
-}
-
-body.modo-oscuro .noticia-card h3 {
-  color: #f5f5f5;
-}
-
-body.modo-oscuro .noticia-card .fecha {
   background: linear-gradient(
-    90deg,
-    var(--dorado),
-    var(--guinda)
+    180deg,
+    #182132 0%,   /* azul grisáceo un poco más claro para dar volumen */
+    #101621 60%,  /* transición suave */
+    #0b0f19 100%  /* mantiene coherencia con el fondo general */
   );
+  border: 1px solid rgba(207, 169, 53, 0.3);
+  box-shadow: inset 0 40px 60px rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+
+  /* NECESARIO para que el giro 3D funcione */
+  perspective: 1200px;
+  overflow: visible;
 }
 
-/* Botones del carrusel de noticias en modo oscuro */
+/* Cards individuales */
+body.modo-oscuro .noticia-card {
+  background: linear-gradient(135deg, #212b3e 0%, #1a2335 100%);
+  border-top: 2px solid rgba(207, 169, 53, 0.55);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
+
+  /* Configuración 3D */
+  transform: rotateY(0deg);
+  transform-style: preserve-3d; 
+  transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+  transform-origin: center left;
+  will-change: transform;
+}
+
+body.modo-oscuro .noticia-card:hover {
+  transform: rotateY(-10deg) translateY(-6px);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.9),
+              inset 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+/* Contenedor 3D limpio solo para las tarjetas en modo oscuro */
+body.modo-oscuro .noticia-card-wrapper {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  overflow: visible;
+  display: inline-block;
+}
+
+/* Títulos */
+body.modo-oscuro .noticia-card h3 {
+  color: #f2f4f7;
+}
+
+/* Fecha de publicación (línea dorada limpia, sin guinda) */
+body.modo-oscuro .noticia-card .fecha {
+  background: var(--dorado);
+  color: #0e1423;
+  font-weight: 600;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Botones del carrusel */
 body.modo-oscuro .prev2,
 body.modo-oscuro .next2 {
-  background-color: rgba(50, 50, 50, 0.8);
-  color: white;
+  background-color: rgba(25, 25, 25, 0.8);
+  color: #fff;
 }
 
 body.modo-oscuro .prev2:hover,
 body.modo-oscuro .next2:hover {
-  background-color: rgba(80, 80, 80, 0.9);
+  background-color: rgba(40, 40, 40, 0.9);
 }
 
-/* Indicadores del carrusel de noticias en modo oscuro */
-/* body.modo-oscuro .dot2 {
-  background-color: rgba(100, 100, 100, 0.5);
-} */
-
-/* body.modo-oscuro .dot2.active {
+/* Botón inferior (Ver todas las noticias) */
+body.modo-oscuro .btn-vermas,
+body.modo-oscuro .btn-vermasN {
   background-color: var(--dorado);
-} */
-
-body.modo-oscuro  .btn-vermas,
-body.modo-oscuro  .btn-vermasN {
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.8);
-  /* color: var(--dorado);  */
+  color: #0c2344;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
+
+body.modo-oscuro .btn-vermas:hover,
+body.modo-oscuro .btn-vermasN:hover {
+  background-color: #e0b93f;
+  box-shadow: 0 0 10px rgba(224, 185, 63, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Hover con giro hacia la izquierda */
+body.modo-oscuro .noticia-card-wrapper:hover .noticia-card {
+  transform: rotateY(-12deg) translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85),
+              inset 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
 
 
 
@@ -3065,11 +3138,11 @@ body.modo-oscuro .enlace-icono {
   font-weight: 600;
   color: var(--azul-oscuro);
   text-decoration: none;
-  background: linear-gradient(
+  /* background: linear-gradient(
     135deg,
     rgba(207, 169, 53, 0.15),
     rgba(122, 0, 38, 0.05)
-  );
+  ); */
   transition:
     background 0.25s ease,
     color 0.25s ease,
@@ -3081,8 +3154,8 @@ body.modo-oscuro .enlace-icono {
 .pregrado-section .ver-mas-link:hover {
   background: linear-gradient(
     135deg,
-    var(--dorado),
-    var(--guinda)
+    var(--dorado)
+    
   );
   color: #111;
   border-color: var(--guinda);
@@ -3108,7 +3181,7 @@ body.modo-oscuro .enlace-icono {
   background: linear-gradient(
     135deg,
     var(--azul-oscuro) 0%,
-    #0c2344 45%,
+    #0c2344 40%,
     #16325a 100%
   );
   background-size: 180% 180%;
