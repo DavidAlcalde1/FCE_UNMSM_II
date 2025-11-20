@@ -320,27 +320,39 @@ fetch('/api/noticias')
         }
     });
 
-// === ÚLTIMAS 3 NOTICIAS ===
+// === ÚLTIMAS 3 NOTICIAS (CORREGIDO PARA LINKS FUNCIONALES) ===
 fetch('/api/noticias')
     .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
     })
     .then(data => {
-        console.log('🔍 Últimas noticias recibidas:', data); // ← Log de depuración
+        console.log('🔍 Últimas noticias recibidas:', data);
         const ultimas = data.slice(0, 3);
         const container = document.getElementById('ultimas-container');
         if (!container) return;
 
         ultimas.forEach(noticia => {
-            const card = document.createElement('div');
-            card.classList.add('noticia-card');
-            card.innerHTML = `
+            // CORRECCIÓN: Crear wrapper para efecto 3D
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('noticia-card-wrapper');
+            
+            // CORRECCIÓN: Crear enlace clickeable
+            const link = document.createElement('a');
+            link.href = `noticia.html?id=${noticia.id}`;
+            link.classList.add('noticia-card');
+            link.style.textDecoration = 'none';
+            link.style.color = 'inherit';
+            
+            link.innerHTML = `
                 <img src="${noticia.imagen}" alt="${noticia.titulo}">
                 <h3>${noticia.titulo}</h3>
                 <p class="fecha"><i class="fa-regular fa-clock"></i> ${noticia.fecha}</p>
             `;
-            container.appendChild(card);
+            
+            // Insertar enlace en wrapper, wrapper en container
+            wrapper.appendChild(link);
+            container.appendChild(wrapper);
         });
     })
     .catch(err => {

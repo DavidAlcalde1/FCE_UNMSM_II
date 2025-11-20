@@ -377,6 +377,35 @@ main {
 }
 
 
+
+/* === MODO OSCURO === */
+
+/* Menú Hamburguesa en Modo Oscuro */
+body.modo-oscuro .nav__list {
+  background-color: #111; /* Fondo oscuro para el menú desplegado */
+}
+
+
+body.modo-oscuro .dropdown-content {
+  background: rgba(34 , 34 , 34, 0.8); /* Fondo oscuro para el dropdown */
+}
+
+body.modo-oscuro .nav__list li a {
+  color: white; /* Letras blancas por defecto */
+  
+}
+
+body.modo-oscuro .nav__list li a:hover {
+  color: var(--dorado); /* Letras doradas al hacer hover */
+  
+}
+
+
+
+
+
+
+
 /*BOTÓN DARK MODE*/
 .modo-fixed {
   position: fixed;
@@ -599,15 +628,11 @@ main {
 
 
 
-
-
-
-
-
-
 /* ===========================
-   SECCIÓN PREGRADO
+   SECCIÓN PREGRADO 
    =========================== */
+
+/* ===== SECCIÓN PRINCIPAL ===== */
 .pregrado-section {
   padding: 70px 0;
   background-color: var(--blanco-matizado);
@@ -618,7 +643,7 @@ main {
   margin: 0 auto;
 }
 
-/* Título principal de sección */
+/* ===== TÍTULOS Y DESCRIPCIONES ===== */
 .content-pregrado-title {
   text-align: left;
   margin-bottom: 1.25rem;
@@ -637,7 +662,7 @@ main {
   max-width: 520px;
 }
 
-/* Header "Escuelas Profesionales" + link */
+/* ===== HEADER CON TÍTULO Y BOTÓN ===== */
 .pregrado-grid-header {
   display: flex;
   justify-content: space-between;
@@ -653,47 +678,44 @@ main {
   color: var(--azul-oscuro);
 }
 
-/* Botón "Ver más" solo dentro de pregrado */
+/* ===== BOTÓN VER MÁS ===== */
+/* Propiedades base de primera parte + hover optimizado de segunda parte */
 .pregrado-section .ver-mas-link {
   display: inline-flex;
+  margin-top: 15px;
   align-items: center;
   justify-content: center;
-  padding: 0.45rem 1.2rem;
+  padding: 10px 18px;
   border-radius: 999px;
-  border: 1px solid var(--dorado);
+  border: 2px solid transparent;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--azul-oscuro);
   text-decoration: none;
   background: var(--dorado);
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.2s ease;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
+/* Hover optimizado - última definición de segunda parte */
 .pregrado-section .ver-mas-link:hover {
-  background: linear-gradient(
-    135deg,
-    var(--dorado),
-    var(--guinda)
-  );
-  color: #111;
-  border-color: var(--guinda);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-  transform: translateY(-1px);
+  background: #dabe63;          /* Dorado claro */
+  color: #111;                  /* Texto oscuro */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px) scale(1.05);
+  border-color: rgba(207, 169, 53, 0.3);
+  animation: pulse-dorado 1.5s infinite;
 }
 
-/* GRID de tarjetas */
+/* ===== GRID DE TARJETAS ===== */
 .pregrado-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 2.8rem;
 }
 
-/* Tarjeta en bloque degradé */
+/* ===== TARJETAS ===== */
+/* Merge: background con valor optimizado de segunda parte */
 .pregrado-card {
   position: relative;
   display: flex;
@@ -704,7 +726,7 @@ main {
   background: linear-gradient(
     135deg,
     var(--azul-oscuro) 0%,
-    #0c2344 45%,
+    #0c2344 40%,           /* ← Valor de segunda parte (más azul) */
     #16325a 100%
   );
   background-size: 180% 180%;
@@ -712,23 +734,20 @@ main {
   overflow: hidden;
   text-decoration: none;
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    background-position 0.25s ease;
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease,
+              border-color 0.25s ease,
+              background-position 0.25s ease;
 }
 
-/* Brillo suave global */
+/* ===== EFECTO BRILLO DE FONDO ===== */
 .pregrado-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at top left,
+  background: radial-gradient(circle at top left,
       rgba(255, 255, 255, 0.16),
-      transparent 60%)
-    ,
+      transparent 60%),
     radial-gradient(circle at bottom right,
       rgba(122, 0, 38, 0.25),
       transparent 65%);
@@ -736,7 +755,7 @@ main {
   pointer-events: none;
 }
 
-/* Imagen como marca de agua grande */
+/* ===== IMAGEN COMO MARCA DE AGUA ===== */
 .pregrado-card-media {
   position: absolute;
   inset: 0;
@@ -758,14 +777,15 @@ main {
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* Cuerpo de la tarjeta */
+/* ===== CONTENIDO DE LA TARJETA ===== */
 .pregrado-card-body {
   position: relative;
   z-index: 1;
   padding: 2rem 2.1rem 2.4rem;
 }
 
-/* Línea decorativa dorado → guinda */
+/* ===== LÍNEA DECORATIVA DORADA ===== */
+/* Merge: degradado optimizado de segunda parte */
 .pregrado-card-body::before {
   content: "";
   position: absolute;
@@ -777,14 +797,14 @@ main {
   background: linear-gradient(
     90deg,
     var(--dorado),
-    var(--guinda)
+    transparent  /* ← Valor de segunda parte (se desvanece) */
   );
 }
 
+/* ===== TEXTO DE LA TARJETA ===== */
 .pregrado-card-title {
   font-weight: 700;
-  /* color: #f9fafb; */
-  color: var(--dorado);
+  color: var(--dorado);     /* ← Valor directo de segunda parte */
   margin-bottom: 0.5rem;
   padding-top: 0.6rem;
   font-size: 1.5rem;
@@ -797,21 +817,19 @@ main {
   font-size: 1.1rem;
 }
 
-/* Transiciones suaves para texto */
+/* ===== TRANSICIONES DEL TEXTO ===== */
 .pregrado-card-title,
 .pregrado-card-text {
-  transition:
-    color 0.25s ease,
-    text-shadow 0.25s ease,
-    transform 0.25s ease;
+  transition: color 0.25s ease,
+              text-shadow 0.25s ease,
+              transform 0.25s ease;
 }
 
-/* Hover: brillo en título y texto */
+/* ===== EFECTOS HOVER ===== */
 .pregrado-card:hover .pregrado-card-title {
   color: var(--dorado);
-  text-shadow:
-    0 0 6px rgba(207, 169, 53, 0.7),
-    0 0 18px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0 6px rgba(207, 169, 53, 0.7),
+               0 0 18px rgba(0, 0, 0, 0.6);
   transform: translateY(-1px);
 }
 
@@ -820,7 +838,6 @@ main {
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
-/* Hover: levantado + glow */
 .pregrado-card:hover {
   border-color: rgba(207, 169, 53, 0.8);
   background-position: 100% 0%;
@@ -838,7 +855,7 @@ main {
   outline-offset: 3px;
 }
 
-/* Móvil */
+/* ===== RESPONSIVE MÓVIL ===== */
 @media (max-width: 768px) {
   .section-pregrado-title {
     font-size: 1.7rem;
@@ -880,6 +897,127 @@ main {
     opacity: 0.3;
   }
 }
+
+/* ===========================
+   MODO OSCURO - PREGRADO
+   =========================== */
+
+body.modo-oscuro .pregrado-section {
+  background-color: #05070c;
+}
+
+body.modo-oscuro .section-pregrado-title,
+body.modo-oscuro .pregrado-grid-title {
+  color: #f0f0f0;
+}
+
+body.modo-oscuro .section-pregrado-description {
+  color: #cfcfcf;
+}
+
+/* Botón Ver más modo oscuro */
+body.modo-oscuro .pregrado-section .ver-mas-link {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--dorado);
+}
+
+body.modo-oscuro .pregrado-section .ver-mas-link:hover {
+  background-color: var(--dorado);
+  color: #111;
+}
+
+/* Glassmorfismo modo oscuro */
+body.modo-oscuro .pregrado-card {
+  background: linear-gradient(
+    135deg,
+    rgba(40, 55, 85, 0.9),
+    rgba(22, 32, 56, 0.8)
+  );
+  border-color: rgba(207, 169, 53, 0.75);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #e6e6e6;
+}
+
+/* Glow interno modo oscuro */
+body.modo-oscuro .pregrado-card::before {
+  background: radial-gradient(
+    circle at top left,
+    rgba(255, 255, 255, 0.22),
+    transparent 60%
+  );
+  opacity: 0.35;
+}
+
+/* Imagen modo oscuro */
+body.modo-oscuro .pregrado-card-media {
+  opacity: 0.28;
+}
+
+body.modo-oscuro .pregrado-card-media img {
+  opacity: 0.23;
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.9));
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Línea dorada modo oscuro */
+body.modo-oscuro .pregrado-card-body::before {
+  background: linear-gradient(
+    90deg,
+    var(--dorado),
+    transparent
+  );
+}
+
+/* Tipografía optimizada modo oscuro */
+body.modo-oscuro .pregrado-card-title {
+  color: #e8e8e8;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6),
+               0 0 10px rgba(0, 0, 0, 0.35);
+}
+
+body.modo-oscuro .pregrado-card-text {
+  color: #c7c7c7;
+  text-shadow: none;
+}
+
+/* Hover modo oscuro */
+body.modo-oscuro .pregrado-card:hover .pregrado-card-title {
+  color: var(--dorado);
+  text-shadow: 0 0 8px rgba(207, 169, 53, 0.55),
+               0 0 16px rgba(0, 0, 0, 0.7);
+}
+
+body.modo-oscuro .pregrado-card:hover .pregrado-card-text {
+  color: #ececec;
+}
+
+body.modo-oscuro .pregrado-card:hover {
+  border-color: rgb(255, 255, 255);
+  background-position: 100% 0%;
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
+}
+
+body.modo-oscuro .pregrado-card:hover .pregrado-card-media img {
+  opacity: 0.33;
+  transform: translateY(-4px) scale(1.04);
+}
+
+body.modo-oscuro .pregrado-card:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 3px;
+}
+
+
+
+
+
+
 
 
 
@@ -934,10 +1072,12 @@ main {
 
 
 
-/* NOTICIAS CARRUSEL */
-/* ===========================
-   SECCIÓN NOTICIAS
-   =========================== */
+/* NOTICIAS CARRUSEL - ESTILOS CORREGIDOS */
+/* ===============================================================
+   SECCIÓN NOTICIAS - CORRECCIONES PARA TRANSFORMACIONES 3D
+   =============================================================== */
+
+/* ================== ESTILOS GENERALES ================== */
 .noticias-section {
   padding: 70px 0;
   background: linear-gradient(to bottom, #f5f5f5 0%, rgba(78, 78, 78, 0.8));
@@ -976,14 +1116,10 @@ main {
   overflow: hidden;
   background: linear-gradient(
     135deg,
-    /* #1b375a 0%, */
-    /* #7aa0ce 0%, 
-    #16325a 70%,
-    #0c2344 80% */
-  #12294d 0%,
-  #1e3a65 50%, 
-  #20426f 75%,
-  #0e1e3c 100%
+    #12294d 0%,
+    #1e3a65 50%, 
+    #20426f 75%,
+    #0e1e3c 100%
   );
   border-radius: 1.8rem 1.8rem 0 0;
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
@@ -1045,19 +1181,19 @@ main {
   padding: 8px 18px;
   font-weight: 600;
   border-radius: 999px;
-  transition:
-    background 0.3s ease,
-    transform 0.2s ease,
-    box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-vermasN:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
-  background: #dabe63;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  background: #e0b93f;
+  color: #0c2344;
+  transform: translateY(-3px) scale(1.05);
+  border-color: rgba(207, 169, 53, 0.3);  
+  animation: pulse-dorado 1.5s infinite;
 }
 
-/* Flechas */
+/* Flechas del carrusel */
 .prev2,
 .next2 {
   position: absolute;
@@ -1073,14 +1209,15 @@ main {
   height: 48px;
   width: 48px;
   transform: translateY(-50%);
-  transition: background 0.25s ease, transform 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .prev2:hover,
 .next2:hover {
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translateY(-50%) translateY(-1px);
-  color: var(--dorado); 
+  transform: translateY(-50%) translateY(-3px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  color: #e0b93f;
 }
 
 .prev2 {
@@ -1091,7 +1228,7 @@ main {
   right: 12px;
 }
 
-/* Dots */
+/* Dots de navegación */
 .dots2 {
   text-align: center;
   margin: 14px 0 0;
@@ -1106,74 +1243,103 @@ main {
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
 }
 
 .dot2.active {
   background-color: var(--dorado);
+  transform: scale(1.2);
 }
 
-/* ===== Últimas noticias (cards estáticas) ===== */
+.dot2:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+
+/* ================== ÚLTIMAS NOTICIAS (CARDS) ================== */
 .ultimas-noticias {
-  padding: 20px 20px 24px;
+  padding: 15px 10px 20px;
   background-color: #504e4eb9;
   text-align: center;
   border-radius: 0 0 1.1rem 1.1rem;
   box-shadow: 0 16px 32px rgba(15, 23, 42, 0.20);
   border-top: 4px solid var(--dorado);
   margin-top: 0;
+  
+  /* CORRECCIÓN: Añadir perspective para transformaciones 3D */
+  perspective: 1200px;
+  overflow: visible;
 }
 
 .ultimas-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  width: 100%;
+  gap: 15px; /* Espacio entre tarjetas */
+}
+
+/* CORRECCIÓN: Envolvente para las cards para mejor control 3D */
+.noticia-card-wrapper {
+  width: calc(31% - 10px);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  /* display: block; */
+  overflow: visible;
+  /* max-width: 360px; */
+  min-width: 280px;
 }
 
 .noticia-card {
-  width: 30%;
-  /* background-color: #2e2e2e; */
-  /* background-color: #1b2942; */
+  width: 100%;
+  display:block;
   background: linear-gradient(
-  180deg,
-  #31476e 0%,   /* un azul medio con brillo inicial */
-  #243657 55%,  /* tono intermedio sólido */
-  #192b45 100% 
-);
+    180deg,
+    #31476e 0%,   /* un azul medio con brillo inicial */
+    #243657 55%,  /* tono intermedio sólido */
+    #192b45 100% 
+  );
   border-radius: 12px;
   overflow: hidden;
-  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10); */
   text-align: left;
   border-top: 3px solid #caa731;
-  /* border-radius: 10px; */
   box-shadow: inset 0 0 60px rgba(255,255,255,0.05);
-  transition:
-    transform 0.25s ease,
-    /* box-shadow 0.25s ease; */
-  /* border: 1px solid rgba(0, 0, 0, 0.03); */
+  height: auto; /* Altura automática basada en contenido */
+  transition: all 0.5s ease; /* Transición suave */
+  
+  /* CORRECCIÓN: Configuración para 3D */
+  transform-style: preserve-3d;
+  transform-origin: center;
+  will-change: transform;
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
-.ultimas-container .noticia-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.18);
+/* CORRECCIÓN: Hover mejorado con transformación 3D */
+.noticia-card-wrapper:hover .noticia-card {
+  transform: rotateY(-15deg) translateY(-8px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 25px rgba(255, 255, 255, 0.1);
+}
+
+.noticia-card:hover {
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 .noticia-card img {
   width: 100%;
-  height: 230px;
+  height: 260px;
   object-fit: cover;
   aspect-ratio: 16/9;
 }
 
 .noticia-card h3 {
-  font-size: 18px;
-  padding: 10px 15px 0;
-  /* color: var(--azul-oscuro); */
-  color:#ffffff;
+  font-size: 19px;
+  padding: 12px 18px 8px;
+  color: #ffffff;
   text-align: center;
-  min-height: 80px;
+  min-height: 85px;
 }
 
 .noticia-card .fecha {
@@ -1185,34 +1351,46 @@ main {
   margin-top: 5px;
 }
 
-/* Botón "Ver todas" */
+/* ================== BOTÓN "VER TODAS LAS NOTICIAS" ================== */
 .ver-todas {
   margin: 18px 0 4px;
 }
 
 .btn-vermas {
+  display: inline-block;
   padding: 10px 22px;
-  /* background: var(--azul-oscuro); */
-  background-color: var(--dorado);
+  background: var(--dorado);
   color: #0c2344;
-  /* color: white; */
   text-decoration: none;
   font-weight: 600;
   border-radius: 999px;
-  transition:
-    background 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.2s ease;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-vermas:hover {
-  background: #dabe63;  
-  color: #111;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-  transform: translateY(-2px);
+  background: #e0b93f;
+  color: #0c2344;
+  box-shadow: 
+    0 0 20px rgba(207, 169, 53, 0.5),
+    0 8px 25px rgba(207, 169, 53, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  border-color: rgba(207, 169, 53, 0.3);
 }
 
-/* ===== Responsivo Noticias ===== */
+.btn-vermas:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+
+
+.btn-vermas:hover {
+  animation: pulse-dorado 1.5s infinite;
+}
+
+/* ================== RESPONSIVE ================== */
 @media (max-width: 992px) {
   .noticia {
     flex-direction: column;
@@ -1230,6 +1408,14 @@ main {
 
   .noticia-card {
     width: 45%;
+  }
+
+  .noticia-card-wrapper {
+    width: calc(48% - 8px); /* 2 columnas en tablets */
+  }
+
+  .noticia-card img {
+    height: 220px;
   }
 }
 
@@ -1257,6 +1443,15 @@ main {
     width: 100%;
   }
 
+  .noticia-card-wrapper {
+    width: 100%; /* 1 columna en móvil */
+  }
+
+  /* En móvil, deshabilitar 3D por rendimiento */
+  .noticia-card-wrapper:hover .noticia-card {
+    transform: translateY(-8px);
+  }
+
   .prev2,
   .next2 {
     height: 42px;
@@ -1265,13 +1460,481 @@ main {
   }
 }
 
+/* ================== MODO OSCURO ================== */
+body.modo-oscuro .noticias-section {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 25, 0) 0%,
+    rgba(14, 20, 35, 0.85) 10%,
+    #0e1423 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+body.modo-oscuro .noticias-section .section-title,
+body.modo-oscuro .noticias-section .section-description {
+  color: #e6e6e6;
+}
+
+body.modo-oscuro .noticias-carousel {
+  background: linear-gradient(
+    135deg,
+    #081224 0%,
+    #0e1d36 50%,
+    #12294d 100%
+  );
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(207, 169, 53, 0.35);
+}
+
+body.modo-oscuro .contenido-noticia h3,
+body.modo-oscuro .contenido-noticia p {
+  color: #e9edf5;
+}
+
+body.modo-oscuro .ultimas-noticias {
+  background: linear-gradient(
+    180deg,
+    #182132 0%,
+    #101621 60%,
+    #0b0f19 100%
+  );
+  border: 1px solid rgba(207, 169, 53, 0.3);
+  box-shadow: inset 0 40px 60px rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+body.modo-oscuro .noticia-card {
+  background: linear-gradient(135deg, #212b3e 0%, #1a2335 100%);
+  border-top: 2px solid rgba(207, 169, 53, 0.55);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
+}
+
+body.modo-oscuro .noticia-card-wrapper:hover .noticia-card {
+  transform: rotateY(-12deg) translateY(-6px);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.8),
+    inset 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+body.modo-oscuro .noticia-card h3 {
+  color: #f2f4f7;
+}
+
+body.modo-oscuro .noticia-card .fecha {
+  background: var(--dorado);
+  color: #0e1423;
+  font-weight: 600;
+  border-radius: 0 0 10px 10px;
+}
+
+body.modo-oscuro .prev2,
+body.modo-oscuro .next2 {
+  background-color: rgba(25, 25, 25, 0.8);
+  color: #fff;
+}
+
+body.modo-oscuro .prev2:hover,
+body.modo-oscuro .next2:hover {
+  background-color: rgba(40, 40, 40, 0.9);
+}
+
+body.modo-oscuro .btn-vermas,
+body.modo-oscuro .btn-vermasN {
+  background-color: var(--dorado);
+  color: #0c2344;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+body.modo-oscuro .btn-vermas:hover,
+body.modo-oscuro .btn-vermasN:hover {
+  background-color: #e0b93f;
+  box-shadow: 
+    0 0 15px rgba(224, 185, 63, 0.6),
+    0 8px 25px rgba(224, 185, 63, 0.4);
+  transform: translateY(-2px) scale(1.05);
+}
+
+
+
+
+
 
 
 
 
 
 /* SECCIÓN COMUNICADOS */
+/* ===========================
+   SECCIÓN COMUNICADOS - MERGE INTELIGENTE
+   Conserva estilos actuales + Agrega modo oscuro + Responsive + Efectos mejorados
+   =========================== */
+
+/* ===== SECCIÓN PRINCIPAL (PRESERVADO Y MEJORADO) ===== */
 .comunicados-section {
+  background-image: url('../img/index/comunicados/fondo-comunicados.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 20px;
+  position: relative;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  box-shadow: 3px 3px 4px rgba(26, 25, 25, 0.6);
+  transition: all 0.3s ease;
+}
+
+.comunicados-section .overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px 20px;
+  border-radius: 15px;
+  max-width: 800px;
+  margin: auto;
+  transition: all 0.3s ease;
+}
+
+.comunicados-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--dorado);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.comunicados-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* ===== ESTADO DE COMUNICADOS (PRESERVADO) ===== */
+.comunicados-estado {
+  /* margin: 1rem 0; */
+  /* padding: 12px; */
+  /* border-radius: 6px; */
+  font-weight: 500;
+  /* transition: all 0.3s ease; */
+  position: relative;
+  overflow: hidden;
+  background: rgba(55, 65, 81, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(207, 169, 53, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin: 15px 0;
+    transition: all 0.25s ease;
+}
+
+.comunicados-estado::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  
+}
+
+.comunicados-estado:hover::before {
+  left: 100%;
+}
+
+.comunicados-estado.alerta {
+  background: transparent;
+  border: 1px solid rgba(207, 169, 53, 0.2);
+  /* color: #856404; */
+  color: var(--blanco-matizado);
+  border-left: 4px solid #ffc107;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  animation: saltoSuave 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.comunicados-estado.alerta:hover {
+    animation-play-state: paused;
+    transform: translateY(-1px);
+    background: rgba(55, 65, 81, 0.25);
+    border-color: rgba(207, 169, 53, 0.6);
+    box-shadow: 0 4px 16px rgba(207, 169, 53, 0.1);
+}
+
+/* Gradiente animado en el fondo */
+.comunicados-estado.alerta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(207, 169, 53, 0.1), transparent);
+    pointer-events: none;
+    opacity: 0.5;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Shimmer effect para llamar más la atención */
+@keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+.comunicados-estado.vacio {
+  background: transparent;
+  border: 1px solid rgba(207, 169, 53, 0.2);
+  font-style: italic;
+  background-color: rgba(108, 117, 125, 0.1);
+  border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+.comunicados-estado.vacio:hover {
+  transform: translateY(-1px);     /* Solo 1 pixel */
+  background: rgba(55, 65, 81, 0.25);  /* Slightly más opaco */
+  border-color: rgba(207, 169, 53, 0.6);  /* Borde más visible */
+  box-shadow: 0 4px 16px rgba(207, 169, 53, 0.1);  /* Sombra dorada sutil */
+}
+
+/* ===== ENLACES DE COMUNICADOS (PRESERVADO Y MEJORADO) ===== */
+.link-comunicado {
+  /* color: #856404; */
+  color: #856404;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.link-comunicado:hover {
+  color: #664d03;
+  transform: translateY(-1px);
+}
+
+/* ===== BOTÓN VER TODOS LOS COMUNICADOS (MEJORADO) ===== */
+.btn-comunicados {
+  background: linear-gradient(135deg, var(--dorado) 0%, #e0b93f 100%);
+  color: #000;
+  font-weight: bold;
+  padding: 14px 30px;
+  margin-top: 25px;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(207, 169, 53, 0.3);
+  border: 2px solid var(--dorado);
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* Efecto de brillo que se desliza */
+.btn-comunicados::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-comunicados:hover {
+  background: linear-gradient(135deg, #e0b93f 0%, #dabe63 100%);
+  color: #000;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(207, 169, 53, 0.5);
+  border-color: #dabe63;
+}
+
+.btn-comunicados:hover::before {
+  left: 100%;
+}
+
+/* ===== EFECTO LATIDO DE CORAZÓN (AGREGADO) ===== */
+@keyframes pulse-dorado {
+  0% { box-shadow: 0 0 0 0 rgba(207, 169, 53, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(207, 169, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(207, 169, 53, 0); }
+}
+
+.btn-comunicados:hover {
+  animation: pulse-dorado 1.5s infinite;
+}
+
+.alerta.salto-automatico {
+    animation: saltoSuave 2s ease-in-out infinite;
+}
+
+
+/* ===== MODO OSCURO - COMUNICADOS (AGREGADO) ===== */
+body.modo-oscuro .comunicados-section {
+  background-image: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 100%);
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.8);
+}
+
+body.modo-oscuro .comunicados-section .overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+body.modo-oscuro .comunicados-section h2 {
+  color: var(--dorado);
+  text-shadow: 0 0 10px rgba(207, 169, 53, 0.5);
+}
+
+body.modo-oscuro .comunicados-section p {
+  color: #e0e0e0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Estado de comunicados en modo oscuro - MÁS SUTIL */
+body.modo-oscuro .comunicados-estado {
+  background-color: rgba(44, 44, 44, 0.9);
+  color: #e0e0e0;
+  border: 1px solid #4a4a4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.modo-oscuro .comunicados-estado.alerta {
+  background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%);
+  color: #f0f0f0;
+  border: 2px solid #4a4a4a;
+  border-left: 4px solid var(--dorado);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.modo-oscuro .comunicados-estado.alerta:hover {
+  background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+body.modo-oscuro .comunicados-estado.vacio {
+  color: #a0a0a0;
+  background-color: rgba(44, 44, 44, 0.5);
+  border: 1px solid #4a4a4a;
+}
+
+body.modo-oscuro .comunicados-estado.vacio:hover {
+  background-color: rgba(44, 44, 44, 0.7);
+}
+
+/* Enlaces en modo oscuro */
+body.modo-oscuro .link-comunicado {
+  color: var(--dorado);
+  text-decoration: underline;
+}
+
+body.modo-oscuro .link-comunicado:hover {
+  color: #dabe63;
+}
+
+/* Botón en modo oscuro */
+body.modo-oscuro .btn-comunicados {
+  background: linear-gradient(135deg, var(--dorado) 0%, #e0b93f 100%);
+  color: #000;
+  border-color: var(--dorado);
+}
+
+body.modo-oscuro .btn-comunicados:hover {
+  background: linear-gradient(135deg, #e0b93f 0%, #dabe63 100%);
+  color: #000;
+  box-shadow: 0 0 15px rgba(207, 169, 53, 0.6);
+}
+
+/* ===== MODO OSCURO ALERTA COMUNICADOS ===== */
+body.modo-oscuro .comunicados-estado.alerta {
+    background: rgba(30, 58, 90, 0.2);
+    border-color: rgba(207, 169, 53, 0.4);
+}
+
+body.modo-oscuro .comunicados-estado.alerta::before {
+    background: linear-gradient(135deg, rgba(207, 169, 53, 0.15), transparent);
+}
+
+/* ===== RESPONSIVE MÓVIL (AGREGADO) ===== */
+@media (max-width: 768px) {
+  .comunicados-section {
+    padding: 60px 15px;
+  }
+  
+  .comunicados-section .overlay {
+    padding: 25px 15px;
+    margin: 0 10px;
+  }
+  
+  .comunicados-section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .comunicados-section p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .comunicados-estado {
+    margin: 0.8rem 0;
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+  
+  .btn-comunicados {
+    padding: 12px 25px;
+    margin-top: 20px;
+    font-size: 0.95rem;
+  }
+  
+  .btn-comunicados:hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+
+@media (max-width: 480px) {
+  .comunicados-section {
+    padding: 50px 10px;
+  }
+  
+  .comunicados-section .overlay {
+    padding: 20px 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+  }
+  
+  .comunicados-section h2 {
+    font-size: 1.7rem;
+  }
+  
+  .comunicados-section p {
+    font-size: 1rem;
+  }
+  
+  .comunicados-estado {
+    padding: 8px;
+    margin: 0.6rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .btn-comunicados {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* .comunicados-section {
   background-image: url('../img/index/comunicados/fondo-comunicados.jpg');
   background-size: cover;
   background-position: center;
@@ -1348,6 +2011,34 @@ main {
 
 
 
+
+📱 Móvil (768px y menos) 
+@media (max-width: 768px) {
+  .comunicados-section { padding: 60px 15px; }
+  .comunicados-section h2 { font-size: 2rem; }
+  .btn-comunicados { padding: 12px 25px; }
+}
+📱 Móvil pequeño (480px y menos) 
+@media (max-width: 480px) {
+  .comunicados-section { padding: 50px 10px; }
+  .comunicados-section h2 { font-size: 1.7rem; }
+}
+
+
+
+
+
+body.modo-oscuro .comunicados-estado.alerta {
+  background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%);
+  color: #f0f0f0;
+  border: 2px solid #4a4a4a;
+  Ahora se ve elegante en modo oscuro 
+} */
+
+
+
+
+
 /* SECCIÓN POSGRADO */
 
 /* SECCIÓN POSGRADO GENERAL */
@@ -1407,14 +2098,23 @@ main {
 }
 
 .posgrado-section .ver-mas-link {
-  font-weight: 600;
+  /* font-weight: 600;
   font-size: 0.95rem;
-  /* Usamos solo color para matizar, dejamos el pill global */
-  color: var(--dorado);
+  Usamos solo color para matizar, dejamos el pill global 
+  color: var(--dorado); */
+  background: #e0b93f;
+  color: #0c2344;
+  box-shadow: 
+    0 0 20px rgba(207, 169, 53, 0.5),
+    0 8px 25px rgba(207, 169, 53, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  border-color: rgba(207, 169, 53, 0.3);
 }
 
 .posgrado-section .ver-mas-link:hover {
   color: #111;
+  /* background: #e0b93f; */
+  animation: pulse-dorado 1.5s infinite;
 }
 
 .posgrado-wrapper {
@@ -2410,130 +3110,7 @@ body.modo-oscuro .card-box {
 }
 
 
-/*MODO OSCURO PREGRADO*/
-/* ============================================================
-   MODO OSCURO – SECCIÓN PREGRADO (GLASS + TIPOGRAFÍA REFINADA)
-   ============================================================ */
 
-body.modo-oscuro .pregrado-section {
-  background-color: #05070c; /* dark profundo */
-}
-
-/* Títulos de sección */
-body.modo-oscuro .section-pregrado-title,
-body.modo-oscuro .pregrado-grid-title {
-  color: #f0f0f0;
-}
-
-body.modo-oscuro .section-pregrado-description {
-  color: #cfcfcf;
-}
-
-/* Link Ver más */
-body.modo-oscuro .ver-mas-link {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--dorado);
-}
-
-body.modo-oscuro .ver-mas-link:hover {
-  background-color: var(--dorado);
-  color: #111;
-}
-
-/* === CARD GLASSMORFISMO === */
-body.modo-oscuro .pregrado-card {
-  background: linear-gradient(
-    135deg,
-    rgba(40, 55, 85, 0.9),
-    rgba(22, 32, 56, 0.8)
-  );
-  /* border-color: rgba(255, 255, 255, 0.16); */
-  border-color: rgba(207, 169, 53, 0.75);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  color: #e6e6e6;
-}
-
-/* Glow interno suave del glass */
-body.modo-oscuro .pregrado-card::before {
-  background: radial-gradient(
-    circle at top left,
-    rgba(255, 255, 255, 0.22),
-    transparent 60%
-  );
-  opacity: 0.35;
-}
-
-/* Imagen tenue en modo oscuro */
-body.modo-oscuro .pregrado-card-media {
-  opacity: 0.28;
-}
-
-body.modo-oscuro .pregrado-card-media img {
-  opacity: 0.23;
-  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.9));
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-/* Línea dorada decorativa */
-body.modo-oscuro .pregrado-card-body::before {
-  background: linear-gradient(
-    90deg,
-    var(--dorado),
-    transparent
-  );
-}
-
-/* === TIPOGRAFÍA OPTIMIZADA === */
-body.modo-oscuro .pregrado-card-title {
-  color: #e8e8e8; /* antes blanco duro */
-  text-shadow:
-    0 0 4px rgba(0, 0, 0, 0.6),
-    0 0 10px rgba(0, 0, 0, 0.35);
-}
-
-body.modo-oscuro .pregrado-card-text {
-  color: #c7c7c7; /* gris suave */
-  text-shadow: none;
-}
-
-/* Hover del título */
-body.modo-oscuro .pregrado-card:hover .pregrado-card-title {
-  color: var(--dorado);
-  text-shadow:
-    0 0 8px rgba(207, 169, 53, 0.55),
-    0 0 16px rgba(0, 0, 0, 0.7);
-}
-
-/* Hover del texto */
-body.modo-oscuro .pregrado-card:hover .pregrado-card-text {
-  color: #ececec;
- 
-}
-
-/* === HOVER CARD GLASS === */
-body.modo-oscuro .pregrado-card:hover {
-  border-color: rgb(255, 255, 255);
-  /* border-color: rgba(207, 169, 53, 0.75); */
-  background-position: 100% 0%;
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
-}
-
-body.modo-oscuro .pregrado-card:hover .pregrado-card-media img {
-  opacity: 0.33;
-  transform: translateY(-4px) scale(1.04);
-}
-
-/* Foco accesible */
-body.modo-oscuro .pregrado-card:focus-visible {
-  outline: 2px solid var(--dorado);
-  outline-offset: 3px;
-}
 
 
 
@@ -2573,154 +3150,10 @@ body.modo-oscuro .social-btn {
 
 
 /*POSGRADO Y DEMÁS*/
-/* === MODO OSCURO - EXTENSIONES === */
-
-/* Menú Hamburguesa en Modo Oscuro */
-body.modo-oscuro .nav__list {
-  background-color: #111; /* Fondo oscuro para el menú desplegado */
-}
-
-body.modo-oscuro .nav__list li a {
-  color: white; /* Letras blancas por defecto */
-}
-
-body.modo-oscuro .nav__list li a:hover {
-  color: var(--dorado); /* Letras doradas al hacer hover */
-}
 
 
-/* ===== MODO OSCURO - NOTICIAS ===== */
 
-body.modo-oscuro .noticias-section {
-  /* Degradado con esfumado superior para fundirse con la sección anterior */
-  background: linear-gradient(
-    180deg,
-    rgba(10, 15, 25, 0) 0%,      /* inicio transparente */
-    rgba(14, 20, 35, 0.85) 10%,  /* transición suave */
-    #0e1423 100%                 /* fondo principal oscuro */
-  );
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
 
-body.modo-oscuro .noticias-section .section-title,
-body.modo-oscuro .noticias-section .section-description {
-  color: #e6e6e6;
-}
-
-/* Bloque principal del carrusel */
-body.modo-oscuro .noticias-carousel {
-  background: linear-gradient(
-    135deg,
-    #081224 0%,
-    #0e1d36 50%,
-    #12294d 100%
-  );
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
-  border-top: 1px solid rgba(207, 169, 53, 0.35); /* línea dorada sutil */
-}
-
-/* Texto dentro del carrusel */
-body.modo-oscuro .contenido-noticia h3,
-body.modo-oscuro .contenido-noticia p {
-  color: #e9edf5;
-}
-
-/* Contenedor de cards inferiores */
-body.modo-oscuro .ultimas-noticias {
-  background: linear-gradient(
-    180deg,
-    #182132 0%,   /* azul grisáceo un poco más claro para dar volumen */
-    #101621 60%,  /* transición suave */
-    #0b0f19 100%  /* mantiene coherencia con el fondo general */
-  );
-  border: 1px solid rgba(207, 169, 53, 0.3);
-  box-shadow: inset 0 40px 60px rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 20px;
-
-  /* NECESARIO para que el giro 3D funcione */
-  perspective: 1200px;
-  overflow: visible;
-}
-
-/* Cards individuales */
-body.modo-oscuro .noticia-card {
-  background: linear-gradient(135deg, #212b3e 0%, #1a2335 100%);
-  border-top: 2px solid rgba(207, 169, 53, 0.55);
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
-
-  /* Configuración 3D */
-  transform: rotateY(0deg);
-  transform-style: preserve-3d; 
-  transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
-  transform-origin: center left;
-  will-change: transform;
-}
-
-body.modo-oscuro .noticia-card:hover {
-  transform: rotateY(-10deg) translateY(-6px);
-  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.9),
-              inset 0 0 25px rgba(255, 255, 255, 0.05);
-}
-
-/* Contenedor 3D limpio solo para las tarjetas en modo oscuro */
-body.modo-oscuro .noticia-card-wrapper {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  overflow: visible;
-  display: inline-block;
-}
-
-/* Títulos */
-body.modo-oscuro .noticia-card h3 {
-  color: #f2f4f7;
-}
-
-/* Fecha de publicación (línea dorada limpia, sin guinda) */
-body.modo-oscuro .noticia-card .fecha {
-  background: var(--dorado);
-  color: #0e1423;
-  font-weight: 600;
-  border-radius: 0 0 10px 10px;
-}
-
-/* Botones del carrusel */
-body.modo-oscuro .prev2,
-body.modo-oscuro .next2 {
-  background-color: rgba(25, 25, 25, 0.8);
-  color: #fff;
-}
-
-body.modo-oscuro .prev2:hover,
-body.modo-oscuro .next2:hover {
-  background-color: rgba(40, 40, 40, 0.9);
-}
-
-/* Botón inferior (Ver todas las noticias) */
-body.modo-oscuro .btn-vermas,
-body.modo-oscuro .btn-vermasN {
-  background-color: var(--dorado);
-  color: #0c2344;
-  border-radius: 25px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-body.modo-oscuro .btn-vermas:hover,
-body.modo-oscuro .btn-vermasN:hover {
-  background-color: #e0b93f;
-  box-shadow: 0 0 10px rgba(224, 185, 63, 0.4);
-  transform: translateY(-2px);
-}
-
-/* Hover con giro hacia la izquierda */
-body.modo-oscuro .noticia-card-wrapper:hover .noticia-card {
-  transform: rotateY(-12deg) translateY(-5px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85),
-              inset 0 0 25px rgba(255, 255, 255, 0.05);
-}
 
 
 
@@ -2747,7 +3180,7 @@ body.modo-oscuro .posgrado-header h2 {
   color: white; /* Títulos de posgrado en blanco */
 }
 
-body.modo-oscuro .ver-mas-link {
+body.modo-oscuro .posgrado-section .ver-mas-link {
   color: var(--dorado); /* Enlace "Ver más" en dorado */
 }
 
@@ -2756,10 +3189,7 @@ body.modo-oscuro .posgrado-section p {
   color: white; /* Títulos y párrafos de la sección en blanco */
 }
 
-/* Ajustes específicos para el contenido del carrusel de noticias en modo oscuro */
-/* body.modo-oscuro .noticia {
-  background-color: transparent; 
-} */
+
 
 
 
@@ -3078,284 +3508,7 @@ body.modo-oscuro .enlace-icono {
   color: var(--dorado);
 }
 
-/* ===========================
-   SECCIÓN PREGRADO
-   =========================== */
-.pregrado-section {
-  padding: 70px 0;
-  background-color: var(--blanco-matizado);
-}
 
-.container-pregrado {
-  width: min(1600px, 98vw);
-  margin: 0 auto;
-}
-
-/* Título principal de sección */
-.content-pregrado-title {
-  text-align: left;
-  margin-bottom: 1.25rem;
-}
-
-.section-pregrado-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--azul-oscuro);
-  margin-bottom: 0.4rem;
-}
-
-.section-pregrado-description {
-  font-size: 0.95rem;
-  color: #555;
-  max-width: 520px;
-}
-
-/* Header "Escuelas Profesionales" + link */
-.pregrado-grid-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  margin-top: 0.75rem;
-}
-
-.pregrado-grid-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--azul-oscuro);
-}
-
-/* Botón "Ver más" solo dentro de pregrado */
-.pregrado-section .ver-mas-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.45rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid var(--dorado);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--azul-oscuro);
-  text-decoration: none;
-  /* background: linear-gradient(
-    135deg,
-    rgba(207, 169, 53, 0.15),
-    rgba(122, 0, 38, 0.05)
-  ); */
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.2s ease;
-}
-
-.pregrado-section .ver-mas-link:hover {
-  background: linear-gradient(
-    135deg,
-    var(--dorado)
-    
-  );
-  color: #111;
-  border-color: var(--guinda);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-  transform: translateY(-1px);
-}
-
-/* GRID de tarjetas */
-.pregrado-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 2.8rem;
-}
-
-/* Tarjeta en bloque degradé */
-.pregrado-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 340px;
-  border-radius: 1.3rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(
-    135deg,
-    var(--azul-oscuro) 0%,
-    #0c2344 40%,
-    #16325a 100%
-  );
-  background-size: 180% 180%;
-  color: #f9fafb;
-  overflow: hidden;
-  text-decoration: none;
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    background-position 0.25s ease;
-}
-
-/* Brillo suave global */
-.pregrado-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at top left,
-      rgba(255, 255, 255, 0.16),
-      transparent 60%)
-    ,
-    radial-gradient(circle at bottom right,
-      rgba(122, 0, 38, 0.25),
-      transparent 65%);
-  opacity: 0.45;
-  pointer-events: none;
-}
-
-/* Imagen como marca de agua grande */
-.pregrado-card-media {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  pointer-events: none;
-  opacity: 0.35;
-}
-
-.pregrado-card-media img {
-  width: 95%;
-  max-width: 320px;
-  height: auto;
-  object-fit: contain;
-  margin-right: 0.6rem;
-  margin-bottom: -0.4rem;
-  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.55));
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-/* Cuerpo de la tarjeta */
-.pregrado-card-body {
-  position: relative;
-  z-index: 1;
-  padding: 2rem 2.1rem 2.4rem;
-}
-
-/* Línea decorativa dorado → guinda */
-.pregrado-card-body::before {
-  content: "";
-  position: absolute;
-  top: 1rem;
-  left: 1.7rem;
-  width: 2.7rem;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    var(--dorado),
-    transparent
-  );
-}
-
-.pregrado-card-title {
-  font-weight: 700;
-  color: var(--dorado);
-  margin-bottom: 0.5rem;
-  padding-top: 0.6rem;
-  font-size: 1.5rem;
-}
-
-.pregrado-card-text {
-  color: #e5e7eb;
-  line-height: 1.5;
-  max-width: 90%;
-  font-size: 1.1rem;
-}
-
-/* Transiciones suaves para texto */
-.pregrado-card-title,
-.pregrado-card-text {
-  transition:
-    color 0.25s ease,
-    text-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-
-/* Hover: brillo en título y texto */
-.pregrado-card:hover .pregrado-card-title {
-  color: var(--dorado);
-  text-shadow:
-    0 0 6px rgba(207, 169, 53, 0.7),
-    0 0 18px rgba(0, 0, 0, 0.6);
-  transform: translateY(-1px);
-}
-
-.pregrado-card:hover .pregrado-card-text {
-  color: #f3f4f6;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-}
-
-/* Hover: levantado + glow */
-.pregrado-card:hover {
-  border-color: rgba(207, 169, 53, 0.8);
-  background-position: 100% 0%;
-  transform: translateY(-10px) scale(1.015);
-  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.4);
-}
-
-.pregrado-card:hover .pregrado-card-media img {
-  transform: translateY(-6px) scale(1.05);
-  opacity: 0.5;
-}
-
-.pregrado-card:focus-visible {
-  outline: 2px solid var(--dorado);
-  outline-offset: 3px;
-}
-
-/* Móvil */
-@media (max-width: 768px) {
-  .section-pregrado-title {
-    font-size: 1.7rem;
-  }
-
-  .pregrado-grid-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .pregrado-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.8rem;
-  }
-
-  .pregrado-card {
-    min-height: 280px;
-    border-radius: 1rem;
-  }
-
-  .pregrado-card-body {
-    padding: 1.5rem 1.4rem 1.8rem;
-  }
-
-  .pregrado-card-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .pregrado-card-text {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-
-  .pregrado-card-media img {
-    width: 72%;
-    max-width: 210px;
-    margin-right: 0.2rem;
-    opacity: 0.3;
-  }
-}
 
 /* === MODO OSCURO - PREGRADO (GLASSMORFISMO) === */
 
@@ -3380,6 +3533,19 @@ body.modo-oscuro .enlace-icono {
     opacity: 1;
     transform: translate(-50%, -50%);
   }
+}
+
+/* Efecto de pulsación con el botón (animación sutil) */
+@keyframes pulse-dorado {
+  0% { box-shadow: 0 0 0 0 rgba(207, 169, 53, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(207, 169, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(207, 169, 53, 0); }
+}
+
+/*Efecto salto suave*/
+@keyframes saltoSuave {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
 }
 
 
@@ -3637,10 +3803,6 @@ body.modo-oscuro .enlace-icono {
     margin-bottom: 0;
   }
 
-  .ver-mas-link {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-  }
 
   .posgrado-items {
     flex-direction: column;
