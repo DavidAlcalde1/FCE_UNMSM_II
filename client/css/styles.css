@@ -1774,12 +1774,92 @@ body.modo-oscuro .btn-vermasN:hover {
 
 .alerta.salto-automatico {
     animation: saltoSuave 2s ease-in-out infinite;
+    
 }
+
+
+.comunicados-estado i.fas.fa-bell {
+    color: var(--color-acento, #cfa935);
+    text-shadow: 
+        0 0 8px rgba(207, 169, 53, 0.6),
+        0 0 16px rgba(207, 169, 53, 0.4);
+    animation: campanitaDorada 2s ease-in-out infinite;
+    font-size: 2rem;
+    width: 2.5rem ;
+    animation: campanitaVibra 1s ease-in-out infinite;
+}
+
+@keyframes campanitaDorada {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* TITILACIÓN */
+@keyframes campanitaTitila {
+    0%, 100% { 
+        opacity: 1;
+        color: #cfa935;
+        text-shadow: 
+            0 0 8px rgba(207, 169, 53, 0.6),
+            0 0 16px rgba(207, 169, 53, 0.4);
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.6;
+        color: #f0c94a;
+        text-shadow: 
+            0 0 16px rgba(240, 201, 74, 1),
+            0 0 24px rgba(240, 201, 74, 0.8);
+        transform: scale(1.02);
+    }
+}
+
+/* VIBRACIÓN HORIZONTAL  */
+@keyframes campanitaVibra {
+    0%, 100% { 
+        transform: translateX(0);
+        text-shadow: 
+            0 0 8px rgba(207, 169, 53, 0.6),
+            0 0 16px rgba(207, 169, 53, 0.4);
+    }
+    10% { 
+        transform: translateX(-6px);
+    }
+    20% { 
+        transform: translateX(6px);
+    }
+    30% { 
+        transform: translateX(-6px);
+    }
+    40% { 
+        transform: translateX(6px);
+    }
+    50% { 
+        transform: translateX(-4px);
+    }
+    60% { 
+        transform: translateX(4px);
+    }
+    70% { 
+        transform: translateX(-4px);
+    }
+    80% { 
+        transform: translateX(4px);
+    }
+    90% { 
+        transform: translateX(-2px);
+    }
+}
+
+
+
+
+
 
 
 /* ===== MODO OSCURO - COMUNICADOS (AGREGADO) ===== */
 body.modo-oscuro .comunicados-section {
-  background-image: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 100%);
+  /* background-image: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 100%); */
   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.8);
 }
 
