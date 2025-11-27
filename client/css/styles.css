@@ -657,13 +657,14 @@ body.modo-oscuro .nav__list li a:hover {
    =========================== */
 .pregrado-section {
   padding: 70px 0;
-  background: linear-gradient(135deg,
+  background: linear-gradient(180deg,
     #f8fafc 0%,
     #e2e8f0 20%,
     #cbd5e1 40%,
     #94a3b8 60%,
     #64748b 80%,
-    #64748b 100%
+    /* #64748b 100% */
+    #324053 100%   
   );
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -699,7 +700,7 @@ body.modo-oscuro .nav__list li a:hover {
 }
 
 .section-pregrado-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--azul-oscuro);
   margin-bottom: 0.4rem;
@@ -707,7 +708,7 @@ body.modo-oscuro .nav__list li a:hover {
 }
 
 .section-pregrado-description {
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   color: #475569;
   max-width: 520px;
   line-height: 1.6;
@@ -1179,7 +1180,7 @@ body.modo-oscuro .pregrado-card:focus-visible {
 
 /* Títulos y descripciones */
 .noticias-section .section-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--premium-text-light);
   text-align: left;
@@ -1189,7 +1190,7 @@ body.modo-oscuro .pregrado-card:focus-visible {
 }
 
 .noticias-section .section-description {
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   color: var(--premium-text-medium);
   text-align: left;
   margin-bottom: 1.8rem;
@@ -1346,12 +1347,14 @@ body.modo-oscuro .pregrado-card:focus-visible {
 /* ===== ÚLTIMAS NOTICIAS (CARDS) ===== */
 .ultimas-noticias {
   padding: 15px 10px 20px;
-  background: linear-gradient(
+  /* background: linear-gradient(
     135deg,
     #0f172a 0%,
     #1e293b 50%,
     #334155 100%
-  );
+  ); */
+  background: linear-gradient(0deg, #a6aab9 10%, #d0d0d0 40%, #a6aab9 70%);
+  
   text-align: center;
   border-radius: 0 0 1.1rem 1.1rem;
   box-shadow: 0 16px 32px rgba(15, 23, 42, 0.5);
@@ -2357,14 +2360,44 @@ body.modo-oscuro .comunicados-estado.alerta {
 .posgrado-section h2 {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #365D8B;  /* ← Azul oscuro del sitio */
-  text-align: center;
+  /* color: #365D8B;   */
+  color: var(--blanco-matizado);
+  /* text-align: center; */
   margin-bottom: 15px;
   position: relative;
   text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.posgrado-section h2::after {
+.posgrado-section .titlePosgrado::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 2.5%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--dorado) 20%, 
+    var(--dorado) 80%, 
+    transparent 100%);
+  border-radius: 2px;
+  
+}
+
+.posgrado-section p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);  /* ← Texto blanco para fondo oscuro */
+  margin-bottom: 40px;
+  /* max-width: 850px; */
+  margin-left: auto;
+  margin-right: auto;
+  /* text-align: left; */
+  line-height: 1.7;
+  position: relative;
+}
+
+.posgrado-section h2::after{
   content: "";
   position: absolute;
   bottom: -8px;
@@ -2378,18 +2411,6 @@ body.modo-oscuro .comunicados-estado.alerta {
     var(--dorado) 80%, 
     transparent 100%);
   border-radius: 2px;
-}
-
-.posgrado-section p {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);  /* ← Texto blanco para fondo oscuro */
-  margin-bottom: 40px;
-  max-width: 850px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  line-height: 1.7;
-  position: relative;
 }
 
 /* ===== BOTÓN PRINCIPAL CON ANIMACIÓN INFINITA ===== */
@@ -3017,210 +3038,849 @@ html {
 }
 
 
-/* === SECCIÓN INVESTIGACIÓN === */
+
+
+
+
+/* ========================================
+   SECCIÓN INVESTIGACIÓN CON VIDA ELEGANTE
+   ======================================== */
+
+/* Variables CSS para colores institucionales */
+:root {
+  --investigacion-dorado: #cfa935;
+  --investigacion-dorado-hover: #b8941f;
+  --investigacion-azul-oscuro: #1e3a5a;
+  --investigacion-azul-medio: #2a4a6a;
+  --investigacion-blanco: #ffffff;
+  --investigacion-gris-claro: #f8f9fa;
+  --investigacion-gris-medio: #6c757d;
+  --investigacion-borde: #e9ecef;
+  --investigacion-sombra: rgba(30, 58, 90, 0.1);
+  --investigacion-sombra-hover: rgba(207, 169, 53, 0.2);
+}
+
+/* Sección principal */
 .investigacion-section {
-  padding: 80px 20px;
-  background-color: var(--blanco-matizado);
-  text-align: center;
+  position: relative;
+  padding: 80px 0;
+  /* background: linear-gradient(135deg, #ffffff 0%, #fafbfc 50%, #f5f7fa 100%); */
+  overflow: hidden;
+  background: linear-gradient(
+  135deg,
+  #f7f9fc 0%,           /* blanco con un 2 % de azul */
+  #eef2f7 40%,
+  #e3e9f0 70%,
+  #d8e0eb 100%          /* apenas toque de cemento azulado */
+);
 }
 
+/* Fondo decorativo sutil con patrones geométricos */
+.investigacion-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(207, 169, 53, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(30, 58, 90, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 0%, rgba(30, 58, 90, 0.02) 50%, transparent 100%),
+    linear-gradient(-45deg, transparent 0%, rgba(207, 169, 53, 0.02) 50%, transparent 100%);
+  z-index: 1;
+}
+
+.investigacion-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(30, 58, 90, 0.01) 2px,
+      rgba(30, 58, 90, 0.01) 4px
+    );
+  z-index: 2;
+}
+
+/* Contenedor principal */
+.investigacion-container {
+  /* max-width: 1200px; */
+  width: min(1600px, 95vw);
+   margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Header de la sección */
 .investigacion-header {
-  display: block; /* Fuerza el comportamiento de bloque */
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 800px; /* Mantiene el centrado */
-  margin: 0 auto 40px; /* Centrado horizontal y margen inferior */
-  text-align: center; /* Centra el texto dentro */
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
 }
 
-.investigacion-section h2 {
-  font-size: 2.2rem;
-  color: var(--azul-oscuro);
-  margin-bottom: 15px;
+.investigacion-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--investigacion-azul-oscuro);
+  margin: 0 0 20px 0;
+  position: relative;
 }
 
-.investigacion-section p {
+.investigacion-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--investigacion-dorado), var(--investigacion-dorado-hover));
+  border-radius: 2px;
+}
+
+.investigacion-header p {
   font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 0;
+  color: var(--investigacion-gris-medio);
+  margin: 0 auto;
+  max-width: 600px;
   line-height: 1.6;
 }
 
+/* Grid de tarjetas */
 .investigacion-grid {
-  display: flex; /* Esto está bien para alinear las tarjetas horizontalmente DENTRO del grid */
-  justify-content: center; /* Centra las tarjetas horizontalmente */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto; /* Centrado horizontal del grid completo */ 
-  width: 100%; /* Asegura que el grid ocupe el ancho disponible */
-  text-align: center; /* Hereda el centrado para elementos internos si es necesario */
+  margin-top: 40px;
 }
 
+/* Tarjetas individuales */
 .investigacion-card {
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: var(--investigacion-blanco);
+  border-radius: 16px;
+  padding: 40px 30px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
-  padding: 30px 20px;  
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--investigacion-borde);
+    border-right: 1px solid var(--investigacion-azul-oscuro);
+  border-bottom: 1px solid var(--investigacion-azul-oscuro);
+  box-shadow: 
+    0 4px 20px var(--investigacion-sombra),
+    0 1px 3px rgba(30, 58, 90, 0.05);
+  overflow: hidden;
+  z-index: 5;
 }
 
+/* Efecto de fondo en las tarjetas */
+.investigacion-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(207, 169, 53, 0.05),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.investigacion-card:hover::before {
+  left: 100%;
+}
+
+/* Efectos hover en tarjetas */
 .investigacion-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 12px 40px var(--investigacion-sombra-hover),
+    0 4px 15px rgba(207, 169, 53, 0.15),
+    0 1px 3px rgba(30, 58, 90, 0.1);
+  border-color: var(--investigacion-dorado);
 }
 
+/* Iconos de las tarjetas */
 .investigacion-icono {
-  font-size: 3rem;
-  color: var(--dorado);
-  margin-bottom: 20px;  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--investigacion-dorado), var(--investigacion-dorado-hover));
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(207, 169, 53, 0.3);
 }
 
+.investigacion-icono::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, var(--investigacion-dorado), var(--investigacion-dorado-hover));
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.investigacion-card:hover .investigacion-icono::before {
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+
+.investigacion-icono i {
+  font-size: 2rem;
+  color: var(--investigacion-blanco);
+  transition: all 0.3s ease;
+}
+
+.investigacion-card:hover .investigacion-icono {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(207, 169, 53, 0.4);
+}
+
+.investigacion-card:hover .investigacion-icono i {
+  color: var(--investigacion-blanco);
+}
+
+/* Títulos de las tarjetas */
 .investigacion-card h3 {
   font-size: 1.4rem;
-  color: var(--azul-oscuro);
-  margin-bottom: 15px;
+  font-weight: 600;
+  color: var(--investigacion-azul-oscuro);
+  margin: 0 0 15px 0;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
+.investigacion-card:hover h3 {
+  color: var(--investigacion-dorado);
+}
+
+/* Párrafos de las tarjetas */
 .investigacion-card p {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  color: var(--investigacion-gris-medio);
   line-height: 1.6;
-  height: 70px;
+  margin: 0 0 25px 0;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
+.investigacion-card:hover p {
+  color: #495057;
+}
+
+/* Botones de acción - EXACTO como pregrado/posgrado/noticias */
 .btn-investigacion {
   display: inline-block;
-  background-color: var(--azul-oscuro);
-  color: white;
-  padding: 10px 20px;
-  font-weight: bold;
-  border-radius: 5px;
+  margin-top: 15px;
+  background: #cfa935;
+  color: #0c2344;
   text-decoration: none;
-  transition: background-color 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.investigacion-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  transition: background 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.2s ease;
+  position: relative;
+  z-index: 10;
+  overflow: hidden; /* IMPORTANTE: ocultar cualquier cortina */
 }
 
 .btn-investigacion:hover {
-  background-color: var(--guinda);
+  background: #dabe63;
+  color: #111;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
 }
 
+
+/* ===== MODO OSCURO - FONDO MUY OSCURO (NEGRO CON DEGRADÉ) ===== */
+body.modo-oscuro .investigacion-section {
+  background: linear-gradient(135deg, 
+    rgba(3, 7, 18, 0.98) 0%,      /* ← Casi negro */
+    rgba(8, 12, 24, 0.95) 20%,
+    rgba(15, 23, 42, 0.92) 40%,    /* ← Gris muy oscuro */
+    rgba(22, 32, 58, 0.90) 60%,    /* ← Gris oscuro */
+    rgba(30, 41, 59, 0.93) 80%,    /* ← Gris oscuro */
+    rgba(51, 65, 85, 0.96) 100%    /* ← El más claro del degradé */
+  );
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+body.modo-oscuro .investigacion-section::before {
+  background: 
+    radial-gradient(circle at 15% 25%, rgba(0, 0, 0, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+}
+
+body.modo-oscuro .investigacion-card {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%,       /* ← Gris muy oscuro */
+    rgba(22, 32, 58, 0.9) 50%,
+    rgba(30, 41, 59, 0.85) 100%       /* ← Gris oscuro */
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.5),     /* ← Sombra más intensa */
+    0 4px 16px rgba(0, 0, 0, 0.3),      /* ← Sombra adicional */
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+body.modo-oscuro .investigacion-card h3 {
+  color: #f1f5f9;
+}
+
+body.modo-oscuro .investigacion-header h2,
+body.modo-oscuro .investigacion-section h2 {
+  color: #e2e8f0;  /* ← Texto más claro en modo oscuro */
+}
+
+body.modo-oscuro .investigacion-section p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+body.modo-oscuro .btn-investigacion {
+  background: var(--dorado);
+  color: #365D8B;
+}
+
+/* ===== MEJORAS DE ACCESIBILIDAD ===== */
+.investigacion-card:focus,
+.btn-investigacion:focus {
+  outline: 3px solid rgba(207, 169, 53, 0.6);
+  outline-offset: 3px;
+}
+
+/* ===== SCROLL SUAVE ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== PERFORMANCE OPTIMIZADO ===== */
+.investigacion-card,
+.btn-investigacion {
+  will-change: transform;
+}
+
+
+/* Animación de latido - SOLO AÑADIR AL HOVER EXISTENTE */
+@keyframes pulse-dorado {
+  0% { box-shadow: 0 0 0 0 rgba(207, 169, 53, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(207, 169, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(207, 169, 53, 0); }
+}
 
 .btn-investigacion:hover {
-  background-color: var(--guinda);
+  animation: pulse-dorado 1.5s infinite;
 }
+
+/* Animación pulse para iconos */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+/* Animaciones de entrada */
+.scroll-fade-up {
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scroll-fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .investigacion-section {
+    padding: 60px 0;
+  }
+  
+  .investigacion-container {
+    padding: 0 15px;
+  }
+  
+  .investigacion-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .investigacion-card {
+    padding: 30px 25px;
+  }
+  
+  .investigacion-header h2 {
+    font-size: 2rem;
+  }
+  
+  .investigacion-icono {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .investigacion-icono i {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .investigacion-section {
+    padding: 50px 0;
+  }
+  
+  .investigacion-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .investigacion-card {
+    padding: 25px 20px;
+  }
+  
+  .investigacion-grid {
+    gap: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
 
 
 
 /* === SECCIÓN CONVOCATORIAS === */
+
+
+/* ========================================
+   SECCIÓN CONVOCATORIAS (misma base que INVESTIGACIÓN)
+   ======================================== */
+
+/* Sección principal */
 .convocatorias-section {
-  padding: 80px 20px;
-  background-color: var(--blanco-matizado);
-  text-align: center;
-}
-
-/* Nuevo contenedor con flex-direction: column */
-.convocatorias-container {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  /* height: 70px; */
-}
-
-.convocatorias-section h2 {
-  font-size: 2.2rem;
-  color: var(--azul-oscuro);
-  margin-bottom: 15px;
-}
-
-.convocatorias-section h3 {
-  height: 50px;
-}
-
-.convocatorias-section p {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 40px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-  height: 80px;
-}
-
-.convocatorias-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;  
-}
-
-.convocatoria-card {
-  background-color: white;
-  border-radius: 12px;
+  position: relative;
+  padding: 80px 0;
+  /* background: linear-gradient(135deg, #ffffff 0%, #fafbfc 50%, #f5f7fa 100%); */
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+  135deg,
+  #fdfcfb 0%,      /* crema muy suave */
+  #f9f7f4 40%,
+  #f1ece6 70%,
+  #e8e1d7 100%     /* apenas tostado */
+);
+}
+
+/* Fondo decorativo sutil con patrones geométricos */
+.convocatorias-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(207, 169, 53, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(30, 58, 90, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 0%, rgba(30, 58, 90, 0.02) 50%, transparent 100%),
+    linear-gradient(-45deg, transparent 0%, rgba(207, 169, 53, 0.02) 50%, transparent 100%);
+  z-index: 1;
+}
+
+.convocatorias-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(30, 58, 90, 0.01) 2px,
+      rgba(30, 58, 90, 0.01) 4px
+    );
+  z-index: 2;
+}
+
+/* Contenedor principal */
+.convocatorias-container {
+  width: min(1600px, 95vw);
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Header de la sección */
+.convocatorias-header {
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
-  padding: 30px 20px;
+  margin-bottom: 60px;
+  position: relative;
 }
 
+.convocatorias-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--investigacion-azul-oscuro);
+  margin: 0 0 20px 0;
+  position: relative;
+}
+
+.convocatorias-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--investigacion-dorado), var(--investigacion-dorado-hover));
+  border-radius: 2px;
+}
+
+.convocatorias-header p {
+  font-size: 1.1rem;
+  color: var(--investigacion-gris-medio);
+  margin: 0 auto;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* Grid de tarjetas */
+.convocatorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Tarjetas individuales */
+.convocatoria-card {
+  background: var(--investigacion-blanco);
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--investigacion-borde);
+  border-right: 1px solid var(--investigacion-azul-oscuro);
+  border-bottom: 1px solid var(--investigacion-azul-oscuro);
+  box-shadow: 
+    0 4px 20px var(--investigacion-sombra),
+    0 1px 3px rgba(30, 58, 90, 0.05);
+  overflow: hidden;
+  z-index: 5;
+}
+
+/* Efecto de fondo en las tarjetas */
+.convocatoria-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(207, 169, 53, 0.05),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.convocatoria-card:hover::before {
+  left: 100%;
+}
+
+/* Efectos hover en tarjetas */
 .convocatoria-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 12px 40px var(--investigacion-sombra-hover),
+    0 4px 15px rgba(207, 169, 53, 0.15),
+    0 1px 3px rgba(30, 58, 90, 0.1);
+  border-color: var(--investigacion-dorado);
 }
 
+/* Iconos de las tarjetas */
 .convocatoria-icono {
-  font-size: 3rem;
-  color: var(--dorado);
-  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--investigacion-dorado), var(--investigacion-dorado-hover));
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(207, 169, 53, 0.3);
 }
 
+.convocatoria-icono::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, var(--investigacion-dorado), var(--investigacion-dorado-hover));
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.convocatoria-card:hover .convocatoria-icono::before {
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+
+.convocatoria-icono i {
+  font-size: 2rem;
+  color: var(--investigacion-blanco);
+  transition: all 0.3s ease;
+}
+
+.convocatoria-card:hover .convocatoria-icono {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(207, 169, 53, 0.4);
+}
+
+.convocatoria-card:hover .convocatoria-icono i {
+  color: var(--investigacion-blanco);
+}
+
+/* Títulos de las tarjetas */
 .convocatoria-card h3 {
   font-size: 1.4rem;
-  color: var(--azul-oscuro);
-  margin-bottom: 15px;
+  font-weight: 600;
+  color: var(--investigacion-azul-oscuro);
+  margin: 0 0 15px 0;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
+.convocatoria-card:hover h3 {
+  color: var(--investigacion-dorado);
+}
+
+/* Párrafos de las tarjetas */
 .convocatoria-card p {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  color: var(--investigacion-gris-medio);
   line-height: 1.6;
+  margin: 0 0 25px 0;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
+.convocatoria-card:hover p {
+  color: #495057;
+}
+
+/* Botón de acción */
 .btn-convocatoria {
   display: inline-block;
-  background-color: var(--azul-oscuro);
-  color: white;
-  padding: 10px 20px;
-  font-weight: bold;
-  border-radius: 5px;
+  margin-top: 15px;
+  background: #cfa935;
+  color: #0c2344;
   text-decoration: none;
-  transition: background-color 0.3s ease;
-  font-size: 0.9rem;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  transition: background 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.2s ease;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
 }
 
 .btn-convocatoria:hover {
-  background-color: var(--guinda);
+  background: #dabe63;
+  color: #111;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+  animation: pulse-dorado 1.5s infinite;
 }
+
+/* ===== MODO OSCURO ===== */
+body.modo-oscuro .convocatorias-section {
+  background: linear-gradient(135deg, 
+    rgba(3, 7, 18, 0.98) 0%,
+    rgba(8, 12, 24, 0.95) 20%,
+    rgba(15, 23, 42, 0.92) 40%,
+    rgba(22, 32, 58, 0.90) 60%,
+    rgba(30, 41, 59, 0.93) 80%,
+    rgba(51, 65, 85, 0.96) 100%
+  );
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+body.modo-oscuro .convocatorias-section::before {
+  background: 
+    radial-gradient(circle at 15% 25%, rgba(0, 0, 0, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+}
+
+body.modo-oscuro .convocatoria-card {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(22, 32, 58, 0.9) 50%,
+    rgba(30, 41, 59, 0.85) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+body.modo-oscuro .convocatoria-card h3 {
+  color: #f1f5f9;
+}
+
+body.modo-oscuro .convocatorias-header h2,
+body.modo-oscuro .convocatorias-section h2 {
+  color: #e2e8f0;
+}
+
+body.modo-oscuro .convocatorias-section p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+body.modo-oscuro .btn-convocatoria {
+  background: var(--dorado);
+  color: #365D8B;
+}
+
+/* ===== ACCESIBILIDAD ===== */
+.convocatoria-card:focus,
+.btn-convocatoria:focus {
+  outline: 3px solid rgba(207, 169, 53, 0.6);
+  outline-offset: 3px;
+}
+
+/* ===== PERFORMANCE ===== */
+.convocatoria-card,
+.btn-convocatoria {
+  will-change: transform;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .convocatorias-section {
+    padding: 60px 0;
+  }
+  
+  .convocatorias-container {
+    padding: 0 15px;
+  }
+  
+  .convocatorias-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .convocatoria-card {
+    padding: 30px 25px;
+  }
+  
+  .convocatorias-header h2 {
+    font-size: 2rem;
+  }
+  
+  .convocatoria-icono {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .convocatoria-icono i {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .convocatorias-section {
+    padding: 50px 0;
+  }
+  
+  .convocatorias-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .convocatoria-card {
+    padding: 25px 20px;
+  }
+  
+  .convocatorias-grid {
+    gap: 20px;
+  }
+}
+
+
+
+
+
 
 
 
@@ -3987,39 +4647,7 @@ body.modo-oscuro .social-btn {
 
 
 
-/* MODO OSCURO - Investigación */
-body.modo-oscuro .investigacion-section {
-  background-color: #111;
-  color: white;
-}
 
-body.modo-oscuro .investigacion-section h2,
-body.modo-oscuro .investigacion-card h3 {
-  color: white;
-}
-
-body.modo-oscuro .investigacion-section p,
-body.modo-oscuro .investigacion-card p {
-  color: #ccc;
-}
-
-body.modo-oscuro .investigacion-card {
-  background-color: #222;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-body.modo-oscuro .investigacion-card:hover {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-body.modo-oscuro .btn-investigacion {
-  background-color: #333;
-  color: var(--dorado);
-}
-
-body.modo-oscuro .btn-investigacion:hover {
-  background-color: var(--guinda);
-}
 
 
 body.modo-oscuro .estadisticas {
@@ -4045,83 +4673,9 @@ body.modo-oscuro textarea {
   color: rgb(26, 25, 25);
 }
 
-/* === MODO OSCURO - INVESTIGACIÓN === */
-body.modo-oscuro .investigacion-section {
-  background-color: #111;
-  color: white;
-}
 
-body.modo-oscuro .investigacion-section h2,
-body.modo-oscuro .investigacion-card h3 {
-  color: white;
-}
 
-body.modo-oscuro .investigacion-section p,
-body.modo-oscuro .investigacion-card p {
-  color: #ccc;
-}
 
-body.modo-oscuro .investigacion-card {
-  background-color: #222;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-body.modo-oscuro .investigacion-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-body.modo-oscuro .investigacion-icono {
-  color: var(--dorado);
-}
-
-body.modo-oscuro .btn-investigacion {
-  background-color: #333;
-  color: var(--dorado);
-}
-
-body.modo-oscuro .btn-investigacion:hover {
-  background-color: var(--guinda);
-}
-
-/* === MODO OSCURO - CONVOCATORIAS === */
-body.modo-oscuro .convocatorias-section {
-  background-color: #111;
-  color: white;
-}
-
-body.modo-oscuro .convocatorias-section h2,
-body.modo-oscuro .convocatoria-card h3 {
-  color: white;
-}
-
-body.modo-oscuro .convocatorias-section p,
-body.modo-oscuro .convocatoria-card p {
-  color: #ccc;
-}
-
-body.modo-oscuro .convocatoria-card {
-  background-color: #222;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-body.modo-oscuro .convocatoria-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-body.modo-oscuro .convocatoria-icono {
-  color: var(--dorado);
-}
-
-body.modo-oscuro .btn-convocatoria {
-  background-color: #333;
-  color: var(--dorado);
-}
-
-body.modo-oscuro .btn-convocatoria:hover {
-  background-color: var(--guinda);
-}
 
 
 
@@ -4553,28 +5107,9 @@ body.modo-oscuro .enlace-icono {
 
 
 
-  /*Responsivo - Investigación*/
-  .investigacion-grid {
-    flex-direction: column;
-    align-items: center;
-  }
+ 
 
-  .investigacion-card {
-    width: 90%;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  /*Responsivo para Convocatorias*/
-  .convocatorias-grid {
-    flex-direction: column;
-    align-items: center;
-  }
   
-  .convocatoria-card {
-    width: 90%;
-    max-width: 500px;
-  }
 
 /*Responsive para Eventos*/
   .eventos-grid {
