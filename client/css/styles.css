@@ -3507,11 +3507,11 @@ html {
   /* background: linear-gradient(135deg, #ffffff 0%, #fafbfc 50%, #f5f7fa 100%); */
   overflow: hidden;
   background: linear-gradient(
-  135deg,
-  #fdfcfb 0%,      /* crema muy suave */
-  #f9f7f4 40%,
-  #f1ece6 70%,
-  #e8e1d7 100%     /* apenas tostado */
+  225deg,
+  #f7f9fc 0%,           /* blanco con un 2 % de azul */
+  #eef2f7 40%,
+  #e3e9f0 70%,
+  #d8e0eb 100%          /* apenas toque de cemento azulado */
 );
 }
 
@@ -3887,17 +3887,24 @@ body.modo-oscuro .btn-convocatoria {
 /* === SECCIÓN DE EVENTOS === */
 .eventos-section {
   padding: 80px 20px;
-  background-color: var(--blanco-matizado);
+  /* background-color: var(--blanco-matizado); */
+background: linear-gradient(
+  135deg,
+  #eef2f5 0%,   /* gris-azulado claro */
+  #e3e9ee 40%,
+  #d8e0e8 70%,
+  #cdd7e2 100%  /* apenas más oscuro que antes */
+);
   text-align: center;
 }
 
 .eventos-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: min(1600px, 95vw);
+   margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;        
 }
 
 .eventos-title {
@@ -3936,11 +3943,11 @@ body.modo-oscuro .btn-convocatoria {
 }
 
 .vermas:hover {
-  color: var(--guinda);
+  color: var();
   border-left: 4px solid var(--guinda);
 }
 
-.eventos {
+/* .eventos {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -3952,18 +3959,31 @@ body.modo-oscuro .btn-convocatoria {
   padding: 20px; 
   box-sizing: border-box; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+} */
+
+.eventos {
+    display: grid;
+  grid-template-columns: minmax(320px, 0.45fr) 1fr; /* lista | destacado */
+  gap: 30px;
+  display: grid;               /* cambio clave */
+  /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
+  /* gap: 30px;               */
+  width: 100%;
+  border: 2px solid var(--azul-oscuro);
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* === SECCIÓN DE EVENTOS - LISTA DE EVENTOS === */
 /* Contenedor principal de la lista de eventos */
+
 .eventos-lista {
-  flex: 1; /* Ocupa el espacio disponible */
-  width: auto; /* Ancho mínimo para mantener la forma en móviles */
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espacio entre items de evento */
-  text-align: left; /* Alinea el texto a la izquierda */
-  justify-content: center;
+  gap: 15px;
+  min-width: 320px;          /* ← clave: mismo ancho mínimo que las cards */
 }
 
 /* Item individual de evento */
@@ -4099,7 +4119,11 @@ body.modo-oscuro .btn-convocatoria {
 }
 
 .evento-info .btn-vermasE:hover {
-  background-color: var(--guinda);
+  background: #dabe63;
+  color: #111;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+  animation: pulse-dorado 1.5s infinite;
 }
 
 
@@ -4694,7 +4718,7 @@ body.modo-oscuro .eventos-section h2 {
 }
 
 body.modo-oscuro .eventos {
-  border: 2px solid var(--blanco-matizado); 
+  border: 2px solid var(--dorado); 
   box-shadow: 0px 4px 10px rgba(255,255,255,0.5);
 }
 
@@ -4758,13 +4782,12 @@ body.modo-oscuro .evento-info i {
 }
 
 body.modo-oscuro .evento-info .btn-vermasE {
-  background-color: var(--dorado);
-  color: black;
+background: var(--dorado);
+  color: #365d8b;
 }
 
 body.modo-oscuro .evento-info .btn-vermasE:hover {
-  background-color: var(--guinda);
-  color: white;
+background: #e0be51;
 }
 
 /* MODO OSCURO - EGRESADOS */
@@ -5112,6 +5135,14 @@ body.modo-oscuro .enlace-icono {
   
 
 /*Responsive para Eventos*/
+.eventos {
+    grid-template-columns: 1fr;
+}
+
+  .eventos-lista {
+    min-width: 0; /* deja que ocupe 100 % en móvil */
+  }
+
   .eventos-grid {
     flex-direction: column;
     align-items: center;
