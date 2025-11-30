@@ -548,7 +548,7 @@
 
     <!-- === LIBRO DE RECLAMACIONES (visible y prominente) === -->
     <div class="footer-libro-reclamaciones">
-      <a href="./libro-reclamaciones.html" class="libro-link">
+      <a href="javascript:void(0)" class="libro-link">
         <div class="libro-icono">
           <i class="fas fa-book-open"></i>
         </div>
@@ -598,6 +598,59 @@
       <p>Nos pondremos en contacto contigo lo antes posible.</p>
     </div>
   </div>
+
+  <!-- MODAL LIBRO DE RECLAMACIONES -->
+<div id="modalReclamo" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Cerrar">&times;</button>
+
+    <h2>Libro de Reclamaciones</h2>
+    <p>Complete el formulario y su reclamo quedará registrado.</p>
+
+    <form id="formReclamo" autocomplete="off">
+      <label>Apellidos y Nombres *
+        <input type="text" name="nombre" required>
+      </label>
+
+      <label>DNI / CE *
+        <input type="text" name="dni" pattern="[0-9]{8}" maxlength="8" required>
+      </label>
+
+      <label>Teléfono
+        <input type="tel" name="telefono">
+      </label>
+
+      <label>Correo electrónico *
+        <input type="email" name="email" required>
+      </label>
+
+      <label>Tipo *
+        <select name="tipo" required>
+          <option value="">-- Seleccione --</option>
+          <option>Queja</option>
+          <option>Reclamo</option>
+          <option>Sugerencia</option>
+          <option>Felicidad</option>
+        </select>
+      </label>
+
+      <label>Descripción detallada *
+        <textarea name="descripcion" rows="5" required></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn-submit">Enviar reclamo</button>
+        <button type="button" class="btn-cancel">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="modal-msg" id="msgReclamo"></div>
+  </div>
+</div>
+
+
+
+
 
   
   <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->

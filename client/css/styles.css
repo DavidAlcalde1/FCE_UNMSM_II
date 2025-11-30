@@ -657,14 +657,12 @@ body.modo-oscuro .nav__list li a:hover {
    =========================== */
 .pregrado-section {
   padding: 70px 0;
-  background: linear-gradient(180deg,
-    #f8fafc 0%,
-    #e2e8f0 20%,
-    #cbd5e1 40%,
-    #94a3b8 60%,
-    #64748b 80%,
-    /* #64748b 100% */
-    #324053 100%   
+  background: linear-gradient(
+    225deg,
+    #f7f9fc 0%,           /* blanco con un 2 % de azul */
+    #eef2f7 40%,
+    #e3e9f0 70%,
+    #d8e0eb 100%          /* apenas toque de cemento azulado */
   );
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -2322,12 +2320,12 @@ body.modo-oscuro .comunicados-estado.alerta {
 /* ===== SECCIÓN PRINCIPAL - FONDO OSCURO (MODO CLARO) ===== */
 .posgrado-section {
   padding: 80px 0;
-  background: linear-gradient(135deg, 
-    rgba(15, 23, 42, 0.98) 0%,      /* ← Fondo oscuro para modo claro */
-    rgba(30, 41, 59, 0.95) 25%,
-    rgba(51, 65, 85, 0.92) 50%,
-    rgba(71, 85, 105, 0.95) 75%,
-    rgba(100, 116, 139, 0.98) 100%
+  background: linear-gradient(135deg,
+    #64748b 0%,
+    #475569 25%,
+    #334155 50%,
+    #1e293b 75%,
+    #0f172a 100%
   );
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -2862,6 +2860,56 @@ body.modo-oscuro .comunicados-estado.alerta {
   }
 }
 
+/* === VISTA MÓVILES === */
+@media (max-width: 480px) {
+  .container-posgrado {
+    width: min(1000px, 95vw);
+  }
+
+  .posgrado-carousel {
+    margin: 40px 0;
+    padding: 20px 10px;
+  }
+
+
+  .posgrado-grid {
+    grid-template-columns: 1fr;          /* una sola columna */
+    gap: 15px;
+  }
+
+  .posgrado-card {
+    background: transparent;
+    min-width: 0;                        /* elimina cualquier mínimo interno */
+    padding: 0;
+    border:none;
+    word-break: break-word;              /* parte palabras largas */
+    overflow-wrap: break-word;
+  }
+
+  .posgrado-section .titlePosgrado::after {
+    margin:20px 0 0 50px;
+  }
+
+  .titlePosgrado {
+    text-align: center;
+  }
+
+  .posgrado-card h3 {
+    font-size: 1.3rem;                   /* reduce un poco el título */
+  }
+
+  .posgrado-card p {
+    font-size: 0.95rem;
+  }
+
+  .posgrado-card img {
+    width: 100%;
+    height: 200px;             /* o la altura que uses */
+    object-fit: cover;
+    border-radius: 0;          /* si quieres esquinas cuadradas */
+  }
+}
+
 /* ===== ANIMACIONES - INCLUYE ANIMACIÓN INFINITA ===== */
 @keyframes pulse-dorado-infinito {
   0%, 100% {
@@ -3043,7 +3091,7 @@ html {
 
 
 /* ========================================
-   SECCIÓN INVESTIGACIÓN CON VIDA ELEGANTE
+   SECCIÓN INVESTIGACIÓN 
    ======================================== */
 
 /* Variables CSS para colores institucionales */
@@ -3888,19 +3936,19 @@ body.modo-oscuro .btn-convocatoria {
 .eventos-section {
   padding: 80px 20px;
   /* background-color: var(--blanco-matizado); */
-background: linear-gradient(
-  135deg,
-  #eef2f5 0%,   /* gris-azulado claro */
-  #e3e9ee 40%,
-  #d8e0e8 70%,
-  #cdd7e2 100%  /* apenas más oscuro que antes */
-);
+  background: linear-gradient(
+    135deg,
+    #d4dae0 0%,   /* ← antes #eef2f5 */
+    #c2cad2 40%,  /* ← antes #e3e9ee */
+    #b0bcc6 70%,  /* ← antes #d8e0e8 */
+    #9eacb8 100%  /* ← antes #cdd7e2 */
+  );
   text-align: center;
 }
 
 .eventos-container {
   width: min(1600px, 95vw);
-   margin: 0 auto;
+  margin: 0 auto;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
@@ -3943,37 +3991,26 @@ background: linear-gradient(
 }
 
 .vermas:hover {
-  color: var();
-  border-left: 4px solid var(--guinda);
+  color: var(--dorado);
+  border-left: 4px solid var(--dorado);
 }
 
-/* .eventos {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  border: 2px solid var(--azul-oscuro); 
-  border-radius: 10px;
-  padding: 20px; 
-  box-sizing: border-box; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-} */
 
 .eventos {
-    display: grid;
-  grid-template-columns: minmax(320px, 0.45fr) 1fr; /* lista | destacado */
+ display: grid;
+  grid-template-columns: minmax(320px, 0.45fr) 1fr;
   gap: 30px;
-  display: grid;               /* cambio clave */
-  /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
-  /* gap: 30px;               */
   width: 100%;
-  border: 2px solid var(--azul-oscuro);
-  border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+  /* glass */
+  background: rgba(30, 58, 90, 0.18);    /* fondo claro semitransparente */
+  backdrop-filter: blur(12px) saturate(180%); /* desenfoque + saturación */
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25); /* borde “hielo” */
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 /* === SECCIÓN DE EVENTOS - LISTA DE EVENTOS === */
@@ -4006,9 +4043,10 @@ background: linear-gradient(
 
 /* Fecha del evento */
 .fechaE {
-  background-color: var(--azul-oscuro); /* Color de fondo para la fecha */
-  color: white; /* Texto blanco */
+  background-color: #cfa935; /* Color de fondo para la fecha */
+  color: var(--azul-oscuro); /* Texto blanco */
   border-radius: 8px;
+  border:1px solid var(--azul-oscuro);
   padding: 10px;
   margin-top:10px;
   text-align: center;
@@ -4070,6 +4108,7 @@ background: linear-gradient(
   border-radius: 8px;
   object-fit: cover;
   object-position: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .evento-info {
@@ -4077,6 +4116,7 @@ background: linear-gradient(
   padding: 20px;
   height: 50%; /* 50% de la altura del contenedor */
   border-radius: 8px;
+  border:1px solid var(--dorado);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -4109,8 +4149,8 @@ background: linear-gradient(
 .evento-info .btn-vermasE {
   margin-top: auto; /* Empuja el botón hacia abajo */
   padding: 10px 20px;
-  background-color: var(--azul-oscuro);
-  color: white;
+  background-color: #cfa935;
+  color: var(--azul-oscuro);
   text-decoration: none;
   font-weight: bold;
   border-radius: 5px;
@@ -4126,6 +4166,90 @@ background: linear-gradient(
   animation: pulse-dorado 1.5s infinite;
 }
 
+/* === MODO OSCURO - EVENTOS === */
+/* Sección principal de eventos */
+body.modo-oscuro .eventos-section {
+  background: #111;
+  /* color: white; */
+}
+
+/* Título de la sección */
+body.modo-oscuro .eventos-section h2 {
+  color: white;
+}
+
+body.modo-oscuro .eventos {
+  border: 2px solid var(--dorado); 
+  box-shadow: 0px 4px 10px rgba(255,255,255,0.5);
+}
+
+/* Enlaces "vermas" en modo oscuro */
+body.modo-oscuro .vermas {
+  color: var(--dorado); /* Usar dorado para el texto */
+  border-left-color: var(--dorado); /* Mantener el borde izquierdo dorado */
+}
+
+body.modo-oscuro .vermas:hover {
+  color: #e0be51; /* Un tono de dorado más claro para el hover */
+}
+
+
+
+/* Item individual de evento (el div interno) */
+body.modo-oscuro .evento-item {
+  background-color: #222; /* Fondo oscuro para cada item */
+  color: white;
+}
+
+body.modo-oscuro .evento-item p {
+  color: #ccc; /* Texto gris claro */
+}
+
+/* Fecha en el item de evento */
+body.modo-oscuro .fechaE {
+  background-color: var(--dorado); 
+  color: white;
+}
+
+/* Enlace que contiene el item (para el efecto hover) */
+body.modo-oscuro .evento-item-link {
+  color: inherit; /* Heredar el color del texto */
+}
+
+body.modo-oscuro .evento-item-link:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+/* Información del evento destacado */
+body.modo-oscuro .evento-info {
+  background-color: #222; /* Fondo oscuro */
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra más intensa para modo oscuro */
+}
+
+body.modo-oscuro .evento-info h3 {
+  color: white;
+}
+
+body.modo-oscuro .evento-info p {
+  color: #ccc;
+}
+
+/* Iconos en la información del evento */
+body.modo-oscuro .evento-info i {
+  color: var(--dorado); /* Iconos en dorado */
+}
+
+body.modo-oscuro .evento-info .btn-vermasE {
+background: var(--dorado);
+  color: #365d8b;
+}
+
+body.modo-oscuro .evento-info .btn-vermasE:hover {
+background: #e0be51;
+}
 
 
 
@@ -4140,8 +4264,7 @@ background: linear-gradient(
 }
 
 .egresados-container {
-  width: 90%;
-  max-width: 1200px;
+  width: min(1600px, 95vw);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -4173,12 +4296,24 @@ background: linear-gradient(
 }
 
 .egresados-carrusel {
-  width: 100%;
+  /* width: 100%;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
-  height: 400px; /* Ajusta según necesites */
+  height: 400px;  */
+    width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+  height: 400px;
+  
+  /* Glass efecto */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .egresados-carrusel-track {
@@ -4303,6 +4438,72 @@ background: linear-gradient(
 }
 
 
+/* MODO OSCURO - EGRESADOS */
+body.modo-oscuro .egresados-section {
+  /* background-color: #111; */
+    background: linear-gradient(
+    135deg,
+    #03060c 0%,   /* casi negro */
+    #070d17 25%,
+    #0c131e 50%,
+    #111927 75%,
+    #161f30 100%
+  );
+  color: white;
+}
+
+body.modo-oscuro .egresados-header h2 {
+  color: white;
+}
+
+body.modo-oscuro .egresados-carrusel {
+  background: rgba(15, 23, 42, 0.25);
+  border: 1px solid var(--dorado);
+  box-shadow: 
+    0 0 20px rgba(207, 169, 53, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+body.modo-oscuro .egresado-testimonio {
+  background-color: #222;
+}
+
+body.modo-oscuro .egresado-nombre {
+  color: white;
+}
+
+body.modo-oscuro .egresado-titulo {
+  color: var(--dorado);
+}
+
+body.modo-oscuro .egresado-empresa {
+  color: #aaa;
+}
+
+body.modo-oscuro .egresado-testimonio-texto {
+  color: #ccc;
+}
+
+body.modo-oscuro .egresados-prev,
+body.modo-oscuro .egresados-next {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: white;
+}
+
+body.modo-oscuro .egresados-prev:hover,
+body.modo-oscuro .egresados-next:hover {
+  background-color: var(--dorado);
+}
+
+body.modo-oscuro .egresados-indicador {
+  background-color: #666;
+}
+
+body.modo-oscuro .egresados-indicador.activo,
+body.modo-oscuro .egresados-indicador:hover {
+  background-color: var(--dorado);
+}
 
 
 
@@ -4310,90 +4511,269 @@ background: linear-gradient(
 
 
 
-/* === SECCIÓN ENLACES DE INTERÉS === */
+
+
+
+
+
+
+
+
+/*SECCIÓN ENLACES DE INTERÉS*/
+/* ========================================
+   SECCIÓN ENLACES DE INTERÉS (MISMO ESTILO QUE INVESTIGACIÓN)
+   ======================================== */
+
+/* Variables locales (reutilizamos las de investigación) */
+:root {
+  --enlaces-dorado: #cfa935;
+  --enlaces-dorado-hover: #b8941f;
+  --enlaces-azul-oscuro: #1e3a5a;
+  --enlaces-azul-medio: #2a4a6a;
+  --enlaces-blanco: #ffffff;
+  --enlaces-gris-claro: #f8f9fa;
+  --enlaces-gris-medio: #6c757d;
+  --enlaces-borde: #e9ecef;
+  --enlaces-sombra: rgba(30, 58, 90, 0.1);
+  --enlaces-sombra-hover: rgba(207, 169, 53, 0.2);
+}
+
+/* Sección principal */
 .enlaces-section {
-  padding: 80px 20px;
-  background-color: var(--blanco-matizado);
-  text-align: center;
+  position: relative;
+  padding: 80px 0;
+  background: linear-gradient(
+    135deg,
+    #f7f9fc 0%,
+    #eef2f7 40%,
+    #e3e9f0 70%,
+    #d8e0eb 100%
+  );
+  overflow: hidden;
 }
 
+/* Patrones geométricos (igual que investigación) */
+.enlaces-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(207, 169, 53, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(30, 58, 90, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 0%, rgba(30, 58, 90, 0.02) 50%, transparent 100%),
+    linear-gradient(-45deg, transparent 0%, rgba(207, 169, 53, 0.02) 50%, transparent 100%);
+  z-index: 1;
+}
+
+.enlaces-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(30, 58, 90, 0.01) 2px,
+      rgba(30, 58, 90, 0.01) 4px
+    );
+  z-index: 2;
+}
+
+/* Contenedor principal */
 .enlaces-container {
-  width: 90%;
-  max-width: 1200px;
+  width: min(1600px, 95vw);
   margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
 }
 
-.enlaces-section h2 {
-  font-size: 2.2rem;
-  color: var(--azul-oscuro);
-  margin-bottom: 15px;
+/* Header */
+.enlaces-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--enlaces-azul-oscuro);
+  text-align: center;
+  margin: 0 0 20px;
+  position: relative;
 }
 
-.enlaces-section p {
+.enlaces-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--enlaces-dorado), var(--enlaces-dorado-hover));
+  border-radius: 2px;
+}
+
+.enlaces-container > p {          /* descripción debajo del título */
   font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 40px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  color: var(--enlaces-gris-medio);
+  text-align: center;
+  margin: 0 auto 60px;
+  max-width: 600px;
   line-height: 1.6;
 }
 
+/* Grid de tarjetas */
 .enlaces-grid {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
+/* Card individual */
 .enlace-card {
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: var(--enlaces-blanco);
+  border-radius: 16px;
+  padding: 40px 30px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
-  padding: 30px 20px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--enlaces-borde);
+  border-right: 1px solid var(--enlaces-azul-oscuro);
+  border-bottom: 1px solid var(--enlaces-azul-oscuro);
+  box-shadow: 
+    0 4px 20px var(--enlaces-sombra),
+    0 1px 3px rgba(30, 58, 90, 0.05);
+  overflow: hidden;
+  z-index: 5;
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Efecto hover */
 .enlace-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 12px 40px var(--enlaces-sombra-hover),
+    0 4px 15px rgba(207, 169, 53, 0.15);
+  border-color: var(--enlaces-dorado);
 }
 
+/* Icono estilo investigación */
 .enlace-icono {
-  font-size: 3rem;
-  color: var(--dorado);
-  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--enlaces-dorado), var(--enlaces-dorado-hover));
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(207, 169, 53, 0.3);
+  transition: all 0.3s ease;
 }
 
+.enlace-icono i {
+  font-size: 2rem;
+  color: var(--enlaces-blanco);
+  transition: all 0.3s ease;
+}
+
+.enlace-card:hover .enlace-icono {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(207, 169, 53, 0.4);
+}
+
+/* Títulos y textos */
 .enlace-card h3 {
   font-size: 1.4rem;
-  color: var(--azul-oscuro);
-  margin-bottom: 15px;
+  font-weight: 600;
+  color: var(--enlaces-azul-oscuro);
+  margin: 0 0 15px;
+  transition: color 0.3s ease;
+}
+
+.enlace-card:hover h3 {
+  color: var(--enlaces-dorado);
 }
 
 .enlace-card p {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 0;
+  font-size: 1rem;
+  color: var(--enlaces-gris-medio);
   line-height: 1.6;
-  height: 70px; /* Altura fija para alineación */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
+  margin: 0;
 }
+
+/* ===== MODO OSCURO ===== */
+body.modo-oscuro .enlaces-section {
+  background: linear-gradient(135deg, 
+    rgba(3, 7, 18, 0.98) 0%,
+    rgba(8, 12, 24, 0.95) 20%,
+    rgba(15, 23, 42, 0.92) 40%,
+    rgba(22, 32, 58, 0.90) 60%,
+    rgba(30, 41, 59, 0.93) 80%,
+    rgba(51, 65, 85, 0.96) 100%
+  );
+}
+
+body.modo-oscuro .enlaces-container h2,
+body.modo-oscuro .enlaces-container p {
+  color: #e2e8f0;
+}
+
+body.modo-oscuro .enlace-card {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(22, 32, 58, 0.9) 50%,
+    rgba(30, 41, 59, 0.85) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+body.modo-oscuro .enlace-card h3 {
+  color: #f1f5f9;
+}
+
+body.modo-oscuro .enlace-card p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== ACCESIBILIDAD ===== */
+.enlace-card:focus {
+  outline: 3px solid rgba(207, 169, 53, 0.6);
+  outline-offset: 3px;
+}
+
+/* ===== ANIMACIONES ===== */
+.enlace-card,
+.enlace-icono {
+  will-change: transform;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .enlaces-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .enlaces-container h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .enlaces-section {
+    padding: 50px 0;
+  }
+  .enlace-card {
+    padding: 30px 25px;
+  }
+}
+
+
 
 
 
@@ -4445,6 +4825,202 @@ background: linear-gradient(
   background-color: var(--dorado);
   color: black;
 }
+
+
+
+
+/* ===== MODAL LIBRO DE RECLAMACIONES ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  -webkit-backdrop-filter : blur(5px);
+  backdrop-filter: blur(5px); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s ease;
+}
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.3);
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  position: relative;
+  transform: scale(.95);
+  transition: transform .3s ease;
+}
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--azul-oscuro);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-content h2 {
+  margin: 0 0 10px;
+  color: var(--azul-oscuro);
+  font-size: 1.6rem;
+}
+.modal-content p {
+  margin: 0 0 25px;
+  color: var(--gris-medio);
+}
+
+#formReclamo label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: var(--azul-oscuro);
+}
+#formReclamo input,
+#formReclamo select,
+#formReclamo textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #ccd1d6;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color .3s;
+}
+#formReclamo input:focus,
+#formReclamo select:focus,
+#formReclamo textarea:focus {
+  outline: none;
+  border-color: var(--dorado);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+.btn-submit {
+  flex: 1;
+  background: var(--dorado);
+  color: #0c2344;
+  border: none;
+  padding: 12px 20px;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.btn-submit:hover {
+  background: #dabe63;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  transform: translateY(-2px);
+  animation: pulse-dorado 1.5s infinite;
+}
+.btn-cancel {
+  background: transparent;
+  color: var(--azul-oscuro);
+  border: 2px solid var(--azul-oscuro);
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.btn-cancel:hover {
+  background: var(--azul-oscuro);
+  color: white;
+}
+
+.modal-msg {
+  margin-top: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+.modal-msg.ok {
+  color: #28a745;
+}
+.modal-msg.error {
+  color: #dc3545;
+}
+
+/* ===== MODO OSCURO ===== */
+body.modo-oscuro .modal-content {
+  background: linear-gradient(135deg,
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(22, 32, 58, 0.9) 50%,
+    rgba(30, 41, 59, 0.85) 100%
+  );
+  border: 1px solid var(--dorado);
+  box-shadow: 
+    0 0 20px rgba(207, 169, 53, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+  color: white;
+}
+body.modo-oscuro .modal-content h2,
+body.modo-oscuro .modal-content label {
+  color: #e2e8f0;
+}
+body.modo-oscuro .modal-content p {
+  color: rgba(255, 255, 255, 0.85);
+}
+body.modo-oscuro #formReclamo input,
+body.modo-oscuro #formReclamo select,
+body.modo-oscuro #formReclamo textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+body.modo-oscuro .btn-cancel {
+  border-color: var(--dorado);
+  color: var(--dorado);
+}
+body.modo-oscuro .btn-cancel:hover {
+  background: var(--dorado);
+  color: #111;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 25px 20px;
+  }
+  .modal-actions {
+    flex-direction: column;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4554,6 +5130,75 @@ background: linear-gradient(
   margin: 5px 0;
 }
 
+
+.footer-libro-reclamaciones {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto 30px;
+  position: relative;
+  z-index: 10;
+}
+
+.libro-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  padding: 25px 35px;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.libro-icono {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--dorado), #b8941f);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 15px rgba(207, 169, 53, 0.4);
+  transition: all 0.3s ease;
+}
+
+.libro-icono i {
+  font-size: 2rem;
+  color: white;
+}
+
+.libro-texto h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 5px;
+  color: white;
+}
+
+.libro-texto p {
+  font-size: 1rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Hover: elevación + latido dorado */
+.libro-link:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(207, 169, 53, 0.25);
+  animation: pulse-dorado 1.5s infinite;
+}
+
+.libro-link:hover .libro-icono {
+  transform: scale(1.1) rotate(5deg);
+}
+
+
+
+
 /* MODO OSCURO */
 body.modo-oscuro {
   background-color: #111;
@@ -4565,6 +5210,21 @@ body.modo-oscuro .footer {
   background: linear-gradient(135deg, #000 0%, #111 100%);
   color: white;
 }
+
+/* ===== MODO OSCURO – BORDE DORADO + BLUR BLANCO ===== */
+body.modo-oscuro .libro-link {
+  background: rgba(15, 23, 42, 0.25);
+  border: 1px solid var(--dorado);
+  box-shadow: 
+    0 0 20px rgba(207, 169, 53, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+body.modo-oscuro .libro-icono {
+  background: linear-gradient(135deg, var(--dorado), #e0be51);
+}
+
 
 
 
@@ -4687,7 +5347,7 @@ body.modo-oscuro .icono {
 }
 
 body.modo-oscuro .contacto {
-  background-color: #000;
+  background: #111;
   color: white;
 }
 
@@ -4705,178 +5365,12 @@ body.modo-oscuro textarea {
 
 
 
-/* === MODO OSCURO - EVENTOS === */
-/* Sección principal de eventos */
-body.modo-oscuro .eventos-section {
-  background-color: #111;
-  color: white;
-}
-
-/* Título de la sección */
-body.modo-oscuro .eventos-section h2 {
-  color: white;
-}
-
-body.modo-oscuro .eventos {
-  border: 2px solid var(--dorado); 
-  box-shadow: 0px 4px 10px rgba(255,255,255,0.5);
-}
-
-/* Enlaces "vermas" en modo oscuro */
-body.modo-oscuro .vermas {
-  color: var(--dorado); /* Usar dorado para el texto */
-  border-left-color: var(--dorado); /* Mantener el borde izquierdo dorado */
-}
-
-body.modo-oscuro .vermas:hover {
-  color: #e0be51; /* Un tono de dorado más claro para el hover */
-}
-
-
-
-/* Item individual de evento (el div interno) */
-body.modo-oscuro .evento-item {
-  background-color: #222; /* Fondo oscuro para cada item */
-  color: white;
-}
-
-body.modo-oscuro .evento-item p {
-  color: #ccc; /* Texto gris claro */
-}
-
-/* Fecha en el item de evento */
-body.modo-oscuro .fechaE {
-  background-color: var(--dorado); 
-  color: white;
-}
-
-/* Enlace que contiene el item (para el efecto hover) */
-body.modo-oscuro .evento-item-link {
-  color: inherit; /* Heredar el color del texto */
-}
-
-body.modo-oscuro .evento-item-link:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
-}
-
-
-/* Información del evento destacado */
-body.modo-oscuro .evento-info {
-  background-color: #222; /* Fondo oscuro */
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra más intensa para modo oscuro */
-}
-
-body.modo-oscuro .evento-info h3 {
-  color: white;
-}
-
-body.modo-oscuro .evento-info p {
-  color: #ccc;
-}
-
-/* Iconos en la información del evento */
-body.modo-oscuro .evento-info i {
-  color: var(--dorado); /* Iconos en dorado */
-}
-
-body.modo-oscuro .evento-info .btn-vermasE {
-background: var(--dorado);
-  color: #365d8b;
-}
-
-body.modo-oscuro .evento-info .btn-vermasE:hover {
-background: #e0be51;
-}
-
-/* MODO OSCURO - EGRESADOS */
-body.modo-oscuro .egresados-section {
-  background-color: #111;
-  color: white;
-}
-
-body.modo-oscuro .egresados-header h2 {
-  color: white;
-}
-
-body.modo-oscuro .egresados-carrusel {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-body.modo-oscuro .egresado-testimonio {
-  background-color: #222;
-}
-
-body.modo-oscuro .egresado-nombre {
-  color: white;
-}
-
-body.modo-oscuro .egresado-titulo {
-  color: var(--dorado);
-}
-
-body.modo-oscuro .egresado-empresa {
-  color: #aaa;
-}
-
-body.modo-oscuro .egresado-testimonio-texto {
-  color: #ccc;
-}
-
-body.modo-oscuro .egresados-prev,
-body.modo-oscuro .egresados-next {
-  background-color: rgba(50, 50, 50, 0.8);
-  color: white;
-}
-
-body.modo-oscuro .egresados-prev:hover,
-body.modo-oscuro .egresados-next:hover {
-  background-color: var(--dorado);
-}
-
-body.modo-oscuro .egresados-indicador {
-  background-color: #666;
-}
-
-body.modo-oscuro .egresados-indicador.activo,
-body.modo-oscuro .egresados-indicador:hover {
-  background-color: var(--dorado);
-}
 
 
 
 
 
-/* MODO OSCURO - ENLACES DESTACADOS - DE INTERÉS */
-body.modo-oscuro .enlaces-section {
-  background-color: #111;
-  color: white;
-}
 
-body.modo-oscuro .enlaces-section h2,
-body.modo-oscuro .enlace-card h3 {
-  color: white;
-}
-
-body.modo-oscuro .enlaces-section p,
-body.modo-oscuro .enlace-card p {
-  color: #ccc;
-}
-
-body.modo-oscuro .enlace-card {
-  background-color: #222;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-body.modo-oscuro .enlace-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-body.modo-oscuro .enlace-icono {
-  color: var(--dorado);
-}
 
 
 
@@ -5159,16 +5653,7 @@ body.modo-oscuro .enlace-icono {
 
 
 
-/*Resposive para Enlaces Destacados*/
-  .enlaces-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .enlace-card {
-    width: 90%;
-    max-width: 500px;
-  }
+
 
 
 

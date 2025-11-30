@@ -904,7 +904,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // });
 
 
-// FORMULARIO CONTACTO CON MODAL
+// FORMULARIO CONTACTO 
 document.getElementById('form-contacto').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -942,4 +942,40 @@ document.getElementById('successModal').addEventListener('click', (e) => {
   if (e.target === document.getElementById('successModal')) {
     document.getElementById('successModal').classList.remove('show');
   }
+});
+
+
+
+// MODAL DE RECLAMOS
+const modal = document.getElementById('modalReclamo');
+const form  = document.getElementById('formReclamo');
+const msg   = document.getElementById('msgReclamo');
+
+// Delegación segura
+document.addEventListener('click', e => {
+  // Abrir
+  if (e.target.closest('.libro-link')) {
+    e.preventDefault();
+    modal.classList.add('active');
+    form.reset();
+    msg.textContent = '';
+  }
+  // Cerrar (X o botón cancelar)
+  if (e.target.closest('.modal-close') || e.target.closest('.btn-cancel')) {
+    modal.classList.remove('active');
+  }
+});
+
+// Cerrar al pulsar fuera
+modal.addEventListener('click', e => {
+  if (e.target === modal) modal.classList.remove('active');
+});
+
+// Envío simulado
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  msg.textContent = '✅ Reclamo registrado. Gracias por tu feedback.';
+  msg.className = 'ok';
+  form.reset();
+  setTimeout(() => modal.classList.remove('active'), 1500);
 });
