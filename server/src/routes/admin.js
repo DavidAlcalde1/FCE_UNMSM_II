@@ -9,9 +9,10 @@ const Egresado = require('../models/Egresado');
 const Maestria = require('../models/Maestria');
 const Doctorado = require('../models/Doctorado');
 const Contacto = require('../models/Contacto');
-const upload = require('../middleware/upload'); // ← IMPORTADO
+const upload = require('../middleware/upload');
 const PDFDocument = require('pdfkit');
-
+const { Op } = require('sequelize');
+const Reclamo = require('../models/Reclamo');
 
 // Middleware: verifica si el admin YA inició sesión
 function requireAuth(req, res, next) {
@@ -52,6 +53,7 @@ router.get('/', requireAuth, async (_req, res) => {
     maestrias: await Maestria.count(),
     doctorados: await Doctorado.count(),
     contactos: await Contacto.count(),
+    reclamos: await Reclamo.count(), // ← AGREGADO
   };
   res.render('admin/dashboard', { stats });
 });
@@ -128,7 +130,7 @@ router.post('/eventos/:id/eliminar', requireAuth, async (req, res) => {
   res.redirect('/admin/eventos');
 });
 
-// === COMUNICADOS === (con subida de imagen Y archivo adjunto)
+// === COMUNICADOS ===
 router.get('/comunicados', requireAuth, async (_req, res) => {
   const comunicados = await Comunicado.findAll({ order: [['fecha', 'DESC']] });
   res.render('admin/comunicados', { comunicados });
@@ -180,7 +182,7 @@ router.post('/comunicados/:id', requireAuth, upload.fields([
   }
 
   if (req.files?.archivo?.[0]) {
-    const docDir = path.join(__dirname, '..', '..', 'client', 'docs', 'comunicados'); // ✅ Corregido
+    const docDir = path.join(__dirname, '..', '..', 'client', 'docs', 'comunicados');
     fs.mkdirSync(docDir, { recursive: true });
     archivoPath = `docs/comunicados/${req.files.archivo[0].filename}`;
   }
@@ -306,11 +308,7 @@ router.post('/doctorados/:id/eliminar', requireAuth, async (req, res) => {
   res.redirect('/admin/doctorados');
 });
 
-
-
 // === CONTACTOS ===
-
-// Ruta protegida para ver contactos
 router.get('/contactos', requireAuth, async (req, res) => {
   const { oficina } = req.query;
   const oficinasValidas = ['fce', 'ocaa', 'posgrado', 'cerseu', 'cesepi'];
@@ -326,11 +324,6 @@ router.get('/contactos', requireAuth, async (req, res) => {
 
   res.render('admin/contactos', { contactos, oficina });
 });
-
-
-
-
-
 
 // Exportar contactos a PDF
 router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
@@ -385,13 +378,13 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
 
     // === PIE DE PÁGINA ===
     const drawFooter = () => {
-    doc
-        .fontSize(9)
-        .font('Helvetica-Oblique')
-        .fillColor('#666')
-        .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
-        .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
-        .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
+      doc
+          .fontSize(9)
+          .font('Helvetica-Oblique')
+          .fillColor('#666')
+          .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
+          .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
+          .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
     };
 
     drawHeader();
@@ -438,5 +431,209 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
   }
 });
 
+// === LIBRO DE RECLAMACIONES - RUTAS ADMIN ===
+
+// GET /admin/reclamos - Lista de reclamos con paginación y filtros
+router.get('/reclamos', requireAuth, async (req, res) => {
+  try {
+    const { 
+      estado = 'Todos', 
+      tipo = 'Todos', 
+      busqueda = '', 
+      pagina = 1, 
+      limite = 20 
+    } = req.query;
+
+    const offset = (parseInt(pagina) - 1) * parseInt(limite);
+
+    // Construir filtros
+    const whereClause = {};
+    
+    if (estado !== 'Todos') {
+      whereClause.estado = estado;
+    }
+
+    if (tipo !== 'Todos') {
+      whereClause.tipo = tipo;
+    }
+
+    if (busqueda) {
+      whereClause[Op.or] = [
+        { nombre: { [Op.iLike]: `%${busqueda}%` } },
+        { email: { [Op.iLike]: `%${busqueda}%` } },
+        { descripcion: { [Op.iLike]: `%${busqueda}%` } }
+      ];
+    }
+
+    const { count, rows: reclamos } = await Reclamo.findAndCountAll({
+      where: whereClause,
+      limit: parseInt(limite),
+      offset,
+      order: [['fecha_creacion', 'DESC']],
+      attributes: [
+        'id', 'nombre', 'email', 'telefono', 'tipo', 
+        'estado', 'fecha_creacion', 'fecha_actualizacion'
+      ]
+    });
+
+    // Calcular estadísticas
+    const estadisticas = await Reclamo.obtenerEstadisticas();
+
+    res.render('admin/reclamos', {
+      title: 'Libro de Reclamaciones',
+      reclamos,
+      estadisticas,
+      filtros: { estado, tipo, busqueda },
+      pagination: {
+        currentPage: parseInt(pagina),
+        totalPages: Math.ceil(count / parseInt(limite)),
+        totalItems: count,
+        limit: parseInt(limite)
+      }
+    });
+
+  } catch (error) {
+    console.error('Error al listar reclamos:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// GET /admin/reclamos/:id - Ver detalle de reclamo
+router.get('/reclamos/:id', requireAuth, async (req, res) => {
+  try {
+    const reclamo = await Reclamo.findByPk(req.params.id);
+    
+    if (!reclamo) {
+      return res.status(404).send('Reclamo no encontrado');
+    }
+
+    res.render('admin/reclamo_detalle', {
+      title: 'Detalle del Reclamo',
+      reclamo
+    });
+
+  } catch (error) {
+    console.error('Error al obtener reclamo:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// POST /admin/reclamos/:id/responder - Responder a un reclamo
+router.post('/reclamos/:id/responder', requireAuth, async (req, res) => {
+  try {
+    const { estado, respuestaAdmin } = req.body;
+    
+    const reclamo = await Reclamo.findByPk(req.params.id);
+    
+    if (!reclamo) {
+      return res.status(404).json({
+        success: false,
+        error: 'Reclamo no encontrado'
+      });
+    }
+
+    // Validar nuevo estado
+    if (estado) {
+      const estadosValidos = ['Pendiente', 'En Proceso', 'Resuelto', 'Cerrado'];
+      if (!estadosValidos.includes(estado)) {
+        return res.status(400).json({
+          success: false,
+          error: 'Estado no válido'
+        });
+      }
+      reclamo.estado = estado;
+    }
+
+    // Actualizar respuesta admin
+    if (respuestaAdmin) {
+      reclamo.admin_respuesta = respuestaAdmin.trim();
+      reclamo.fecha_respuesta = new Date();
+      
+      // Si se proporciona respuesta, cambiar estado automáticamente a "En Proceso"
+      if (reclamo.estado === 'Pendiente') {
+        reclamo.estado = 'En Proceso';
+      }
+    }
+
+    await reclamo.save();
+
+    res.json({
+      success: true,
+      message: 'Respuesta guardada exitosamente',
+      data: {
+        id: reclamo.id,
+        estado: reclamo.estado,
+        fechaActualizacion: reclamo.fecha_actualizacion,
+        fechaRespuesta: reclamo.fecha_respuesta
+      }
+    });
+
+  } catch (error) {
+    console.error('Error al responder reclamo:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error interno del servidor'
+    });
+  }
+});
+
+// GET /admin/logout - Cerrar sesión
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
+    res.redirect('/admin/login');
+  });
+});
+
+// Exportar reclamos a CSV
+router.get('/reclamos/exportar/csv', requireAuth, async (req, res) => {
+  try {
+    const reclamos = await Reclamo.findAll({
+      order: [['fecha_creacion', 'DESC']],
+      attributes: [
+        'id', 'nombre', 'dni', 'email', 'telefono', 
+        'tipo', 'descripcion', 'estado', 'admin_respuesta',
+        'fecha_creacion', 'fecha_respuesta'
+      ]
+    });
+
+    // Crear CSV
+    const csvHeader = 'ID,Nombre,DNI,Email,Teléfono,Tipo,Descripción,Estado,Respuesta,Fecha Creación,Fecha Respuesta\n';
+    
+    const csvData = reclamos.map(reclamo => {
+      return [
+        reclamo.id,
+        `"${reclamo.nombre.replace(/"/g, '""')}"`,
+        reclamo.dni,
+        `"${reclamo.email.replace(/"/g, '""')}"`,
+        reclamo.telefono || '',
+        `"${reclamo.tipo}"`,
+        `"${reclamo.descripcion.replace(/"/g, '""')}"`,
+        reclamo.estado,
+        `"${(reclamo.admin_respuesta || '').replace(/"/g, '""')}"`,
+        reclamo.fecha_creacion.toISOString(),
+        reclamo.fecha_respuesta ? reclamo.fecha_respuesta.toISOString() : ''
+      ].join(',');
+    }).join('\n');
+
+    const csvContent = csvHeader + csvData;
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename="reclamos_${new Date().toISOString().split('T')[0]}.csv"`);
+    res.send(csvContent);
+
+  } catch (error) {
+    console.error('Error al exportar CSV:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error al exportar los datos'
+    });
+  }
+});
+
+// Exportar middleware requireAuth para otros archivos
+router.requireAuth = requireAuth;
 
 module.exports = router;
