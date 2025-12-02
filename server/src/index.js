@@ -1,4 +1,7 @@
-// index.js - CORREGIDO - Estructura correcta de rutas
+// ==========================================
+//  FCE-UNMSM – BACKEND PRINCIPAL (Docker)
+//  Puerto: 4000  →  nginx redirige desde 80
+// ==========================================
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -6,94 +9,78 @@ const path = require('path');
 const session = require('express-session');
 const sequelize = require('./config/db');
 
-// Importar rutas
-const noticiaRoute = require('./routes/noticias');
-const posgradoRoute = require('./routes/posgrado');
-const comunicadoRoute = require('./routes/comunicados');
-const eventoRoute = require('./routes/eventos');
-const egresadoRoute = require('./routes/egresados');
-const adminRoute = require('./routes/admin');           // Login y autenticación
-const contactoRoute = require('./routes/contacto');
+// ---------- RUTAS ----------
+const noticiaRoute       = require('./routes/noticias');
+const posgradoRoute      = require('./routes/posgrado');
+const comunicadoRoute    = require('./routes/comunicados');
+const eventoRoute        = require('./routes/eventos');
+const egresadoRoute      = require('./routes/egresados');
+const adminRoute         = require('./routes/admin');              // login
+const contactoRoute      = require('./routes/contacto');
+const reclamosRoutes     = require('./routes/reclamos');           // ← API pública  POST /api/reclamos
+const adminReclamosRoute = require('./routes/admin_reclamos');     // ← CRUD admin
+const adminDashboardRoute= require('./routes/admin_dashboard');    // ← home admin
 
-// Importar rutas de reclamos - CORREGIDAS
-const reclamosRoutes = require('./routes/reclamos');           // API pública
-const adminReclamosRoutes = require('./routes/admin_reclamos'); // Gestión admin reclamos
-const adminDashboardRoutes = require('./routes/admin_dashboard'); // Dashboard principal
-
-// Crear app
+// ---------- APP ----------
 const app = express();
 
-// Middlewares
+// ---------- MIDDLEWARES ----------
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());                       // ← importante: JSON
+app.use(express.urlencoded({ extended: true })); // ← importante: form-data
 app.use(session({
   secret: process.env.SESSION_SECRET || 'fce-unmsm-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // true solo si usas HTTPS en producción
+  cookie: { secure: false }   // true solo con HTTPS
 }));
 
-// Motor de vistas EJS
+// ---------- MOTOR DE VISTAS ----------
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
-// RUTAS API PÚBLICAS
-app.use('/api/noticias', noticiaRoute);
+// ---------- API PÚBLICA (sin auth) ----------
+app.use('/api/noticias',  noticiaRoute);
 app.use('/api/comunicados', comunicadoRoute);
-app.use('/api/eventos', eventoRoute);
+app.use('/api/eventos',   eventoRoute);
 app.use('/api/egresados', egresadoRoute);
-app.use('/api/posgrado', posgradoRoute);
-app.use('/api/contacto', contactoRoute);
+app.use('/api/posgrado',  posgradoRoute);
+app.use('/api/contacto',  contactoRoute);
+app.use('/api/reclamos',  reclamosRoutes);   // ← POST /api/reclamos
 
-// RUTAS API PÚBLICAS - RECLAMOS
-app.use('/api/reclamos', reclamosRoutes);
+// ---------- ADMIN (con auth) ----------
+app.use('/admin', adminRoute);           // login
+app.use('/admin', adminDashboardRoute);  // dashboard
+app.use('/admin/reclamos', adminReclamosRoute); // gestión
 
-// RUTAS ADMIN - AUTENTICACIÓN
-app.use('/admin', adminRoute);
+// ---------- HEALTH ----------
+app.get('/api', (_req, res) => res.send('API FCE-UNMSM v1'));
+app.get('/', (_req, res) => res.json({
+  message: 'FCE UNMSM – Sistema de Reclamaciones',
+  version: '1.0.0',
+  endpoints: {
+    'GET /': 'API principal',
+    'GET /api': 'Health check',
+    'POST /api/reclamos': 'Crear nueva reclamación',
+    'GET /api/reclamos/estadisticas': 'Estadísticas (requiere auth)',
+    'GET /admin': 'Dashboard principal (requiere auth)',
+    'GET /admin/login': 'Login admin',
+    'GET /admin/reclamos': 'Gestión de reclamaciones (requiere auth)'
+  }
+}));
 
-// RUTAS ADMIN - DASHBOARD PRINCIPAL
-app.use('/admin', adminDashboardRoutes);
-
-// RUTAS ADMIN - GESTIÓN DE RECLAMOS
-app.use('/admin/reclamos', adminReclamosRoutes);
-
-// Health-check
-app.get('/api', (_req, res) => {
-  res.send('API FCE-UNMSM v1');
-});
-
-// Ruta principal de la API
-app.get('/', (_req, res) => {
-  res.json({
-    message: 'FCE UNMSM - Sistema de Reclamaciones',
-    version: '1.0.0',
-    endpoints: {
-      'GET /': 'API principal',
-      'GET /api': 'Health check',
-      'POST /api/reclamos': 'Crear nueva reclamación',
-      'GET /api/reclamos/estadisticas': 'Estadísticas (requiere auth)',
-      'GET /admin': 'Dashboard principal (requiere auth)',
-      'GET /admin/login': 'Login admin',
-      'GET /admin/reclamos': 'Gestión de reclamaciones (requiere auth)'
-    }
-  });
-});
-
+// ---------- SERVIDOR ----------
 const PORT = process.env.PORT || 4000;
-
-// Iniciar servidor
-sequelize.sync({ force: false }).then(() => {
-  // 👇 ESCUCHAR EN 0.0.0.0 (imprescindible en Docker)
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`✅ Servidor corriendo en http://0.0.0.0:${PORT}`);
-    console.log(`✅ Accede a la API en http://localhost/api`);
-    console.log(`✅ Panel admin en http://localhost/admin`);
-    console.log(`✅ Gestión reclamos en http://localhost/admin/reclamos`);
-    console.log(`✅ API Reclamaciones en http://localhost/api/reclamos`);
-  });
-}).catch(err => {
-  console.error('❌ Error al conectar con la base de datos:', err);
-});
+sequelize.sync({ force: false })
+  .then(() => {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`✅ Servidor corriendo en http://0.0.0.0:${PORT}`);
+      console.log(`✅ Accede a la API en http://localhost/api`);
+      console.log(`✅ Panel admin en http://localhost/admin`);
+      console.log(`✅ Gestión reclamos en http://localhost/admin/reclamos`);
+      console.log(`✅ API Reclamaciones en http://localhost/api/reclamos`);
+    });
+  })
+  .catch(err => console.error('❌ Error al conectar con la base de datos:', err));
 
 module.exports = app;

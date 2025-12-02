@@ -581,11 +581,11 @@
   </div>
 
     <!-- === CHATBOT (placeholder) === -->
-  <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+  <!-- <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
     <button id="chatbot-toggle" class="btn btn-primary" style="border-radius: 50%; width: 60px; height: 60px; padding: 0; font-size: 1.5rem;">
       💬
     </button>
-  </div>
+  </div> -->
 
   <!-- BOTÓN MODO OSCURO -->
   <button id="modoBtn" title="Modo oscuro/claro" class="modo-fixed">🌙</button>
@@ -600,53 +600,53 @@
   </div>
 
   <!-- MODAL LIBRO DE RECLAMACIONES -->
-<div id="modalReclamo" class="modal-overlay">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Cerrar">&times;</button>
+  <div id="modalReclamo" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar">&times;</button>
 
-    <h2>Libro de Reclamaciones</h2>
-    <p>Complete el formulario y su reclamo quedará registrado.</p>
+      <h2>Libro de Reclamaciones</h2>
+      <p>Complete el formulario y su reclamo quedará registrado.</p>
 
-    <form id="formReclamo" autocomplete="off">
-      <label>Apellidos y Nombres *
-        <input type="text" name="nombre" required>
-      </label>
+      <form id="formReclamo" autocomplete="off">
+        <label>Apellidos y Nombres *
+          <input type="text" name="nombre" required>
+        </label>
 
-      <label>DNI / CE *
-        <input type="text" name="dni" pattern="[0-9]{8}" maxlength="8" required>
-      </label>
+        <label>DNI / CE *
+          <input type="text" name="dni" pattern="[0-9]{8}" maxlength="8" required>
+        </label>
 
-      <label>Teléfono
-        <input type="tel" name="telefono">
-      </label>
+        <label>Teléfono
+          <input type="tel" name="telefono">
+        </label>
 
-      <label>Correo electrónico *
-        <input type="email" name="email" required>
-      </label>
+        <label>Correo electrónico *
+          <input type="email" name="email" required>
+        </label>
 
-      <label>Tipo *
-        <select name="tipo" required>
-          <option value="">-- Seleccione --</option>
-          <option>Queja</option>
-          <option>Reclamo</option>
-          <option>Sugerencia</option>
-          <option>Felicidad</option>
-        </select>
-      </label>
+        <label>Tipo *
+          <select name="tipo" required>
+            <option value="">-- Seleccione --</option>
+            <option>Queja</option>
+            <option>Reclamo</option>
+            <option>Sugerencia</option>
+            <option>Felicidad</option>
+          </select>
+        </label>
 
-      <label>Descripción detallada *
-        <textarea name="descripcion" rows="5" required></textarea>
-      </label>
+        <label>Descripción detallada *
+          <textarea name="descripcion" rows="5" required></textarea>
+        </label>
 
-      <div class="modal-actions">
-        <button type="submit" class="btn-submit">Enviar reclamo</button>
-        <button type="button" class="btn-cancel">Cancelar</button>
-      </div>
-    </form>
+        <div class="modal-actions">
+          <button type="submit" class="btn-submit">Enviar reclamo</button>
+          <button type="button" class="btn-cancel">Cancelar</button>
+        </div>
+      </form>
 
-    <div class="modal-msg" id="msgReclamo"></div>
+      <div class="modal-msg" id="msgReclamo"></div>
+    </div>
   </div>
-</div>
 
 
 

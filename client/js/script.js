@@ -946,36 +946,70 @@ document.getElementById('successModal').addEventListener('click', (e) => {
 
 
 
-// MODAL DE RECLAMOS
-const modal = document.getElementById('modalReclamo');
-const form  = document.getElementById('formReclamo');
-const msg   = document.getElementById('msgReclamo');
+// ===== MODAL DE RECLAMACIONES =====
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('modalReclamo');
+  const form  = document.getElementById('formReclamo');
+  const msg   = document.getElementById('msgReclamo');
 
-// Delegación segura
-document.addEventListener('click', e => {
-  // Abrir
-  if (e.target.closest('.libro-link')) {
+  // Delegación segura
+  document.addEventListener('click', e => {
+    // Abrir
+    if (e.target.closest('.libro-link')) {
+      e.preventDefault();
+      modal.classList.add('active');
+      form.reset();
+      msg.textContent = '';
+    }
+    // Cerrar (X o botón cancelar)
+    if (e.target.closest('.modal-close') || e.target.closest('.btn-cancel')) {
+      modal.classList.remove('active');
+    }
+  });
+
+  // Cerrar al pulsar fuera
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.classList.remove('active');
+  });
+
+  // ===== ENVÍO REAL AL BACKEND (JSON) =====
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    modal.classList.add('active');
-    form.reset();
-    msg.textContent = '';
-  }
-  // Cerrar (X o botón cancelar)
-  if (e.target.closest('.modal-close') || e.target.closest('.btn-cancel')) {
-    modal.classList.remove('active');
-  }
-});
 
-// Cerrar al pulsar fuera
-modal.addEventListener('click', e => {
-  if (e.target === modal) modal.classList.remove('active');
-});
+    // Preparar JSON
+    const data = {
+      nombre: form.nombre.value.trim(),
+      dni: form.dni.value.trim(),
+      telefono: form.telefono.value.trim(),
+      email: form.email.value.trim(),
+      tipo: form.tipo.value,
+      descripcion: form.descripcion.value.trim()
+    };
 
-// Envío simulado
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  msg.textContent = '✅ Reclamo registrado. Gracias por tu feedback.';
-  msg.className = 'ok';
-  form.reset();
-  setTimeout(() => modal.classList.remove('active'), 1500);
+    console.log('📤 Enviando:', data); // ← para verificar en consola
+
+    try {
+      const res = await fetch('/api/reclamos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        msg.textContent = '✅ Reclamo enviado con éxito. Gracias por tu feedback.';
+        msg.className = 'ok';
+        form.reset();
+        setTimeout(() => modal.classList.remove('active'), 2000);
+      } else {
+        msg.textContent = `❌ Error: ${result.error || 'No se pudo guardar el reclamo.'}`;
+        msg.className = 'error';
+      }
+    } catch (err) {
+      console.error(err);
+      msg.textContent = '❌ Error de conexión con el servidor.';
+      msg.className = 'error';
+    }
+  });
 });
