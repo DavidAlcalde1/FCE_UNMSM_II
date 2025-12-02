@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title><%= typeof title !== 'undefined' ? title : 'Panel Admin' %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin-theme.css">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/admin"><i class="fas fa-university me-2"></i>FCE Admin</a>
+    <div class="d-flex align-items-center text-white">
+      <span class="me-3 small"><i class="fas fa-user-circle me-1"></i>Administrador</span>
+      <a class="btn btn-sm btn-outline-light" href="/admin/logout"><i class="fas fa-sign-out-alt me-1"></i>Salir</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar compacto -->
+    <nav class="col-md-3 col-lg-2 bg-light vh-100 pt-3">
+      <ul class="nav flex-column">
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin"><i class="fas fa-tachometer-alt fa-fw me-2"></i>Dashboard</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/noticias"><i class="fas fa-newspaper fa-fw me-2"></i>Noticias</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/eventos"><i class="fas fa-calendar fa-fw me-2"></i>Eventos</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/comunicados"><i class="fas fa-bullhorn fa-fw me-2"></i>Comunicados</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/egresados"><i class="fas fa-graduation-cap fa-fw me-2"></i>Egresados</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/maestrias"><i class="fas fa-graduation-cap fa-fw me-2"></i>Maestrías</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/doctorados"><i class="fas fa-graduation-cap fa-fw me-2"></i>Doctorados</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/contactos"><i class="fas fa-envelope fa-fw me-2"></i>Contactos</a></li>
+        <li class="nav-item mb-1"><a class="nav-link px-3 rounded active" href="/admin/reclamos"><i class="fas fa-book fa-fw me-2"></i>Reclamos</a></li>
+      </ul>
+    </nav>

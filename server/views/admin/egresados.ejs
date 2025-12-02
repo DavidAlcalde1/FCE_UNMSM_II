@@ -1,63 +1,65 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Egresados - Admin FCE</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background-color: #f8f9fa; }
-    .container { max-width: 1200px; }
-    .card { margin-bottom: 1rem; }
-    .content-buttons {height: 100px; display: flex; flex-direction: column; justify-content: center; gap: 10px; margin: 10px; align-items: center;}    
-    .egresado-img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; }
-  </style>
-</head>
-<body>
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>Egresados Destacados</h1>
-      <a href="/admin/egresados/nuevo" class="btn btn-success">+ Nuevo Egresado</a>
-    </div>
-    
-    <div class="row">
-      <% if (egresados && egresados.length > 0) { %>
-        <% egresados.forEach(egresado => { %>
-          <div class="col-md-6 col-lg-4">
-            <div class="card">
-              <div class="card-body d-flex align-items-center">
-                <% if (egresado.imagen) { %>
-                  <img src="/<%= egresado.imagen %>" class="egresado-img me-3" alt="<%= egresado.nombre %>">
-                <% } else { %>
-                  <div class="egresado-img bg-secondary me-3 d-flex align-items-center justify-content-center text-white">
-                    <i class="fas fa-user"></i>
-                  </div>
-                <% } %>
-                <div class="flex-grow-1">
-                  <h6 class="card-title mb-1"><%= egresado.nombre %></h6>
-                  <small class="text-muted"><%= egresado.titulo %></small>
-                  <p class="mb-0"><%= egresado.empresa %></p>
+<%- include('../partials/admin-header', { title: 'Egresados Destacados' }) %>
+
+<main class="col-md-9 col-lg-10 ms-auto px-4 py-3">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2 mb-0">
+      <i class="fas fa-user-graduate me-2"></i>Egresados Destacados
+    </h1>
+    <a href="/admin/egresados/nuevo" class="btn btn-success">
+      <i class="fas fa-plus me-2"></i>Nuevo Egresado
+    </a>
+  </div>
+
+  <% if (egresados && egresados.length > 0) { %>
+    <div class="row g-3">
+      <% egresados.forEach(egresado => { %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex align-items-center gap-3">
+              <!-- Imagen o avatar -->
+              <% if (egresado.imagen) { %>
+                <img src="/<%= egresado.imagen %>" class="rounded-circle" alt="<%= egresado.nombre %>" style="width: 80px; height: 80px; object-fit: cover;">
+              <% } else { %>
+                <div class="d-flex align-items-center justify-content-center bg-secondary text-white rounded-circle" style="width: 80px; height: 80px;">
+                  <i class="fas fa-user fa-2x"></i>
                 </div>
-                <div class="content-buttons">
-                  <a href="/admin/egresados/<%= egresado.id %>/editar" class="btn btn-primary btn-sm btn-action">Editar</a>
-                  <form action="/admin/egresados/<%= egresado.id %>/eliminar" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-danger btn-sm" 
-                            onclick="return confirm('¿Eliminar este egresado?')">Eliminar</button>
-                  </form>
-                </div>
+              <% } %>
+
+              <!-- Info -->
+              <div class="flex-grow-1">
+                <h6 class="card-title text-primary mb-1"><%= egresado.nombre %></h6>
+                <small class="text-muted d-block"><%= egresado.titulo %></small>
+                <p class="mb-0 small"><%= egresado.empresa %></p>
+              </div>
+
+              <!-- Botones -->
+              <div class="d-flex flex-column gap-2">
+                <a href="/admin/egresados/<%= egresado.id %>/editar" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-edit me-1"></i>Editar
+                </a>
+                <form action="/admin/egresados/<%= egresado.id %>/eliminar" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este egresado?')">
+                    <i class="fas fa-trash-alt me-1"></i>Eliminar
+                  </button>
+                </form>
               </div>
             </div>
           </div>
-        <% }); %>
-      <% } else { %>
-        <div class="col-12">
-          <div class="alert alert-info">No hay egresados registrados.</div>
         </div>
-      <% } %>
+      <% }); %>
     </div>
-    
-    <div class="mt-3">
-      <a href="/admin" class="btn btn-secondary">← Volver al Panel Principal</a>
+  <% } else { %>
+    <div class="alert alert-info d-flex align-items-center">
+      <i class="fas fa-info-circle me-2"></i>
+      <span>No hay egresados registrados.</span>
     </div>
+  <% } %>
+
+  <div class="mt-4">
+    <a href="/admin" class="btn btn-secondary">
+      <i class="fas fa-arrow-left me-2"></i>Volver al Panel Principal
+    </a>
   </div>
-</body>
-</html>
+</main>
+
+<%- include('../partials/admin-footer') %>

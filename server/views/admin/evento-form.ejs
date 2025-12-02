@@ -1,71 +1,148 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title><%= evento ? 'Editar Evento' : 'Nuevo Evento' %> - Admin FCE</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background-color: #f8f9fa; }
-    .form-container { max-width: 800px; margin: 2rem auto; }
-    .btn-back { margin-bottom: 1rem; }
-  </style>
-</head>
-<body>
-  <div class="container form-container">
-    <a href="/admin/eventos" class="btn btn-secondary btn-back">← Volver a Eventos</a>
-    
-    <h2><%= evento ? 'Editar Evento' : 'Nuevo Evento' %></h2>
-    
-    <form method="POST" action="<%= evento ? `/admin/eventos/${evento.id}` : '/admin/eventos' %>" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="titulo" class="form-label">Título *</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" 
-               value="<%= evento?.titulo || '' %>" required>
-      </div>
-      
-      <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <textarea class="form-control" id="descripcion" name="descripcion" rows="4">
-<%= evento?.descripcion || '' %></textarea>
-      </div>
-      
-      <div class="mb-3">
-        <label for="fecha" class="form-label">Fecha *</label>
-        <input type="date" class="form-control" id="fecha" name="fecha" 
-               value="<%= evento?.fecha || '' %>" required>
-      </div>
-      
-      <div class="mb-3">
-        <label for="imagen" class="form-label">Imagen</label>
-        <% if (evento && evento.imagen) { %>
-          <div class="mb-2">
-            <img src="/<%= evento.imagen %>" alt="Vista previa" style="max-height: 150px; max-width: 150px; object-fit: cover; border-radius: 4px;">
-          </div>
-        <% } %>
-        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-        <% if (evento && evento.imagen) { %>
-          <div class="form-text">Deja vacío para mantener la imagen actual</div>
-        <% } %>
-      </div>
-      
-      <div class="mb-3">
-        <label for="url" class="form-label">URL del evento</label>
-        <input type="url" name="url" value="<%= evento?.url || '' %>" class="form-control">
-      </div>
+<%- include('../partials/admin-header', { title: evento ? 'Editar Evento' : 'Nuevo Evento' }) %>
 
-      <div class="mb-3">
-        <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento (opcional)</label>
-        <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento"
-              value="<%= evento?.fecha_vencimiento || '' %>">
-        <div class="form-text">Si se deja vacío, el contenido nunca caduca.</div>
-      </div>
-      
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="submit" class="btn btn-primary">
-          <%= evento ? 'Actualizar' : 'Crear' %>
-        </button>
-      </div>
-    </form>
+<main class="col-md-9 col-lg-10 ms-auto px-4 py-3">
+  <div class="d-flex align-items-center mb-4">
+    <a href="/admin/eventos" class="btn btn-outline-secondary btn-sm me-3">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1 class="h2 mb-0"><%= evento ? 'Editar Evento' : 'Nuevo Evento' %></h1>
   </div>
-</body>
-</html>
+
+  <% 
+  // ✅ Soporte para mensajes de error (evita ReferenceError)
+  const errores = locals.errores || [];
+  %>
+
+  <% if (errores.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+      <h5 class="alert-heading mb-2">
+        <i class="fas fa-exclamation-triangle me-2"></i>Por favor, corrige los siguientes errores:
+      </h5>
+      <ul class="mb-0">
+        <% errores.forEach(error => { %>
+          <li><%= error %></li>
+        <% }); %>
+      </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+  <% } %>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="POST" 
+            action="<%= evento ? `/admin/eventos/${evento.id}` : '/admin/eventos' %>" 
+            enctype="multipart/form-data">
+        
+        <!-- Título -->
+        <div class="mb-3">
+          <label for="titulo" class="form-label fw-semibold">Título *</label>
+          <input type="text" 
+                 class="form-control<%= errores.some(e => e.includes('título')) ? ' is-invalid' : '' %>" 
+                 id="titulo" 
+                 name="titulo" 
+                 value="<%= evento?.titulo || '' %>" 
+                 required 
+                 minlength="5" 
+                 maxlength="150">
+          <% if (errores.some(e => e.includes('título'))) { %>
+            <div class="invalid-feedback">
+              <%= errores.find(e => e.includes('título')) || 'El título es obligatorio.' %>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-3">
+          <label for="descripcion" class="form-label fw-semibold">Descripción</label>
+          <textarea class="form-control<%= errores.some(e => e.includes('descripción')) ? ' is-invalid' : '' %>" 
+                    id="descripcion" 
+                    name="descripcion" 
+                    rows="4"><%= evento?.descripcion || '' %></textarea>
+          <% if (errores.some(e => e.includes('descripción'))) { %>
+            <div class="invalid-feedback">
+              <%= errores.find(e => e.includes('descripción')) || 'La descripción es obligatoria.' %>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Fecha -->
+        <div class="mb-3">
+          <label for="fecha" class="form-label fw-semibold">Fecha *</label>
+          <input type="date" 
+                 class="form-control<%= errores.some(e => e.includes('fecha')) ? ' is-invalid' : '' %>" 
+                 id="fecha" 
+                 name="fecha" 
+                 value="<%= evento?.fecha || '' %>" 
+                 required>
+          <% if (errores.some(e => e.includes('fecha'))) { %>
+            <div class="invalid-feedback">
+              <%= errores.find(e => e.includes('fecha')) || 'La fecha es obligatoria.' %>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Imagen -->
+        <div class="mb-3">
+          <label for="imagen" class="form-label fw-semibold">Imagen</label>
+          <% if (evento && evento.imagen) { %>
+            <div class="mb-2">
+              <img src="/<%= evento.imagen %>" alt="Vista previa" class="img-thumbnail" style="max-height: 150px;">
+            </div>
+          <% } %>
+          <input type="file" 
+                 class="form-control<%= errores.some(e => e.includes('imagen')) ? ' is-invalid' : '' %>" 
+                 id="imagen" 
+                 name="imagen" 
+                 accept="image/*">
+          <% if (evento && evento.imagen) { %>
+            <div class="form-text">Deja vacío para mantener la imagen actual</div>
+          <% } %>
+          <% if (errores.some(e => e.includes('imagen'))) { %>
+            <div class="invalid-feedback">
+              <%= errores.find(e => e.includes('imagen')) %>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- URL -->
+        <div class="mb-3">
+          <label for="url" class="form-label fw-semibold">URL del evento</label>
+          <input type="url" 
+                 class="form-control<%= errores.some(e => e.includes('URL')) ? ' is-invalid' : '' %>" 
+                 id="url" 
+                 name="url" 
+                 value="<%= evento?.url || '' %>" 
+                 placeholder="https://ejemplo.com/evento">
+          <% if (errores.some(e => e.includes('URL'))) { %>
+            <div class="invalid-feedback">
+              <%= errores.find(e => e.includes('URL')) || 'Ingresa una URL válida.' %>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Fecha de vencimiento -->
+        <div class="mb-3">
+          <label for="fecha_vencimiento" class="form-label fw-semibold">Fecha de vencimiento (opcional)</label>
+          <input type="date" 
+                 class="form-control" 
+                 id="fecha_vencimiento" 
+                 name="fecha_vencimiento" 
+                 value="<%= evento?.fecha_vencimiento || '' %>">
+          <div class="form-text">Si se deja vacío, el contenido nunca caduca.</div>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-end gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save me-2"></i><%= evento ? 'Actualizar' : 'Crear' %>
+          </button>
+          <a href="/admin/eventos" class="btn btn-secondary">
+            <i class="fas fa-times me-2"></i>Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/admin-footer') %>

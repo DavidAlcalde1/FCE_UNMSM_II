@@ -58,76 +58,125 @@ router.get('/', requireAuth, async (_req, res) => {
   res.render('admin/dashboard', { stats });
 });
 
-// === NOTICIAS ===
-router.get('/noticias', requireAuth, async (_req, res) => {
-  const noticias = await Noticia.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/noticias', { noticias });
-});
-
-router.get('/noticias/nueva', requireAuth, (_req, res) => res.render('admin/noticia-form', { noticia: null }));
-
+// === NOTICIAS === POST (crear y actualizar con validación)
 router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) => {
-  const imagenPath = req.file ? `img/index/noticias/${req.file.filename}` : req.body.imagen;
-  await Noticia.create({
-    ...req.body,
-    imagen: imagenPath
-  });
-  res.redirect('/admin/noticias');
-});
+  try {
+    const { titulo, resumen, contenido, fecha } = req.body;
+    const data = {
+      titulo: (titulo || '').trim(),
+      resumen: (resumen || '').trim(),
+      contenido: (contenido || '').trim(),
+      fecha: fecha || null,
+      imagen: req.file 
+        ? `img/index/noticias/${req.file.filename}` 
+        : (req.body.imagen || null)
+    };
 
-router.get('/noticias/:id/editar', requireAuth, async (req, res) => {
-  const noticia = await Noticia.findByPk(req.params.id);
-  res.render('admin/noticia-form', { noticia });
+    const errores = [];
+    if (!data.titulo) errores.push('El título es obligatorio.');
+    if (!data.resumen) errores.push('El resumen es obligatorio.');
+    if (!data.contenido) errores.push('El contenido es obligatorio.');
+    if (!data.fecha) errores.push('La fecha es obligatoria.');
+
+    if (errores.length > 0) {
+      return res.render('admin/noticia-form', { noticia: data, errores });
+    }
+
+    await Noticia.create(data);
+    res.redirect('/admin/noticias');
+
+  } catch (error) {
+    console.error('Error al crear noticia:', error);
+    res.render('admin/noticia-form', { 
+      noticia: { ...req.body, imagen: req.body.imagen }, 
+      errores: ['No se pudo guardar la noticia. Verifica los datos.'] 
+    });
+  }
 });
 
 router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, res) => {
-  const imagenPath = req.file ? `img/index/noticias/${req.file.filename}` : req.body.imagen;
-  await Noticia.update({
-    ...req.body,
-    imagen: imagenPath
-  }, { where: { id: req.params.id } });
-  res.redirect('/admin/noticias');
+  try {
+    const { titulo, resumen, contenido, fecha } = req.body;
+    const id = req.params.id;
+    const data = {
+      titulo: (titulo || '').trim(),
+      resumen: (resumen || '').trim(),
+      contenido: (contenido || '').trim(),
+      fecha: fecha || null,
+      imagen: req.file 
+        ? `img/index/noticias/${req.file.filename}` 
+        : (req.body.imagen || null)
+    };
+
+    const errores = [];
+    if (!data.titulo) errores.push('El título es obligatorio.');
+    if (!data.resumen) errores.push('El resumen es obligatorio.');
+    if (!data.contenido) errores.push('El contenido es obligatorio.');
+    if (!data.fecha) errores.push('La fecha es obligatoria.');
+
+    if (errores.length > 0) {
+      return res.render('admin/noticia-form', { noticia: { id, ...data }, errores });
+    }
+
+    await Noticia.update(data, { where: { id } });
+    res.redirect('/admin/noticias');
+
+  } catch (error) {
+    console.error('Error al actualizar noticia:', error);
+    res.render('admin/noticia-form', { 
+      noticia: { id, ...req.body, imagen: req.body.imagen }, 
+      errores: ['No se pudo actualizar la noticia. Intenta nuevamente.'] 
+    });
+  }
 });
 
-router.post('/noticias/:id/eliminar', requireAuth, async (req, res) => {
-  await Noticia.destroy({ where: { id: req.params.id } });
-  res.redirect('/admin/noticias');
-});
-
-// === EVENTOS ===
-router.get('/eventos', requireAuth, async (_req, res) => {
-  const eventos = await Evento.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/eventos', { eventos });
-});
-
-router.get('/eventos/nuevo', requireAuth, (_req, res) => res.render('admin/evento-form', { evento: null }));
-
+// === EVENTOS === POST (crear y actualizar con validación)
 router.post('/eventos', requireAuth, upload.single('imagen'), async (req, res) => {
-  const imagenPath = req.file ? `img/index/eventos/${req.file.filename}` : req.body.imagen;
-  await Evento.create({
-    ...req.body,
-    imagen: imagenPath
-  });
-  res.redirect('/admin/eventos');
-});
+  try {
+    // ✅ Construir data SIN campos vacíos
+    const data = {
+      titulo: req.body.titulo?.trim(),
+      descripcion: req.body.descripcion?.trim() || undefined,
+      fecha: req.body.fecha || undefined,
+      url: req.body.url?.trim() || undefined,
+      // 🔑 Clave: si es cadena vacía → undefined (Sequelize lo omite)
+      fecha_vencimiento: req.body.fecha_vencimiento 
+        ? req.body.fecha_vencimiento 
+        : undefined,
+      imagen: req.file 
+        ? `img/index/eventos/${req.file.filename}` 
+        : (req.body.imagen || undefined)
+    };
 
-router.get('/eventos/:id/editar', requireAuth, async (req, res) => {
-  const evento = await Evento.findByPk(req.params.id);
-  res.render('admin/evento-form', { evento });
-});
+    // ✅ Validación
+    const errores = [];
+    if (!data.titulo) errores.push('El título es obligatorio.');
+    if (!data.fecha) errores.push('La fecha es obligatoria.');
+    if (errores.length > 0) {
+      return res.render('admin/evento-form', { evento: req.body, errores });
+    }
 
-router.post('/eventos/:id', requireAuth, upload.single('imagen'), async (req, res) => {
-  const imagenPath = req.file ? `img/index/eventos/${req.file.filename}` : req.body.imagen;
-  await Evento.update({
-    ...req.body,
-    imagen: imagenPath
-  }, { where: { id: req.params.id } });
-  res.redirect('/admin/eventos');
-});
+    // ✅ Limpiar undefined (mejor práctica)
+    Object.keys(data).forEach(key => data[key] === undefined && delete data[key]);
 
-router.post('/eventos/:id/eliminar', requireAuth, async (req, res) => {
-  await Evento.destroy({ where: { id: req.params.id } });
-  res.redirect('/admin/eventos');
+    await Evento.create(data);
+    res.redirect('/admin/eventos');
+
+  } catch (error) {
+    // ✅ Diagnóstico (deja esto hasta que funcione)
+    console.error('\n🚨 ERROR AL CREAR EVENTO:');
+    console.error('Mensaje:', error.message);
+    if (error.parent) {
+      console.error('❌ PostgreSQL:', error.parent.message);
+      console.error('📝 SQL:', error.parent.sql);
+    }
+    console.error('---\n');
+    
+    res.render('admin/evento-form', { 
+      evento: req.body,
+      errores: ['No se pudo guardar el evento. Verifica los datos.'] 
+    });
+  }
 });
 
 // === COMUNICADOS ===
@@ -636,4 +685,31 @@ router.get('/reclamos/exportar/csv', requireAuth, async (req, res) => {
 // Exportar middleware requireAuth para otros archivos
 router.requireAuth = requireAuth;
 
+
+
+
+// === NOTICIAS - LISTADO ===
+router.get('/noticias', requireAuth, async (_req, res) => {
+  const noticias = await Noticia.findAll({ order: [['fecha', 'DESC']] });
+  res.render('admin/noticias', { noticias });
+});
+
+// === EVENTOS - LISTADO ===
+router.get('/eventos', requireAuth, async (_req, res) => {
+  const eventos = await Evento.findAll({ order: [['fecha', 'DESC']] });
+  res.render('admin/eventos', { eventos });
+});
+
+// === EVENTOS - FORMULARIO NUEVO ===
+router.get('/eventos/nuevo', requireAuth, (_req, res) => {
+  res.render('admin/evento-form', { evento: null });
+});
+
+// === NOTICIAS - FORMULARIO NUEVO ===
+router.get('/noticias/nueva', requireAuth, (_req, res) => {
+  res.render('admin/noticia-form', { noticia: null });
+});
+
 module.exports = router;
+
+
