@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concursos Públicos - Portal de Transparencia UNMSM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/concursos.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="transparencia-hero concursos">
+        <div class="hero-content">
+            <div class="icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h1>Concursos Públicos</h1>
+            <p>Convocatorias y procesos de selección para cargos docentes y administrativos</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Concursos Activos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">45</span>
+                    <span class="stat-label">Puestos Disponibles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filter-group">
+                <label for="searchInput">
+                    <i class="fas fa-search"></i>
+                    Buscar concurso
+                </label>
+                <input type="text" id="searchInput" placeholder="Escribe el nombre del concurso...">
+            </div>
+            
+            <div class="filter-group">
+                <label for="tipoFilter">
+                    <i class="fas fa-filter"></i>
+                    Tipo de Concurso
+                </label>
+                <select id="tipoFilter">
+                    <option value="">Todos los tipos</option>
+                    <option value="docente">Docente</option>
+                    <option value="administrativo">Administrativo</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="estadoFilter">
+                    <i class="fas fa-check-circle"></i>
+                    Estado
+                </label>
+                <select id="estadoFilter">
+                    <option value="">Todos los estados</option>
+                    <option value="abierto">Abierto</option>
+                    <option value="cerrado">Cerrado</option>
+                    <option value="en-evaluacion">En Evaluación</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="añoFilter">
+                    <i class="fas fa-calendar"></i>
+                    Año
+                </label>
+                <select id="añoFilter">
+                    <option value="">Todos los años</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+            
+            <button id="clearFilters" class="clear-btn">
+                <i class="fas fa-times"></i>
+                Limpiar filtros
+            </button>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>
+                            <i class="fas fa-layer-group"></i>
+                            Años Disponibles
+                        </h3>
+                        <div class="años-grid">
+                            <div class="año-card" data-año="2024">
+                                <i class="fas fa-calendar-year"></i>
+                                <h3>2024</h3>
+                                <p>12 concursos</p>
+                            </div>
+                            <div class="año-card" data-año="2023">
+                                <i class="fas fa-calendar-year"></i>
+                                <h3>2023</h3>
+                                <p>18 concursos</p>
+                            </div>
+                            <div class="año-card" data-año="2022">
+                                <i class="fas fa-calendar-year"></i>
+                                <h3>2022</h3>
+                                <p>15 concursos</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="content-area">
+                    <div class="results-header">
+                        <h2>
+                            <i class="fas fa-list"></i>
+                            Convocatorias Disponibles
+                        </h2>
+                        <div class="results-count">
+                            <span id="resultsCount">45</span> concursos encontrados
+                        </div>
+                    </div>
+
+                    <div class="concursos-grid" id="concursosContainer">
+                        <!-- 2024 -->
+                        <div class="año-group" data-año="2024">
+                            <h3 class="año-header">
+                                <i class="fas fa-calendar-check"></i>
+                                Convocatorias 2024
+                            </h3>
+                            
+                            <div class="concursos-list">
+                                <div class="doc-item" data-tipo="docente" data-estado="abierto" data-año="2024">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="doc-content">
+                                        <h3>Concurso Público Docente - EPE (Escuela Profesional de Economía)</h3>
+                                        <p class="doc-description">Convocatoria para 5 posiciones docentes en las especialidades de Microeconomía, Macroeconomía y Economía Matemática.</p>
+                                        <div class="doc-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-tag"></i>
+                                                <strong>Tipo:</strong> Docente
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <strong>Ubicación:</strong> EPE
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-users"></i>
+                                                <strong>Vacantes:</strong> 5
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                <strong>Fecha límite:</strong> 15 Enero 2025
+                                            </span>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <a href="#" class="btn-action btn-primary">
+                                                <i class="fas fa-download"></i>
+                                                Descargar Bases
+                                            </a>
+                                            <a href="#" class="btn-action btn-secondary">
+                                                <i class="fas fa-eye"></i>
+                                                Ver Detalles
+                                            </a>
+                                            <span class="estado-badge estado-abierto">
+                                                <i class="fas fa-play"></i>
+                                                ABIERTO
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="doc-item" data-tipo="administrativo" data-estado="abierto" data-año="2024">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div class="doc-content">
+                                        <h3>Concurso Público Administrativo - Oficina de Coordinación EPEI</h3>
+                                        <p class="doc-description">Proceso de selección para 3 posiciones administrativas especializadas en gestión académica y relaciones internacionales.</p>
+                                        <div class="doc-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-tag"></i>
+                                                <strong>Tipo:</strong> Administrativo
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <strong>Ubicación:</strong> EPEI
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-users"></i>
+                                                <strong>Vacantes:</strong> 3
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                <strong>Fecha límite:</strong> 20 Enero 2025
+                                            </span>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <a href="#" class="btn-action btn-primary">
+                                                <i class="fas fa-download"></i>
+                                                Descargar Bases
+                                            </a>
+                                            <a href="#" class="btn-action btn-secondary">
+                                                <i class="fas fa-eye"></i>
+                                                Ver Detalles
+                                            </a>
+                                            <span class="estado-badge estado-abierto">
+                                                <i class="fas fa-play"></i>
+                                                ABIERTO
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="doc-item" data-tipo="docente" data-estado="en-evaluacion" data-año="2024">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="doc-content">
+                                        <h3>Concurso Público Docente - EPEP (Escuela Profesional de Economía Pública)</h3>
+                                        <p class="doc-description">Convocatoria para 8 posiciones docentes en las especialidades de Administración Pública, Finanzas Públicas y Política Económica.</p>
+                                        <div class="doc-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-tag"></i>
+                                                <strong>Tipo:</strong> Docente
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <strong>Ubicación:</strong> EPEP
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-users"></i>
+                                                <strong>Vacantes:</strong> 8
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                <strong>Cierre:</strong> 10 Enero 2025
+                                            </span>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <a href="#" class="btn-action btn-primary">
+                                                <i class="fas fa-download"></i>
+                                                Descargar Resumen
+                                            </a>
+                                            <span class="estado-badge estado-en-evaluacion">
+                                                <i class="fas fa-hourglass-half"></i>
+                                                EN EVALUACIÓN
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2023 -->
+                        <div class="año-group" data-año="2023">
+                            <h3 class="año-header">
+                                <i class="fas fa-calendar-check"></i>
+                                Convocatorias 2023
+                            </h3>
+                            
+                            <div class="concursos-list">
+                                <div class="doc-item" data-tipo="docente" data-estado="cerrado" data-año="2023">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="doc-content">
+                                        <h3>Concurso Público Docente - EPEI (Escuela Profesional de Economía Internacional)</h3>
+                                        <p class="doc-description">Proceso de selección completado para 6 posiciones docentes en Comercio Internacional, Relaciones Económicas Internacionales y Finanzas Internacionales.</p>
+                                        <div class="doc-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-tag"></i>
+                                                <strong>Tipo:</strong> Docente
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <strong>Ubicación:</strong> EPEI
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-users"></i>
+                                                <strong>Vacantes:</strong> 6
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                <strong>Completado:</strong> Diciembre 2023
+                                            </span>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <a href="#" class="btn-action btn-primary">
+                                                <i class="fas fa-download"></i>
+                                                Descargar Resultados
+                                            </a>
+                                            <span class="estado-badge estado-cerrado">
+                                                <i class="fas fa-check"></i>
+                                                CERRADO
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="doc-item" data-tipo="administrativo" data-estado="cerrado" data-año="2023">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div class="doc-content">
+                                        <h3>Concurso Público Administrativo - Oficina de Coordinación EPE</h3>
+                                        <p class="doc-description">Proceso de selección finalizado para 4 posiciones administrativas en gestión académica y coordinación de la escuela.</p>
+                                        <div class="doc-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-tag"></i>
+                                                <strong>Tipo:</strong> Administrativo
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <strong>Ubicación:</strong> EPE
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-users"></i>
+                                                <strong>Vacantes:</strong> 4
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                <strong>Completado:</strong> Noviembre 2023
+                                            </span>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <a href="#" class="btn-action btn-primary">
+                                                <i class="fas fa-download"></i>
+                                                Descargar Resultados
+                                            </a>
+                                            <span class="estado-badge estado-cerrado">
+                                                <i class="fas fa-check"></i>
+                                                CERRADO
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2022 -->
+                        <div class="año-group" data-año="2022">
+                            <h3 class="año-header">
+                                <i class="fas fa-calendar-check"></i>
+                                Convocatorias 2022
+                            </h3>
+                            
+                            <div class="concursos-list">
+                                <div class="doc-item" data-tipo="docente" data-estado="cerrado" data-año="2022">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="doc-content">
+                                        <h3>Concurso Público Docente - EPE (Escuela Profesional de Economía)</h3>
+                                        <p class="doc-description">Proceso de selección finalizado para 7 posiciones docentes en Econometría, Economía del Desarrollo e Historia Económica.</p>
+                                        <div class="doc-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-tag"></i>
+                                                <strong>Tipo:</strong> Docente
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <strong>Ubicación:</strong> EPE
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-users"></i>
+                                                <strong>Vacantes:</strong> 7
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                <strong>Completado:</strong> Octubre 2022
+                                            </span>
+                                        </div>
+                                        <div class="doc-actions">
+                                            <a href="#" class="btn-action btn-primary">
+                                                <i class="fas fa-download"></i>
+                                                Descargar Resultados
+                                            </a>
+                                            <span class="estado-badge estado-cerrado">
+                                                <i class="fas fa-check"></i>
+                                                CERRADO
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No results message -->
+                    <div class="no-results" id="noResults" style="display: none;">
+                        <div class="no-results-content">
+                            <i class="fas fa-search"></i>
+                            <h3>No se encontraron concursos</h3>
+                            <p>Intenta ajustar los filtros para ver más resultados</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="concursos.js"></script>
+</body>
+</html>

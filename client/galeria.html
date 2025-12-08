@@ -110,6 +110,11 @@
         popupImg.src = img.src;
         popup.classList.add('show');
         document.body.style.overflow = 'hidden'; // evita scroll de fondo
+        // Ajustar tamaño máximo al viewport
+        const maxW = window.innerWidth * 0.90;
+        const maxH = window.innerHeight * 0.90;
+        popupImg.style.maxWidth = maxW + 'px';
+        popupImg.style.maxHeight = maxH + 'px';
         });
     });
 

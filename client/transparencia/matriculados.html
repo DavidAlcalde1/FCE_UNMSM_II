@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriculados - Portal de Transparencia UNMSM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/matriculados.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="transparencia-hero matriculados">
+        <div class="hero-content">
+            <div class="icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h1>Estudiantes Matriculados</h1>
+            <p>Estadísticas y datos de matrícula estudiantil de la Facultad de Ciencias Económicas</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">18,456</span>
+                    <span class="stat-label">Estudiantes Matriculados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">67</span>
+                    <span class="stat-label">Programas de Estudio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filter-group">
+                <label for="searchInput">
+                    <i class="fas fa-search"></i>
+                    Buscar estudiante
+                </label>
+                <input type="text" id="searchInput" placeholder="Nombre del estudiante...">
+            </div>
+            
+            <div class="filter-group">
+                <label for="semestreFilter">
+                    <i class="fas fa-calendar"></i>
+                    Semestre
+                </label>
+                <select id="semestreFilter">
+                    <option value="">Todos los semestres</option>
+                    <option value="2024-2">2024-II</option>
+                    <option value="2024-1">2024-I</option>
+                    <option value="2023-2">2023-II</option>
+                    <option value="2023-1">2023-I</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="escuelaFilter">
+                    <i class="fas fa-school"></i>
+                    Escuela
+                </label>
+                <select id="escuelaFilter">
+                    <option value="">Todas las escuelas</option>
+                    <option value="epe">EPE (Economía)</option>
+                    <option value="epep">EPEP (Economía Pública)</option>
+                    <option value="epei">EPEI (Economía Internacional)</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="cicloFilter">
+                    <i class="fas fa-layer-group"></i>
+                    Ciclo/Grado
+                </label>
+                <select id="cicloFilter">
+                    <option value="">Todos los ciclos</option>
+                    <option value="pregrado">Pregrado</option>
+                    <option value="maestria">Maestría</option>
+                    <option value="doctorado">Doctorado</option>
+                </select>
+            </div>
+            
+            <button id="clearFilters" class="clear-btn">
+                <i class="fas fa-times"></i>
+                Limpiar filtros
+            </button>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">18,456</span>
+                        <span class="stat-label">Total Matriculados</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">3,892</span>
+                        <span class="stat-label">Nuevos Ingresantes</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">1,567</span>
+                        <span class="stat-label">Egresados</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">87.3%</span>
+                        <span class="stat-label">Tasa de Retención</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>
+                            <i class="fas fa-chart-pie"></i>
+                            Distribución por Semestres
+                        </h3>
+                        <div class="años-grid">
+                            <div class="año-card" data-semestre="2024-2">
+                                <i class="fas fa-calendar-check"></i>
+                                <h3>2024-II</h3>
+                                <p>9,834 estudiantes</p>
+                            </div>
+                            <div class="año-card" data-semestre="2024-1">
+                                <i class="fas fa-calendar"></i>
+                                <h3>2024-I</h3>
+                                <p>8,622 estudiantes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>
+                            <i class="fas fa-users"></i>
+                            Datos Demográficos
+                        </h3>
+                        <div class="stats-sidebar">
+                            <div class="stat-card">
+                                <i class="fas fa-male"></i>
+                                <span class="stat-label">Mujeres</span>
+                                <span class="stat-number">9,654</span>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-female"></i>
+                                <span class="stat-label">Hombres</span>
+                                <span class="stat-number">8,802</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="content-area">
+                    <div class="results-header">
+                        <h2>
+                            <i class="fas fa-list"></i>
+                            Registro de Estudiantes
+                        </h2>
+                        <div class="results-count">
+                            <span id="resultsCount">18,456</span> estudiantes registrados
+                        </div>
+                    </div>
+
+                    <div class="matriculados-table-container">
+                        <table class="matriculados-table" id="matriculadosTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-id-card"></i>
+                                        Código
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-user"></i>
+                                        Estudiante
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-school"></i>
+                                        Escuela
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-layer-group"></i>
+                                        Ciclo/Grado
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-calendar"></i>
+                                        Semestre
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-envelope"></i>
+                                        Estado
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-cogs"></i>
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-semestre="2024-2" data-escuela="medicina" data-ciclo="pregrado">
+                                    <td>
+                                        <strong>20180001</strong>
+                                    </td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">María Carmen López Silva</span>
+                                            <span class="student-dni">DNI: 78912345</span>
+                                        </div>
+                                    </td>
+                                    <td>EPE (Economía)</td>
+                                    <td>Pregrado - Ciclo VII</td>
+                                    <td>2024-II</td>
+                                    <td>
+                                        <span class="estado-badge estado-activo">
+                                            <i class="fas fa-check-circle"></i>
+                                            ACTIVO
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="#" class="btn-action btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn-action btn-sm btn-secondary">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr data-semestre="2024-2" data-escuela="ingenieria" data-ciclo="pregrado">
+                                    <td>
+                                        <strong>20190012</strong>
+                                    </td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Carlos Eduardo Rodríguez Torres</span>
+                                            <span class="student-dni">DNI: 74567890</span>
+                                        </div>
+                                    </td>
+                                    <td>EPEP (Economía Pública)</td>
+                                    <td>Pregrado - Ciclo VIII</td>
+                                    <td>2024-II</td>
+                                    <td>
+                                        <span class="estado-badge estado-activo">
+                                            <i class="fas fa-check-circle"></i>
+                                            ACTIVO
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="#" class="btn-action btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn-action btn-sm btn-secondary">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr data-semestre="2024-1" data-escuela="medicina" data-ciclo="maestria">
+                                    <td>
+                                        <strong>20210005</strong>
+                                    </td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Dr. Ana Patricia Fernández García</span>
+                                            <span class="student-dni">DNI: 71234567</span>
+                                        </div>
+                                    </td>
+                                    <td>EPEI (Economía Internacional)</td>
+                                    <td>Maestría - Ciclo II</td>
+                                    <td>2024-I</td>
+                                    <td>
+                                        <span class="estado-badge estado-activo">
+                                            <i class="fas fa-check-circle"></i>
+                                            ACTIVO
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="#" class="btn-action btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn-action btn-sm btn-secondary">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr data-semestre="2024-2" data-escuela="enfermeria" data-ciclo="pregrado">
+                                    <td>
+                                        <strong>20200234</strong>
+                                    </td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Roberto José Vargas Mendoza</span>
+                                            <span class="student-dni">DNI: 77890123</span>
+                                        </div>
+                                    </td>
+                                    <td>Enfermería</td>
+                                    <td>Pregrado - Ciclo VI</td>
+                                    <td>2024-II</td>
+                                    <td>
+                                        <span class="estado-badge estado-activo">
+                                            <i class="fas fa-check-circle"></i>
+                                            ACTIVO
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="#" class="btn-action btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn-action btn-sm btn-secondary">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr data-semestre="2023-2" data-escuela="farmacia" data-ciclo="pregrado">
+                                    <td>
+                                        <strong>20200087</strong>
+                                    </td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Dra. Carmen Rosa Delgado Castro</span>
+                                            <span class="student-dni">DNI: 72345678</span>
+                                        </div>
+                                    </td>
+                                    <td>Farmacia y Bioquímica</td>
+                                    <td>Pregrado - Ciclo X</td>
+                                    <td>2023-II</td>
+                                    <td>
+                                        <span class="estado-badge estado-graduado">
+                                            <i class="fas fa-graduation-cap"></i>
+                                            GRADUADO
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="#" class="btn-action btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn-action btn-sm btn-secondary">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination-container">
+                        <div class="pagination">
+                            <button class="pagination-btn" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="pagination-info">Página 1 de 369</span>
+                            <button class="pagination-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- No results message -->
+                    <div class="no-results" id="noResults" style="display: none;">
+                        <div class="no-results-content">
+                            <i class="fas fa-user-slash"></i>
+                            <h3>No se encontraron estudiantes</h3>
+                            <p>Intenta ajustar los filtros para ver más resultados</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="./js/matriculados.js"></script>
+</body>
+</html>

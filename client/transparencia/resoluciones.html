@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Resoluciones - Facultad de Ciencias Económicas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Estilos CSS separados -->
+  <link rel="stylesheet" href="./css/resoluciones.css">
+</head>
+<body>
+
+  <div id="header-transparencia-include"></div>
+
+  <section class="transparencia-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="icon">
+          <i class="fas fa-file-signature"></i>
+        </div>
+        <h1>Resoluciones</h1>
+        <p>Resoluciones de Consejo de Facultad</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="filters-section">
+    <div class="container">
+      <h2><i class="fas fa-calendar-alt"></i>Selecciona un año</h2>
+      
+      <!-- Botones de Navegación -->
+      <div class="navigation-buttons">
+        <button id="backButton" class="nav-btn back-btn" onclick="history.back()">
+          <i class="fas fa-arrow-left"></i>
+          Retornar
+        </button>
+        <a href="../index.html" class="nav-btn home-btn">
+          <i class="fas fa-home"></i>
+          Ir al Inicio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="documentos-cards">
+    <div class="container">
+      <div class="cards-grid" id="anios-grid">
+        <!-- Se llenará con JS -->
+      </div>
+    </div>
+  </section>
+
+  <section class="lista-documentos">
+    <div class="container">
+      <ul id="lista-docs"></ul>
+    </div>
+  </section>
+
+  <div id="footer-transparencia-include"></div>
+  
+  <!-- JavaScript separado -->
+  <script src="./js/resoluciones.js"></script>
+</body>
+</html>

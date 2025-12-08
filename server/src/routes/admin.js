@@ -14,6 +14,9 @@ const PDFDocument = require('pdfkit');
 const { Op } = require('sequelize');
 const Reclamo = require('../models/Reclamo');
 
+// ✅ Importación faltante para sequelize.query
+const { sequelize } = require('../config/db');
+
 // Middleware: verifica si el admin YA inició sesión
 function requireAuth(req, res, next) {
   if (req.session?.adminAuthenticated) {
@@ -53,12 +56,21 @@ router.get('/', requireAuth, async (_req, res) => {
     maestrias: await Maestria.count(),
     doctorados: await Doctorado.count(),
     contactos: await Contacto.count(),
-    reclamos: await Reclamo.count(), // ← AGREGADO
+    reclamos: await Reclamo.count(),
   };
   res.render('admin/dashboard', { stats });
 });
 
-// === NOTICIAS === POST (crear y actualizar con validación)
+// === NOTICIAS ===
+router.get('/noticias', requireAuth, async (_req, res) => {
+  const noticias = await Noticia.findAll({ order: [['fecha', 'DESC']] });
+  res.render('admin/noticias', { noticias });
+});
+
+router.get('/noticias/nueva', requireAuth, (_req, res) => {
+  res.render('admin/noticia-form', { noticia: null });
+});
+
 router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) => {
   try {
     const { titulo, resumen, contenido, fecha } = req.body;
@@ -130,53 +142,65 @@ router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, r
   }
 });
 
-// === EVENTOS === POST (crear y actualizar con validación)
+// === NOTICIAS - ELIMINAR ===
+router.post('/noticias/:id/eliminar', requireAuth, async (req, res) => {
+  await Noticia.destroy({ where: { id: req.params.id } });
+  res.redirect('/admin/noticias');
+});
+
+// === EVENTOS ===
+router.get('/eventos', requireAuth, async (_req, res) => {
+  const eventos = await Evento.findAll({ order: [['fecha', 'DESC']] });
+  res.render('admin/eventos', { eventos });
+});
+
+router.get('/eventos/nuevo', requireAuth, (_req, res) => {
+  res.render('admin/evento-form', { evento: null });
+});
+
 router.post('/eventos', requireAuth, upload.single('imagen'), async (req, res) => {
   try {
-    // ✅ Construir data SIN campos vacíos
     const data = {
       titulo: req.body.titulo?.trim(),
       descripcion: req.body.descripcion?.trim() || undefined,
       fecha: req.body.fecha || undefined,
       url: req.body.url?.trim() || undefined,
-      // 🔑 Clave: si es cadena vacía → undefined (Sequelize lo omite)
-      fecha_vencimiento: req.body.fecha_vencimiento 
-        ? req.body.fecha_vencimiento 
-        : undefined,
-      imagen: req.file 
-        ? `img/index/eventos/${req.file.filename}` 
-        : (req.body.imagen || undefined)
+      fecha_vencimiento: req.body.fecha_vencimiento ? req.body.fecha_vencimiento : undefined,
+      imagen: req.file ? `img/index/eventos/${req.file.filename}` : (req.body.imagen || undefined)
     };
 
-    // ✅ Validación
     const errores = [];
     if (!data.titulo) errores.push('El título es obligatorio.');
     if (!data.fecha) errores.push('La fecha es obligatoria.');
+
     if (errores.length > 0) {
       return res.render('admin/evento-form', { evento: req.body, errores });
     }
 
-    // ✅ Limpiar undefined (mejor práctica)
     Object.keys(data).forEach(key => data[key] === undefined && delete data[key]);
-
     await Evento.create(data);
     res.redirect('/admin/eventos');
 
   } catch (error) {
-    // ✅ Diagnóstico (deja esto hasta que funcione)
-    console.error('\n🚨 ERROR AL CREAR EVENTO:');
-    console.error('Mensaje:', error.message);
-    if (error.parent) {
-      console.error('❌ PostgreSQL:', error.parent.message);
-      console.error('📝 SQL:', error.parent.sql);
-    }
-    console.error('---\n');
-    
+    console.error('Error al crear evento:', error);
     res.render('admin/evento-form', { 
       evento: req.body,
       errores: ['No se pudo guardar el evento. Verifica los datos.'] 
     });
   }
+});
+
+// === EVENTOS - ELIMINAR ===
+router.post('/eventos/:id/eliminar', requireAuth, async (req, res) => {
+  await Evento.destroy({ where: { id: req.params.id } });
+  res.redirect('/admin/eventos');
+});
+
+// === EVENTOS - FORMULARIO DE EDICIÓN ===
+router.get('/eventos/:id/editar', requireAuth, async (req, res) => {
+  const evento = await Evento.findByPk(req.params.id);
+  if (!evento) return res.status(404).send('Evento no encontrado');
+  res.render('admin/evento-form', { evento });
 });
 
 // === COMUNICADOS ===
@@ -636,7 +660,7 @@ router.get('/logout', (req, res) => {
   });
 });
 
-// Exportar reclamos a CSV
+// Exportar contactos a CSV
 router.get('/reclamos/exportar/csv', requireAuth, async (req, res) => {
   try {
     const reclamos = await Reclamo.findAll({
@@ -687,29 +711,4 @@ router.requireAuth = requireAuth;
 
 
 
-
-// === NOTICIAS - LISTADO ===
-router.get('/noticias', requireAuth, async (_req, res) => {
-  const noticias = await Noticia.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/noticias', { noticias });
-});
-
-// === EVENTOS - LISTADO ===
-router.get('/eventos', requireAuth, async (_req, res) => {
-  const eventos = await Evento.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/eventos', { eventos });
-});
-
-// === EVENTOS - FORMULARIO NUEVO ===
-router.get('/eventos/nuevo', requireAuth, (_req, res) => {
-  res.render('admin/evento-form', { evento: null });
-});
-
-// === NOTICIAS - FORMULARIO NUEVO ===
-router.get('/noticias/nueva', requireAuth, (_req, res) => {
-  res.render('admin/noticia-form', { noticia: null });
-});
-
 module.exports = router;
-
-

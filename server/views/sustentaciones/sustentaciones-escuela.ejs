@@ -1,0 +1,93 @@
+<%- include('../partials/header', { title: 'Sustentaciones - ' + escuelaNombre }) %>
+<link rel="stylesheet" href="./css/sustentaciones.css">
+
+<main class="container my-5">
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold text-fce">
+      <i class="fas fa-graduation-cap me-2"></i>
+      Sustentaciones - <%= escuelaNombre %>
+    </h1>
+    <p class="lead text-muted">Conoce los trabajos de nuestros estudiantes</p>
+  </div>
+
+  <% if (alumnos && alumnos.length > 0) { %>
+    <div class="row g-4">
+      <% alumnos.forEach(alumno => { %>
+        <div class="col-md-6 col-lg-4">
+          <a href="/sustentaciones/galeria/<%= alumno.id %>" class="text-decoration-none">
+            <div class="card shadow-sm h-100 sustentacion-card">
+              <% if (alumno.foto) { %>
+                <img src="/<%= alumno.foto %>" class="card-img-top" alt="<%= alumno.nombre %>">
+              <% } %>
+              <div class="card-body">
+                <h5 class="card-title text-fce"><%= alumno.nombre %></h5>
+                <p class="text-muted mb-1">
+                  <i class="far fa-calendar me-1"></i> <%= alumno.fecha %>
+                </p>
+                <p class="small mb-0"><%= alumno.titulo %></p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="alert alert-fce text-center border-0">
+      <i class="fas fa-info-circle me-2"></i>
+      No hay sustentaciones registradas para esta escuela.
+    </div>
+  <% } %>
+</main>
+
+<!-- Modal galería -->
+<div id="galeriaModal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="galeriaTitulo">Galería</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="galeriaImagenes" class="row g-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = new bootstrap.Modal(document.getElementById('galeriaModal'));
+  const galeriaImagenes = document.getElementById('galeriaImagenes');
+  const galeriaTitulo = document.getElementById('galeriaTitulo');
+
+  document.querySelectorAll('.sustentacion-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const nombre = card.querySelector('.card-title').textContent.trim();
+      const fotos = JSON.parse(card.dataset.galeria || '[]');
+
+      galeriaTitulo.textContent = `Galería - ${nombre}`;
+      galeriaImagenes.innerHTML = '';
+
+      if (fotos.length > 0) {
+        fotos.forEach(foto => {
+          galeriaImagenes.innerHTML += `
+            <div class="col-12 col-md-6 col-lg-4">
+              <img src="/${foto}" class="img-fluid rounded shadow-sm w-100" alt="Foto de sustentación">
+            </div>
+          `;
+        });
+      } else {
+        galeriaImagenes.innerHTML = `
+          <div class="col-12 text-center">
+            <p class="text-muted">No hay fotos disponibles para este alumno.</p>
+          </div>
+        `;
+      }
+
+      modal.show();
+    });
+  });
+});
+</script>
+
+<%- include('../partials/footer') %>

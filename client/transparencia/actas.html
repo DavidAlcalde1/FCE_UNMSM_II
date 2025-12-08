@@ -1,10 +1,9 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <title>Actas - Facultad de Ciencias Económicas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="../css/styles.css"> -->
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./componentes-transparencia/styles-transparencia.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -25,6 +24,53 @@
     <div class="container">
       <h2>Selecciona un año</h2>
       <div class="cards-grid" id="anios-grid">
+        Se llenará con JS 
+      </div>
+    </div>
+  </section>
+
+  <section class="lista-documentos">
+    <div class="container">
+      <ul id="lista-docs"></ul>
+    </div>
+  </section>
+
+  <div id="footer-transparencia-include"></div>
+  
+ 
+  <script src="./js/script.js"></script>
+  <script src="./componentes-transparencia/loader-secundario-transparencia.js"></script>
+  <script src="./componentes-transparencia/script-transparencia.js"></script>
+</body>
+</html> -->
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Actas - Facultad de Ciencias Económicas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./componentes-transparencia/styles-transparencia.css">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="header-transparencia-include"></div>
+
+  <section class="transparencia-hero">
+    <div class="container">
+      <h1>Actas</h1>
+      <p>Actas de conciliación, ingresos y egresos por año.</p>
+    </div>
+  </section>
+
+  <section class="documentos-cards">
+    <div class="container">
+      <h2>Selecciona un año</h2>
+      <p>Explora las actas organizadas por año académico</p>
+      <div class="cards-grid" id="anios-grid">
         <!-- Se llenará con JS -->
       </div>
     </div>
@@ -42,5 +88,155 @@
   <script src="./js/script.js"></script>
   <script src="./componentes-transparencia/loader-secundario-transparencia.js"></script>
   <script src="./componentes-transparencia/script-transparencia.js"></script>
+  
+  <!-- Script mejorado para los estilos -->
+  <script>
+    /* ---------- CARGADOR DINÁMICO DE JSON POR AÑO CON ESTILOS MEJORADOS ---------- */
+    (() => {
+      const grid = document.getElementById('anios-grid');
+      const lista = document.getElementById('lista-docs');
+
+      // Detectamos qué tipo de documento es según el nombre del HTML
+      const tipo = location.pathname
+                    .split('/')
+                    .pop()
+                    .replace('.html', ''); // actas | acuerdos | concursos...
+
+      const anios = [2022, 2023, 2024, 2025];
+
+      // Crear tarjetas de año con animaciones escalonadas
+      anios.forEach((anio, index) => {
+        const card = document.createElement('a');
+        card.href = '#';
+        card.className = 'doc-card';
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.innerHTML = `
+          <i class="fas fa-calendar-alt"></i>
+          <h3>${anio}</h3>
+          <p>Ver documentos de ${anio}</p>
+        `;
+        card.addEventListener('click', e => {
+          e.preventDefault();
+          // Remover clase activa de otras tarjetas
+          document.querySelectorAll('.doc-card').forEach(c => c.classList.remove('active'));
+          // Añadir clase activa a la tarjeta clickeada
+          card.classList.add('active');
+          cargarJson(anio);
+        });
+        grid.appendChild(card);
+      });
+
+      async function cargarJson(anio) {
+        try {
+          // Mostrar loading
+          lista.innerHTML = '<li style="text-align: center; color: rgba(255,255,255,0.7); padding: 40px;"><i class="fas fa-spinner fa-spin"></i> Cargando documentos...</li>';
+          
+          const res = await fetch(`./json/${tipo}/${anio}.json`);
+          if (!res.ok) throw new Error('No encontrado');
+          const data = await res.json();
+          
+          // Pequeña pausa para mostrar el loading
+          setTimeout(() => {
+            renderLista(data, anio);
+          }, 500);
+          
+        } catch (err) {
+          console.error('Error cargando datos:', err);
+          lista.innerHTML = `<li style="text-align: center; color: rgba(255,255,255,0.8); padding: 40px; background: rgba(255,255,255,0.05); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+            <i class="fas fa-exclamation-triangle" style="color: var(--dorado); margin-bottom: 10px; font-size: 1.5rem;"></i><br>
+            No hay información disponible para ${anio}
+          </li>`;
+        }
+      }
+
+      function renderLista(arr, anio) {
+        lista.innerHTML = '';
+        
+        // Scroll suave a la sección de lista
+        document.querySelector('.lista-documentos').scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+
+        // Añadir título del año seleccionado
+        const titulo = document.createElement('li');
+        titulo.style.cssText = `
+          list-style: none; 
+          text-align: center; 
+          color: var(--dorado); 
+          font-size: 1.3rem; 
+          font-weight: 700; 
+          margin-bottom: 25px;
+          padding: 20px;
+          background: rgba(207, 169, 53, 0.1);
+          border-radius: 15px;
+          border: 1px solid rgba(207, 169, 53, 0.3);
+          backdrop-filter: blur(10px);
+        `;
+        titulo.innerHTML = `<i class="fas fa-folder-open"></i> Documentos de ${anio}`;
+        lista.appendChild(titulo);
+
+        arr.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.style.animationDelay = `${index * 0.1}s`;
+          li.innerHTML = `
+            <a href="${item.url || '#'}" target="_blank" rel="noopener">
+              <i class="fas fa-file-pdf"></i> 
+              <span>${item.titulo || item.nombre}</span>
+            </a>
+          `;
+          lista.appendChild(li);
+        });
+
+        // Mostrar mensaje si no hay documentos
+        if (arr.length === 0) {
+          lista.innerHTML = `<li style="text-align: center; color: rgba(255,255,255,0.8); padding: 40px;">
+            <i class="fas fa-folder-open" style="font-size: 2rem; color: var(--dorado); margin-bottom: 15px;"></i><br>
+            No hay documentos disponibles para ${anio}
+          </li>`;
+        }
+      }
+
+      // Función para activar modo oscuro (si existe el botón)
+      function toggleDarkMode() {
+        document.body.classList.toggle('modo-oscuro');
+        localStorage.setItem('darkMode', document.body.classList.contains('modo-oscuro'));
+      }
+
+      // Cargar preferencia de modo oscuro
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('modo-oscuro');
+      }
+
+      // Agregar evento para botón de modo oscuro si existe
+      const darkModeBtn = document.getElementById('dark-mode-toggle');
+      if (darkModeBtn) {
+        darkModeBtn.addEventListener('click', toggleDarkMode);
+      }
+
+      // Animaciones de entrada para las tarjetas de años
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observar las tarjetas de años para animarlas al entrar en viewport
+      document.querySelectorAll('.doc-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        observer.observe(card);
+      });
+    })();
+  </script>
 </body>
 </html>

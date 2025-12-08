@@ -1,0 +1,85 @@
+:root {
+  --color-fce: #1a3659;
+}
+
+/* Fuerza el footer al fondo */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Color de texto institucional */
+.text-fce {
+  color: var(--color-fce) !important;
+}
+
+/* Fondo institucional */
+.bg-fce {
+  background-color: var(--color-fce) !important;
+}
+
+/* Botón sólido */
+.btn-fce {
+  background-color: var(--color-fce);
+  border-color: var(--color-fce);
+  color: white !important;
+}
+
+.btn-fce:hover {
+  background-color: #112238;
+  border-color: #112238;
+}
+
+/* Botón outline */
+.btn-outline-fce {
+  border-color: var(--color-fce);
+  color: var(--color-fce);
+  background-color: transparent;
+}
+
+.btn-outline-fce:hover {
+  background-color: var(--color-fce);
+  color: white !important;
+}
+
+/* Alert personalizado */
+.alert-fce {
+  background-color: #f8f9fa;
+  border-color: var(--color-fce);
+  color: var(--color-fce);
+}
+
+/* Hover suave en cards */
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Fuerza al footer al fondo */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto; /* ocupa todo el espacio disponible */
+}
+
+footer {
+  flex-shrink: 0; /* no se encoge */
+  background-color: #1a3659;
+  color: white;
+}

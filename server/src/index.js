@@ -20,6 +20,7 @@ const contactoRoute      = require('./routes/contacto');
 const reclamosRoutes     = require('./routes/reclamos');           // ← API pública  POST /api/reclamos
 const adminReclamosRoute = require('./routes/admin_reclamos');     // ← CRUD admin
 const adminDashboardRoute= require('./routes/admin_dashboard');    // ← home admin
+const sustentacionesRouter = require('./routes/sustentaciones');
 
 // ---------- APP ----------
 const app = express();
@@ -47,6 +48,7 @@ app.use('/api/egresados', egresadoRoute);
 app.use('/api/posgrado',  posgradoRoute);
 app.use('/api/contacto',  contactoRoute);
 app.use('/api/reclamos',  reclamosRoutes);   // ← POST /api/reclamos
+app.use('/sustentaciones', sustentacionesRouter);
 
 // ---------- ADMIN (con auth) ----------
 app.use('/admin', adminRoute);           // login
@@ -68,6 +70,23 @@ app.get('/', (_req, res) => res.json({
     'GET /admin/reclamos': 'Gestión de reclamaciones (requiere auth)'
   }
 }));
+
+
+
+
+
+// ---------- LISTAR RUTAS (temporal, solo para debug) ----------
+app.get('/debug/rutas', (_req, res) => {
+  const rutas = app._router
+    ? app._router.stack
+        .filter(l => l.route)
+        .map(l => l.route.path)
+    : [];
+  res.json(rutas);
+});
+
+
+
 
 // ---------- SERVIDOR ----------
 const PORT = process.env.PORT || 4000;

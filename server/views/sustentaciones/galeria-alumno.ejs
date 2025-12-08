@@ -1,0 +1,36 @@
+<%- include('../partials/header', { title: 'Galería - ' + alumno.nombre }) %>
+<link rel="stylesheet" href="../../public/css/sustentaciones.css">
+
+<main class="container my-5">
+  <div class="text-center mb-4">
+    <h1 class="display-5 fw-bold text-fce" style="color: #1a3659;">
+      <i class="fas fa-camera me-2"></i>
+      Galería - <%= alumno.nombre %>
+    </h1>
+    <p class="lead text-muted"><%= alumno.titulo %></p>
+    <p class="small text-muted"><%= new Date(alumno.fecha).toLocaleDateString('es-PE') %></p>
+  </div>
+
+  <% if (fotos.length > 0) { %>
+    <div class="row g-3">
+      <% fotos.forEach(foto => { %>
+        <div class="col-md-4">
+            <a href="/<%= foto %>" data-lightbox="galeria" data-title="<%= alumno.nombre %>">
+                <img src="/<%= foto %>" class="img-fluid rounded shadow-sm w-100">
+            </a>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="alert alert-info text-center">No hay fotos disponibles.</div>
+  <% } %>
+
+  <!-- Botón volver -->
+  <div class="text-center mt-4">
+    <a href="javascript:history.back()" class="btn btn-outline-fce">
+      <i class="fas fa-arrow-left me-2"></i>Volver
+    </a>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
