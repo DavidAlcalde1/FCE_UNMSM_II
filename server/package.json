@@ -2,10 +2,10 @@
   "name": "fce-unmsm-server",
   "version": "1.0.0",
   "description": "Sistema de Gestión Web - Facultad de Ciencias Económicas UNMSM",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "build": "echo 'Node.js app - no build step required'",
     "test": "echo 'Error: No tests specified' && exit 1",
     "db:migrate": "sequelize-cli db:migrate",
