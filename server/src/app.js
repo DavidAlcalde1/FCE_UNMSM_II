@@ -36,6 +36,7 @@ app.use(session({
   cookie: { secure: false }   // true solo con HTTPS
 }));
 
+
 // ---------- MOTOR DE VISTAS ----------
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));

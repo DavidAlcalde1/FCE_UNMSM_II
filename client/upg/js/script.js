@@ -138,3 +138,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   showAut(idxAut);
   startAutoplay();
 })();
+
+// === FORMULARIO DE CONTACTO POSGRADO===
+
+document.getElementById('form-contacto').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+  
+  try {
+    const res = await fetch('/api/contacto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    
+    const result = await res.json();
+    
+    if (result.success) {
+      document.getElementById('successModal').classList.add('show');
+      e.target.reset();
+    } else {
+      alert('❌ Error: ' + (result.error || 'No se pudo enviar el mensaje.'));
+    }
+  } catch (err) {
+    console.error('Error:', err);
+    alert('⚠️ Error de conexión. Por favor, inténtalo de nuevo más tarde.');
+  }
+});
+
+// Cerrar modal
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('successModal').classList.remove('show');
+});

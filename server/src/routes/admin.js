@@ -148,6 +148,20 @@ router.post('/noticias/:id/eliminar', requireAuth, async (req, res) => {
   res.redirect('/admin/noticias');
 });
 
+// === NOTICIAS - EDITAR ===
+router.get('/noticias/:id/editar', requireAuth, async (req, res) => {
+  try {
+    const noticia = await Noticia.findByPk(req.params.id);
+    if (!noticia) {
+      return res.status(404).send('Noticia no encontrada');
+    }
+    res.render('admin/noticia-form', { noticia });
+  } catch (error) {
+    console.error('Error al cargar noticia para edición:', error);
+    res.status(500).send('Error al cargar el formulario');
+  }
+});
+
 // === EVENTOS ===
 router.get('/eventos', requireAuth, async (_req, res) => {
   const eventos = await Evento.findAll({ order: [['fecha', 'DESC']] });
@@ -194,6 +208,40 @@ router.post('/eventos', requireAuth, upload.single('imagen'), async (req, res) =
 router.post('/eventos/:id/eliminar', requireAuth, async (req, res) => {
   await Evento.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/eventos');
+});
+
+// === EVENTOS - ACTUALIZAR ===
+router.post('/eventos/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = {
+      titulo: req.body.titulo?.trim(),
+      descripcion: req.body.descripcion?.trim() || undefined,
+      fecha: req.body.fecha || undefined,
+      url: req.body.url?.trim() || undefined,
+      fecha_vencimiento: req.body.fecha_vencimiento ? req.body.fecha_vencimiento : undefined,
+      imagen: req.file ? `img/index/eventos/${req.file.filename}` : (req.body.imagen || undefined)
+    };
+
+    const errores = [];
+    if (!data.titulo) errores.push('El título es obligatorio.');
+    if (!data.fecha) errores.push('La fecha es obligatoria.');
+
+    if (errores.length > 0) {
+      return res.render('admin/evento-form', { evento: { id, ...req.body }, errores });
+    }
+
+    Object.keys(data).forEach(key => data[key] === undefined && delete data[key]);
+    await Evento.update(data, { where: { id } });
+    res.redirect('/admin/eventos');
+
+  } catch (error) {
+    console.error('Error al actualizar evento:', error);
+    res.render('admin/evento-form', { 
+      evento: { id: req.params.id, ...req.body },
+      errores: ['No se pudo actualizar el evento. Verifica los datos.'] 
+    });
+  }
 });
 
 // === EVENTOS - FORMULARIO DE EDICIÓN ===

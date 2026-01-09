@@ -214,14 +214,26 @@
     <section class="contacto-section" id="contacto">
       <div class="container">
         <h2>Contáctanos</h2>
-        <form class="contacto-form">
-          <input type="text" placeholder="Nombre" required>
-          <input type="email" placeholder="Correo" required>
-          <textarea placeholder="Mensaje" rows="5" required></textarea>
-          <button type="submit">Enviar</button>
+        <form id="form-contacto">
+          <input type="hidden" name="oficina" value="posgrado">
+          <input type="text" name="nombre" placeholder="Nombre completo" required>
+          <input type="email" name="email" placeholder="Correo electrónico" required>
+          <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
+          <textarea name="mensaje" placeholder="Escribe tu mensaje aquí" required></textarea>
+          <button type="submit">Enviar mensaje</button>
         </form>
       </div>
     </section>
+
+    <!-- Modal de éxito -->
+    <div id="successModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>¡Mensaje Enviado!</h2>
+        <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo pronto.</p>
+        <button onclick="document.getElementById('successModal').style.display='none'">Aceptar</button>
+      </div>
+    </div>
 
     <!-- BOTÓN FLOTANTE WHATSAPP -->
     <a href="https://wa.me/51999999999?text=Hola,%20quiero%20información%20sobre%20posgrado." class="btn-wsp" target="_blank" rel="noopener">
