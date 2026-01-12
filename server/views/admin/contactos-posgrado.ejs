@@ -1,15 +1,15 @@
-<%- include('../partials/admin-header', { title: 'Mensajes de Contacto' }) %>
+<%- include('../partials/admin-header', { title: 'Contactos - Posgrado' }) %>
 
 <main class="col-md-9 col-lg-10 ms-auto px-4 py-3">
   <div class="d-flex align-items-center justify-content-between mb-4">
     <h1 class="h2 mb-0">
-      <i class="fas fa-envelope me-2"></i>Mensajes de Contacto
+      <i class="fas fa-graduation-cap me-2"></i>Contactos Posgrado
     </h1>
     <div class="d-flex gap-2">
-      <a href="/admin/contactos/exportar-excel" class="btn btn-success">
+      <a href="/admin/contactos-posgrado/exportar-excel" class="btn btn-success">
         <i class="fas fa-file-excel me-2"></i>Excel
       </a>
-      <a href="/admin/contactos/exportar-pdf" class="btn btn-danger">
+      <a href="/admin/contactos-posgrado/exportar-pdf" class="btn btn-danger">
         <i class="fas fa-file-pdf me-2"></i>PDF
       </a>
     </div>
@@ -18,7 +18,7 @@
   <!-- Filtro por fecha -->
   <div class="card mb-4">
     <div class="card-body">
-      <form method="GET" action="/admin/contactos" class="row g-3 align-items-end">
+      <form method="GET" action="/admin/contactos-posgrado" class="row g-3 align-items-end">
         <div class="col-md-3">
           <label class="form-label">Fecha desde</label>
           <input type="date" name="fechaInicio" class="form-control" value="<%= fechaInicio || '' %>">
@@ -33,13 +33,13 @@
           </button>
         </div>
         <div class="col-md-2">
-          <a href="/admin/contactos" class="btn btn-outline-secondary w-100">
+          <a href="/admin/contactos-posgrado" class="btn btn-outline-secondary w-100">
             <i class="fas fa-times me-1"></i>Limpiar
           </a>
         </div>
         <div class="col-md-2 text-end">
           <span class="badge bg-secondary fs-6">
-            <i class="fas fa-envelope me-1"></i><%= contactos ? contactos.length : 0 %> mensajes
+            <i class="fas fa-envelope me-1"></i><%= totalContactos || 0 %> mensajes
           </span>
         </div>
       </form>
@@ -80,7 +80,7 @@
   <% } else { %>
     <div class="alert alert-info d-flex align-items-center">
       <i class="fas fa-info-circle me-2"></i>
-      <span>No hay mensajes de contacto en el rango de fechas seleccionado.</span>
+      <span>No hay mensajes de contacto de Posgrado en el rango de fechas seleccionado.</span>
     </div>
   <% } %>
 </main>

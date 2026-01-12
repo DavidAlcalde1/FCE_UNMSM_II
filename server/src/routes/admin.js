@@ -55,8 +55,15 @@ router.get('/', requireAuth, async (_req, res) => {
     egresados: await Egresado.count(),
     maestrias: await Maestria.count(),
     doctorados: await Doctorado.count(),
-    contactos: await Contacto.count(),
+    contactos: await Contacto.count({
+      where: {
+        oficina: {
+          [Op.not]: 'posgrado'  // Excluir posgrado
+        }
+      }
+    }),
     reclamos: await Reclamo.count(),
+    contactosPosgrado: await Contacto.count({ where: { oficina: 'posgrado' } }), 
   };
   res.render('admin/dashboard', { stats });
 });
@@ -431,25 +438,61 @@ router.post('/doctorados/:id/eliminar', requireAuth, async (req, res) => {
 
 // === CONTACTOS ===
 router.get('/contactos', requireAuth, async (req, res) => {
-  const { oficina } = req.query;
-  const oficinasValidas = ['fce', 'ocaa', 'posgrado', 'cerseu', 'cesepi'];
+  const { fechaInicio, fechaFin } = req.query;
+  const whereClause = {
+    oficina: {
+      [Op.not]: 'posgrado'  // Excluir posgrado
+    }
+  };
   
-  const whereClause = oficina && oficinasValidas.includes(oficina) 
-    ? { oficina } 
-    : {};
+  // Filtrar por fechas si se proporcionan
+  if (fechaInicio || fechaFin) {
+    whereClause.createdAt = {};
+    if (fechaInicio) {
+      whereClause.createdAt[Op.gte] = new Date(fechaInicio);
+    }
+    if (fechaFin) {
+      const fechaFinDate = new Date(fechaFin);
+      fechaFinDate.setHours(23, 59, 59, 999);
+      whereClause.createdAt[Op.lte] = fechaFinDate;
+    }
+  }
 
   const contactos = await Contacto.findAll({
     where: whereClause,
     order: [['createdAt', 'DESC']]
   });
 
-  res.render('admin/contactos', { contactos, oficina });
+  res.render('admin/contactos', { 
+    contactos,
+    oficina: null,
+    fechaInicio: fechaInicio || '',
+    fechaFin: fechaFin || ''
+  });
 });
 
 // Exportar contactos a PDF
 router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
   try {
+    const { fechaInicio, fechaFin } = req.query;
+    const whereClause = {
+      oficina: {
+        [Op.not]: 'posgrado'
+      }
+    };
+    
+    if (fechaInicio || fechaFin) {
+      whereClause.createdAt = {};
+      if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
+      if (fechaFin) {
+        const fechaFinDate = new Date(fechaFin);
+        fechaFinDate.setHours(23, 59, 59, 999);
+        whereClause.createdAt[Op.lte] = fechaFinDate;
+      }
+    }
+
     const contactos = await Contacto.findAll({
+      where: whereClause,
       order: [['createdAt', 'DESC']]
     });
 
@@ -473,13 +516,28 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
     doc.moveTo(45, 90).lineTo(555, 90).stroke('#1c3d6c').lineWidth(2);
     doc.moveDown(2);
 
-    // === CONFIGURACIÓN DE TABLA ===
+    // Título del reporte
+    doc.fontSize(14).fillColor('#1c3d6c')
+       .text('Contactos - General', { align: 'center' });
+    doc.moveDown(0.5);
+    
+    if (fechaInicio || fechaFin) {
+      doc.fontSize(10).fillColor('#666');
+      let rango = '';
+      if (fechaInicio) rango += `Desde: ${fechaInicio} `;
+      if (fechaFin) rango += `Hasta: ${fechaFin}`;
+      doc.text(rango, { align: 'center' });
+    }
+    doc.moveDown(2);
+
+    // === CONFIGURACIÓN DE TABLA CON NÚMERO ===
     const cols = {
-      fecha:   { x: 45,   width: 120, align: 'center' },
-      oficina: { x: 165,  width: 55, align: 'center' },
-      nombre:  { x: 220,  width: 100, align: 'center' },
-      email:   { x: 320,  width: 150, align: 'center' },
-      telefono:{ x: 470,  width: 60, align: 'center' }
+      numero:  { x: 45,   width: 30,  align: 'center' },
+      fecha:   { x: 75,   width: 90,  align: 'center' },
+      oficina: { x: 165,  width: 55,  align: 'center' },
+      nombre:  { x: 220,  width: 95,  align: 'center' },
+      email:   { x: 315,  width: 140, align: 'center' },
+      telefono:{ x: 455,  width: 60,  align: 'center' }
     };
     const rowHeight = 22;
     let y = 100;
@@ -487,8 +545,9 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
     // === ENCABEZADO DE TABLA ===
     const drawHeader = () => {
       doc.font('Helvetica-Bold').fillColor('#1c3d6c');
-      doc.rect(cols.fecha.x, y, 510, rowHeight).fill('#1c3d6c');
-      doc.fillColor('white').fontSize(10);
+      doc.rect(cols.numero.x, y, 510, rowHeight).fill('#1c3d6c');
+      doc.fillColor('white').fontSize(9);
+      doc.text('N°', cols.numero.x, y + 7, { width: cols.numero.width, align: 'center' });
       doc.text('Fecha/Hora', cols.fecha.x, y + 7, { width: cols.fecha.width, align: 'center' });
       doc.text('Oficina', cols.oficina.x, y + 7, { width: cols.oficina.width, align: 'center' });
       doc.text('Nombre', cols.nombre.x, y + 7, { width: cols.nombre.width, align: 'center' });
@@ -499,23 +558,19 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
 
     // === PIE DE PÁGINA ===
     const drawFooter = () => {
-      doc
-          .fontSize(9)
-          .font('Helvetica-Oblique')
-          .fillColor('#666')
-          .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
-          .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
-          .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
+      doc.fontSize(9).font('Helvetica-Oblique').fillColor('#666')
+         .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
+         .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
+         .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
     };
 
     drawHeader();
 
-    // === FILAS DE DATOS ===
+    // === FILAS DE DATOS CON NÚMERACIÓN ===
     doc.fillColor('black').font('Helvetica').fontSize(9);
     contactos.forEach((c, i) => {
-      // Salto de página si no cabe la fila
       if (y + rowHeight > 790) {
-        drawFooter();   // ← pie ANTES de saltar
+        drawFooter();
         doc.addPage();
         y = 100;
         drawHeader();
@@ -523,12 +578,14 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
 
       // Fondo alternado
       if (i % 2 === 0) {
-        doc.fillColor('#f9f9f9').rect(cols.fecha.x, y, 510, rowHeight).fill();
+        doc.fillColor('#f9f9f9').rect(cols.numero.x, y, 510, rowHeight).fill();
         doc.fillColor('black');
       }
 
-      // Texto verticalmente centrado y truncado
       const textOpts = (col) => ({ width: col.width, align: col.align, ellipsis: true });
+      
+      // Numeración (i + 1)
+      doc.text(String(i + 1), cols.numero.x, y + 3, textOpts(cols.numero));
       doc.text(new Date(c.createdAt).toLocaleString('es-PE'), cols.fecha.x, y + 3, textOpts(cols.fecha));
       doc.text(c.oficina, cols.oficina.x, y + 3, textOpts(cols.oficina));
       doc.text(c.nombre, cols.nombre.x, y + 3, textOpts(cols.nombre));
@@ -537,20 +594,291 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
 
       // Bordes finos
       doc.strokeColor('#ddd').lineWidth(0.5)
-         .rect(cols.fecha.x, y, 510, rowHeight).stroke();
+         .rect(cols.numero.x, y, 510, rowHeight).stroke();
 
       y += rowHeight;
     });
 
-    // === PIE DE LA ÚLTIMA PÁGINA ===
-    drawFooter();
+    // Total de registros
+    doc.moveDown(1);
+    doc.font('Helvetica-Bold').fontSize(10)
+       .text(`Total de registros: ${contactos.length}`, 45, y + 5);
 
+    drawFooter();
     doc.end();
   } catch (error) {
     console.error('Error al generar PDF:', error);
     res.status(500).send('Error al generar el PDF');
   }
 });
+
+// === EXPORTAR EXCEL - CONTACTOS ===
+router.get('/contactos/exportar-excel', requireAuth, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+    const whereClause = {
+      oficina: {
+        [Op.not]: 'posgrado'
+      }
+    };
+    
+    if (fechaInicio || fechaFin) {
+      whereClause.createdAt = {};
+      if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
+      if (fechaFin) {
+        const fechaFinDate = new Date(fechaFin);
+        fechaFinDate.setHours(23, 59, 59, 999);
+        whereClause.createdAt[Op.lte] = fechaFinDate;
+      }
+    }
+
+    const contactos = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']],
+      attributes: ['nombre', 'email', 'telefono', 'mensaje', 'oficina', 'createdAt']
+    });
+
+    // Generar CSV
+    const csvHeader = 'Nombre,Email,Teléfono,Mensaje,Oficina,Fecha\n';
+    const csvData = contactos.map(c => {
+      const mensaje = `"${c.mensaje.replace(/"/g, '""')}"`;
+      return `"${c.nombre}","${c.email}","${c.telefono || ''}",${mensaje},"${c.oficina}","${c.createdAt.toISOString()}"`;
+    }).join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="contactos_fce.csv"');
+    res.send(csvHeader + csvData);
+  } catch (error) {
+    console.error('Error al exportar Excel:', error);
+    res.status(500).send('Error al exportar');
+  }
+});
+
+
+
+
+
+
+
+// === CONTACTOS POSGRADO ===
+// Ruta específica para ver contactos del formulario de posgrado
+router.get('/contactos-posgrado', requireAuth, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+    const whereClause = { oficina: 'posgrado' };
+    
+    // Filtrar por fechas si se proporcionan
+    if (fechaInicio || fechaFin) {
+      whereClause.createdAt = {};
+      if (fechaInicio) {
+        whereClause.createdAt[Op.gte] = new Date(fechaInicio);
+      }
+      if (fechaFin) {
+        // Agregar un día a la fecha fin para incluir todo ese día
+        const fechaFinDate = new Date(fechaFin);
+        fechaFinDate.setHours(23, 59, 59, 999);
+        whereClause.createdAt[Op.lte] = fechaFinDate;
+      }
+    }
+
+    const contactos = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.render('admin/contactos-posgrado', { 
+      title: 'Contactos - Posgrado',
+      contactos,
+      totalContactos: contactos.length,
+      fechaInicio: fechaInicio || '',
+      fechaFin: fechaFin || ''
+    });
+  } catch (error) {
+    console.error('Error al obtener contactos de posgrado:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
+// === EXPORTAR EXCEL - CONTACTOS POSGRADO ===
+router.get('/contactos-posgrado/exportar-excel', requireAuth, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+    const whereClause = { oficina: 'posgrado' };
+    
+    if (fechaInicio || fechaFin) {
+      whereClause.createdAt = {};
+      if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
+      if (fechaFin) {
+        const fechaFinDate = new Date(fechaFin);
+        fechaFinDate.setHours(23, 59, 59, 999);
+        whereClause.createdAt[Op.lte] = fechaFinDate;
+      }
+    }
+
+    const contactos = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']],
+      attributes: ['nombre', 'email', 'telefono', 'mensaje', 'oficina', 'createdAt']
+    });
+
+    // Generar CSV
+    const csvHeader = 'Nombre,Email,Teléfono,Mensaje,Oficina,Fecha\n';
+    const csvData = contactos.map(c => {
+      const mensaje = `"${c.mensaje.replace(/"/g, '""')}"`;
+      return `"${c.nombre}","${c.email}","${c.telefono || ''}",${mensaje},"${c.oficina}","${c.createdAt.toISOString()}"`;
+    }).join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="contactos_posgrado.csv"');
+    res.send(csvHeader + csvData);
+  } catch (error) {
+    console.error('Error al exportar Excel:', error);
+    res.status(500).send('Error al exportar');
+  }
+});
+
+
+// === EXPORTAR PDF - CONTACTOS POSGRADO ===
+router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+    const whereClause = { oficina: 'posgrado' };
+    
+    if (fechaInicio || fechaFin) {
+      whereClause.createdAt = {};
+      if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
+      if (fechaFin) {
+        const fechaFinDate = new Date(fechaFin);
+        fechaFinDate.setHours(23, 59, 59, 999);
+        whereClause.createdAt[Op.lte] = fechaFinDate;
+      }
+    }
+
+    const contactos = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    const doc = new PDFDocument({
+      size: 'A4',
+      margins: { top: 50, bottom: 20, left: 45, right: 45 }
+    });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=contactos_posgrado.pdf');
+    doc.pipe(res);
+
+    // === ENCABEZADO INSTITUCIONAL ===
+    const logoPath = path.join(__dirname, '..', '..', 'client', 'img', 'index', 'logo_fce.png');
+    if (fs.existsSync(logoPath)) {
+      doc.image(logoPath, 45, 40, { width: 120 });
+    }
+    doc.font('Helvetica-Bold').fontSize(14)
+       .text('Facultad de Ciencias Económicas', 180, 50)
+       .fontSize(12).text('Universidad Nacional Mayor de San Marcos', 180, 65);
+    doc.moveTo(45, 90).lineTo(555, 90).stroke('#1c3d6c').lineWidth(2);
+    doc.moveDown(2);
+
+    // Título del reporte
+    doc.fontSize(14).fillColor('#1c3d6c')
+       .text('Contactos - Posgrado', { align: 'center' });
+    doc.moveDown(0.5);
+    
+    if (fechaInicio || fechaFin) {
+      doc.fontSize(10).fillColor('#666');
+      let rango = '';
+      if (fechaInicio) rango += `Desde: ${fechaInicio} `;
+      if (fechaFin) rango += `Hasta: ${fechaFin}`;
+      doc.text(rango, { align: 'center' });
+    }
+    doc.moveDown(2);
+
+    // === CONFIGURACIÓN DE TABLA CON NÚMERO ===
+    const cols = {
+      numero:  { x: 45,   width: 30,  align: 'center' },
+      fecha:   { x: 75,   width: 90,  align: 'center' },
+      oficina: { x: 165,  width: 55,  align: 'center' },
+      nombre:  { x: 220,  width: 95,  align: 'center' },
+      email:   { x: 315,  width: 140, align: 'center' },
+      telefono:{ x: 455,  width: 60,  align: 'center' }
+    };
+    const rowHeight = 22;
+    let y = 100;
+
+    // === ENCABEZADO DE TABLA ===
+    const drawHeader = () => {
+      doc.font('Helvetica-Bold').fillColor('#1c3d6c');
+      doc.rect(cols.numero.x, y, 510, rowHeight).fill('#1c3d6c');
+      doc.fillColor('white').fontSize(9);
+      doc.text('N°', cols.numero.x, y + 7, { width: cols.numero.width, align: 'center' });
+      doc.text('Fecha/Hora', cols.fecha.x, y + 7, { width: cols.fecha.width, align: 'center' });
+      doc.text('Oficina', cols.oficina.x, y + 7, { width: cols.oficina.width, align: 'center' });
+      doc.text('Nombre', cols.nombre.x, y + 7, { width: cols.nombre.width, align: 'center' });
+      doc.text('Email', cols.email.x, y + 7, { width: cols.email.width, align: 'center' });
+      doc.text('Teléfono', cols.telefono.x, y + 7, { width: cols.telefono.width, align: 'center' });
+      y += rowHeight;
+    };
+
+    // === PIE DE PÁGINA ===
+    const drawFooter = () => {
+      doc.fontSize(9).font('Helvetica-Oblique').fillColor('#666')
+         .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
+         .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
+         .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
+    };
+
+    drawHeader();
+
+    // === FILAS DE DATOS CON NÚMERACIÓN ===
+    doc.fillColor('black').font('Helvetica').fontSize(9);
+    contactos.forEach((c, i) => {
+      if (y + rowHeight > 790) {
+        drawFooter();
+        doc.addPage();
+        y = 100;
+        drawHeader();
+      }
+
+      // Fondo alternado
+      if (i % 2 === 0) {
+        doc.fillColor('#f9f9f9').rect(cols.numero.x, y, 510, rowHeight).fill();
+        doc.fillColor('black');
+      }
+
+      const textOpts = (col) => ({ width: col.width, align: col.align, ellipsis: true });
+      
+      // Numeración (i + 1)
+      doc.text(String(i + 1), cols.numero.x, y + 3, textOpts(cols.numero));
+      doc.text(new Date(c.createdAt).toLocaleString('es-PE'), cols.fecha.x, y + 3, textOpts(cols.fecha));
+      doc.text(c.oficina, cols.oficina.x, y + 3, textOpts(cols.oficina));
+      doc.text(c.nombre, cols.nombre.x, y + 3, textOpts(cols.nombre));
+      doc.text(c.email, cols.email.x, y + 3, textOpts(cols.email));
+      doc.text(c.telefono || '—', cols.telefono.x, y + 3, textOpts(cols.telefono));
+
+      // Bordes finos
+      doc.strokeColor('#ddd').lineWidth(0.5)
+         .rect(cols.numero.x, y, 510, rowHeight).stroke();
+
+      y += rowHeight;
+    });
+
+    // Total de registros
+    doc.moveDown(1);
+    doc.font('Helvetica-Bold').fontSize(10)
+       .text(`Total de registros: ${contactos.length}`, 45, y + 5);
+
+    drawFooter();
+    doc.end();
+  } catch (error) {
+    console.error('Error al generar PDF:', error);
+    res.status(500).send('Error al generar el PDF');
+  }
+});
+
+
+
+
 
 // === LIBRO DE RECLAMACIONES - RUTAS ADMIN ===
 

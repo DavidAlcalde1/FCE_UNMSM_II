@@ -141,10 +141,14 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 // === FORMULARIO DE CONTACTO POSGRADO===
 
+console.log('🔍 Script de formulario cargado');
+
 document.getElementById('form-contacto').addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
+
+  console.log('📤 Enviando datos:', data);
   
   try {
     const res = await fetch('/api/contacto', {
@@ -153,10 +157,13 @@ document.getElementById('form-contacto').addEventListener('submit', async (e) =>
       body: JSON.stringify(data)
     });
     
+    console.log('📥 Respuesta status:', res.status);
+
     const result = await res.json();
+    console.log('📥 Respuesta data:', result);
     
     if (result.success) {
-      document.getElementById('successModal').classList.add('show');
+      document.getElementById('successModal').style.display = 'flex';  // ✅ CORREGIDO
       e.target.reset();
     } else {
       alert('❌ Error: ' + (result.error || 'No se pudo enviar el mensaje.'));
@@ -165,6 +172,11 @@ document.getElementById('form-contacto').addEventListener('submit', async (e) =>
     console.error('Error:', err);
     alert('⚠️ Error de conexión. Por favor, inténtalo de nuevo más tarde.');
   }
+});
+
+// Cerrar modal
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('successModal').style.display = 'none';  // ✅ CORREGIDO
 });
 
 // Cerrar modal
