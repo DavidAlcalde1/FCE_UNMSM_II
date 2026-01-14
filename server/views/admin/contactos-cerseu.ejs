@@ -1,0 +1,88 @@
+<%- include('../partials/admin-header') %>
+
+<div class="admin-content">
+    <div class="admin-header">
+        <h1>Mensajes CERSEU</h1>
+        <p>Gestiona los mensajes recibidos del Centro de Responsabilidad Social y Extensión Universitaria</p>
+    </div>
+    
+    <div class="admin-filters">
+        <form action="/admin/contactos-cerseu" method="GET" class="filter-form">
+            <div class="filter-group">
+                <label for="fechaInicio">Fecha Inicio:</label>
+                <input type="date" id="fechaInicio" name="fechaInicio" value="<%= fechaInicio %>">
+            </div>
+            <div class="filter-group">
+                <label for="fechaFin">Fecha Fin:</label>
+                <input type="date" id="fechaFin" name="fechaFin" value="<%= fechaFin %>">
+            </div>
+            <button type="submit" class="btn-filter">Filtrar</button>
+            <a href="/admin/contactos-cerseu" class="btn-clear">Limpiar</a>
+        </form>
+        
+        <div class="export-buttons">
+            <a href="/admin/contactos-cerseu/exportar-excel?fechaInicio=<%= fechaInicio %>&fechaFin=<%= fechaFin %>" class="btn-export excel">
+                <i class="fas fa-file-excel"></i> Exportar Excel
+            </a>
+            <a href="/admin/contactos-cerseu/exportar-pdf?fechaInicio=<%= fechaInicio %>&fechaFin=<%= fechaFin %>" class="btn-export pdf">
+                <i class="fas fa-file-pdf"></i> Exportar PDF
+            </a>
+        </div>
+    </div>
+    
+    <div class="admin-table-container">
+        <% if (mensajes.length === 0) { %>
+            <div class="no-data">
+                <p>No hay mensajes registrados para CERSEU.</p>
+            </div>
+        <% } else { %>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Mensaje</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% mensajes.forEach(mensaje => { %>
+                        <tr>
+                            <td><%= mensaje.id %></td>
+                            <td><%= new Date(mensaje.createdAt).toLocaleDateString('es-PE') %></td>
+                            <td><%= mensaje.nombre %></td>
+                            <td><%= mensaje.email %></td>
+                            <td><%= mensaje.telefono || '-' %></td>
+                            <td>
+                                <button class="btn-view" data-mensaje="<%= encodeURIComponent(mensaje.mensaje) %>" onclick="verMensaje(this)">
+                                    Ver Mensaje
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn-delete" data-id="<%= mensaje.id %>" onclick="eliminarMensaje(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</div>
+
+<!-- Modal para ver mensaje -->
+<div id="mensajeModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 500px;">
+        <h3>Contenido del Mensaje</h3>
+        <div id="mensajeContenido" style="text-align: left; white-space: pre-wrap; background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0; max-height: 300px; overflow-y: auto;"></div>
+        <button class="modal-close" onclick="closeMensajeModal()">Cerrar</button>
+    </div>
+</div>
+
+
+<%- include('../partials/admin-contactos-styles') %>
+<%- include('../partials/admin-contactos-scripts') %>

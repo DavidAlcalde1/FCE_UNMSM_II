@@ -64,6 +64,7 @@ router.get('/', requireAuth, async (_req, res) => {
     }),
     reclamos: await Reclamo.count(),
     contactosPosgrado: await Contacto.count({ where: { oficina: 'posgrado' } }), 
+    contactosCerseu: await Contacto.count({ where: { oficina: 'cerseu' } }),
   };
   res.render('admin/dashboard', { stats });
 });
@@ -1081,6 +1082,166 @@ router.get('/reclamos/exportar/csv', requireAuth, async (req, res) => {
     });
   }
 });
+
+
+
+
+
+
+// === RUTAS PARA CERSEU ===
+router.get('/contactos-cerseu', requireAuth, async (req, res) => {
+    try {
+        const { fechaInicio, fechaFin } = req.query;
+        
+        const whereClause = { oficina: 'cerseu' };
+        
+        if (fechaInicio && fechaFin) {
+            whereClause.createdAt = {
+                [Op.gte]: new Date(fechaInicio),
+                [Op.lte]: new Date(fechaFin + 'T23:59:59')
+            };
+        }
+        
+        const mensajes = await Contacto.findAll({
+            where: whereClause,
+            order: [['createdAt', 'DESC']]
+        });
+        
+        res.render('admin/contactos-cerseu', {
+            titulo: 'Mensajes CERSEU',
+            mensajes: mensajes,
+            currentPage: 'contactos-cerseu',
+            fechaInicio: fechaInicio || '',
+            fechaFin: fechaFin || ''
+        });
+    } catch (error) {
+        console.error('Error al obtener mensajes de CERSEU:', error);
+        res.status(500).send('Error del servidor');
+    }
+});
+
+// Exportar Excel para CERSEU
+router.get('/contactos-cerseu/exportar-excel', requireAuth,  async (req, res) => {
+    try {
+        const { fechaInicio, fechaFin } = req.query;
+        
+        const whereClause = { oficina: 'cerseu' };
+        
+        if (fechaInicio && fechaFin) {
+            whereClause.createdAt = {
+                [Op.gte]: new Date(fechaInicio),
+                [Op.lte]: new Date(fechaFin + 'T23:59:59')
+            };
+        }
+        
+        const mensajes = await Contacto.findAll({
+            where: whereClause,
+            order: [['createdAt', 'DESC']]
+        });
+        
+        let csv = 'ID,Nombre,Email,Teléfono,Mensaje,Fecha\n';
+        mensajes.forEach(m => {
+            const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+            csv += `${m.id},"${m.nombre}","${m.email}","${m.telefono || ''}","${m.mensaje.replace(/"/g, '""')}","${fecha}"\n`;
+        });
+        
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cerseu.csv');
+        res.send(csv);
+    } catch (error) {
+        console.error('Error al exportar Excel CERSEU:', error);
+        res.status(500).send('Error del servidor');
+    }
+});
+
+// Exportar PDF para CERSEU
+router.get('/contactos-cerseu/exportar-pdf', requireAuth,  async (req, res) => {
+    try {
+        const { fechaInicio, fechaFin } = req.query;
+        
+        const whereClause = { oficina: 'cerseu' };
+        
+        if (fechaInicio && fechaFin) {
+            whereClause.createdAt = {
+                [Op.gte]: new Date(fechaInicio),
+                [Op.lte]: new Date(fechaFin + 'T23:59:59')
+            };
+        }
+        
+        const mensajes = await Contacto.findAll({
+            where: whereClause,
+            order: [['createdAt', 'DESC']]
+        });
+        
+        const PDFDocument = require('pdfkit');
+        const doc = new PDFDocument({ margin: 50 });
+        
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cerseu.pdf');
+        
+        doc.pipe(res);
+        
+        // Encabezado
+        doc.fontSize(20).fillColor('#1a5f2a').text('Reporte de Mensajes - CERSEU', { align: 'center' });
+        doc.moveDown();
+        
+        if (fechaInicio && fechaFin) {
+            doc.fontSize(12).fillColor('#666').text(`Período: ${fechaInicio} al ${fechaFin}`, { align: 'center' });
+            doc.moveDown();
+        }
+        
+        doc.fontSize(10).fillColor('#000').text(`Fecha de generación: ${new Date().toLocaleDateString('es-PE')}`, { align: 'center' });
+        doc.moveDown(2);
+        
+        // Tabla
+        const tableTop = 180;
+        const headers = ['Fecha', 'Nombre', 'Email', 'Mensaje'];
+        const columnWidths = [70, 100, 150, 200];
+        const startX = 50;
+        
+        // Encabezados de tabla
+        doc.font('Helvetica-Bold').fontSize(10);
+        let currentX = startX;
+        headers.forEach((header, i) => {
+            doc.text(header, currentX, tableTop, { width: columnWidths[i] });
+            currentX += columnWidths[i];
+        });
+        
+        doc.moveTo(startX, tableTop + 15).lineTo(520, tableTop + 15).stroke('#1a5f2a');
+        
+        // Filas de datos
+        let y = tableTop + 25;
+        doc.font('Helvetica').fontSize(9);
+        
+        mensajes.forEach((m) => {
+            if (y > 700) {
+                doc.addPage();
+                y = 50;
+            }
+            
+            currentX = startX;
+            const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+            const mensajeCorto = m.mensaje.substring(0, 40) + (m.mensaje.length > 40 ? '...' : '');
+            
+            doc.text(fecha, currentX, y, { width: columnWidths[0] });
+            currentX += columnWidths[0];
+            doc.text(m.nombre.substring(0, 15), currentX, y, { width: columnWidths[1] });
+            currentX += columnWidths[1];
+            doc.text(m.email, currentX, y, { width: columnWidths[2] });
+            currentX += columnWidths[2];
+            doc.text(mensajeCorto, currentX, y, { width: columnWidths[3] });
+            
+            y += 18;
+        });
+        
+        doc.end();
+    } catch (error) {
+        console.error('Error al exportar PDF CERSEU:', error);
+        res.status(500).send('Error del servidor');
+    }
+});
+
+
 
 // Exportar middleware requireAuth para otros archivos
 router.requireAuth = requireAuth;

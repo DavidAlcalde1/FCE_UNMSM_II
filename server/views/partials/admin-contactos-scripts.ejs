@@ -1,0 +1,45 @@
+code
+preview
+<script>
+function verMensaje(boton) {
+    // Usar decodeURIComponent para obtener el mensaje original
+    const mensajeDecodificado = decodeURIComponent(boton.getAttribute('data-mensaje'));
+    document.getElementById('mensajeContenido').textContent = mensajeDecodificado;
+    document.getElementById('mensajeModal').style.display = 'flex';
+}
+
+function closeMensajeModal() {
+    document.getElementById('mensajeModal').style.display = 'none';
+}
+
+function eliminarMensaje(boton) {
+    const id = boton.getAttribute('data-id');
+    if (confirm('¿Estás seguro de eliminar este mensaje?')) {
+        fetch(`/api/contactos/${id}`, { 
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error al eliminar el mensaje: ' + (data.error || 'Error desconocido'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al eliminar el mensaje');
+        });
+    }
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('mensajeModal');
+    if (event.target === modal) {
+        closeMensajeModal();
+    }
+}
+</script>
