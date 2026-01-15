@@ -81,12 +81,13 @@ router.get('/noticias/nueva', requireAuth, (_req, res) => {
 
 router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) => {
   try {
-    const { titulo, resumen, contenido, fecha } = req.body;
+    const { titulo, resumen, contenido, fecha, fecha_vencimiento} = req.body;
     const data = {
       titulo: (titulo || '').trim(),
       resumen: (resumen || '').trim(),
       contenido: (contenido || '').trim(),
       fecha: fecha || null,
+      fecha_vencimiento: fecha_vencimiento || null, 
       imagen: req.file 
         ? `img/index/noticias/${req.file.filename}` 
         : (req.body.imagen || null)
@@ -116,13 +117,14 @@ router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) 
 
 router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, res) => {
   try {
-    const { titulo, resumen, contenido, fecha } = req.body;
+    const { titulo, resumen, contenido, fecha, fecha_vencimiento } = req.body;
     const id = req.params.id;
     const data = {
       titulo: (titulo || '').trim(),
       resumen: (resumen || '').trim(),
       contenido: (contenido || '').trim(),
       fecha: fecha || null,
+      fecha_vencimiento: fecha_vencimiento || null, 
       imagen: req.file 
         ? `img/index/noticias/${req.file.filename}` 
         : (req.body.imagen || null)
@@ -1241,7 +1243,42 @@ router.get('/contactos-cerseu/exportar-pdf', requireAuth,  async (req, res) => {
     }
 });
 
+// === API PÚBLICA: GUARDAR CONTACTOS ===
+router.post('/api/contactos', async (req, res) => {
+  try {
+    const { nombre, email, telefono, mensaje, oficina } = req.body;
 
+    // Validaciones básicas
+    if (!nombre || !email || !mensaje) {
+      return res.status(400).json({
+        success: false,
+        message: 'Los campos nombre, email y mensaje son obligatorios'
+      });
+    }
+
+    // Crear el contacto
+    const contacto = await Contacto.create({
+      nombre: nombre.trim(),
+      email: email.trim(),
+      telefono: telefono ? telefono.trim() : null,
+      mensaje: mensaje.trim(),
+      oficina: oficina ? oficina.trim() : 'general'
+    });
+
+    console.log('Contacto guardado:', contacto.id);
+
+    res.json({
+      success: true,
+      message: 'Mensaje enviado correctamente'
+    });
+  } catch (error) {
+    console.error('Error al guardar contacto:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al guardar el mensaje'
+    });
+  }
+});
 
 // Exportar middleware requireAuth para otros archivos
 router.requireAuth = requireAuth;

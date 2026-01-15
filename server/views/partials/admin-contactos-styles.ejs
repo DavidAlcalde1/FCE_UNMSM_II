@@ -200,23 +200,36 @@
 }
 
 .modal-content h3 {
-    color: #1a1a2e;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
 }
 
 .modal-close {
-    background: #1a5f2a;
+    padding: 10px 20px;
+    background: #0d6aad;
     color: white;
     border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    margin-top: 15px;
 }
 
 .modal-close:hover {
-    background: #0d3d18;
+    background: #0a5488;
+}
+
+#mensajeContenido {
+    text-align: left;
+    white-space: pre-wrap;
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 @media (max-width: 768px) {
