@@ -139,7 +139,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   startAutoplay();
 })();
 
-// === FORMULARIO DE CONTACTO POSGRADO===
+// === FORMULARIO DE CONTACTO POSGRADO ===
 
 console.log('🔍 Script de formulario cargado');
 
@@ -163,7 +163,7 @@ document.getElementById('form-contacto').addEventListener('submit', async (e) =>
     console.log('📥 Respuesta data:', result);
     
     if (result.success) {
-      document.getElementById('successModal').style.display = 'flex';  // ✅ CORREGIDO
+      document.getElementById('successModal').style.display = 'flex';  
       e.target.reset();
     } else {
       alert('❌ Error: ' + (result.error || 'No se pudo enviar el mensaje.'));
@@ -174,12 +174,15 @@ document.getElementById('form-contacto').addEventListener('submit', async (e) =>
   }
 });
 
-// Cerrar modal
-document.getElementById('closeModal').addEventListener('click', () => {
-  document.getElementById('successModal').style.display = 'none';  // ✅ CORREGIDO
-});
+    function closeModal() {
+        const modal = document.getElementById('successModal');
+        modal.style.display = 'none';
+    }
 
-// Cerrar modal
-document.getElementById('closeModal').addEventListener('click', () => {
-  document.getElementById('successModal').classList.remove('show');
-});
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(event) {
+        const modal = document.getElementById('successModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    }

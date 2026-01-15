@@ -113,3 +113,66 @@ document.addEventListener("DOMContentLoaded", function () {
   //     icon.classList.add("fa-moon");
   //   }
   // });
+
+
+  // FORMULARIO CONTACTO
+
+  document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contactoForm');
+        const modal = document.getElementById('successModal');
+        const btnText = form.querySelector('.btn-text');
+        const btnLoading = form.querySelector('.btn-loading');
+        const submitBtn = form.querySelector('.btn-enviar');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Mostrar estado de carga
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            
+            // Recopilar datos del formulario
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/contacto', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    // Mostrar modal de éxito
+                    modal.style.display = 'flex';
+                    form.reset();
+                } else {
+                    alert('Error al enviar el mensaje. Por favor intenta nuevamente.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error de conexión. Por favor verifica tu conexión a internet.');
+            } finally {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+            }
+        });
+    });
+
+    function closeModal() {
+        const modal = document.getElementById('successModal');
+        modal.style.display = 'none';
+    }
+
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(event) {
+        const modal = document.getElementById('successModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    }

@@ -629,8 +629,12 @@
   background-color: #c9a227;
 }
 
-/* Estilos para el modal de respuesta */
-.modal-success {
+/* ==========================================
+   MODAL DE RESPUESTA (CORREGIDO)
+   ========================================== */
+
+/* El modal se oculta por defecto */
+.modal {
   display: none;
   position: fixed;
   top: 0;
@@ -643,29 +647,88 @@
   z-index: 1000;
 }
 
-.modal-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 400px;
-  color: #333;
-}
+/* Contenido del modal */
+.modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+    }
 
-.modal-content h3 {
-  color: #28a745;
-  margin-bottom: 15px;
-}
+    .modal-content {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        animation: modalSlide 0.3s ease;
+    }
 
-.modal-content button {
-  background-color: var(--azul-oscuro);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 15px;
-}
+    @keyframes modalSlide {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-icon.success {
+        background: #d4edda;
+        color: #1a5f2a;
+    }
+
+    .modal-icon.success svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-content h3 {
+        color: #1a1a2e;
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+    .modal-content p {
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    .modal-close {
+        background: #1a5f2a;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .modal-close:hover {
+        background: #0d3d18;
+    }
 
 
 

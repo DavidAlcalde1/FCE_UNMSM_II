@@ -226,14 +226,20 @@
     </section>
 
     <!-- Modal de éxito -->
-    <div id="successModal" class="modal" style="display: none;">
-      <div class="modal-content">
-        <span id="closeModal" class="close">&times;</span>
-        <h2>¡Mensaje Enviado!</h2>
-        <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo pronto.</p>
-        <button onclick="document.getElementById('successModal').style.display='none'">Aceptar</button>
-      </div>
-    </div>
+        <div id="successModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-icon success">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h3>¡Mensaje Enviado!</h3>
+                <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo pronto.</p>
+                <button class="modal-close" onclick="closeModal()">Aceptar</button>
+            </div>
+        </div>
+    
 
     <!-- BOTÓN FLOTANTE WHATSAPP -->
     <a href="https://wa.me/51999999999?text=Hola,%20quiero%20información%20sobre%20posgrado." class="btn-wsp" target="_blank" rel="noopener">

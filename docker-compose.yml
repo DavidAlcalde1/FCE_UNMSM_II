@@ -68,6 +68,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${PORT:-4000}
+      TZ: ${TZ:-America/Lima}
       
       # Base de datos - conecta al servicio 'db'
       DB_HOST: db

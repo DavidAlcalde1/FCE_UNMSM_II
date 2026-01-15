@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = Object.fromEntries(formData.entries());
             
             try {
-                const response = await fetch('/api/contactos', {
+                const response = await fetch('/api/contacto', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
