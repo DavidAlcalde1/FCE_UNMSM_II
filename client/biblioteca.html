@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Unidad de Biblioteca, Hemeroteca y Centro de Documentación de la Facultad de Ciencias Económicas - UNMSM">
+    <title>Biblioteca - Facultad de Ciencias Económicas UNMSM</title>
+        <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Estilos del header y footer -->
+    <link rel="stylesheet" href="./biblioteca/componentes-biblioteca/styles-biblioteca.css">
+    <!-- Estilos principales de la página -->
+    <link rel="stylesheet" href="./biblioteca/css/biblioteca.css">
+</head>
+<body>
+     <!-- Loader -->
+    <div id="loader" class="loader-overlay">
+    <div class="bars-spinner">
+        <div></div><div></div><div></div><div></div>
+    </div>
+    </div>
+
+    <!-- Header Include -->
+    <div id="header-biblioteca-include"></div>
+
+    <!-- Contenido Principal -->
+    <main class="main-container">
+        <!-- Imagen Hero de la Biblioteca -->
+        <section class="hero-section">
+            <img src="./img/biblioteca/biblioteca-FCE-07.png" alt="Biblioteca Facultad de Ciencias Económicas UNMSM">
+            <div class="hero-overlay">
+                <h1>Unidad de Biblioteca Hemeroteca y Centro de Documentación</h1>                
+            </div>
+        </section>
+
+        <!-- Contenido Izquierdo - Presentación y Funciones -->
+        <section class="content-section">
+            <h2 class="section-title">Presentación</h2>
+            <p class="presentation-text">
+                Es la Unidad, encargada de administrar la Biblioteca y Hemeroteca, asegurando el nivel óptimo de sus servicios, a través de la permanente actualización de los recursos bibliográficos, a nivel de Pregrado y Posgrado. El Director o Jefe de la Unidad es designado por el Decano.
+            </p>
+
+            <div class="functions-section">
+                <h2 class="section-title">Funciones</h2>
+                <ul class="functions-list">
+                    <li>Gestionar el funcionamiento y mantenimiento de la Biblioteca y Hemeroteca.</li>
+                    <li>Proponer y solicitar el material bibliográfico requerido por la Facultad.</li>
+                    <li>Control y supervisión del servicio de préstamos bibliográficos.</li>
+                    <li>Optimizar los procedimientos administrativos y bibliográficos de atención al usuario.</li>
+                    <li>Elaboración del Plan de Trabajo Anual, en coordinación con la Dirección Académica.</li>
+                    <li>Mantener y actualizar la Base de Datos Bibliográficos.</li>
+                    <li>Coordinar con las diferentes Unidades Académicas las necesidades bibliográficas para la formación y especialización integral de los estudiantes.</li>
+                    <li>Actualización periódica del Registro de Morosos, remitiendo copia a la Biblioteca Central y a la Dirección Académica.</li>
+                    <li>Participar y representar a la biblioteca de la Facultad, en eventos y actividades internas y externas de su competencia que se programen.</li>
+                    <li>Otras funciones que le asigne el señor Decano.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sidebar Derecho - Información del Jefe y Enlaces -->
+        <aside class="sidebar-section">
+            <!-- Tarjeta del Jefe de la Unidad -->
+            <div class="info-card">
+                <h3>Jefe de la Unidad</h3>
+                <div class="jefe-info">
+                    <div class="jefe-photo">👤</div>
+                    <p><strong>Marco Antonio Delgado Rivera</strong></p>
+                    <p>Jefe de la Unidad</p>
+                    <a href="mailto:biblioteca.economia@unmsm.edu.pe" class="email-link">biblioteca.economia@unmsm.edu.pe</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Enlaces de Interés -->
+            <div class="info-card">
+                <h3>Recursos y Enlaces</h3>
+                <div class="resource-links">
+                    <a href="./docs/biblioteca/1762204713873_adobe.pdf" class="btn-link pdf" target="_blank">
+                        <span class="icon">📄</span>
+                        <span>Relación de Libros (PDF)</span>
+                    </a>
+                    <a href="https://sisbib.unmsm.edu.pe/" class="btn-link" target="_blank">
+                        <span class="icon">🏛</span>
+                        <span>Biblioteca Pedro Zulen</span>
+                    </a>
+                    <a href="https://www.sbs.gob.pe/centro-de-informacion" class="btn-link" target="_blank">
+                        <span class="icon">🔗</span>
+                        <span>SBS - Centro de Información</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer Include -->
+    <div id="footer-biblioteca-include"></div>
+
+    <!-- Script para cargar componentes -->
+    
+    <script src="./biblioteca/js/script.js"></script>
+    <script src="./biblioteca/componentes-biblioteca/loader-biblioteca.js"></script>
+    <script src="./biblioteca/componentes-biblioteca/script-biblioteca.js"></script>
+</body>
+</html>

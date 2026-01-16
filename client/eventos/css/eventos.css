@@ -1,157 +1,388 @@
+/* ============================================
+ESTILOS - DETALLE DE EVENTO
+Facultad de Ciencias Económicas - UNMSM
+============================================ */
+
 :root {
-    --primary: #0d1b2a;
-    --accent: #415a77;
-    --bg: #f9fafb;
-    --max-width: 900px;
-    --barra-amarillo: #ffb74d;
-    --barra-azul: #0d1b2a;
-    --barra-ancho: 8px;
-    --barra-alto: 40px;
-    --barra-veloc: 0.8s; 
-    --dorado: #cfa935;
-    --azul-oscuro:#102d52;
+--color-principal: #0d1b2a;
+--color-acento: #415a77;
+--color-ambar: #ffb74d;
+--color-texto: #333333;
+--color-texto-claro: #666666;
+--color-fondo: #f9fafb;
+--color-blanco: #ffffff;
+--sombra-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+--radio: 12px;
+--transicion: 0.3s ease;
+--max-width: 900px;
+--barra-ancho: 8px;
+--barra-alto: 40px;
+--barra-veloc: 0.8s;
 }
 
 /* ========= SPINNER BARRAS - ECONOMÍA UNMSM ========= */
-
-
 .loader-overlay {
-  position: fixed;
-  inset: 0;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.5s ease;
+position: fixed;
+inset: 0;
+background: #fff;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 9999;
+transition: opacity 0.5s ease;
 }
 
 .bars-spinner {
-  display: flex;
-  gap: 4px;
-  height: var(--barra-alto);
-  align-items: flex-end;
+display: flex;
+gap: 4px;
+height: var(--barra-alto);
+align-items: flex-end;
 }
 
 .bars-spinner div {
-  width: var(--barra-ancho);
-  background: var(--barra-amarillo);
-  animation: upDown var(--barra-veloc) ease-in-out infinite;
+width: var(--barra-ancho);
+background: var(--color-ambar);
+animation: upDown var(--barra-veloc) ease-in-out infinite;
 }
 
 .bars-spinner div:nth-child(2) {
-  background: var(--barra-azul);
-  animation-delay: 0.1s;
+background: var(--color-principal);
+animation-delay: 0.1s;
 }
 
 .bars-spinner div:nth-child(3) {
-  background: var(--barra-amarillo);
-  animation-delay: 0.2s;
+background: var(--color-ambar);
+animation-delay: 0.2s;
 }
 
 .bars-spinner div:nth-child(4) {
-  background: var(--barra-azul);
-  animation-delay: 0.3s;
+background: var(--color-principal);
+animation-delay: 0.3s;
 }
 
 @keyframes upDown {
-  0%, 100% { height: 5%; }
-  50% { height: 100%; }
+0%, 100% { height: 5%; }
+50% { height: 100%; }
 }
 
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ========= RESET Y BASE ========= */
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
+html {
+scroll-behavior: smooth;
+}
 
+body {
+font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: var(--color-fondo);
+color: var(--color-texto);
+line-height: 1.6;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
 
-/* Estilos para la web de lista-eventos.html */
-.eventos-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem; margin-top:2rem;}
-.evento-card { border:1px solid #ddd; border-radius:8px; overflow:hidden; transition:.3s;}
-.evento-card:hover { box-shadow:0 5px 15px rgba(0,0,0,.15); transform:translateY(-3px);}
-.evento-card img { width:100%; height:180px; object-fit:cover;}
-.evento-card .content { padding:1rem;}
-.evento-card .fecha { color:#c9302c; font-weight:bold;}
-.evento-card h3 { margin:.5rem 0; font-size:1.1rem;}
-.evento-card a { display:inline-block; margin-top:.8rem; color:#fff; background:#c9302c; padding:.5rem 1rem; border-radius:4px; text-decoration:none;}
+/* ========= HEADER ========= */
+.header {
+background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-acento) 100%);
+padding: 1rem 2rem;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
+.header .container {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: center;
+}
 
-/*Estilos para la web de evento.html*/
-.evento-individual { max-width:800px; margin:3rem auto; padding:0 1rem; }
-.evento-individual img { width:100%; border-radius:6px; }
-.fecha { color:#c9302c; font-weight:bold; margin-top:1rem; }
-.btn-inscripcion { display:inline-block; margin-top:1rem; background: var(--azul-oscuro); color: var(--bg); padding:.6rem 1.2rem; border-radius:4px; text-decoration:none; font-weight:600; transition: all 0.3s ease;}
-.btn-inscripcion:hover { background: var(--dorado); color: var(--azul-oscuro);   border-color: var(--dorado);
-box-shadow: 0 0 10px var(--dorado), 0 0 20px var(--dorado); }
+.header .logo {
+height: 60px;
+width: auto;
+transition: transform var(--transicion);
+}
 
+.header .logo:hover {
+transform: scale(1.05);
+}
 
+/* ========= MAIN ========= */
 .main-evento {
-  max-width: 800px; 
-  margin: 2rem auto; 
-  padding: 0 1rem;
+flex: 1;
+max-width: var(--max-width);
+margin: 2rem auto;
+padding: 0 1.5rem;
+width: 100%;
 }
 
-
-.btn-volver-eventos, .btn-ir-eventos {
-  display: inline-block;
-  margin: 2rem 0;
-  padding: 0.5rem 1rem;
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 600;
-  border: 1px solid #007bff;
-  border-radius: 6px;
-  background-color: transparent;
-  transition: all 0.25s ease;
+/* ========= ARTÍCULO DE EVENTO ========= */
+.evento-detalle {
+background: var(--color-blanco);
+border-radius: var(--radio);
+box-shadow: var(--sombra-card);
+overflow: hidden;
+animation: fadeIn 0.5s ease;
 }
 
-.btn-volver-eventos:hover, .btn-ir-eventos:hover {
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(15px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }
 
-.btn-volver-eventos::before {
-  content: "← ";
-}
-
-#evento-descripcion {
-  line-height:1.6; 
-  margin:1rem 0;
-}
-
+/* Imagen del evento */
 #evento-imagen {
-  width:100%; 
-  border-radius:8px; 
-  display:none; 
-  margin-bottom:1.5rem;
+width: 100%;
+max-height: 450px;
+object-fit: cover;
+display: none;
 }
 
-#evento-enlace {
-  margin-top:1.5rem; 
-  display:none;
+/* Título del evento */
+#evento-titulo {
+font-family: 'Poppins', sans-serif;
+font-size: 2rem;
+font-weight: 600;
+color: var(--color-principal);
+margin: 1.5rem 1.5rem 0.75rem;
+line-height: 1.3;
 }
 
+/* Fecha del evento */
 #evento-fecha {
-  color:#6c757d; 
-  margin:0.5rem 0;
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+font-size: 0.95rem;
+color: var(--color-ambar);
+font-weight: 600;
+margin: 0 1.5rem 1.5rem;
+}
+
+#evento-fecha::before {
+content: '\f073';
+font-family: 'Font Awesome 6 Free';
+font-weight: 400;
+color: var(--color-acento);
+}
+
+/* Descripción del evento */
+#evento-descripcion {
+padding: 0 1.5rem 1.5rem;
+font-size: 1.05rem;
+line-height: 1.8;
+color: var(--color-texto);
+}
+
+#evento-descripcion p {
+margin-bottom: 1rem;
+}
+
+#evento-descripcion p:last-child {
+margin-bottom: 0;
+}
+
+#evento-descripcion strong {
+color: var(--color-principal);
+font-weight: 600;
+}
+
+#evento-descripcion a {
+color: var(--color-acento);
+text-decoration: none;
+border-bottom: 1px dashed var(--color-acento);
+transition: var(--transicion);
+}
+
+#evento-descripcion a:hover {
+border-bottom-style: solid;
+color: var(--color-principal);
+}
+
+/* Enlace del evento */
+/* Enlace del evento */
+#evento-enlace {
+  padding: 0 1.5rem 1.5rem;
+  display: none;
 }
 
 #enlace-evento {
-  background:#007bff; 
-  color:white; 
-  padding:0.6rem 1.2rem; 
-  text-decoration:none; 
-  border-radius:4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--color-principal);
+  color: var(--color-blanco);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transicion);
 }
 
+#enlace-evento:hover {
+  background: var(--color-acento);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(65, 90, 119, 0.3);
+}
 
+#enlace-evento::after {
+  content: '\f054';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+}
 
+#enlace-evento:hover::after {
+  transform: translateX(4px);
+}
+
+/* ========= BOTONES DE NAVEGACIÓN ========= */
+.btn-volver-eventos,
+.btn-ir-eventos {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+margin: 1.5rem 0;
+padding: 0.65rem 1.25rem;
+color: var(--color-principal);
+text-decoration: none;
+font-weight: 600;
+font-size: 0.9rem;
+border: 2px solid var(--color-principal);
+border-radius: 8px;
+background: transparent;
+transition: var(--transicion);
+}
+
+.btn-volver-eventos:hover,
+.btn-ir-eventos:hover {
+background: var(--color-principal);
+color: var(--color-blanco);
+}
+
+.btn-volver-eventos::before {
+content: '\f060';
+font-family: 'Font Awesome 6 Free';
+font-weight: 900;
+}
+
+.btn-ir-eventos::after {
+content: '\f054';
+font-family: 'Font Awesome 6 Free';
+font-weight: 900;
+font-size: 0.85rem;
+transition: transform 0.3s ease;
+}
+
+.btn-ir-eventos:hover::after {
+transform: translateX(4px);
+}
+
+/* ========= FOOTER ========= */
+.footer {
+background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-acento) 100%);
+padding: 1.5rem;
+margin-top: auto;
+}
+
+.footer-copyright {
+text-align: center;
+color: var(--color-blanco);
+font-size: 0.9rem;
+}
+
+.footer-copyright p {
+margin: 0;
+}
+
+/* ========= MENSAJES DE ERROR ========= */
+body h2 {
+text-align: center;
+margin-top: 4rem;
+font-family: 'Poppins', sans-serif;
+color: var(--color-principal);
+font-size: 1.5rem;
+}
+
+/* ========= RESPONSIVE ========= */
+@media (max-width: 768px) {
+.main-evento {
+margin: 1.5rem auto;
+padding: 0 1rem;
+}
+
+#evento-titulo {
+font-size: 1.6rem;
+margin: 1.25rem 1.25rem 0.5rem;
+}
+
+#evento-fecha {
+font-size: 0.9rem;
+margin: 0 1.25rem 1.25rem;
+}
+
+#evento-descripcion {
+padding: 0 1.25rem 1.25rem;
+font-size: 1rem;
+}
+
+#evento-enlace {
+padding: 0 1.25rem 1.25rem;
+}
+
+#evento-imagen {
+max-height: 300px;
+}
+
+.btn-volver-eventos,
+.btn-ir-eventos {
+width: 100%;
+justify-content: center;
+margin: 1rem 0;
+}
+}
+
+@media (max-width: 480px) {
+.header {
+padding: 0.75rem 1rem;
+}
+
+.header .logo {
+height: 50px;
+}
+
+#evento-titulo {
+font-size: 1.35rem;
+}
+
+#evento-fecha {
+font-size: 0.85rem;
+}
+
+#evento-descripcion {
+font-size: 0.95rem;
+line-height: 1.7;
+}
+
+#evento-imagen {
+max-height: 220px;
+}
+
+#enlace-evento {
+width: 100%;
+justify-content: center;
+padding: 0.75rem 1.25rem;
+}
+}

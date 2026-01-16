@@ -14,6 +14,12 @@
   --barra-veloc: 0.8s;               
 }
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .loader-overlay {
   position: fixed;
   inset: 0;
@@ -85,7 +91,8 @@
 .main {
   background: var(--fondo-gris);
   min-height: 60vh;
-  padding: 3rem 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 /* --------- GRID DE PROYECTOS --------- */

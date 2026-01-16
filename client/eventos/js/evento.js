@@ -1,21 +1,24 @@
-/* Oculta loader cuando todo esté listo + retardo  */
-window.addEventListener('load', () => {
+// Controlador del spinner - versión robusta
+(function() {
   const loader = document.getElementById('loader');
-  setTimeout(() => {              // ← tiempo extra que quieras
+  if (!loader) return;
+
+  // Siempre esperar 1.5 segundos antes de ocultar
+  setTimeout(function() {
     loader.style.opacity = '0';
-    setTimeout(() => loader.remove(), 500);
-  }, 1200); // 1.2s extra 
-});
-    
-    
-    
-    
+    loader.style.transition = 'opacity 0.5s ease';
+    setTimeout(function() {
+      loader.style.display = 'none';
+    }, 500);
+  }, 1500);
+})();
+
 document.addEventListener('DOMContentLoaded', async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
   if (!id || isNaN(id)) {
-    document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">ID de evento inválido.</h2>';
+    document.body.innerHTML = '<h2 class="mensaje-error">ID de evento inválido.</h2>';
     return;
   }
 
@@ -49,15 +52,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       enlaceEl.style.display = 'block';
     }
 
-    // Ocultar loader
-    const loader = document.getElementById('loader');
-    if (loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.remove(), 500);
-    }
-
   } catch (err) {
     console.error(err);
-    document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">Error al cargar el evento.</h2>';
+    document.body.innerHTML = '<h2 class="mensaje-error">Error al cargar el evento.</h2>';
   }
 });

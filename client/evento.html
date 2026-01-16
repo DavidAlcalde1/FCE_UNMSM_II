@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title id="titulo-pagina">Evento – Facultad de Ciencias Económicas UNMSM</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./eventos/componentes-eventos/styles-eventos.css" />
+  <link rel="stylesheet" href="./css/evento.css" />
   <link rel="stylesheet" href="./eventos/css/eventos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -17,13 +18,7 @@
     </div>
   </div>
 
-  <header class="header">
-    <div class="container">
-      <a href="./index.html">
-        <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
-      </a>
-    </div>
-  </header>
+  <div id="header-eventos-include"></div>
 
   <main class="main-evento">
     <article class="evento-detalle">
@@ -33,7 +28,7 @@
       <p id="evento-fecha"></p>
       <div id="evento-descripcion"></div>
       <div id="evento-enlace">
-        <a id="enlace-evento" href="#" target="_blank" class="btn btn-primary">
+        <a id="enlace-evento" href="#" target="_blank">
           Ver más información
         </a>
       </div>
@@ -41,58 +36,10 @@
     <a href="./eventos-lista.html" class="btn-ir-eventos">Ir a todos los eventos</a>
   </main>
 
-  <footer class="footer">
-    <div class="footer-copyright">
-      <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-    </div>
-  </footer>
+  <div id="footer-eventos-include"></div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
-    if (!id) {
-      document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">ID de evento no especificado.</h2>';
-    } else {
-      fetch(`/api/eventos/${id}`)
-        .then(res => res.json())
-        .then(evento => {
-          document.getElementById('titulo-pagina').textContent = `Evento - ${evento.titulo}`;
-          document.getElementById('evento-titulo').textContent = evento.titulo;
-          document.getElementById('evento-fecha').textContent = 
-            evento.fecha 
-              ? new Date(evento.fecha).toLocaleDateString('es-PE', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })
-              : 'Fecha no disponible';
-          
-          if (evento.imagen) {
-            document.getElementById('evento-imagen').src = '/' + evento.imagen;
-            document.getElementById('evento-imagen').style.display = 'block';
-          }
-          
-          document.getElementById('evento-descripcion').innerHTML = 
-            evento.descripcion?.replace(/\n/g, '<br>') || 'Sin descripción.';
-          
-          if (evento.url) {
-            document.getElementById('enlace-evento').href = evento.url;
-            document.getElementById('evento-enlace').style.display = 'block';
-          }
-
-          // Ocultar loader
-          const loader = document.getElementById('loader');
-          if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 500);
-          }
-        })
-        .catch(err => {
-          document.body.innerHTML = '<h2 style="text-align:center; margin-top:4rem;">Evento no encontrado.</h2>';
-        });
-    }
-  </script>
+  <script src="./eventos/componentes-eventos/loader-eventos.js"></script>
+  <script src="./eventos/componentes-eventos/script-eventos.js"></script>
+  <script src="./eventos/js/evento.js"></script>
 </body>
 </html>

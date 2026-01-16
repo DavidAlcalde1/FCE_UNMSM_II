@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Eventos – Facultad de Ciencias Económicas UNMSM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./eventos/css/eventos-lista.css" />
+  <link rel="stylesheet" href="./eventos/componentes-eventos/styles-eventos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -16,29 +17,19 @@
     </div>
   </div>
 
-  <header class="header">
-    <div class="container">
-      <a href="./index.html">
-        <img src="./img/index/logo_fce.png" alt="Logo UNMSM" class="logo">
-      </a>
-    </div>
-  </header>
+  <div id="header-eventos-include"></div>
 
-  <main class="main" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
-    <h1 style="text-align: center; margin-bottom: 2rem;">Próximos Eventos</h1>
-    <div id="todos-eventos" class="eventos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+  <main class="main">
+    <h1>Próximos Eventos</h1>
+    <div id="todos-eventos" class="eventos-grid">
       Cargando…
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-copyright">
-      <p>&copy; 2025 Facultad de Ciencias Económicas - UNMSM</p>
-    </div>
-  </footer>
+  <div id="footer-eventos-include"></div>
 
-  <script src="./eventos/js/eventos-lista.js">
-
-  </script>
-  </body>
+  <script src="./eventos/componentes-eventos/loader-eventos.js"></script>
+  <script src="./eventos/componentes-eventos/script-eventos.js"></script>
+  <script src="./eventos/js/eventos-lista.js"></script>
+</body>
 </html>
