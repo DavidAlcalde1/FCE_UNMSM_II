@@ -1,0 +1,63 @@
+{
+    "trabajos": [
+        {
+            "id": 1,
+            "titulo": "Conexión de Computadoras en Laboratorios de Cómputo",
+            "fecha": "Lunes 12 de Febrero, 2024",
+            "descripcion": "Trabajo de conexión y configuración de redes en los laboratorios de cómputo de la Facultad. Se realizó el cableado estructurado, configuración de switches y pruebas de conectividad para garantizar el funcionamiento óptimo de los equipos.",
+            "imagenes": [
+                "laboratorio-computo-1.jpg",
+                "laboratorio-computo-2.jpg",
+                "laboratorio-computo-3.jpg"                
+            ]
+        },
+        {
+            "id": 2,
+            "titulo": "Mantenimiento de Red y Servidores",
+            "fecha": "Martes 20 de Febrero, 2024",
+            "descripcion": "Mantenimiento preventivo y correctivo de la infraestructura de red y servidores de la Facultad. Incluye actualización de firmware, limpieza física, verificación de backups y optimización de rendimiento.",
+            "imagenes": [
+                "mantenimiento-red-1.jpg",
+                "mantenimiento-red-2.jpg",
+                "mantenimiento-red-3.jpg",
+                "mantenimiento-red-4.jpg"
+            ]
+        },
+        {
+            "id": 3,
+            "titulo": "Instalación de Software Educativo",
+            "fecha": "Miércoles 28 de Febrero, 2024",
+            "descripcion": "Instalación y configuración de software educativo en los equipos de los laboratorios. Se instalaron aplicaciones estadísticas, paquetes ofimáticos y herramientas de análisis de datos para apoyar las actividades académicas.",
+            "imagenes": [
+                "instalacion-software-1.jpg",
+                "instalacion-software-2.jpg",
+                "instalacion-software-3.jpg"
+            ]
+        },
+        {
+            "id": 4,
+            "titulo": "Implementación de Cableado Estructurado",
+            "fecha": "Lunes 5 de Marzo, 2024",
+            "descripcion": "Implementación de cableado estructurado categoría 6 en nuevas aulas y oficinas de la Facultad. Se realizaron pruebas de certificación y documentación de la red.",
+            "imagenes": [
+                "cableado-estructurado-1.jpg",
+                "cableado-estructurado-2.jpg",
+                "cableado-estructurado-3.jpg",
+                "cableado-estructurado-4.jpg"
+            ]
+        },
+        {
+            "id": 5,
+            "titulo": "Soporte Técnico a Docentes",
+            "fecha": "Martes 12 de Marzo, 2024",
+            "descripcion": "Atención de soporte técnico a los docentes de la Facultad. Se realizaron configuraciones de equipos, instalación de proyectores, resolución de problemas de software y capacitación básica.",
+            "imagenes": [
+                "soporte-tecnico-1.jpg",
+                "soporte-tecnico-2.jpg",
+                "soporte-tecnico-3.jpg",
+                "soporte-tecnico-4.jpg"
+            ]
+        }
+
+    ]
+}

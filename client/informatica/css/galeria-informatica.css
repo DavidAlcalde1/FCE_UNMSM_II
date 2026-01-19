@@ -1,0 +1,542 @@
+/* Estilos para la Galería de Trabajos - Unidad de Estadística e Informática */
+/* Mantiene coherencia con las demás páginas del proyecto */
+
+:root {
+    --primary-blue: #0d1b2a;
+    --accent-gold: #ffb74d;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --bg-light: #f4f6f8;
+    --bg-white: #ffffff;
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ========= SPINNER DE BARRAS ========= */
+:root {
+  --barra-azul: #0d1b2a;
+  --color-acento: #415a77;
+  --barra-amarillo: #ffb74d;
+  --fondo-gris: #f9fafb;
+  --blanco: rgba(255, 255, 255, 0.85);
+  --sombra-suave: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --radio: 16px;
+  --transicion: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --barra-ancho: 8px;
+  --barra-alto: 40px;
+  --barra-veloc: 0.8s;  
+}
+
+/* ========= SPINNER BARRAS - ECONOMÍA UNMSM ========= */
+
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.bars-spinner {
+  display: flex;
+  gap: 4px;
+  height: var(--barra-alto);
+  align-items: flex-end;
+}
+
+.bars-spinner div {
+  width: var(--barra-ancho);
+  background: var(--barra-amarillo);
+  animation: upDown var(--barra-veloc) ease-in-out infinite;
+}
+
+.bars-spinner div:nth-child(2) {
+  background: var(--barra-azul);
+  animation-delay: 0.1s;
+}
+
+.bars-spinner div:nth-child(3) {
+  background: var(--barra-amarillo);
+  animation-delay: 0.2s;
+}
+
+.bars-spinner div:nth-child(4) {
+  background: var(--barra-azul);
+  animation-delay: 0.3s;
+}
+
+@keyframes upDown {
+  0%, 100% { height: 5%; }
+  50% { height: 100%; }
+}
+
+
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ========= FIN SPINNER ========= */
+
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+/* Eliminar espacio entre header y hero */
+#header-informatica-include {
+    margin: 0;
+    padding: 0;
+}
+
+#header-informatica-include .header {
+    margin-bottom: 0;
+}
+
+.header-spacer {
+    display: none !important;   /* lo eliminamos solo aquí */
+}
+
+/* ========= HERO SECTION ========= */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
+    margin: 0;
+    margin-top: 0 !important;
+    top: 0 !important;
+    transform: translateY(-1px);
+}
+
+.hero-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.85;
+}
+
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px;
+    background: linear-gradient(to top, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.5) 70%, transparent 100%);
+}
+
+.hero-overlay h1 {
+    color: var(--bg-white);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-overlay p {
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* ========= MAIN CONTAINER ========= */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+}
+
+/* ========= GALLERY HEADER ========= */
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-header h2 {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.gallery-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--accent-gold);
+    border-radius: 2px;
+}
+
+.gallery-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-top: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========= GALLERY GRID - GRID LAYOUT ========= */
+.gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 25px !important;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+/* ========= GALLERY CARD ========= */
+.gallery-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    display: block;
+    width: 100%;
+}
+
+.gallery-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Card Image */
+.card-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.gallery-card:hover .card-image img {
+    transform: scale(1.08);
+}
+
+/* Card Overlay */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(13, 27, 42, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.card-overlay i {
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover .card-overlay i {
+    transform: scale(1);
+}
+
+.card-overlay span {
+    color: var(--bg-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 2px solid var(--accent-gold);
+    border-radius: 20px;
+}
+
+/* Card Content */
+.card-content {
+    padding: 18px;
+    text-align: center;
+}
+
+.card-content h3 {
+    color: var(--primary-blue);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    padding: 5px 12px;
+    background: var(--bg-light);
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.card-date i {
+    color: var(--accent-gold);
+}
+
+.gallery-card:hover .card-date {
+    background: rgba(255, 183, 77, 0.15);
+    color: var(--primary-blue);
+}
+
+/* ========= GALLERY FOOTER ========= */
+.gallery-footer {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.gallery-footer p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.gallery-footer a {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.gallery-footer a:hover {
+    color: var(--accent-gold);
+    text-decoration: underline;
+}
+
+/* ========= EMPTY STATE ========= */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--bg-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-light);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: var(--text-light);
+}
+
+/* ========= RESPONSIVE DESIGN ========= */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    .hero-section {
+        height: 260px;
+    }
+    
+    .hero-overlay h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 30px 15px;
+    }
+    
+    .gallery-header {
+        margin-bottom: 30px;
+    }
+    
+    .gallery-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 18px !important;
+    }
+    
+    .hero-section {
+        height: 220px;
+    }
+    
+    .hero-overlay {
+        padding: 20px;
+    }
+    
+    .hero-overlay h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hero-overlay p {
+        font-size: 1rem;
+    }
+    
+    .card-image {
+        height: 170px;
+    }
+    
+    .card-content {
+        padding: 14px;
+    }
+    
+    .card-content h3 {
+        font-size: 0.95rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .hero-section {
+        height: 180px;
+    }
+    
+    .hero-overlay h1 {
+        font-size: 1.4rem;
+    }
+    
+    .hero-overlay p {
+        font-size: 0.95rem;
+    }
+    
+    .card-image {
+        height: 220px;
+    }
+    
+    .card-overlay i {
+        font-size: 2.2rem;
+    }
+    
+    .card-overlay span {
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 400px) {
+    .main-container {
+        padding: 20px 10px;
+    }
+    
+    .gallery-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .gallery-header p {
+        font-size: 0.9rem;
+    }
+    
+    .card-image {
+        height: 200px;
+    }
+    
+    .card-content {
+        padding: 12px;
+    }
+    
+    .card-content h3 {
+        font-size: 0.95rem;
+    }
+    
+    .card-date {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+}
+
+/* ========= PRINT STYLES ========= */
+@media print {
+    .hero-section {
+        height: 150px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .gallery-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    .card-overlay {
+        display: none;
+    }
+}

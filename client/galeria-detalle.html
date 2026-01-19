@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Galería de Fotos - Unidad de Estadística e Informática - Facultad de Ciencias Económicas UNMSM"
+    />
+    <title>Galería de Fotos - Unidad de Estadística e Informática UNMSM</title>
+    <!-- Font Awesome para iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Lightbox CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"
+    />
+    <!-- Estilos del header y footer -->
+    <link
+      rel="stylesheet"
+      href="./informatica/componentes-informatica/styles-informatica.css"
+    />
+    <!-- Estilos principales de la página -->
+    <link rel="stylesheet" href="./informatica/css/galeria-detalle.css" />
+  </head>
+  <body>
+    <div id="loader" class="loader-overlay">
+      <div class="bars-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <!-- Header Include -->
+    <div id="header-informatica-include"></div>
+
+    <!-- Hero Section - ANCHO COMPLETO -->
+    <section class="hero-section">
+      <img
+        src="./img/informatica/fondo2.jpeg"
+        alt="Galería de Fotos - Unidad de Estadística e Informática UNMSM"
+      />
+      <div class="hero-overlay">
+        <h1 id="gallery-title">Galería de Fotos</h1>
+        <p id="gallery-subtitle">Registro de actividades y proyectos</p>
+      </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="main-container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="./galeria-informatica.html">← Volver a Galería</a>
+      </nav>
+
+      <!-- Información del trabajo -->
+      <div class="work-info">
+        <h2 id="work-title">Cargando...</h2>
+        <span id="work-date" class="work-date">
+          <i class="far fa-calendar-alt"></i>
+        </span>
+        <p id="work-description" class="work-description"></p>
+      </div>
+
+      <!-- Grid de Imágenes -->
+      <div class="photos-grid" id="photos-grid">
+        <!-- Las imágenes se cargarán dinámicamente con JavaScript -->
+      </div>
+
+      <!-- Mensaje cuando no hay imágenes -->
+      <div class="empty-state" id="empty-state" style="display: none">
+        <i class="fas fa-images"></i>
+        <h3>No hay imágenes disponibles</h3>
+        <p>Próximamente se añadirán fotos de este trabajo.</p>
+      </div>
+
+      <!-- Navegación a otros trabajos -->
+      <div class="gallery-navigation" id="gallery-navigation">
+        <a href="#" id="prev-work" class="nav-link">
+          <i class="fas fa-arrow-left"></i>
+          Trabajo Anterior
+        </a>
+        <a href="galeria.html" class="nav-link back-to-gallery">
+          <i class="fas fa-th"></i>
+          Ver Todas las Galerías
+        </a>
+        <a href="#" id="next-work" class="nav-link">
+          Siguiente Trabajo
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <!-- <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+        <a class="lightbox-prev" id="lightbox-prev">&#10094;</a>
+        <a class="lightbox-next" id="lightbox-next">&#10095;</a>
+    </div> -->
+
+    <!-- Footer Include -->
+    <div id="footer-informatica-include"></div>
+
+    <!-- Scripts -->
+    <script src="./informatica/js/script.js"></script>
+    <script src="./informatica/componentes-informatica/loader-informatica.js"></script>
+    <script src="./informatica/componentes-informatica/script-informatica.js"></script>
+    <!-- <script src="./informatica/componentes-informatica/script-informatica.js"></script> -->
+    <!-- Lightbox JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script> -->
+    <!-- Script de la galería -->
+    <script src="./informatica/js/galeria-detalle.js"></script>
+  </body>
+</html>
