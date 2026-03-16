@@ -7,37 +7,234 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../public/css/admin-theme.css">
+  <link rel="stylesheet" href="/css/admin-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  <style>
+    .sidebar {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    }
+    .sidebar .nav-link {
+      color: #495057;
+      padding: 0.7rem 1rem;
+      margin: 0.2rem 0;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .sidebar .nav-link:hover {
+      background: #007bff;
+      color: white;
+      transform: translateX(5px);
+    }
+    .sidebar .nav-link.active {
+      background: #007bff;
+      color: white;
+      font-weight: 500;
+    }
+    .sidebar .nav-link i {
+      width: 24px;
+      margin-right: 10px;
+    }
+    .user-info-sidebar {
+      background: rgba(0,0,0,0.03);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #007bff;
+    }
+    .user-info-sidebar small {
+      color: #6c757d;
+    }
+    .badge-role {
+      background: #007bff;
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+    }
+  </style>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="/admin"><i class="fas fa-university me-2"></i>FCE Admin</a>
+    <a class="navbar-brand fw-bold" href="/admin">
+      <i class="fas fa-university me-2"></i>FCE Admin
+    </a>
     <div class="d-flex align-items-center text-white">
-      <span class="me-3 small"><i class="fas fa-user-circle me-1"></i>Administrador</span>
-      <a class="btn btn-sm btn-outline-light" href="/admin/logout"><i class="fas fa-sign-out-alt me-1"></i>Salir</a>
+      <span class="me-3 small">
+        <i class="fas fa-user-circle me-1"></i>
+        <%= admin ? admin.nombre_completo : 'Administrador' %>
+        <% if (admin && admin.role === 'oficina_admin') { %>
+          <span class="ms-2 badge bg-info text-dark">
+            <% if (admin.oficina === 'cerseu') { %>CERSEU<% } %>
+            <% if (admin.oficina === 'cesepi') { %>CESEPI<% } %>
+            <% if (admin.oficina === 'ocaa') { %>OCAA<% } %>
+            <% if (admin.oficina === 'posgrado') { %>POSGRADO<% } %>
+          </span>
+        <% } else if (admin && admin.role === 'super_admin') { %>
+          <span class="ms-2 badge bg-warning text-dark">Super Admin</span>
+        <% } %>
+      </span>
+      <a class="btn btn-sm btn-outline-light" href="/admin/logout">
+        <i class="fas fa-sign-out-alt me-1"></i>Salir
+      </a>
     </div>
   </div>
 </nav>
 
 <div class="container-fluid">
   <div class="row">
-    <!-- Sidebar compacto -->
-    <nav class="col-md-3 col-lg-2 bg-light vh-100 pt-3">
+    <!-- Sidebar inteligente -->
+    <nav class="col-md-3 col-lg-2 sidebar pt-3">
+      
+      <!-- Información del usuario en sidebar -->
+      <div class="user-info-sidebar">
+        <div class="d-flex align-items-center mb-2">
+          <i class="fas fa-user-circle fa-2x me-2 text-primary"></i>
+          <div>
+            <strong><%= admin ? admin.nombre_completo : 'Usuario' %></strong><br>
+            <small>
+              <i class="fas fa-clock me-1"></i>
+              Último acceso: <%= admin && admin.ultimo_acceso ? new Date(admin.ultimo_acceso).toLocaleString('es-PE') : 'Primer ingreso' %>
+            </small>
+          </div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge-role">
+            <% if (admin && admin.role === 'super_admin') { %>
+              <i class="fas fa-crown me-1"></i>Super Administrador
+            <% } else if (admin && admin.oficina) { %>
+              <i class="fas fa-building me-1"></i>
+              <% if (admin.oficina === 'cerseu') { %>Administrador CERSEU<% } %>
+              <% if (admin.oficina === 'cesepi') { %>Administrador CESEPI<% } %>
+              <% if (admin.oficina === 'ocaa') { %>Administrador OCAA<% } %>
+              <% if (admin.oficina === 'posgrado') { %>Administrador POSGRADO<% } %>
+            <% } %>
+          </span>
+        </div>
+      </div>
+
       <ul class="nav flex-column">
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin"><i class="fas fa-tachometer-alt fa-fw me-2"></i>Dashboard</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/noticias"><i class="fas fa-newspaper fa-fw me-2"></i>Noticias</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/eventos"><i class="fas fa-calendar fa-fw me-2"></i>Eventos</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/comunicados"><i class="fas fa-bullhorn fa-fw me-2"></i>Comunicados</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/egresados"><i class="fas fa-graduation-cap fa-fw me-2"></i>Egresados</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/maestrias"><i class="fas fa-graduation-cap fa-fw me-2"></i>Maestrías</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/doctorados"><i class="fas fa-graduation-cap fa-fw me-2"></i>Doctorados</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/contactos"><i class="fas fa-envelope fa-fw me-2"></i>Contactos Principal</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/contactos-posgrado"><i class="fas fa-users fa-fw me-2"></i>Contactos Posgrado</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/contactos-cerseu"><i class="fas fa-users fa-fw me-2"></i>Contactos CERSEU</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded" href="/admin/contactos-cesepi"><i class="fas fa-users fa-fw me-2"></i>Contactos CESEPI</a></li>
-        <li class="nav-item mb-1"><a class="nav-link px-3 rounded active" href="/admin/reclamos"><i class="fas fa-book fa-fw me-2"></i>Reclamos</a></li>
+        <!-- Dashboard (dinámico según rol) -->
+        <li class="nav-item mb-1">
+          <a class="nav-link px-3 rounded <%= currentPage === 'dashboard' ? 'active' : '' %>" 
+             href="<%= admin && admin.role === 'super_admin' ? '/admin' : '/admin/oficina/' + admin.oficina %>">
+            <i class="fas fa-tachometer-alt fa-fw me-2"></i>Dashboard
+          </a>
+        </li>
+
+        <!-- OPCIONES SOLO PARA SUPER ADMIN -->
+        <% if (admin && admin.role === 'super_admin') { %>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'noticias' ? 'active' : '' %>" href="/admin/noticias">
+              <i class="fas fa-newspaper fa-fw me-2"></i>Noticias
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'eventos' ? 'active' : '' %>" href="/admin/eventos">
+              <i class="fas fa-calendar fa-fw me-2"></i>Eventos
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'comunicados' ? 'active' : '' %>" href="/admin/comunicados">
+              <i class="fas fa-bullhorn fa-fw me-2"></i>Comunicados
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'egresados' ? 'active' : '' %>" href="/admin/egresados">
+              <i class="fas fa-graduation-cap fa-fw me-2"></i>Egresados
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'maestrias' ? 'active' : '' %>" href="/admin/maestrias">
+              <i class="fas fa-graduation-cap fa-fw me-2"></i>Maestrías
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'doctorados' ? 'active' : '' %>" href="/admin/doctorados">
+              <i class="fas fa-graduation-cap fa-fw me-2"></i>Doctorados
+            </a>
+          </li>
+          
+          <!-- Contactos agrupados para super admin -->
+          <li class="nav-item mt-2 mb-1">
+            <hr class="my-1">
+            <small class="text-muted px-3">CONTACTOS</small>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'contactos' ? 'active' : '' %>" href="/admin/contactos">
+              <i class="fas fa-envelope fa-fw me-2"></i>Contactos Principal
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'contactos-posgrado' ? 'active' : '' %>" href="/admin/contactos-posgrado">
+              <i class="fas fa-graduation-cap fa-fw me-2"></i>Contactos Posgrado
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'contactos-cerseu' ? 'active' : '' %>" href="/admin/contactos-cerseu">
+              <i class="fas fa-hand-holding-heart fa-fw me-2"></i>Contactos CERSEU
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'contactos-cesepi' ? 'active' : '' %>" href="/admin/contactos-cesepi">
+              <i class="fas fa-flask fa-fw me-2"></i>Contactos CESEPI
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'contactos-ocaa' ? 'active' : '' %>" href="/admin/contactos-ocaa">
+              <i class="fas fa-clipboard-check fa-fw me-2"></i>Contactos OCAA
+            </a>
+          </li>
+          
+          <!-- Reclamos solo para super admin -->
+          <li class="nav-item mt-2 mb-1">
+            <hr class="my-1">
+            <small class="text-muted px-3">GESTIÓN</small>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'reclamos' ? 'active' : '' %>" href="/admin/reclamos">
+              <i class="fas fa-book fa-fw me-2"></i>Libro de Reclamaciones
+            </a>
+          </li>
+        <% } %>
+
+        <!-- OPCIONES PARA ADMIN DE OFICINA -->
+        <% if (admin && admin.role === 'oficina_admin') { %>
+          <li class="nav-item mt-2 mb-1">
+            <hr class="my-1">
+            <small class="text-muted px-3">MI OFICINA</small>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded <%= currentPage === 'contactos-oficina' ? 'active' : '' %>" 
+               href="/admin/oficina/<%= admin.oficina %>/contactos">
+              <i class="fas fa-envelope fa-fw me-2"></i>Ver Contactos
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded" 
+               href="/admin/oficina/<%= admin.oficina %>/contactos?exportar=pdf">
+              <i class="fas fa-file-pdf fa-fw me-2 text-danger"></i>Exportar PDF
+            </a>
+          </li>
+          <li class="nav-item mb-1">
+            <a class="nav-link px-3 rounded" 
+               href="/admin/oficina/<%= admin.oficina %>/contactos?exportar=csv">
+              <i class="fas fa-file-csv fa-fw me-2 text-success"></i>Exportar CSV
+            </a>
+          </li>
+        <% } %>
+
+        <!-- Cerrar sesión (todos) -->
+        <li class="nav-item mt-3 mb-1">
+          <hr class="my-1">
+        </li>
+        <li class="nav-item mb-1">
+          <a class="nav-link px-3 rounded text-danger" href="/admin/logout">
+            <i class="fas fa-sign-out-alt fa-fw me-2"></i>Cerrar Sesión
+          </a>
+        </li>
       </ul>
     </nav>

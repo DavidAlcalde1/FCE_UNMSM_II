@@ -1,0 +1,111 @@
+<%- include('../../partials/admin-header', { 
+  title: `Dashboard ${oficina.toUpperCase()}`, 
+  currentPage: 'dashboard' 
+}) %>
+
+<main class="col-md-9 col-lg-10 ms-auto px-4 py-3">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="h2 mb-0">
+      <i class="fas fa-tachometer-alt me-2"></i>Dashboard 
+      <% if (oficina === 'cerseu') { %>CERSEU<% } %>
+      <% if (oficina === 'cesepi') { %>CESEPI<% } %>
+      <% if (oficina === 'ocaa') { %>OCAA<% } %>
+      <% if (oficina === 'posgrado') { %>POSGRADO<% } %>
+    </h1>
+    <div>
+      <span class="badge bg-secondary fs-6">
+        <i class="fas fa-clock me-1"></i>Último acceso: <%= admin.ultimo_acceso ? new Date(admin.ultimo_acceso).toLocaleString('es-PE') : 'Primer ingreso' %>
+      </span>
+    </div>
+  </div>
+
+  <!-- Tarjetas de estadísticas -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="card bg-primary text-white shadow">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title text-white-50">Total Contactos</h6>
+              <h2 class="display-4 mb-0"><%= estadisticas.totalContactos %></h2>
+            </div>
+            <i class="fas fa-envelope fa-3x opacity-50"></i>
+          </div>
+          <p class="mt-2 mb-0 text-white-50">
+            <i class="fas fa-inbox me-1"></i>mensajes recibidos
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card bg-success text-white shadow">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title text-white-50">Contactos (30 días)</h6>
+              <h2 class="display-4 mb-0"><%= estadisticas.contactosRecientes %></h2>
+            </div>
+            <i class="fas fa-calendar-alt fa-3x opacity-50"></i>
+          </div>
+          <p class="mt-2 mb-0 text-white-50">
+            <i class="fas fa-clock me-1"></i>último mes
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Últimos contactos -->
+  <div class="card shadow">
+    <div class="card-header bg-white">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-history me-2"></i>Últimos 5 contactos
+      </h5>
+    </div>
+    <div class="card-body">
+      <% if (ultimosContactos && ultimosContactos.length > 0) { %>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% ultimosContactos.forEach(c => { %>
+                <tr>
+                  <td><%= new Date(c.createdAt).toLocaleDateString('es-PE') %></td>
+                  <td><%= c.nombre %></td>
+                  <td><%= c.email %></td>
+                  <td><%= c.telefono || '—' %></td>
+                  <td>
+                    <a href="/admin/oficina/<%= oficina %>/contactos?buscar=<%= c.email %>" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-search"></i>
+                    </a>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-end mt-3">
+          <a href="/admin/oficina/<%= oficina %>/contactos" class="btn btn-primary">
+            <i class="fas fa-arrow-right me-2"></i>Ver todos los contactos
+          </a>
+        </div>
+      <% } else { %>
+        <div class="alert alert-info d-flex align-items-center mb-0">
+          <i class="fas fa-info-circle me-2"></i>
+          <span>No hay contactos registrados en esta oficina.</span>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</main>
+
+<%- include('../../partials/admin-footer') %>

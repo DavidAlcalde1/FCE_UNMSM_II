@@ -13,41 +13,109 @@ const upload = require('../middleware/upload');
 const PDFDocument = require('pdfkit');
 const { Op } = require('sequelize');
 const Reclamo = require('../models/Reclamo');
+const { requireAuth, requireSuperAdmin } = require('../middleware/auth');
+const Admin = require('../models/Admin');
 
-// ✅ Importación faltante para sequelize.query
+//Importación para sequelize.query
 const { sequelize } = require('../config/db');
 
-// Middleware: verifica si el admin YA inició sesión
-function requireAuth(req, res, next) {
-  if (req.session?.adminAuthenticated) {
-    return next();
-  }
-  res.redirect('/admin/login');
-}
+//===========================================
+// LOGIN (CON BASE DE DATOS)
+//===========================================
 
-// Middleware: procesa el LOGIN (solo POST)
-function handleLogin(req, res, next) {
-  const { user, pass } = req.body;
-  if (user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS) {
-    req.session.adminAuthenticated = true;
-    return next();
-  }
-  res.status(401).send('Acceso no autorizado');
-}
-
-// Login: muestra formulario (GET)
+// GET /admin/login
 router.get('/login', (req, res) => {
-  if (req.session?.adminAuthenticated) return res.redirect('/admin');
-  res.render('admin/login');
+  // Si ya está autenticado, redirigir
+  if (req.session?.adminId) {
+    if (req.session.adminRole === 'super_admin') {
+      return res.redirect('/admin');
+    } else {
+      return res.redirect(`/admin/oficina/${req.session.adminOficina}`);
+    }
+  }
+
+  // Obtener error de la sesión (si existe) y luego limpiarlo
+  const error = req.session.loginError || null;
+  const username = req.session.loginUsername || '';
+  
+  // Limpiar los mensajes de error de la sesión
+  delete req.session.loginError;
+  delete req.session.loginUsername;
+
+  res.render('admin/login', { 
+    error: error,
+    username: username
+  });
 });
 
-// Procesa login (POST)
-router.post('/login', handleLogin, (req, res) => {
-  res.redirect('/admin');
+// POST /admin/login
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Validar que los campos no estén vacíos
+    if (!username || !password) {
+      req.session.loginError = 'Por favor ingrese usuario y contraseña';
+      req.session.loginUsername = username || '';
+      return res.redirect('/admin/login');
+    }
+
+    // Buscar admin por username
+    const admin = await Admin.findOne({
+      where: {
+        username,
+        activo: true
+      }
+    });
+
+    if (!admin) {
+      req.session.loginError = 'Usuario o contraseña incorrectos';
+      req.session.loginUsername = username;
+      return res.redirect('/admin/login');
+    }
+
+    // Validar contraseña
+    const passwordValida = await admin.validarPassword(password);
+
+    if (!passwordValida) {
+      req.session.loginError = 'Usuario o contraseña incorrectos';
+      req.session.loginUsername = username;
+      return res.redirect('/admin/login');
+    }
+
+    // Guardar datos en sesión
+    req.session.adminId = admin.id;
+    req.session.adminRole = admin.role;
+    req.session.adminOficina = admin.oficina;
+    req.session.adminNombre = admin.nombre_completo;
+
+    // Limpiar posibles errores previos
+    delete req.session.loginError;
+    delete req.session.loginUsername;
+
+    // Actualizar último acceso
+    await admin.update({ ultimo_acceso: new Date() });
+
+    // Redirigir según rol
+    if (admin.role === 'super_admin') {
+      res.redirect('/admin');
+    } else {
+      res.redirect(`/admin/oficina/${admin.oficina}`);
+    }
+
+  } catch (error) {
+    console.error('Error en login:', error);
+    req.session.loginError = 'Error del servidor. Intente nuevamente.';
+    req.session.loginUsername = req.body.username || '';
+    res.redirect('/admin/login');
+  }
 });
 
-// Panel principal (protegido) - Dashboard con estadísticas
-router.get('/', requireAuth, async (_req, res) => {
+//===========================================
+// PANEL PRINCIPAL (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/', requireAuth, requireSuperAdmin, async (req, res) => {
   const stats = {
     noticias: await Noticia.count(),
     eventos: await Evento.count(),
@@ -58,39 +126,54 @@ router.get('/', requireAuth, async (_req, res) => {
     contactos: await Contacto.count({
       where: {
         oficina: {
-          [Op.not]: 'posgrado'  // Excluir posgrado
+          [Op.not]: 'posgrado'
         }
       }
     }),
     reclamos: await Reclamo.count(),
-    contactosPosgrado: await Contacto.count({ where: { oficina: 'posgrado' } }), 
+    contactosPosgrado: await Contacto.count({ where: { oficina: 'posgrado' } }),
     contactosCerseu: await Contacto.count({ where: { oficina: 'cerseu' } }),
     contactosCesepi: await Contacto.count({ where: { oficina: 'cesepi' } }),
   };
-  res.render('admin/dashboard', { stats });
+  res.render('admin/dashboard', { 
+    stats,
+    admin: req.admin,
+    currentPage: 'dashboard'
+  });
 });
 
-// === NOTICIAS ===
-router.get('/noticias', requireAuth, async (_req, res) => {
+//===========================================
+// NOTICIAS (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/noticias', requireAuth, requireSuperAdmin, async (req, res) => {
   const noticias = await Noticia.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/noticias', { noticias });
+  res.render('admin/noticias', { 
+    noticias, 
+    admin: req.admin,
+    currentPage: 'noticias'
+  });
 });
 
-router.get('/noticias/nueva', requireAuth, (_req, res) => {
-  res.render('admin/noticia-form', { noticia: null });
+router.get('/noticias/nueva', requireAuth, requireSuperAdmin, (req, res) => {
+  res.render('admin/noticia-form', { 
+    noticia: null, 
+    admin: req.admin,
+    currentPage: 'noticias'
+  });
 });
 
-router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/noticias', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   try {
-    const { titulo, resumen, contenido, fecha, fecha_vencimiento} = req.body;
+    const { titulo, resumen, contenido, fecha, fecha_vencimiento } = req.body;
     const data = {
       titulo: (titulo || '').trim(),
       resumen: (resumen || '').trim(),
       contenido: (contenido || '').trim(),
       fecha: fecha || null,
-      fecha_vencimiento: fecha_vencimiento || null, 
-      imagen: req.file 
-        ? `img/index/noticias/${req.file.filename}` 
+      fecha_vencimiento: fecha_vencimiento || null,
+      imagen: req.file
+        ? `img/index/noticias/${req.file.filename}`
         : (req.body.imagen || null)
     };
 
@@ -101,7 +184,12 @@ router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) 
     if (!data.fecha) errores.push('La fecha es obligatoria.');
 
     if (errores.length > 0) {
-      return res.render('admin/noticia-form', { noticia: data, errores });
+      return res.render('admin/noticia-form', { 
+        noticia: data, 
+        errores,
+        admin: req.admin,
+        currentPage: 'noticias'
+      });
     }
 
     await Noticia.create(data);
@@ -109,14 +197,16 @@ router.post('/noticias', requireAuth, upload.single('imagen'), async (req, res) 
 
   } catch (error) {
     console.error('Error al crear noticia:', error);
-    res.render('admin/noticia-form', { 
-      noticia: { ...req.body, imagen: req.body.imagen }, 
-      errores: ['No se pudo guardar la noticia. Verifica los datos.'] 
+    res.render('admin/noticia-form', {
+      noticia: { ...req.body, imagen: req.body.imagen },
+      errores: ['No se pudo guardar la noticia. Verifica los datos.'],
+      admin: req.admin,
+      currentPage: 'noticias'
     });
   }
 });
 
-router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/noticias/:id', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   try {
     const { titulo, resumen, contenido, fecha, fecha_vencimiento } = req.body;
     const id = req.params.id;
@@ -125,9 +215,9 @@ router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, r
       resumen: (resumen || '').trim(),
       contenido: (contenido || '').trim(),
       fecha: fecha || null,
-      fecha_vencimiento: fecha_vencimiento || null, 
-      imagen: req.file 
-        ? `img/index/noticias/${req.file.filename}` 
+      fecha_vencimiento: fecha_vencimiento || null,
+      imagen: req.file
+        ? `img/index/noticias/${req.file.filename}`
         : (req.body.imagen || null)
     };
 
@@ -138,7 +228,12 @@ router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, r
     if (!data.fecha) errores.push('La fecha es obligatoria.');
 
     if (errores.length > 0) {
-      return res.render('admin/noticia-form', { noticia: { id, ...data }, errores });
+      return res.render('admin/noticia-form', { 
+        noticia: { id, ...data }, 
+        errores,
+        admin: req.admin,
+        currentPage: 'noticias'
+      });
     }
 
     await Noticia.update(data, { where: { id } });
@@ -146,44 +241,59 @@ router.post('/noticias/:id', requireAuth, upload.single('imagen'), async (req, r
 
   } catch (error) {
     console.error('Error al actualizar noticia:', error);
-    res.render('admin/noticia-form', { 
-      noticia: { id, ...req.body, imagen: req.body.imagen }, 
-      errores: ['No se pudo actualizar la noticia. Intenta nuevamente.'] 
+    res.render('admin/noticia-form', {
+      noticia: { id, ...req.body, imagen: req.body.imagen },
+      errores: ['No se pudo actualizar la noticia. Intenta nuevamente.'],
+      admin: req.admin,
+      currentPage: 'noticias'
     });
   }
 });
 
-// === NOTICIAS - ELIMINAR ===
-router.post('/noticias/:id/eliminar', requireAuth, async (req, res) => {
+router.post('/noticias/:id/eliminar', requireAuth, requireSuperAdmin, async (req, res) => {
   await Noticia.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/noticias');
 });
 
-// === NOTICIAS - EDITAR ===
-router.get('/noticias/:id/editar', requireAuth, async (req, res) => {
+router.get('/noticias/:id/editar', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const noticia = await Noticia.findByPk(req.params.id);
     if (!noticia) {
       return res.status(404).send('Noticia no encontrada');
     }
-    res.render('admin/noticia-form', { noticia });
+    res.render('admin/noticia-form', { 
+      noticia,
+      admin: req.admin,
+      currentPage: 'noticias'
+    });
   } catch (error) {
     console.error('Error al cargar noticia para edición:', error);
     res.status(500).send('Error al cargar el formulario');
   }
 });
 
-// === EVENTOS ===
-router.get('/eventos', requireAuth, async (_req, res) => {
+//===========================================
+// EVENTOS (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/eventos', requireAuth, requireSuperAdmin, async (req, res) => {
   const eventos = await Evento.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/eventos', { eventos });
+  res.render('admin/eventos', { 
+    eventos,
+    admin: req.admin,
+    currentPage: 'eventos'
+  });
 });
 
-router.get('/eventos/nuevo', requireAuth, (_req, res) => {
-  res.render('admin/evento-form', { evento: null });
+router.get('/eventos/nuevo', requireAuth, requireSuperAdmin, (req, res) => {
+  res.render('admin/evento-form', { 
+    evento: null,
+    admin: req.admin,
+    currentPage: 'eventos'
+  });
 });
 
-router.post('/eventos', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/eventos', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   try {
     const data = {
       titulo: req.body.titulo?.trim(),
@@ -199,7 +309,12 @@ router.post('/eventos', requireAuth, upload.single('imagen'), async (req, res) =
     if (!data.fecha) errores.push('La fecha es obligatoria.');
 
     if (errores.length > 0) {
-      return res.render('admin/evento-form', { evento: req.body, errores });
+      return res.render('admin/evento-form', { 
+        evento: req.body, 
+        errores,
+        admin: req.admin,
+        currentPage: 'eventos'
+      });
     }
 
     Object.keys(data).forEach(key => data[key] === undefined && delete data[key]);
@@ -208,21 +323,21 @@ router.post('/eventos', requireAuth, upload.single('imagen'), async (req, res) =
 
   } catch (error) {
     console.error('Error al crear evento:', error);
-    res.render('admin/evento-form', { 
+    res.render('admin/evento-form', {
       evento: req.body,
-      errores: ['No se pudo guardar el evento. Verifica los datos.'] 
+      errores: ['No se pudo guardar el evento. Verifica los datos.'],
+      admin: req.admin,
+      currentPage: 'eventos'
     });
   }
 });
 
-// === EVENTOS - ELIMINAR ===
-router.post('/eventos/:id/eliminar', requireAuth, async (req, res) => {
+router.post('/eventos/:id/eliminar', requireAuth, requireSuperAdmin, async (req, res) => {
   await Evento.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/eventos');
 });
 
-// === EVENTOS - ACTUALIZAR ===
-router.post('/eventos/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/eventos/:id', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   try {
     const { id } = req.params;
     const data = {
@@ -239,7 +354,12 @@ router.post('/eventos/:id', requireAuth, upload.single('imagen'), async (req, re
     if (!data.fecha) errores.push('La fecha es obligatoria.');
 
     if (errores.length > 0) {
-      return res.render('admin/evento-form', { evento: { id, ...req.body }, errores });
+      return res.render('admin/evento-form', { 
+        evento: { id, ...req.body }, 
+        errores,
+        admin: req.admin,
+        currentPage: 'eventos'
+      });
     }
 
     Object.keys(data).forEach(key => data[key] === undefined && delete data[key]);
@@ -248,31 +368,47 @@ router.post('/eventos/:id', requireAuth, upload.single('imagen'), async (req, re
 
   } catch (error) {
     console.error('Error al actualizar evento:', error);
-    res.render('admin/evento-form', { 
+    res.render('admin/evento-form', {
       evento: { id: req.params.id, ...req.body },
-      errores: ['No se pudo actualizar el evento. Verifica los datos.'] 
+      errores: ['No se pudo actualizar el evento. Verifica los datos.'],
+      admin: req.admin,
+      currentPage: 'eventos'
     });
   }
 });
 
-// === EVENTOS - FORMULARIO DE EDICIÓN ===
-router.get('/eventos/:id/editar', requireAuth, async (req, res) => {
+router.get('/eventos/:id/editar', requireAuth, requireSuperAdmin, async (req, res) => {
   const evento = await Evento.findByPk(req.params.id);
   if (!evento) return res.status(404).send('Evento no encontrado');
-  res.render('admin/evento-form', { evento });
+  res.render('admin/evento-form', { 
+    evento,
+    admin: req.admin,
+    currentPage: 'eventos'
+  });
 });
 
-// === COMUNICADOS ===
-router.get('/comunicados', requireAuth, async (_req, res) => {
+//===========================================
+// COMUNICADOS (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/comunicados', requireAuth, requireSuperAdmin, async (req, res) => {
   const comunicados = await Comunicado.findAll({ order: [['fecha', 'DESC']] });
-  res.render('admin/comunicados', { comunicados });
+  res.render('admin/comunicados', { 
+    comunicados,
+    admin: req.admin,
+    currentPage: 'comunicados'
+  });
 });
 
-router.get('/comunicados/nuevo', requireAuth, (_req, res) => {
-  res.render('admin/comunicado-form', { comunicado: null });
+router.get('/comunicados/nuevo', requireAuth, requireSuperAdmin, (req, res) => {
+  res.render('admin/comunicado-form', { 
+    comunicado: null,
+    admin: req.admin,
+    currentPage: 'comunicados'
+  });
 });
 
-router.post('/comunicados', requireAuth, upload.fields([
+router.post('/comunicados', requireAuth, requireSuperAdmin, upload.fields([
   { name: 'imagen', maxCount: 1 },
   { name: 'archivo', maxCount: 1 }
 ]), async (req, res) => {
@@ -297,12 +433,16 @@ router.post('/comunicados', requireAuth, upload.fields([
   res.redirect('/admin/comunicados');
 });
 
-router.get('/comunicados/:id/editar', requireAuth, async (req, res) => {
+router.get('/comunicados/:id/editar', requireAuth, requireSuperAdmin, async (req, res) => {
   const comunicado = await Comunicado.findByPk(req.params.id);
-  res.render('admin/comunicado-form', { comunicado });
+  res.render('admin/comunicado-form', { 
+    comunicado,
+    admin: req.admin,
+    currentPage: 'comunicados'
+  });
 });
 
-router.post('/comunicados/:id', requireAuth, upload.fields([
+router.post('/comunicados/:id', requireAuth, requireSuperAdmin, upload.fields([
   { name: 'imagen', maxCount: 1 },
   { name: 'archivo', maxCount: 1 }
 ]), async (req, res) => {
@@ -327,20 +467,31 @@ router.post('/comunicados/:id', requireAuth, upload.fields([
   res.redirect('/admin/comunicados');
 });
 
-router.post('/comunicados/:id/eliminar', requireAuth, async (req, res) => {
+router.post('/comunicados/:id/eliminar', requireAuth, requireSuperAdmin, async (req, res) => {
   await Comunicado.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/comunicados');
 });
 
-// === EGRESADOS ===
-router.get('/egresados', requireAuth, async (_req, res) => {
+//===========================================
+// EGRESADOS (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/egresados', requireAuth, requireSuperAdmin, async (req, res) => {
   const egresados = await Egresado.findAll();
-  res.render('admin/egresados', { egresados });
+  res.render('admin/egresados', { 
+    egresados,
+    admin: req.admin,
+    currentPage: 'egresados'
+  });
 });
 
-router.get('/egresados/nuevo', requireAuth, (_req, res) => res.render('admin/egresado-form', { egresado: null }));
+router.get('/egresados/nuevo', requireAuth, requireSuperAdmin, (req, res) => res.render('admin/egresado-form', { 
+  egresado: null,
+  admin: req.admin,
+  currentPage: 'egresados'
+}));
 
-router.post('/egresados', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/egresados', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   const imagenPath = req.file ? `img/index/egresados/${req.file.filename}` : req.body.imagen;
   await Egresado.create({
     ...req.body,
@@ -349,12 +500,16 @@ router.post('/egresados', requireAuth, upload.single('imagen'), async (req, res)
   res.redirect('/admin/egresados');
 });
 
-router.get('/egresados/:id/editar', requireAuth, async (req, res) => {
+router.get('/egresados/:id/editar', requireAuth, requireSuperAdmin, async (req, res) => {
   const egresado = await Egresado.findByPk(req.params.id);
-  res.render('admin/egresado-form', { egresado });
+  res.render('admin/egresado-form', { 
+    egresado,
+    admin: req.admin,
+    currentPage: 'egresados'
+  });
 });
 
-router.post('/egresados/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/egresados/:id', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   const imagenPath = req.file ? `img/index/egresados/${req.file.filename}` : req.body.imagen;
   await Egresado.update({
     ...req.body,
@@ -363,20 +518,31 @@ router.post('/egresados/:id', requireAuth, upload.single('imagen'), async (req, 
   res.redirect('/admin/egresados');
 });
 
-router.post('/egresados/:id/eliminar', requireAuth, async (req, res) => {
+router.post('/egresados/:id/eliminar', requireAuth, requireSuperAdmin, async (req, res) => {
   await Egresado.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/egresados');
 });
 
-// === MAESTRÍAS ===
-router.get('/maestrias', requireAuth, async (_req, res) => {
+//===========================================
+// MAESTRÍAS (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/maestrias', requireAuth, requireSuperAdmin, async (req, res) => {
   const maestrias = await Maestria.findAll();
-  res.render('admin/maestrias', { maestrias });
+  res.render('admin/maestrias', { 
+    maestrias,
+    admin: req.admin,
+    currentPage: 'maestrias'
+  });
 });
 
-router.get('/maestrias/nueva', requireAuth, (_req, res) => res.render('admin/maestria-form', { maestria: null }));
+router.get('/maestrias/nueva', requireAuth, requireSuperAdmin, (req, res) => res.render('admin/maestria-form', { 
+  maestria: null,
+  admin: req.admin,
+  currentPage: 'maestrias'
+}));
 
-router.post('/maestrias', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/maestrias', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   const imagenPath = req.file ? `img/maestrias/${req.file.filename}` : req.body.imagen;
   await Maestria.create({
     ...req.body,
@@ -385,12 +551,16 @@ router.post('/maestrias', requireAuth, upload.single('imagen'), async (req, res)
   res.redirect('/admin/maestrias');
 });
 
-router.get('/maestrias/:id/editar', requireAuth, async (req, res) => {
+router.get('/maestrias/:id/editar', requireAuth, requireSuperAdmin, async (req, res) => {
   const maestria = await Maestria.findByPk(req.params.id);
-  res.render('admin/maestria-form', { maestria });
+  res.render('admin/maestria-form', { 
+    maestria,
+    admin: req.admin,
+    currentPage: 'maestrias'
+  });
 });
 
-router.post('/maestrias/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/maestrias/:id', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   const imagenPath = req.file ? `img/maestrias/${req.file.filename}` : req.body.imagen;
   await Maestria.update({
     ...req.body,
@@ -399,20 +569,31 @@ router.post('/maestrias/:id', requireAuth, upload.single('imagen'), async (req, 
   res.redirect('/admin/maestrias');
 });
 
-router.post('/maestrias/:id/eliminar', requireAuth, async (req, res) => {
+router.post('/maestrias/:id/eliminar', requireAuth, requireSuperAdmin, async (req, res) => {
   await Maestria.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/maestrias');
 });
 
-// === DOCTORADOS ===
-router.get('/doctorados', requireAuth, async (_req, res) => {
+//===========================================
+// DOCTORADOS (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/doctorados', requireAuth, requireSuperAdmin, async (req, res) => {
   const doctorados = await Doctorado.findAll();
-  res.render('admin/doctorados', { doctorados });
+  res.render('admin/doctorados', { 
+    doctorados,
+    admin: req.admin,
+    currentPage: 'doctorados'
+  });
 });
 
-router.get('/doctorados/nuevo', requireAuth, (_req, res) => res.render('admin/doctorado-form', { doctorado: null }));
+router.get('/doctorados/nuevo', requireAuth, requireSuperAdmin, (req, res) => res.render('admin/doctorado-form', { 
+  doctorado: null,
+  admin: req.admin,
+  currentPage: 'doctorados'
+}));
 
-router.post('/doctorados', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/doctorados', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   const imagenPath = req.file ? `img/doctorados/${req.file.filename}` : req.body.imagen;
   await Doctorado.create({
     ...req.body,
@@ -421,12 +602,16 @@ router.post('/doctorados', requireAuth, upload.single('imagen'), async (req, res
   res.redirect('/admin/doctorados');
 });
 
-router.get('/doctorados/:id/editar', requireAuth, async (req, res) => {
+router.get('/doctorados/:id/editar', requireAuth, requireSuperAdmin, async (req, res) => {
   const doctorado = await Doctorado.findByPk(req.params.id);
-  res.render('admin/doctorado-form', { doctorado });
+  res.render('admin/doctorado-form', { 
+    doctorado,
+    admin: req.admin,
+    currentPage: 'doctorados'
+  });
 });
 
-router.post('/doctorados/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+router.post('/doctorados/:id', requireAuth, requireSuperAdmin, upload.single('imagen'), async (req, res) => {
   const imagenPath = req.file ? `img/doctorados/${req.file.filename}` : req.body.imagen;
   await Doctorado.update({
     ...req.body,
@@ -435,21 +620,23 @@ router.post('/doctorados/:id', requireAuth, upload.single('imagen'), async (req,
   res.redirect('/admin/doctorados');
 });
 
-router.post('/doctorados/:id/eliminar', requireAuth, async (req, res) => {
+router.post('/doctorados/:id/eliminar', requireAuth, requireSuperAdmin, async (req, res) => {
   await Doctorado.destroy({ where: { id: req.params.id } });
   res.redirect('/admin/doctorados');
 });
 
-// === CONTACTOS ===
-router.get('/contactos', requireAuth, async (req, res) => {
+//===========================================
+// CONTACTOS GENERALES (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/contactos', requireAuth, requireSuperAdmin, async (req, res) => {
   const { fechaInicio, fechaFin } = req.query;
   const whereClause = {
     oficina: {
-      [Op.not]: 'posgrado'  // Excluir posgrado
+      [Op.not]: 'posgrado'
     }
   };
-  
-  // Filtrar por fechas si se proporcionan
+
   if (fechaInicio || fechaFin) {
     whereClause.createdAt = {};
     if (fechaInicio) {
@@ -467,16 +654,18 @@ router.get('/contactos', requireAuth, async (req, res) => {
     order: [['createdAt', 'DESC']]
   });
 
-  res.render('admin/contactos', { 
+  res.render('admin/contactos', {
     contactos,
     oficina: null,
     fechaInicio: fechaInicio || '',
-    fechaFin: fechaFin || ''
+    fechaFin: fechaFin || '',
+    admin: req.admin,
+    currentPage: 'contactos'
   });
 });
 
 // Exportar contactos a PDF
-router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
+router.get('/contactos/exportar-pdf', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.query;
     const whereClause = {
@@ -484,7 +673,7 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
         [Op.not]: 'posgrado'
       }
     };
-    
+
     if (fechaInicio || fechaFin) {
       whereClause.createdAt = {};
       if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
@@ -509,22 +698,20 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename=contactos_fce.pdf');
     doc.pipe(res);
 
-    // === ENCABEZADO INSTITUCIONAL ===
     const logoPath = path.join(__dirname, '..', '..', 'client', 'img', 'index', 'logo_fce.png');
     if (fs.existsSync(logoPath)) {
       doc.image(logoPath, 45, 40, { width: 120 });
     }
     doc.font('Helvetica-Bold').fontSize(14)
-       .text('Facultad de Ciencias Económicas', 180, 50)
-       .fontSize(12).text('Universidad Nacional Mayor de San Marcos', 180, 65);
+      .text('Facultad de Ciencias Económicas', 180, 50)
+      .fontSize(12).text('Universidad Nacional Mayor de San Marcos', 180, 65);
     doc.moveTo(45, 90).lineTo(555, 90).stroke('#1c3d6c').lineWidth(2);
     doc.moveDown(2);
 
-    // Título del reporte
     doc.fontSize(14).fillColor('#1c3d6c')
-       .text('Contactos - General', { align: 'center' });
+      .text('Contactos - General', { align: 'center' });
     doc.moveDown(0.5);
-    
+
     if (fechaInicio || fechaFin) {
       doc.fontSize(10).fillColor('#666');
       let rango = '';
@@ -534,19 +721,17 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
     }
     doc.moveDown(2);
 
-    // === CONFIGURACIÓN DE TABLA CON NÚMERO ===
     const cols = {
-      numero:  { x: 45,   width: 30,  align: 'center' },
-      fecha:   { x: 75,   width: 90,  align: 'center' },
-      oficina: { x: 165,  width: 55,  align: 'center' },
-      nombre:  { x: 220,  width: 95,  align: 'center' },
-      email:   { x: 315,  width: 140, align: 'center' },
-      telefono:{ x: 455,  width: 60,  align: 'center' }
+      numero: { x: 45, width: 30, align: 'center' },
+      fecha: { x: 75, width: 90, align: 'center' },
+      oficina: { x: 165, width: 55, align: 'center' },
+      nombre: { x: 220, width: 95, align: 'center' },
+      email: { x: 315, width: 140, align: 'center' },
+      telefono: { x: 455, width: 60, align: 'center' }
     };
     const rowHeight = 22;
     let y = 100;
 
-    // === ENCABEZADO DE TABLA ===
     const drawHeader = () => {
       doc.font('Helvetica-Bold').fillColor('#1c3d6c');
       doc.rect(cols.numero.x, y, 510, rowHeight).fill('#1c3d6c');
@@ -560,17 +745,15 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
       y += rowHeight;
     };
 
-    // === PIE DE PÁGINA ===
     const drawFooter = () => {
       doc.fontSize(9).font('Helvetica-Oblique').fillColor('#666')
-         .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
-         .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
-         .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
+        .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
+        .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
+        .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
     };
 
     drawHeader();
 
-    // === FILAS DE DATOS CON NÚMERACIÓN ===
     doc.fillColor('black').font('Helvetica').fontSize(9);
     contactos.forEach((c, i) => {
       if (y + rowHeight > 790) {
@@ -580,15 +763,13 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
         drawHeader();
       }
 
-      // Fondo alternado
       if (i % 2 === 0) {
         doc.fillColor('#f9f9f9').rect(cols.numero.x, y, 510, rowHeight).fill();
         doc.fillColor('black');
       }
 
       const textOpts = (col) => ({ width: col.width, align: col.align, ellipsis: true });
-      
-      // Numeración (i + 1)
+
       doc.text(String(i + 1), cols.numero.x, y + 3, textOpts(cols.numero));
       doc.text(new Date(c.createdAt).toLocaleString('es-PE'), cols.fecha.x, y + 3, textOpts(cols.fecha));
       doc.text(c.oficina, cols.oficina.x, y + 3, textOpts(cols.oficina));
@@ -596,17 +777,15 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
       doc.text(c.email, cols.email.x, y + 3, textOpts(cols.email));
       doc.text(c.telefono || '—', cols.telefono.x, y + 3, textOpts(cols.telefono));
 
-      // Bordes finos
       doc.strokeColor('#ddd').lineWidth(0.5)
-         .rect(cols.numero.x, y, 510, rowHeight).stroke();
+        .rect(cols.numero.x, y, 510, rowHeight).stroke();
 
       y += rowHeight;
     });
 
-    // Total de registros
     doc.moveDown(1);
     doc.font('Helvetica-Bold').fontSize(10)
-       .text(`Total de registros: ${contactos.length}`, 45, y + 5);
+      .text(`Total de registros: ${contactos.length}`, 45, y + 5);
 
     drawFooter();
     doc.end();
@@ -616,8 +795,8 @@ router.get('/contactos/exportar-pdf', requireAuth, async (req, res) => {
   }
 });
 
-// === EXPORTAR EXCEL - CONTACTOS ===
-router.get('/contactos/exportar-excel', requireAuth, async (req, res) => {
+// Exportar EXCEL (CSV) - CONTACTOS GENERALES
+router.get('/contactos/exportar-excel', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.query;
     const whereClause = {
@@ -625,7 +804,7 @@ router.get('/contactos/exportar-excel', requireAuth, async (req, res) => {
         [Op.not]: 'posgrado'
       }
     };
-    
+
     if (fechaInicio || fechaFin) {
       whereClause.createdAt = {};
       if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
@@ -642,7 +821,6 @@ router.get('/contactos/exportar-excel', requireAuth, async (req, res) => {
       attributes: ['nombre', 'email', 'telefono', 'mensaje', 'oficina', 'createdAt']
     });
 
-    // Generar CSV
     const csvHeader = 'Nombre,Email,Teléfono,Mensaje,Oficina,Fecha\n';
     const csvData = contactos.map(c => {
       const mensaje = `"${c.mensaje.replace(/"/g, '""')}"`;
@@ -658,27 +836,21 @@ router.get('/contactos/exportar-excel', requireAuth, async (req, res) => {
   }
 });
 
+//===========================================
+// CONTACTOS POSGRADO (SOLO SUPER ADMIN)
+//===========================================
 
-
-
-
-
-
-// === CONTACTOS POSGRADO ===
-// Ruta específica para ver contactos del formulario de posgrado
-router.get('/contactos-posgrado', requireAuth, async (req, res) => {
+router.get('/contactos-posgrado', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.query;
     const whereClause = { oficina: 'posgrado' };
-    
-    // Filtrar por fechas si se proporcionan
+
     if (fechaInicio || fechaFin) {
       whereClause.createdAt = {};
       if (fechaInicio) {
         whereClause.createdAt[Op.gte] = new Date(fechaInicio);
       }
       if (fechaFin) {
-        // Agregar un día a la fecha fin para incluir todo ese día
         const fechaFinDate = new Date(fechaFin);
         fechaFinDate.setHours(23, 59, 59, 999);
         whereClause.createdAt[Op.lte] = fechaFinDate;
@@ -690,12 +862,14 @@ router.get('/contactos-posgrado', requireAuth, async (req, res) => {
       order: [['createdAt', 'DESC']]
     });
 
-    res.render('admin/contactos-posgrado', { 
+    res.render('admin/contactos-posgrado', {
       title: 'Contactos - Posgrado',
       contactos,
       totalContactos: contactos.length,
       fechaInicio: fechaInicio || '',
-      fechaFin: fechaFin || ''
+      fechaFin: fechaFin || '',
+      admin: req.admin,
+      currentPage: 'contactos-posgrado'
     });
   } catch (error) {
     console.error('Error al obtener contactos de posgrado:', error);
@@ -703,13 +877,12 @@ router.get('/contactos-posgrado', requireAuth, async (req, res) => {
   }
 });
 
-
-// === EXPORTAR EXCEL - CONTACTOS POSGRADO ===
-router.get('/contactos-posgrado/exportar-excel', requireAuth, async (req, res) => {
+// Exportar EXCEL - CONTACTOS POSGRADO
+router.get('/contactos-posgrado/exportar-excel', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.query;
     const whereClause = { oficina: 'posgrado' };
-    
+
     if (fechaInicio || fechaFin) {
       whereClause.createdAt = {};
       if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
@@ -726,7 +899,6 @@ router.get('/contactos-posgrado/exportar-excel', requireAuth, async (req, res) =
       attributes: ['nombre', 'email', 'telefono', 'mensaje', 'oficina', 'createdAt']
     });
 
-    // Generar CSV
     const csvHeader = 'Nombre,Email,Teléfono,Mensaje,Oficina,Fecha\n';
     const csvData = contactos.map(c => {
       const mensaje = `"${c.mensaje.replace(/"/g, '""')}"`;
@@ -742,13 +914,12 @@ router.get('/contactos-posgrado/exportar-excel', requireAuth, async (req, res) =
   }
 });
 
-
-// === EXPORTAR PDF - CONTACTOS POSGRADO ===
-router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => {
+// Exportar PDF - CONTACTOS POSGRADO
+router.get('/contactos-posgrado/exportar-pdf', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.query;
     const whereClause = { oficina: 'posgrado' };
-    
+
     if (fechaInicio || fechaFin) {
       whereClause.createdAt = {};
       if (fechaInicio) whereClause.createdAt[Op.gte] = new Date(fechaInicio);
@@ -773,22 +944,20 @@ router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => 
     res.setHeader('Content-Disposition', 'attachment; filename=contactos_posgrado.pdf');
     doc.pipe(res);
 
-    // === ENCABEZADO INSTITUCIONAL ===
     const logoPath = path.join(__dirname, '..', '..', 'client', 'img', 'index', 'logo_fce.png');
     if (fs.existsSync(logoPath)) {
       doc.image(logoPath, 45, 40, { width: 120 });
     }
     doc.font('Helvetica-Bold').fontSize(14)
-       .text('Facultad de Ciencias Económicas', 180, 50)
-       .fontSize(12).text('Universidad Nacional Mayor de San Marcos', 180, 65);
+      .text('Facultad de Ciencias Económicas', 180, 50)
+      .fontSize(12).text('Universidad Nacional Mayor de San Marcos', 180, 65);
     doc.moveTo(45, 90).lineTo(555, 90).stroke('#1c3d6c').lineWidth(2);
     doc.moveDown(2);
 
-    // Título del reporte
     doc.fontSize(14).fillColor('#1c3d6c')
-       .text('Contactos - Posgrado', { align: 'center' });
+      .text('Contactos - Posgrado', { align: 'center' });
     doc.moveDown(0.5);
-    
+
     if (fechaInicio || fechaFin) {
       doc.fontSize(10).fillColor('#666');
       let rango = '';
@@ -798,19 +967,17 @@ router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => 
     }
     doc.moveDown(2);
 
-    // === CONFIGURACIÓN DE TABLA CON NÚMERO ===
     const cols = {
-      numero:  { x: 45,   width: 30,  align: 'center' },
-      fecha:   { x: 75,   width: 90,  align: 'center' },
-      oficina: { x: 165,  width: 55,  align: 'center' },
-      nombre:  { x: 220,  width: 95,  align: 'center' },
-      email:   { x: 315,  width: 140, align: 'center' },
-      telefono:{ x: 455,  width: 60,  align: 'center' }
+      numero: { x: 45, width: 30, align: 'center' },
+      fecha: { x: 75, width: 90, align: 'center' },
+      oficina: { x: 165, width: 55, align: 'center' },
+      nombre: { x: 220, width: 95, align: 'center' },
+      email: { x: 315, width: 140, align: 'center' },
+      telefono: { x: 455, width: 60, align: 'center' }
     };
     const rowHeight = 22;
     let y = 100;
 
-    // === ENCABEZADO DE TABLA ===
     const drawHeader = () => {
       doc.font('Helvetica-Bold').fillColor('#1c3d6c');
       doc.rect(cols.numero.x, y, 510, rowHeight).fill('#1c3d6c');
@@ -824,17 +991,15 @@ router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => 
       y += rowHeight;
     };
 
-    // === PIE DE PÁGINA ===
     const drawFooter = () => {
       doc.fontSize(9).font('Helvetica-Oblique').fillColor('#666')
-         .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
-         .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
-         .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
+        .moveTo(45, 790).lineTo(555, 790).stroke('#666').lineWidth(2)
+        .text('Facultad de Ciencias Económicas - UNMSM © 2025', 45, 795, { width: 510, align: 'center' })
+        .text('Developed by Bach. José David Alcalde Cabrera', 45, 805, { width: 510, align: 'center' });
     };
 
     drawHeader();
 
-    // === FILAS DE DATOS CON NÚMERACIÓN ===
     doc.fillColor('black').font('Helvetica').fontSize(9);
     contactos.forEach((c, i) => {
       if (y + rowHeight > 790) {
@@ -844,15 +1009,13 @@ router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => 
         drawHeader();
       }
 
-      // Fondo alternado
       if (i % 2 === 0) {
         doc.fillColor('#f9f9f9').rect(cols.numero.x, y, 510, rowHeight).fill();
         doc.fillColor('black');
       }
 
       const textOpts = (col) => ({ width: col.width, align: col.align, ellipsis: true });
-      
-      // Numeración (i + 1)
+
       doc.text(String(i + 1), cols.numero.x, y + 3, textOpts(cols.numero));
       doc.text(new Date(c.createdAt).toLocaleString('es-PE'), cols.fecha.x, y + 3, textOpts(cols.fecha));
       doc.text(c.oficina, cols.oficina.x, y + 3, textOpts(cols.oficina));
@@ -860,17 +1023,15 @@ router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => 
       doc.text(c.email, cols.email.x, y + 3, textOpts(cols.email));
       doc.text(c.telefono || '—', cols.telefono.x, y + 3, textOpts(cols.telefono));
 
-      // Bordes finos
       doc.strokeColor('#ddd').lineWidth(0.5)
-         .rect(cols.numero.x, y, 510, rowHeight).stroke();
+        .rect(cols.numero.x, y, 510, rowHeight).stroke();
 
       y += rowHeight;
     });
 
-    // Total de registros
     doc.moveDown(1);
     doc.font('Helvetica-Bold').fontSize(10)
-       .text(`Total de registros: ${contactos.length}`, 45, y + 5);
+      .text(`Total de registros: ${contactos.length}`, 45, y + 5);
 
     drawFooter();
     doc.end();
@@ -880,28 +1041,24 @@ router.get('/contactos-posgrado/exportar-pdf', requireAuth, async (req, res) => 
   }
 });
 
+//===========================================
+// LIBRO DE RECLAMACIONES (SOLO SUPER ADMIN)
+//===========================================
 
-
-
-
-// === LIBRO DE RECLAMACIONES - RUTAS ADMIN ===
-
-// GET /admin/reclamos - Lista de reclamos con paginación y filtros
-router.get('/reclamos', requireAuth, async (req, res) => {
+router.get('/reclamos', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
-    const { 
-      estado = 'Todos', 
-      tipo = 'Todos', 
-      busqueda = '', 
-      pagina = 1, 
-      limite = 20 
+    const {
+      estado = 'Todos',
+      tipo = 'Todos',
+      busqueda = '',
+      pagina = 1,
+      limite = 20
     } = req.query;
 
     const offset = (parseInt(pagina) - 1) * parseInt(limite);
 
-    // Construir filtros
     const whereClause = {};
-    
+
     if (estado !== 'Todos') {
       whereClause.estado = estado;
     }
@@ -924,12 +1081,11 @@ router.get('/reclamos', requireAuth, async (req, res) => {
       offset,
       order: [['fecha_creacion', 'DESC']],
       attributes: [
-        'id', 'nombre', 'email', 'telefono', 'tipo', 
+        'id', 'nombre', 'email', 'telefono', 'tipo',
         'estado', 'fecha_creacion', 'fecha_actualizacion'
       ]
     });
 
-    // Calcular estadísticas
     const estadisticas = await Reclamo.obtenerEstadisticas();
 
     res.render('admin/reclamos', {
@@ -942,7 +1098,9 @@ router.get('/reclamos', requireAuth, async (req, res) => {
         totalPages: Math.ceil(count / parseInt(limite)),
         totalItems: count,
         limit: parseInt(limite)
-      }
+      },
+      admin: req.admin,
+      currentPage: 'reclamos'
     });
 
   } catch (error) {
@@ -951,18 +1109,19 @@ router.get('/reclamos', requireAuth, async (req, res) => {
   }
 });
 
-// GET /admin/reclamos/:id - Ver detalle de reclamo
-router.get('/reclamos/:id', requireAuth, async (req, res) => {
+router.get('/reclamos/:id', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const reclamo = await Reclamo.findByPk(req.params.id);
-    
+
     if (!reclamo) {
       return res.status(404).send('Reclamo no encontrado');
     }
 
     res.render('admin/reclamo_detalle', {
       title: 'Detalle del Reclamo',
-      reclamo
+      reclamo,
+      admin: req.admin,
+      currentPage: 'reclamos'
     });
 
   } catch (error) {
@@ -971,13 +1130,12 @@ router.get('/reclamos/:id', requireAuth, async (req, res) => {
   }
 });
 
-// POST /admin/reclamos/:id/responder - Responder a un reclamo
-router.post('/reclamos/:id/responder', requireAuth, async (req, res) => {
+router.post('/reclamos/:id/responder', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const { estado, respuestaAdmin } = req.body;
-    
+
     const reclamo = await Reclamo.findByPk(req.params.id);
-    
+
     if (!reclamo) {
       return res.status(404).json({
         success: false,
@@ -985,7 +1143,6 @@ router.post('/reclamos/:id/responder', requireAuth, async (req, res) => {
       });
     }
 
-    // Validar nuevo estado
     if (estado) {
       const estadosValidos = ['Pendiente', 'En Proceso', 'Resuelto', 'Cerrado'];
       if (!estadosValidos.includes(estado)) {
@@ -997,12 +1154,10 @@ router.post('/reclamos/:id/responder', requireAuth, async (req, res) => {
       reclamo.estado = estado;
     }
 
-    // Actualizar respuesta admin
     if (respuestaAdmin) {
       reclamo.admin_respuesta = respuestaAdmin.trim();
       reclamo.fecha_respuesta = new Date();
-      
-      // Si se proporciona respuesta, cambiar estado automáticamente a "En Proceso"
+
       if (reclamo.estado === 'Pendiente') {
         reclamo.estado = 'En Proceso';
       }
@@ -1030,31 +1185,20 @@ router.post('/reclamos/:id/responder', requireAuth, async (req, res) => {
   }
 });
 
-// GET /admin/logout - Cerrar sesión
-router.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error al cerrar sesión:', err);
-    }
-    res.redirect('/admin/login');
-  });
-});
-
-// Exportar contactos a CSV
-router.get('/reclamos/exportar/csv', requireAuth, async (req, res) => {
+// Exportar CSV de reclamos
+router.get('/reclamos/exportar/csv', requireAuth, requireSuperAdmin, async (req, res) => {
   try {
     const reclamos = await Reclamo.findAll({
       order: [['fecha_creacion', 'DESC']],
       attributes: [
-        'id', 'nombre', 'dni', 'email', 'telefono', 
+        'id', 'nombre', 'dni', 'email', 'telefono',
         'tipo', 'descripcion', 'estado', 'admin_respuesta',
         'fecha_creacion', 'fecha_respuesta'
       ]
     });
 
-    // Crear CSV
     const csvHeader = 'ID,Nombre,DNI,Email,Teléfono,Tipo,Descripción,Estado,Respuesta,Fecha Creación,Fecha Respuesta\n';
-    
+
     const csvData = reclamos.map(reclamo => {
       return [
         reclamo.id,
@@ -1086,170 +1230,320 @@ router.get('/reclamos/exportar/csv', requireAuth, async (req, res) => {
   }
 });
 
+//===========================================
+// CONTACTOS CERSEU (SOLO SUPER ADMIN)
+//===========================================
 
+router.get('/contactos-cerseu', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
 
+    const whereClause = { oficina: 'cerseu' };
 
-
-
-// === RUTAS PARA CERSEU ===
-router.get('/contactos-cerseu', requireAuth, async (req, res) => {
-    try {
-        const { fechaInicio, fechaFin } = req.query;
-        
-        const whereClause = { oficina: 'cerseu' };
-        
-        if (fechaInicio && fechaFin) {
-            whereClause.createdAt = {
-                [Op.gte]: new Date(fechaInicio),
-                [Op.lte]: new Date(fechaFin + 'T23:59:59')
-            };
-        }
-        
-        const mensajes = await Contacto.findAll({
-            where: whereClause,
-            order: [['createdAt', 'DESC']]
-        });
-        
-        res.render('admin/contactos-cerseu', {
-            titulo: 'Mensajes CERSEU',
-            mensajes: mensajes,
-            currentPage: 'contactos-cerseu',
-            fechaInicio: fechaInicio || '',
-            fechaFin: fechaFin || ''
-        });
-    } catch (error) {
-        console.error('Error al obtener mensajes de CERSEU:', error);
-        res.status(500).send('Error del servidor');
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
     }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.render('admin/contactos-cerseu', {
+      titulo: 'Mensajes CERSEU',
+      mensajes: mensajes,
+      currentPage: 'contactos-cerseu',
+      fechaInicio: fechaInicio || '',
+      fechaFin: fechaFin || '',
+      admin: req.admin
+    });
+  } catch (error) {
+    console.error('Error al obtener mensajes de CERSEU:', error);
+    res.status(500).send('Error del servidor');
+  }
+});
+
+//===========================================
+// CONTACTOS OCAA (SOLO SUPER ADMIN)
+//===========================================
+
+router.get('/contactos-ocaa', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'ocaa' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
+    }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.render('admin/contactos-ocaa', {
+      titulo: 'Mensajes OCAA',
+      mensajes: mensajes,
+      currentPage: 'contactos-ocaa',
+      fechaInicio: fechaInicio || '',
+      fechaFin: fechaFin || '',
+      admin: req.admin
+    });
+  } catch (error) {
+    console.error('Error al obtener mensajes de OCAA:', error);
+    res.status(500).send('Error del servidor');
+  }
+});
+
+// Exportar Excel para OCAA
+router.get('/contactos-ocaa/exportar-excel', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'ocaa' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
+    }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    let csv = 'ID,Nombre,Email,Teléfono,Mensaje,Fecha\n';
+    mensajes.forEach(m => {
+      const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+      csv += `${m.id},"${m.nombre}","${m.email}","${m.telefono || ''}","${m.mensaje.replace(/"/g, '""')}","${fecha}"\n`;
+    });
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=mensajes-ocaa.csv');
+    res.send(csv);
+  } catch (error) {
+    console.error('Error al exportar Excel OCAA:', error);
+    res.status(500).send('Error del servidor');
+  }
+});
+
+// Exportar PDF para OCAA
+router.get('/contactos-ocaa/exportar-pdf', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'ocaa' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
+    }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    const PDFDocument = require('pdfkit');
+    const doc = new PDFDocument({ margin: 50 });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=mensajes-ocaa.pdf');
+
+    doc.pipe(res);
+
+    doc.fontSize(20).fillColor('#dc3545').text('Reporte de Mensajes - OCAA', { align: 'center' });
+    doc.moveDown();
+
+    if (fechaInicio && fechaFin) {
+      doc.fontSize(12).fillColor('#666').text(`Período: ${fechaInicio} al ${fechaFin}`, { align: 'center' });
+      doc.moveDown();
+    }
+
+    doc.fontSize(10).fillColor('#000').text(`Fecha de generación: ${new Date().toLocaleDateString('es-PE')}`, { align: 'center' });
+    doc.moveDown(2);
+
+    const tableTop = 180;
+    const headers = ['Fecha', 'Nombre', 'Email', 'Mensaje'];
+    const columnWidths = [70, 100, 150, 200];
+    const startX = 50;
+
+    doc.font('Helvetica-Bold').fontSize(10);
+    let currentX = startX;
+    headers.forEach((header, i) => {
+      doc.text(header, currentX, tableTop, { width: columnWidths[i] });
+      currentX += columnWidths[i];
+    });
+
+    doc.moveTo(startX, tableTop + 15).lineTo(520, tableTop + 15).stroke('#dc3545');
+
+    let y = tableTop + 25;
+    doc.font('Helvetica').fontSize(9);
+
+    mensajes.forEach((m) => {
+      if (y > 700) {
+        doc.addPage();
+        y = 50;
+      }
+
+      currentX = startX;
+      const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+      const mensajeCorto = m.mensaje.substring(0, 40) + (m.mensaje.length > 40 ? '...' : '');
+
+      doc.text(fecha, currentX, y, { width: columnWidths[0] });
+      currentX += columnWidths[0];
+      doc.text(m.nombre.substring(0, 15), currentX, y, { width: columnWidths[1] });
+      currentX += columnWidths[1];
+      doc.text(m.email, currentX, y, { width: columnWidths[2] });
+      currentX += columnWidths[2];
+      doc.text(mensajeCorto, currentX, y, { width: columnWidths[3] });
+
+      y += 18;
+    });
+
+    doc.end();
+  } catch (error) {
+    console.error('Error al exportar PDF OCAA:', error);
+    res.status(500).send('Error del servidor');
+  }
 });
 
 // Exportar Excel para CERSEU
-router.get('/contactos-cerseu/exportar-excel', requireAuth,  async (req, res) => {
-    try {
-        const { fechaInicio, fechaFin } = req.query;
-        
-        const whereClause = { oficina: 'cerseu' };
-        
-        if (fechaInicio && fechaFin) {
-            whereClause.createdAt = {
-                [Op.gte]: new Date(fechaInicio),
-                [Op.lte]: new Date(fechaFin + 'T23:59:59')
-            };
-        }
-        
-        const mensajes = await Contacto.findAll({
-            where: whereClause,
-            order: [['createdAt', 'DESC']]
-        });
-        
-        let csv = 'ID,Nombre,Email,Teléfono,Mensaje,Fecha\n';
-        mensajes.forEach(m => {
-            const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
-            csv += `${m.id},"${m.nombre}","${m.email}","${m.telefono || ''}","${m.mensaje.replace(/"/g, '""')}","${fecha}"\n`;
-        });
-        
-        res.setHeader('Content-Type', 'text/csv');
-        res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cerseu.csv');
-        res.send(csv);
-    } catch (error) {
-        console.error('Error al exportar Excel CERSEU:', error);
-        res.status(500).send('Error del servidor');
+router.get('/contactos-cerseu/exportar-excel', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'cerseu' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
     }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    let csv = 'ID,Nombre,Email,Teléfono,Mensaje,Fecha\n';
+    mensajes.forEach(m => {
+      const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+      csv += `${m.id},"${m.nombre}","${m.email}","${m.telefono || ''}","${m.mensaje.replace(/"/g, '""')}","${fecha}"\n`;
+    });
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cerseu.csv');
+    res.send(csv);
+  } catch (error) {
+    console.error('Error al exportar Excel CERSEU:', error);
+    res.status(500).send('Error del servidor');
+  }
 });
 
 // Exportar PDF para CERSEU
-router.get('/contactos-cerseu/exportar-pdf', requireAuth,  async (req, res) => {
-    try {
-        const { fechaInicio, fechaFin } = req.query;
-        
-        const whereClause = { oficina: 'cerseu' };
-        
-        if (fechaInicio && fechaFin) {
-            whereClause.createdAt = {
-                [Op.gte]: new Date(fechaInicio),
-                [Op.lte]: new Date(fechaFin + 'T23:59:59')
-            };
-        }
-        
-        const mensajes = await Contacto.findAll({
-            where: whereClause,
-            order: [['createdAt', 'DESC']]
-        });
-        
-        const PDFDocument = require('pdfkit');
-        const doc = new PDFDocument({ margin: 50 });
-        
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cerseu.pdf');
-        
-        doc.pipe(res);
-        
-        // Encabezado
-        doc.fontSize(20).fillColor('#1a5f2a').text('Reporte de Mensajes - CERSEU', { align: 'center' });
-        doc.moveDown();
-        
-        if (fechaInicio && fechaFin) {
-            doc.fontSize(12).fillColor('#666').text(`Período: ${fechaInicio} al ${fechaFin}`, { align: 'center' });
-            doc.moveDown();
-        }
-        
-        doc.fontSize(10).fillColor('#000').text(`Fecha de generación: ${new Date().toLocaleDateString('es-PE')}`, { align: 'center' });
-        doc.moveDown(2);
-        
-        // Tabla
-        const tableTop = 180;
-        const headers = ['Fecha', 'Nombre', 'Email', 'Mensaje'];
-        const columnWidths = [70, 100, 150, 200];
-        const startX = 50;
-        
-        // Encabezados de tabla
-        doc.font('Helvetica-Bold').fontSize(10);
-        let currentX = startX;
-        headers.forEach((header, i) => {
-            doc.text(header, currentX, tableTop, { width: columnWidths[i] });
-            currentX += columnWidths[i];
-        });
-        
-        doc.moveTo(startX, tableTop + 15).lineTo(520, tableTop + 15).stroke('#1a5f2a');
-        
-        // Filas de datos
-        let y = tableTop + 25;
-        doc.font('Helvetica').fontSize(9);
-        
-        mensajes.forEach((m) => {
-            if (y > 700) {
-                doc.addPage();
-                y = 50;
-            }
-            
-            currentX = startX;
-            const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
-            const mensajeCorto = m.mensaje.substring(0, 40) + (m.mensaje.length > 40 ? '...' : '');
-            
-            doc.text(fecha, currentX, y, { width: columnWidths[0] });
-            currentX += columnWidths[0];
-            doc.text(m.nombre.substring(0, 15), currentX, y, { width: columnWidths[1] });
-            currentX += columnWidths[1];
-            doc.text(m.email, currentX, y, { width: columnWidths[2] });
-            currentX += columnWidths[2];
-            doc.text(mensajeCorto, currentX, y, { width: columnWidths[3] });
-            
-            y += 18;
-        });
-        
-        doc.end();
-    } catch (error) {
-        console.error('Error al exportar PDF CERSEU:', error);
-        res.status(500).send('Error del servidor');
+router.get('/contactos-cerseu/exportar-pdf', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'cerseu' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
     }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    const PDFDocument = require('pdfkit');
+    const doc = new PDFDocument({ margin: 50 });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cerseu.pdf');
+
+    doc.pipe(res);
+
+    doc.fontSize(20).fillColor('#1a5f2a').text('Reporte de Mensajes - CERSEU', { align: 'center' });
+    doc.moveDown();
+
+    if (fechaInicio && fechaFin) {
+      doc.fontSize(12).fillColor('#666').text(`Período: ${fechaInicio} al ${fechaFin}`, { align: 'center' });
+      doc.moveDown();
+    }
+
+    doc.fontSize(10).fillColor('#000').text(`Fecha de generación: ${new Date().toLocaleDateString('es-PE')}`, { align: 'center' });
+    doc.moveDown(2);
+
+    const tableTop = 180;
+    const headers = ['Fecha', 'Nombre', 'Email', 'Mensaje'];
+    const columnWidths = [70, 100, 150, 200];
+    const startX = 50;
+
+    doc.font('Helvetica-Bold').fontSize(10);
+    let currentX = startX;
+    headers.forEach((header, i) => {
+      doc.text(header, currentX, tableTop, { width: columnWidths[i] });
+      currentX += columnWidths[i];
+    });
+
+    doc.moveTo(startX, tableTop + 15).lineTo(520, tableTop + 15).stroke('#1a5f2a');
+
+    let y = tableTop + 25;
+    doc.font('Helvetica').fontSize(9);
+
+    mensajes.forEach((m) => {
+      if (y > 700) {
+        doc.addPage();
+        y = 50;
+      }
+
+      currentX = startX;
+      const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+      const mensajeCorto = m.mensaje.substring(0, 40) + (m.mensaje.length > 40 ? '...' : '');
+
+      doc.text(fecha, currentX, y, { width: columnWidths[0] });
+      currentX += columnWidths[0];
+      doc.text(m.nombre.substring(0, 15), currentX, y, { width: columnWidths[1] });
+      currentX += columnWidths[1];
+      doc.text(m.email, currentX, y, { width: columnWidths[2] });
+      currentX += columnWidths[2];
+      doc.text(mensajeCorto, currentX, y, { width: columnWidths[3] });
+
+      y += 18;
+    });
+
+    doc.end();
+  } catch (error) {
+    console.error('Error al exportar PDF CERSEU:', error);
+    res.status(500).send('Error del servidor');
+  }
 });
 
-// === API PÚBLICA: GUARDAR CONTACTOS ===
+//===========================================
+// API PÚBLICA: GUARDAR CONTACTOS
+//===========================================
+
 router.post('/api/contactos', async (req, res) => {
   try {
     const { nombre, email, telefono, mensaje, oficina } = req.body;
 
-    // Validaciones básicas
     if (!nombre || !email || !mensaje) {
       return res.status(400).json({
         success: false,
@@ -1257,7 +1551,6 @@ router.post('/api/contactos', async (req, res) => {
       });
     }
 
-    // Crear el contacto
     const contacto = await Contacto.create({
       nombre: nombre.trim(),
       email: email.trim(),
@@ -1281,166 +1574,173 @@ router.post('/api/contactos', async (req, res) => {
   }
 });
 
+//===========================================
+// CONTACTOS CESEPI (SOLO SUPER ADMIN)
+//===========================================
 
+router.get('/contactos-cesepi', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
 
+    const whereClause = { oficina: 'cesepi' };
 
-// === RUTAS PARA CESEPI ===
-router.get('/contactos-cesepi', requireAuth, async (req, res) => {
-    try {
-        const { fechaInicio, fechaFin } = req.query;
-        
-        const whereClause = { oficina: 'cesepi' };
-        
-        if (fechaInicio && fechaFin) {
-            whereClause.createdAt = {
-                [Op.gte]: new Date(fechaInicio),
-                [Op.lte]: new Date(fechaFin + 'T23:59:59')
-            };
-        }
-        
-        const mensajes = await Contacto.findAll({
-            where: whereClause,
-            order: [['createdAt', 'DESC']]
-        });
-        
-        res.render('admin/contactos-cesepi', {
-            titulo: 'Mensajes CESEPi',
-            mensajes: mensajes,
-            currentPage: 'contactos-cesepi',
-            fechaInicio: fechaInicio || '',
-            fechaFin: fechaFin || ''
-        });
-    } catch (error) {
-        console.error('Error al obtener mensajes de CESEPi:', error);
-        res.status(500).send('Error del servidor');
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
     }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.render('admin/contactos-cesepi', {
+      titulo: 'Mensajes CESEPi',
+      mensajes: mensajes,
+      currentPage: 'contactos-cesepi',
+      fechaInicio: fechaInicio || '',
+      fechaFin: fechaFin || '',
+      admin: req.admin
+    });
+  } catch (error) {
+    console.error('Error al obtener mensajes de CESEPi:', error);
+    res.status(500).send('Error del servidor');
+  }
 });
 
 // Exportar Excel para CESEPi
-router.get('/contactos-cesepi/exportar-excel', requireAuth,  async (req, res) => {
-    try {
-        const { fechaInicio, fechaFin } = req.query;
-        
-        const whereClause = { oficina: 'cesepi' };
-        
-        if (fechaInicio && fechaFin) {
-            whereClause.createdAt = {
-                [Op.gte]: new Date(fechaInicio),
-                [Op.lte]: new Date(fechaFin + 'T23:59:59')
-            };
-        }
-        
-        const mensajes = await Contacto.findAll({
-            where: whereClause,
-            order: [['createdAt', 'DESC']]
-        });
-        
-        let csv = 'ID,Nombre,Email,Teléfono,Mensaje,Fecha\n';
-        mensajes.forEach(m => {
-            const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
-            csv += `${m.id},"${m.nombre}","${m.email}","${m.telefono || ''}","${m.mensaje.replace(/"/g, '""')}","${fecha}"\n`;
-        });
-        
-        res.setHeader('Content-Type', 'text/csv');
-        res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cesepi.csv');
-        res.send(csv);
-    } catch (error) {
-        console.error('Error al exportar Excel CESEPi:', error);
-        res.status(500).send('Error del servidor');
+router.get('/contactos-cesepi/exportar-excel', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'cesepi' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
     }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    let csv = 'ID,Nombre,Email,Teléfono,Mensaje,Fecha\n';
+    mensajes.forEach(m => {
+      const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+      csv += `${m.id},"${m.nombre}","${m.email}","${m.telefono || ''}","${m.mensaje.replace(/"/g, '""')}","${fecha}"\n`;
+    });
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cesepi.csv');
+    res.send(csv);
+  } catch (error) {
+    console.error('Error al exportar Excel CESEPi:', error);
+    res.status(500).send('Error del servidor');
+  }
 });
 
 // Exportar PDF para CESEPi
-router.get('/contactos-cesepi/exportar-pdf', requireAuth,  async (req, res) => {
-    try {
-        const { fechaInicio, fechaFin } = req.query;
-        
-        const whereClause = { oficina: 'cesepi' };
-        
-        if (fechaInicio && fechaFin) {
-            whereClause.createdAt = {
-                [Op.gte]: new Date(fechaInicio),
-                [Op.lte]: new Date(fechaFin + 'T23:59:59')
-            };
-        }
-        
-        const mensajes = await Contacto.findAll({
-            where: whereClause,
-            order: [['createdAt', 'DESC']]
-        });
-        
-        const PDFDocument = require('pdfkit');
-        const doc = new PDFDocument({ margin: 50 });
-        
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cesepi.pdf');
-        
-        doc.pipe(res);
-        
-        // Encabezado
-        doc.fontSize(20).fillColor('#0d47a1').text('Reporte de Mensajes - CESEPi', { align: 'center' });
-        doc.moveDown();
-        
-        if (fechaInicio && fechaFin) {
-            doc.fontSize(12).fillColor('#666').text(`Período: ${fechaInicio} al ${fechaFin}`, { align: 'center' });
-            doc.moveDown();
-        }
-        
-        doc.fontSize(10).fillColor('#000').text(`Fecha de generación: ${new Date().toLocaleDateString('es-PE')}`, { align: 'center' });
-        doc.moveDown(2);
-        
-        // Tabla
-        const tableTop = 180;
-        const headers = ['Fecha', 'Nombre', 'Email', 'Mensaje'];
-        const columnWidths = [70, 100, 150, 200];
-        const startX = 50;
-        
-        // Encabezados de tabla
-        doc.font('Helvetica-Bold').fontSize(10);
-        let currentX = startX;
-        headers.forEach((header, i) => {
-            doc.text(header, currentX, tableTop, { width: columnWidths[i] });
-            currentX += columnWidths[i];
-        });
-        
-        doc.moveTo(startX, tableTop + 15).lineTo(520, tableTop + 15).stroke('#0d47a1');
-        
-        // Filas de datos
-        let y = tableTop + 25;
-        doc.font('Helvetica').fontSize(9);
-        
-        mensajes.forEach((m) => {
-            if (y > 700) {
-                doc.addPage();
-                y = 50;
-            }
-            
-            currentX = startX;
-            const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
-            const mensajeCorto = m.mensaje.substring(0, 40) + (m.mensaje.length > 40 ? '...' : '');
-            
-            doc.text(fecha, currentX, y, { width: columnWidths[0] });
-            currentX += columnWidths[0];
-            doc.text(m.nombre.substring(0, 15), currentX, y, { width: columnWidths[1] });
-            currentX += columnWidths[1];
-            doc.text(m.email, currentX, y, { width: columnWidths[2] });
-            currentX += columnWidths[2];
-            doc.text(mensajeCorto, currentX, y, { width: columnWidths[3] });
-            
-            y += 18;
-        });
-        
-        doc.end();
-    } catch (error) {
-        console.error('Error al exportar PDF CESEPi:', error);
-        res.status(500).send('Error del servidor');
+router.get('/contactos-cesepi/exportar-pdf', requireAuth, requireSuperAdmin, async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    const whereClause = { oficina: 'cesepi' };
+
+    if (fechaInicio && fechaFin) {
+      whereClause.createdAt = {
+        [Op.gte]: new Date(fechaInicio),
+        [Op.lte]: new Date(fechaFin + 'T23:59:59')
+      };
     }
+
+    const mensajes = await Contacto.findAll({
+      where: whereClause,
+      order: [['createdAt', 'DESC']]
+    });
+
+    const PDFDocument = require('pdfkit');
+    const doc = new PDFDocument({ margin: 50 });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=mensajes-cesepi.pdf');
+
+    doc.pipe(res);
+
+    doc.fontSize(20).fillColor('#0d47a1').text('Reporte de Mensajes - CESEPi', { align: 'center' });
+    doc.moveDown();
+
+    if (fechaInicio && fechaFin) {
+      doc.fontSize(12).fillColor('#666').text(`Período: ${fechaInicio} al ${fechaFin}`, { align: 'center' });
+      doc.moveDown();
+    }
+
+    doc.fontSize(10).fillColor('#000').text(`Fecha de generación: ${new Date().toLocaleDateString('es-PE')}`, { align: 'center' });
+    doc.moveDown(2);
+
+    const tableTop = 180;
+    const headers = ['Fecha', 'Nombre', 'Email', 'Mensaje'];
+    const columnWidths = [70, 100, 150, 200];
+    const startX = 50;
+
+    doc.font('Helvetica-Bold').fontSize(10);
+    let currentX = startX;
+    headers.forEach((header, i) => {
+      doc.text(header, currentX, tableTop, { width: columnWidths[i] });
+      currentX += columnWidths[i];
+    });
+
+    doc.moveTo(startX, tableTop + 15).lineTo(520, tableTop + 15).stroke('#0d47a1');
+
+    let y = tableTop + 25;
+    doc.font('Helvetica').fontSize(9);
+
+    mensajes.forEach((m) => {
+      if (y > 700) {
+        doc.addPage();
+        y = 50;
+      }
+
+      currentX = startX;
+      const fecha = new Date(m.createdAt).toLocaleDateString('es-PE');
+      const mensajeCorto = m.mensaje.substring(0, 40) + (m.mensaje.length > 40 ? '...' : '');
+
+      doc.text(fecha, currentX, y, { width: columnWidths[0] });
+      currentX += columnWidths[0];
+      doc.text(m.nombre.substring(0, 15), currentX, y, { width: columnWidths[1] });
+      currentX += columnWidths[1];
+      doc.text(m.email, currentX, y, { width: columnWidths[2] });
+      currentX += columnWidths[2];
+      doc.text(mensajeCorto, currentX, y, { width: columnWidths[3] });
+
+      y += 18;
+    });
+
+    doc.end();
+  } catch (error) {
+    console.error('Error al exportar PDF CESEPi:', error);
+    res.status(500).send('Error del servidor');
+  }
 });
 
+//===========================================
+// LOGOUT
+//===========================================
+
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
+    res.redirect('/admin/login');
+  });
+});
 
 // Exportar middleware requireAuth para otros archivos
 router.requireAuth = requireAuth;
-
-
 
 module.exports = router;

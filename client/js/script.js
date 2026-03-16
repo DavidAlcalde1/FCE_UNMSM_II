@@ -1,10 +1,10 @@
 /* Oculta loader cuando todo esté listo + retardo */
 window.addEventListener('load', () => {
-  const loader = document.getElementById('loader');
-  setTimeout(() => {              // ← tiempo extra que quieras
-    loader.style.opacity = '0';
-    setTimeout(() => loader.remove(), 500);
-  }, 1200); // 1.2s extra 
+    const loader = document.getElementById('loader');
+    setTimeout(() => {              // ← tiempo extra que quieras
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 500);
+    }, 1200); // 1.2s extra 
 });
 
 
@@ -64,70 +64,70 @@ document.addEventListener('DOMContentLoaded', function () {
 let carruselIniciado = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if (carruselIniciado) return;
-  carruselIniciado = true;
+    if (carruselIniciado) return;
+    carruselIniciado = true;
 
-  try {
-    const [noticiasRes, eventosRes, comunicadosRes] = await Promise.all([
-      fetch('/api/noticias'),
-      fetch('/api/eventos'),
-      fetch('/api/comunicados')
-    ]);
+    try {
+        const [noticiasRes, eventosRes, comunicadosRes] = await Promise.all([
+            fetch('/api/noticias'),
+            fetch('/api/eventos'),
+            fetch('/api/comunicados')
+        ]);
 
-    const noticias = await noticiasRes.json();
-    const eventos = await eventosRes.json();
-    const comunicados = await comunicadosRes.json();
+        const noticias = await noticiasRes.json();
+        const eventos = await eventosRes.json();
+        const comunicados = await comunicadosRes.json();
 
-    const hoy = new Date();
-    hoy.setHours(0, 0, 0, 0);
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
 
-    // Combinar y etiquetar todos los items
-    const todosLosItems = [
-      ...noticias.map(n => ({ ...n, tipo: 'noticia' })),
-      ...eventos.map(e => ({ ...e, tipo: 'evento' })),
-      ...comunicados.map(c => ({ ...c, tipo: 'comunicado' }))
-    ];
+        // Combinar y etiquetar todos los items
+        const todosLosItems = [
+            ...noticias.map(n => ({ ...n, tipo: 'noticia' })),
+            ...eventos.map(e => ({ ...e, tipo: 'evento' })),
+            ...comunicados.map(c => ({ ...c, tipo: 'comunicado' }))
+        ];
 
-    // Filtrar por vigencia
-    const itemsVigentes = todosLosItems.filter(item => {
-      if (!item.fecha_vencimiento) return true;
-      const fechaVenc = new Date(item.fecha_vencimiento);
-      return fechaVenc >= hoy;
-    });
+        // Filtrar por vigencia
+        const itemsVigentes = todosLosItems.filter(item => {
+            if (!item.fecha_vencimiento) return true;
+            const fechaVenc = new Date(item.fecha_vencimiento);
+            return fechaVenc >= hoy;
+        });
 
-    // Ordenar por fecha de publicación (más reciente primero)
-    itemsVigentes.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        // Ordenar por fecha de publicación (más reciente primero)
+        itemsVigentes.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-    // Tomar hasta 3
-    const slidesData = itemsVigentes.map(item => {
-      let url;
-      if (item.tipo === 'noticia') url = `/noticia.html?id=${item.id}`;
-      else if (item.tipo === 'evento') url = `/evento.html?id=${item.id}`;
-      else url = `/comunicado.html?id=${item.id}`;
+        // Tomar hasta 3
+        const slidesData = itemsVigentes.map(item => {
+            let url;
+            if (item.tipo === 'noticia') url = `/noticia.html?id=${item.id}`;
+            else if (item.tipo === 'evento') url = `/evento.html?id=${item.id}`;
+            else url = `/comunicado.html?id=${item.id}`;
 
-      return {
-        titulo: item.titulo,
-        fecha: new Date(item.fecha).toLocaleDateString('es-PE', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        }),
-        imagen: item.imagen || '/img/index/noticia_principal/banner_01.png',
-        url
-      };
-    });
+            return {
+                titulo: item.titulo,
+                fecha: new Date(item.fecha).toLocaleDateString('es-PE', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }),
+                imagen: item.imagen || '/img/index/noticia_principal/banner_01.png',
+                url
+            };
+        });
 
-    // Fallback si no hay contenido
-    if (slidesData.length === 0) {
-      slidesData.push(
-        { titulo: 'MATRÍCULA EXTEMPORÁNEA', fecha: 'Jueves 15 de Diciembre', imagen: '/img/index/noticia_principal/banner_01.png', url: '/slides/MATRÍCULA EXTEMPORÁNEA.png' },
-        { titulo: 'CONFERENCIA MAGISTRAL', fecha: 'Martes 13 de Diciembre', imagen: '/img/index/noticia_principal/banner_02.png', url: '/slides/CONFERENCIA MAGISTRAL.jpg' },
-        { titulo: 'CURSOS DE POSGRADO', fecha: 'Dirigido a Bachilleres', imagen: '/img/index/noticia_principal/banner_03.jpg', url: '/slides/CURSOS POSGRADO.jpg' }
-      );
-    }
+        // Fallback si no hay contenido
+        if (slidesData.length === 0) {
+            slidesData.push(
+                { titulo: 'MATRÍCULA EXTEMPORÁNEA', fecha: 'Jueves 15 de Diciembre', imagen: '/img/index/noticia_principal/banner_01.png', url: '/slides/MATRÍCULA EXTEMPORÁNEA.png' },
+                { titulo: 'CONFERENCIA MAGISTRAL', fecha: 'Martes 13 de Diciembre', imagen: '/img/index/noticia_principal/banner_02.png', url: '/slides/CONFERENCIA MAGISTRAL.jpg' },
+                { titulo: 'CURSOS DE POSGRADO', fecha: 'Dirigido a Bachilleres', imagen: '/img/index/noticia_principal/banner_03.jpg', url: '/slides/CURSOS POSGRADO.jpg' }
+            );
+        }
 
-    // Renderizar
-    const slidesHTML = slidesData.map((slide, i) => `
+        // Renderizar
+        const slidesHTML = slidesData.map((slide, i) => `
       <div class="slide ${i === 0 ? 'active' : ''}">
         <img src="${slide.imagen}" alt="${slide.titulo}">
         <div class="slide-content">
@@ -138,66 +138,66 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
     `).join('');
 
-    const dotsHTML = slidesData.map((_, i) => `
+        const dotsHTML = slidesData.map((_, i) => `
       <span class="dot ${i === 0 ? 'active' : ''}" data-slide="${i}"></span>
     `).join('');
 
-    document.querySelector('.slides').innerHTML = slidesHTML;
-    document.querySelector('.indicators').innerHTML = dotsHTML;
+        document.querySelector('.slides').innerHTML = slidesHTML;
+        document.querySelector('.indicators').innerHTML = dotsHTML;
 
-    // === LÓGICA DE CARRUSEL ===
-    let current = 0;
-    let intervalId = null;
+        // === LÓGICA DE CARRUSEL ===
+        let current = 0;
+        let intervalId = null;
 
-    const updateSlide = (index) => {
-      document.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === index));
-      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
-      current = index;
-    };
+        const updateSlide = (index) => {
+            document.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === index));
+            document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
+            current = index;
+        };
 
-    const startAutoplay = () => {
-      if (intervalId) clearInterval(intervalId);
-      intervalId = setInterval(() => {
-        current = (current + 1) % slidesData.length;
-        updateSlide(current);
-      }, 5000);
-    };
+        const startAutoplay = () => {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                current = (current + 1) % slidesData.length;
+                updateSlide(current);
+            }, 5000);
+        };
 
-    const stopAutoplay = () => {
-      if (intervalId) clearInterval(intervalId);
-    };
+        const stopAutoplay = () => {
+            if (intervalId) clearInterval(intervalId);
+        };
 
-    document.querySelector('.prev')?.addEventListener('click', () => {
-      stopAutoplay();
-      current = (current - 1 + slidesData.length) % slidesData.length;
-      updateSlide(current);
-      startAutoplay();
-    });
+        document.querySelector('.prev')?.addEventListener('click', () => {
+            stopAutoplay();
+            current = (current - 1 + slidesData.length) % slidesData.length;
+            updateSlide(current);
+            startAutoplay();
+        });
 
-    document.querySelector('.next')?.addEventListener('click', () => {
-      stopAutoplay();
-      current = (current + 1) % slidesData.length;
-      updateSlide(current);
-      startAutoplay();
-    });
+        document.querySelector('.next')?.addEventListener('click', () => {
+            stopAutoplay();
+            current = (current + 1) % slidesData.length;
+            updateSlide(current);
+            startAutoplay();
+        });
 
-    document.querySelectorAll('.dot').forEach(dot => {
-      dot.addEventListener('click', () => {
-        stopAutoplay();
-        updateSlide(parseInt(dot.dataset.slide));
+        document.querySelectorAll('.dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                stopAutoplay();
+                updateSlide(parseInt(dot.dataset.slide));
+                startAutoplay();
+            });
+        });
+
         startAutoplay();
-      });
-    });
 
-    startAutoplay();
+        const carouselEl = document.querySelector('.carousel');
+        carouselEl?.addEventListener('mouseenter', stopAutoplay);
+        carouselEl?.addEventListener('mouseleave', startAutoplay);
 
-    const carouselEl = document.querySelector('.carousel');
-    carouselEl?.addEventListener('mouseenter', stopAutoplay);
-    carouselEl?.addEventListener('mouseleave', startAutoplay);
-
-  } catch (err) {
-    console.error('Error en carrusel:', err);
-  }
+    } catch (err) {
+        console.error('Error en carrusel:', err);
+    }
 });
 
 
@@ -336,20 +336,20 @@ fetch('/api/noticias')
             // CORRECCIÓN: Crear wrapper para efecto 3D
             const wrapper = document.createElement('div');
             wrapper.classList.add('noticia-card-wrapper');
-            
+
             // CORRECCIÓN: Crear enlace clickeable
             const link = document.createElement('a');
             link.href = `noticia.html?id=${noticia.id}`;
             link.classList.add('noticia-card');
             link.style.textDecoration = 'none';
             link.style.color = 'inherit';
-            
+
             link.innerHTML = `
                 <img src="${noticia.imagen}" alt="${noticia.titulo}">
                 <h3>${noticia.titulo}</h3>
                 <p class="fecha"><i class="fa-regular fa-clock"></i> ${noticia.fecha}</p>
             `;
-            
+
             // Insertar enlace en wrapper, wrapper en container
             wrapper.appendChild(link);
             container.appendChild(wrapper);
@@ -433,7 +433,7 @@ function setupCarrusel(id, jsonPath, prevClass, nextClass) {
 
 // Inicializar carruseles de posgrado
 setupCarrusel("maestrias-carousel", "/api/posgrado/maestrias", "prev-posgrado-maestrias", "next-posgrado-maestrias");
-setupCarrusel("doctorados-carousel","/api/posgrado/doctorados", "prev-posgrado-doctorados", "next-posgrado-doctorados");
+setupCarrusel("doctorados-carousel", "/api/posgrado/doctorados", "prev-posgrado-doctorados", "next-posgrado-doctorados");
 
 // === EFECTO SCROLL EN HEADER ===
 window.addEventListener('scroll', () => {
@@ -525,51 +525,51 @@ function cargarYMostrarEventos() {
 // }
 
 function renderEventosLista(eventos) {
-  const contenedor = document.getElementById('eventos-lista-js');
-  if (!contenedor) return;
-  contenedor.innerHTML = '';
+    const contenedor = document.getElementById('eventos-lista-js');
+    if (!contenedor) return;
+    contenedor.innerHTML = '';
 
-  eventos.forEach(evento => {
-    let dia = '', mes = '';
-    if (evento.fecha && typeof evento.fecha === 'string') {
-      const partesFecha = evento.fecha.split('-');
-      dia = partesFecha[2] || '';
-      mes = new Date(evento.fecha).toLocaleDateString('es-ES', { month: 'short' });
-    }
+    eventos.forEach(evento => {
+        let dia = '', mes = '';
+        if (evento.fecha && typeof evento.fecha === 'string') {
+            const partesFecha = evento.fecha.split('-');
+            dia = partesFecha[2] || '';
+            mes = new Date(evento.fecha).toLocaleDateString('es-ES', { month: 'short' });
+        }
 
-    const enlace = document.createElement('a');
-    enlace.href = `./evento.html?id=${evento.id}`; // ✅ Enlace a detalle
-    enlace.className = 'evento-item-link';
-    enlace.style.textDecoration = 'none';
-    enlace.style.display = 'block';
-    enlace.style.color = 'inherit';
+        const enlace = document.createElement('a');
+        enlace.href = `./evento.html?id=${evento.id}`; // ✅ Enlace a detalle
+        enlace.className = 'evento-item-link';
+        enlace.style.textDecoration = 'none';
+        enlace.style.display = 'block';
+        enlace.style.color = 'inherit';
 
-    enlace.innerHTML = `
+        enlace.innerHTML = `
       <div class="evento-item">
         <span class="fechaE">${dia}<br><small>${mes}</small></span>
         <p>${evento.titulo}</p>
       </div>
     `;
 
-    contenedor.appendChild(enlace);
-  });
+        contenedor.appendChild(enlace);
+    });
 }
 
 
 function renderEventoDestacado(evento) {
-  const contenedor = document.getElementById('evento-destacado-js');
-  if (!contenedor) return;
+    const contenedor = document.getElementById('evento-destacado-js');
+    if (!contenedor) return;
 
-  const fecha = evento.fecha 
-    ? new Date(evento.fecha).toLocaleDateString('es-PE', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    : 'Fecha no disponible';
+    const fecha = evento.fecha
+        ? new Date(evento.fecha).toLocaleDateString('es-PE', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })
+        : 'Fecha no disponible';
 
-  contenedor.innerHTML = `
+    contenedor.innerHTML = `
     <img src="${evento.imagen ? '/' + evento.imagen : './img/index/graduacion.png'}" 
          alt="${evento.titulo}" 
          onerror="this.src='./img/index/graduacion.png'">
@@ -732,31 +732,31 @@ function inicializarMenuHamburguesa() {
         }
     });
 
-// Cerrar menú al hacer clic en un enlace (solo después de que el enlace funcione)
-document.querySelectorAll(".nav__list.offcanvas a").forEach(link => {
-    link.addEventListener("click", (e) => {
-        // Si es un botón de dropdown, NO cerrar el menú
-        if (link.classList.contains("dropbtn")) {
-            e.preventDefault(); // Solo despliega el submenú
-            return;
-        }
-        // Si el enlace es externo o tiene target="_blank", deja que navegue primero
-        if (link.target === "_blank" || link.href.startsWith("http")) {
-            setTimeout(() => {
+    // Cerrar menú al hacer clic en un enlace (solo después de que el enlace funcione)
+    document.querySelectorAll(".nav__list.offcanvas a").forEach(link => {
+        link.addEventListener("click", (e) => {
+            // Si es un botón de dropdown, NO cerrar el menú
+            if (link.classList.contains("dropbtn")) {
+                e.preventDefault(); // Solo despliega el submenú
+                return;
+            }
+            // Si el enlace es externo o tiene target="_blank", deja que navegue primero
+            if (link.target === "_blank" || link.href.startsWith("http")) {
+                setTimeout(() => {
+                    navList.classList.remove("show");
+                    overlay.classList.remove("show");
+                    document.body.style.overflow = "";
+                    menuOpen = false;
+                }, 100);
+            } else {
+                // Para enlaces internos, cierra el menú y navega
                 navList.classList.remove("show");
                 overlay.classList.remove("show");
                 document.body.style.overflow = "";
                 menuOpen = false;
-            }, 100);
-        } else {
-            // Para enlaces internos, cierra el menú y navega
-            navList.classList.remove("show");
-            overlay.classList.remove("show");
-            document.body.style.overflow = "";
-            menuOpen = false;
-        }
+            }
+        });
     });
-});
 
     // Dropdowns en móvil
     document.querySelectorAll(".nav__list.offcanvas .dropdown").forEach(dropdown => {
@@ -796,8 +796,8 @@ function inicializarHeaderFijo() {
 // === ANIMACIÓN REINICIABLE PARA SECCIONES CON .scroll-fade-up ===
 function animarTarjetas(selector) {
     gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray(selector).forEach((card, i) => {
-            gsap.from(card, {
+    gsap.utils.toArray(selector).forEach((card, i) => {
+        gsap.from(card, {
             opacity: 0,
             scale: 0.5,
             rotation: 8,
@@ -812,8 +812,8 @@ function animarTarjetas(selector) {
                 fastScrollEnd: true
             },
             clearProps: "scale,rotation,opacity"
-            });
         });
+    });
 }
 
 
@@ -829,48 +829,48 @@ document.addEventListener('DOMContentLoaded', () => {
     animarTarjetas(".pregrado-card");
 
 
-    
+
 });
 
 
 // === ESTADO DE COMUNICADOS EN LA PÁGINA PRINCIPAL ===
 document.addEventListener('DOMContentLoaded', function () {
-  const estadoEl = document.getElementById('comunicados-estado');
-  if (!estadoEl) return;
+    const estadoEl = document.getElementById('comunicados-estado');
+    if (!estadoEl) return;
 
-  fetch('/api/comunicados')
-    .then(res => res.json())
-    .then(comunicados => {
-      if (Array.isArray(comunicados) && comunicados.length > 0) {
-        // Ordenar por fecha descendente y tomar el más reciente
-        const sorted = [...comunicados].sort((a, b) => 
-          new Date(b.fecha) - new Date(a.fecha)
-        );
-        const latest = sorted[0];
-        const fecha = new Date(latest.fecha).toLocaleDateString('es-ES', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
+    fetch('/api/comunicados')
+        .then(res => res.json())
+        .then(comunicados => {
+            if (Array.isArray(comunicados) && comunicados.length > 0) {
+                // Ordenar por fecha descendente y tomar el más reciente
+                const sorted = [...comunicados].sort((a, b) =>
+                    new Date(b.fecha) - new Date(a.fecha)
+                );
+                const latest = sorted[0];
+                const fecha = new Date(latest.fecha).toLocaleDateString('es-ES', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
 
-        estadoEl.className = 'comunicados-estado alerta';
-        estadoEl.innerHTML = `
+                estadoEl.className = 'comunicados-estado alerta';
+                estadoEl.innerHTML = `
           <i class="fas fa-bell"></i> 
           ¡Atención! Nuevo comunicado: 
           <a href="./comunicado.html?id=${latest.id}" class="link-comunicado">
             <strong>${latest.titulo}</strong>
           </a> (${fecha}).
         `;
-      } else {
-        estadoEl.className = 'comunicados-estado vacio';
-        estadoEl.textContent = 'No hay comunicados por el momento.';
-      }
-    })
-    .catch(err => {
-      console.error('Error al cargar comunicados:', err);
-      estadoEl.className = 'comunicados-estado vacio';
-      estadoEl.textContent = 'No se pudo cargar la información.';
-    });
+            } else {
+                estadoEl.className = 'comunicados-estado vacio';
+                estadoEl.textContent = 'No hay comunicados por el momento.';
+            }
+        })
+        .catch(err => {
+            console.error('Error al cargar comunicados:', err);
+            estadoEl.className = 'comunicados-estado vacio';
+            estadoEl.textContent = 'No se pudo cargar la información.';
+        });
 });
 
 
@@ -906,110 +906,110 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // FORMULARIO CONTACTO 
 document.getElementById('form-contacto').addEventListener('submit', async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData);
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
 
-  try {
-    const res = await fetch('/api/contacto', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+    try {
+        const res = await fetch('/api/contacto', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-    const result = await res.json();
+        const result = await res.json();
 
-    if (result.success) {
-      // Mostrar modal personalizado
-      document.getElementById('successModal').classList.add('show');
-      e.target.reset();
-    } else {
-      alert('❌ Error: ' + (result.error || 'No se pudo enviar el mensaje.'));
+        if (result.success) {
+            // Mostrar modal personalizado
+            document.getElementById('successModal').classList.add('show');
+            e.target.reset();
+        } else {
+            alert('❌ Error: ' + (result.error || 'No se pudo enviar el mensaje.'));
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        alert('⚠️ Error de conexión. Por favor, inténtalo de nuevo más tarde.');
     }
-  } catch (err) {
-    console.error('Error:', err);
-    alert('⚠️ Error de conexión. Por favor, inténtalo de nuevo más tarde.');
-  }
 });
 
 // Cerrar modal al hacer clic en la X o fuera del contenido
 document.getElementById('closeModal').addEventListener('click', () => {
-  document.getElementById('successModal').classList.remove('show');
+    document.getElementById('successModal').classList.remove('show');
 });
 
 document.getElementById('successModal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('successModal')) {
-    document.getElementById('successModal').classList.remove('show');
-  }
+    if (e.target === document.getElementById('successModal')) {
+        document.getElementById('successModal').classList.remove('show');
+    }
 });
 
 
 
 // ===== MODAL DE RECLAMACIONES =====
 document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('modalReclamo');
-  const form  = document.getElementById('formReclamo');
-  const msg   = document.getElementById('msgReclamo');
+    const modal = document.getElementById('modalReclamo');
+    const form = document.getElementById('formReclamo');
+    const msg = document.getElementById('msgReclamo');
 
-  // Delegación segura
-  document.addEventListener('click', e => {
-    // Abrir
-    if (e.target.closest('.libro-link')) {
-      e.preventDefault();
-      modal.classList.add('active');
-      form.reset();
-      msg.textContent = '';
-    }
-    // Cerrar (X o botón cancelar)
-    if (e.target.closest('.modal-close') || e.target.closest('.btn-cancel')) {
-      modal.classList.remove('active');
-    }
-  });
+    // Delegación segura
+    document.addEventListener('click', e => {
+        // Abrir
+        if (e.target.closest('.libro-link')) {
+            e.preventDefault();
+            modal.classList.add('active');
+            form.reset();
+            msg.textContent = '';
+        }
+        // Cerrar (X o botón cancelar)
+        if (e.target.closest('.modal-close') || e.target.closest('.btn-cancel')) {
+            modal.classList.remove('active');
+        }
+    });
 
-  // Cerrar al pulsar fuera
-  modal.addEventListener('click', e => {
-    if (e.target === modal) modal.classList.remove('active');
-  });
+    // Cerrar al pulsar fuera
+    modal.addEventListener('click', e => {
+        if (e.target === modal) modal.classList.remove('active');
+    });
 
-  // ===== ENVÍO REAL AL BACKEND (JSON) =====
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
+    // ===== ENVÍO REAL AL BACKEND (JSON) =====
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
 
-    // Preparar JSON
-    const data = {
-      nombre: form.nombre.value.trim(),
-      dni: form.dni.value.trim(),
-      telefono: form.telefono.value.trim(),
-      email: form.email.value.trim(),
-      tipo: form.tipo.value,
-      descripcion: form.descripcion.value.trim()
-    };
+        // Preparar JSON
+        const data = {
+            nombre: form.nombre.value.trim(),
+            dni: form.dni.value.trim(),
+            telefono: form.telefono.value.trim(),
+            email: form.email.value.trim(),
+            tipo: form.tipo.value,
+            descripcion: form.descripcion.value.trim()
+        };
 
-    console.log('📤 Enviando:', data); // ← para verificar en consola
+        console.log('📤 Enviando:', data); // ← para verificar en consola
 
-    try {
-      const res = await fetch('/api/reclamos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+        try {
+            const res = await fetch('/api/reclamos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-      const result = await res.json();
+            const result = await res.json();
 
-      if (res.ok) {
-        msg.textContent = '✅ Reclamo enviado con éxito. Gracias por tu feedback.';
-        msg.className = 'ok';
-        form.reset();
-        setTimeout(() => modal.classList.remove('active'), 2000);
-      } else {
-        msg.textContent = `❌ Error: ${result.error || 'No se pudo guardar el reclamo.'}`;
-        msg.className = 'error';
-      }
-    } catch (err) {
-      console.error(err);
-      msg.textContent = '❌ Error de conexión con el servidor.';
-      msg.className = 'error';
-    }
-  });
+            if (res.ok) {
+                msg.textContent = '✅ Reclamo enviado con éxito. Gracias por tu feedback.';
+                msg.className = 'ok';
+                form.reset();
+                setTimeout(() => modal.classList.remove('active'), 2000);
+            } else {
+                msg.textContent = `❌ Error: ${result.error || 'No se pudo guardar el reclamo.'}`;
+                msg.className = 'error';
+            }
+        } catch (err) {
+            console.error(err);
+            msg.textContent = '❌ Error de conexión con el servidor.';
+            msg.className = 'error';
+        }
+    });
 });

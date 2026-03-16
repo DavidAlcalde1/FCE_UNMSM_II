@@ -1,0 +1,95 @@
+<%- include('../../partials/admin-header', { 
+  title: `Contactos - ${oficina.toUpperCase()}`, 
+  currentPage: 'contactos-oficina' 
+}) %>
+
+<main class="col-md-9 col-lg-10 ms-auto px-4 py-3">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="h2 mb-0">
+      <i class="fas fa-envelope me-2"></i>Mensajes de Contacto - 
+      <% if (oficina === 'cerseu') { %>CERSEU<% } %>
+      <% if (oficina === 'cesepi') { %>CESEPI<% } %>
+      <% if (oficina === 'ocaa') { %>OCAA<% } %>
+      <% if (oficina === 'posgrado') { %>POSGRADO<% } %>
+    </h1>
+    <div class="d-flex gap-2">
+      <a href="/admin/oficina/<%= oficina %>/contactos?exportar=csv<%= fechaInicio ? '&fechaInicio='+fechaInicio : '' %><%= fechaFin ? '&fechaFin='+fechaFin : '' %>" class="btn btn-success">
+        <i class="fas fa-file-excel me-2"></i>Excel
+      </a>
+      <a href="/admin/oficina/<%= oficina %>/contactos?exportar=pdf<%= fechaInicio ? '&fechaInicio='+fechaInicio : '' %><%= fechaFin ? '&fechaFin='+fechaFin : '' %>" class="btn btn-danger">
+        <i class="fas fa-file-pdf me-2"></i>PDF
+      </a>
+    </div>
+  </div>
+
+  <!-- Filtro por fecha -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form method="GET" action="/admin/oficina/<%= oficina %>/contactos" class="row g-3 align-items-end">
+        <div class="col-md-3">
+          <label class="form-label">Fecha desde</label>
+          <input type="date" name="fechaInicio" class="form-control" value="<%= fechaInicio || '' %>">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Fecha hasta</label>
+          <input type="date" name="fechaFin" class="form-control" value="<%= fechaFin || '' %>">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-search me-1"></i>Filtrar
+          </button>
+        </div>
+        <div class="col-md-2">
+          <a href="/admin/oficina/<%= oficina %>/contactos" class="btn btn-outline-secondary w-100">
+            <i class="fas fa-times me-1"></i>Limpiar
+          </a>
+        </div>
+        <div class="col-md-2 text-end">
+          <span class="badge bg-secondary fs-6">
+            <i class="fas fa-envelope me-1"></i><%= contactos ? contactos.length : 0 %> mensajes
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <% if (contactos && contactos.length > 0) { %>
+    <div class="row g-3">
+      <% contactos.forEach(c => { %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title text-primary mb-0"><%= c.nombre %></h5>
+                <span class="badge bg-secondary"><%= c.oficina %></span>
+              </div>
+
+              <h6 class="card-subtitle mb-2 text-muted">
+                <i class="fas fa-envelope me-1"></i><%= c.email %><br>
+                <% if (c.telefono) { %>
+                  <i class="fas fa-phone me-1"></i><%= c.telefono %>
+                <% } else { %>
+                  <i class="fas fa-phone text-muted me-1"></i>Sin teléfono
+                <% } %>
+              </h6>
+
+              <p class="card-text flex-grow-1"><%= c.mensaje %></p>
+
+              <small class="text-muted mt-auto">
+                <i class="far fa-clock me-1"></i>
+                <%= new Date(c.createdAt).toLocaleString('es-PE') %>
+              </small>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="alert alert-info d-flex align-items-center">
+      <i class="fas fa-info-circle me-2"></i>
+      <span>No hay mensajes de contacto en el rango de fechas seleccionado.</span>
+    </div>
+  <% } %>
+</main>
+
+<%- include('../../partials/admin-footer') %>

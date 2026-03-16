@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
     const oficina = req.query.oficina || "fce"; // FILTRO OFICINA
     const noticias = await Noticia.findAll({
       where: {
-        oficina: oficina, // AGREGADO: filtro oficina
+        oficina: oficina, // filtro oficina
         [Op.or]: [
           { fecha_vencimiento: null }, // Sin fecha de vencimiento → siempre vigente
           { fecha_vencimiento: { [Op.gte]: hoyStr } } // Vence hoy o después
@@ -40,7 +40,7 @@ exports.getById = async (req, res) => {
 // Crear noticia (solo admin)
 exports.create = async (req, res) => {
   try {
-    const { oficina = "fce", ...datos } = req.body; // AGREGADO: oficina por defecto
+    const { oficina = "fce", ...datos } = req.body; // oficina por defecto
     const nuevaNoticia = await Noticia.create({
       oficina,
       ...datos

@@ -16,6 +16,7 @@ const comunicadoRoute    = require('./routes/comunicados');
 const eventoRoute        = require('./routes/eventos');
 const egresadoRoute      = require('./routes/egresados');
 const adminRoute         = require('./routes/admin');              // login
+const adminOficinasRoute = require('./routes/admin_oficinas'); 
 const contactoRoute      = require('./routes/contacto');
 const reclamosRoutes     = require('./routes/reclamos');           // ← API pública  POST /api/reclamos
 const adminReclamosRoute = require('./routes/admin_reclamos');     // ← CRUD admin
@@ -56,6 +57,7 @@ app.use('/sustentaciones', sustentacionesRouter);
 // ---------- ADMIN (con auth) ----------
 app.use('/admin', adminRoute);           // login
 app.use('/admin', adminDashboardRoute);  // dashboard
+app.use('/admin', adminOficinasRoute);  // gestión oficinas (solo super_admin)
 app.use('/admin/reclamos', adminReclamosRoute); // gestión
 
 // ---------- HEALTH ----------
@@ -74,10 +76,6 @@ app.get('/', (_req, res) => res.json({
   }
 }));
 
-
-
-
-
 // ---------- LISTAR RUTAS (temporal, solo para debug) ----------
 app.get('/debug/rutas', (_req, res) => {
   const rutas = app._router
@@ -87,8 +85,6 @@ app.get('/debug/rutas', (_req, res) => {
     : [];
   res.json(rutas);
 });
-
-
 
 
 // ---------- SERVIDOR ----------

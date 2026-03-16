@@ -85,7 +85,7 @@ const Reclamo = sequelize.define('Reclamo', {
     timestamps: false, // Usamos timestamps personalizados
     createdAt: 'fecha_creacion',
     updatedAt: 'fecha_actualizacion',
-    
+
     hooks: {
         beforeUpdate: (reclamo) => {
             reclamo.fecha_actualizacion = new Date();
@@ -94,7 +94,7 @@ const Reclamo = sequelize.define('Reclamo', {
 });
 
 // Método estático para obtener estadísticas
-Reclamo.obtenerEstadisticas = async function() {
+Reclamo.obtenerEstadisticas = async function () {
     const [total, pendientes, enProceso, resueltos, cerrados] = await Promise.all([
         this.count(),
         this.count({ where: { estado: 'Pendiente' } }),
@@ -102,22 +102,22 @@ Reclamo.obtenerEstadisticas = async function() {
         this.count({ where: { estado: 'Resuelto' } }),
         this.count({ where: { estado: 'Cerrado' } })
     ]);
-    
+
     return { total, pendientes, enProceso, resueltos, cerrados };
 };
 
 // Método para verificar si es válido
-Reclamo.prototype.esValido = function() {
-    return this.nombre && 
-           this.dni && 
-           this.email && 
-           this.tipo && 
-           this.descripcion &&
-           this.dni.length === 8;
+Reclamo.prototype.esValido = function () {
+    return this.nombre &&
+        this.dni &&
+        this.email &&
+        this.tipo &&
+        this.descripcion &&
+        this.dni.length === 8;
 };
 
 // Método para verificar si puede ser respondido
-Reclamo.prototype.puedeSerRespondido = function() {
+Reclamo.prototype.puedeSerRespondido = function () {
     return this.estado === 'Pendiente' || this.estado === 'En Proceso';
 };
 
